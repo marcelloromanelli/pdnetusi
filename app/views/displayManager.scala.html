@@ -1,0 +1,89 @@
+@(displays: List[Display], newDisplayForm: Form[Display], layouts:List[DisplayLayout]) 
+@import helper._ 
+@import helper.twitterBootstrap._
+
+@main("Display Registration") {
+  
+<div class="container">
+<div class="hero-unit space">
+	<h1>Display Manager</h1>
+	<p>You can either create a new display or remove an existing one.</p>
+	<div class="buttonschoice">
+		<a class="btn btn-primary btn-large" id="newDisplay"> New Display
+		</a>
+		<script type="text/javascript">
+		$('#newDisplay').click(function(){
+			$("#newDisplayForm").fadeIn('slow');
+			$(this).addClass('disabled');
+		});
+		</script>
+
+		<a class="btn btn-large" id="showDisplays"> Load Displays </a>
+		<script type="text/javascript">
+		$('#showDisplays').click(function(){
+			$("#availableDisplay").fadeIn('slow');
+			$(this).addClass('disabled');
+		});
+		</script>
+
+	</div>
+	<hr />
+	<div id="result">
+		<div id="newDisplayForm" style="display:none; ">
+			@form(routes.DisplayController.registerDisplay()) {
+				@inputText(newDisplayForm("name")) @inputText(newDisplayForm("width"))
+				@inputText(newDisplayForm("height"))
+				@inputText(newDisplayForm("latitude"))
+				@inputText(newDisplayForm("longitude"))
+				<div class="clearfix  " id="currentLayoutID_field">
+					<label for="currentLayoutID">Layout</label>
+					<div class="input">
+						<select id="currentLayoutID" name="currentLayoutID" class="input-small" style="width: 230px;">					
+							@for(layout <- layouts) {
+								<option value="@layout.id">@layout.name</option> 
+							}
+						</select>
+					</div>
+				</div>
+
+				<input class="btn btn-primary btn-large" type="submit" value="Add">
+			} 
+		</div>
+		<div id="availableDisplay" style="display:none;">
+			<hr />
+			@if(displays.size() > 0){
+				<h6>@displays.size() display(s)</h6>
+				<table class="table table-condensed">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Size</th>
+							<th>Position</th>
+							<th>Layout ID</th>
+						</tr>
+					</thead>
+					<tbody id="layoutTable">
+						@for(display <- displays) {
+							<tr>
+								<td>@display.id</td>
+								<td>@display.name</td>
+								<td>@display.width x @display.height</td>
+								<td>@display.latitude , @display.longitude</td>
+								<td>
+									@form(routes.DisplayController.deleteDisplay(display.id)) {
+										<input class="btn-danger btn-mini" type="submit" value="Delete">
+									}
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			} else {
+				<h6>There are currently no displays.</h6>
+			}
+		</div>
+	</div>
+</div>
+}
+

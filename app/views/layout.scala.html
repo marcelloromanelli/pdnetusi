@@ -1,0 +1,91 @@
+@(layouts: List[DisplayLayout])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("Tile Manager") {
+
+
+<div class="hero-unit space">
+  <h1>What's next?</h1>
+  <p>You can either create a completely new layout or load an existing one.</p>
+  
+  
+  	<div class="buttonschoice">
+    <a class="btn btn-primary btn-large" id="newLayout">
+      New Layout
+    </a>
+    <script type="text/javascript">
+	$('#newLayout').click(function(){
+		$("#newLayoutText").fadeIn('slow');
+		$(this).addClass('disabled');
+	});
+	</script>
+    
+    <a class="btn btn-large" id="showLayouts">
+      Load Layout
+    </a>
+    <script type="text/javascript" >
+	$('#showLayouts').click(function(){
+		$("#availableLayouts").fadeIn('slow');
+		$(this).addClass('disabled');
+	});
+	</script>
+	
+    </div>
+    <div id="result">
+  	<input id="newLayoutText" type="text" placeholder="Inser a name and press ENTER..." style="display:none; ">
+  	<script type="text/javascript">
+	$('#newLayoutText').keypress(function(e) {
+        if(e.which == 13) {
+            jQuery(this).blur();
+            var inputValue = $(this).val();
+            jQuery.ajax({
+                url: getBaseURL() + 'display/layouts',
+                type: 'POST',
+                data: JSON.stringify({name:inputValue}),
+                contentType: "application/json",
+                error: function(xhr, ajaxOptions, thrownError){ 
+                    alert(xhr.responseText);
+             	},
+             	success: function(data) {
+             		window.location.replace('layouts/' + data.id);
+             	}
+        	});
+        }
+    });
+	</script>
+	<div id="availableLayouts" style="display:none;">
+	<hr />
+	<h6>@layouts.size() layout(s)</h6>
+	@if(layouts.size() > 0){
+    <table class="table table-condensed">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody id="layoutTable">
+           @for(layout <- layouts) {
+            <tr>
+            	<td>@layout.id</td>
+            	<td><a href="layouts/@layout.id">@layout.name</a></td>
+            	<td>
+            	@form(routes.LayoutController.deleteLayout(layout.id)) {
+                    <input class="btn-danger btn-mini" type="submit" value="Delete">
+                }
+            	</td>
+            </tr>
+        }
+        </tbody>
+      </table>
+      }
+	</div>
+    </div>
+</div>
+
+
+}
+       

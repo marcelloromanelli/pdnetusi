@@ -1,0 +1,169 @@
+html,body {
+	margin: 0;
+	padding: 0;
+	border: none;
+	background-image: url('../images/wood.jpeg');
+	background-repeat: repeat;
+	
+}
+
+.container h1 {
+	margin: 0;
+	padding: 0;
+	height: 5%;
+	width: 100%;
+	text-align: center;
+	color: #bebebe;
+}
+
+
+/* APP 1  */
+.newsfeed_1_1 {
+	width: 60px;
+	height: 60px;
+	background-image: url(http://placehold.it/60x60/00d607/FFFFFF&text=1x1);
+}
+
+.newsfeed_2_2 {
+	width: 120px;
+	height: 120px;
+	background-image: url(http://placehold.it/120x120/00d607/FFFFFF&text=2x2);
+}
+
+.newsfeed_2_1 {
+	width: 120px;
+	height: 60px;
+	background-image: url(http://placehold.it/120x60/00d607/FFFFFF&text=2x1);
+}
+
+.newsfeed h1 {
+	color: white;
+}
+
+
+/* PHOTOSTREAM  */
+
+.photostream_2_2 {
+	width: 120px;
+	height: 120px;
+	background-image: url(http://placehold.it/120x120/d66000/FFFFFF&text=2x2);
+}
+
+.photostream_4_4 {
+	width: 240px;
+	height: 240px;
+	background-image: url(http://placehold.it/120x120/d66000/FFFFFF&text=4x4);
+}
+
+/* WEATHER  */
+.weather_2_2 {
+	width: 120px;
+	height: 120px;
+	background-image: url(http://placehold.it/120x120/0096d6/FFFFFF&text=2x2);
+}
+
+.weather_4_4 {
+	width: 240px;
+	height: 240px;
+	background-image: url(http://placehold.it/120x120/0096d6/FFFFFF&text=4x4);
+}
+
+.content {
+	height: 100%;
+}
+
+.editarea {
+	padding: 80px 40px 40px 40px;
+	width: 100%;
+	height: 100%;
+	display: block;
+	/* background-image: url('../images/wood.jpeg');
+	background-position: 40px 40px; */
+}
+
+#screen {
+	background-color: #f5f5f5;
+	float: left;
+	display: block;
+	margin: 0;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+	border-radius: 7px;
+	-moz-box-shadow: 0px 0px 9px #000000;
+	-webkit-box-shadow: 0px 0px 9px #000000;
+	box-shadow: 0px 0px 9px #000000;
+	opacity: 0.8;
+	-ms-filter: progid:  DXImageTransform.Microsoft.Alpha(Opacity=  80 );
+	filter: alpha(opacity =   80);
+}
+
+.container .content #accordion.ui-accordion {
+	width: 350px;
+	float: left;
+	display: block;
+	margin-left: 15px;
+	padding: 0;
+}
+
+ul.nav li.dropdown:hover ul.dropdown-menu {
+	display: block;
+}
+
+a.menu:after,.dropdown-toggle:after {
+	content: none;
+}
+
+.topbar .topbar-inner .container h3 {
+	margin-left: 20px;
+}
+
+.space {
+	width: 600px;
+	margin: auto;
+	padding: 30px;
+	position: relative;
+	top: 100px;
+}
+
+.container .content .hero-unit p {
+	text-align: center;
+}
+
+.buttonschoice {
+	width: 250px;
+	margin: auto;	
+}
+
+#result{
+	text-align: center;
+}
+
+#newLayoutText{
+	width: 350px;
+	margin: auto;
+	margin-top: 30px;
+	text-align: left;
+}
+
+#message{
+	position: absolute;
+	left: 40px;
+	bottom:0px;
+}
+
+.cleanTable{
+	margin-bottom: 0px;
+	padding: 0;
+	width: 1920px;
+	height: 1080px;
+}
+
+table#tiles.cleanTable tbody tr.none td.none {
+	border-top: none;
+}
+
+#newDisplayForm{
+margin-top: 50px;
+width: 500px;
+	}
+}

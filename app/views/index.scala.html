@@ -1,0 +1,31 @@
+@(displays: List[Display])
+@import helper.twitterBootstrap._
+
+@main("Display HOME") {
+<div class="hero-unit space">
+  <h1>Let's start!</h1>
+  <p>You can either create a completely new layout or load an existing one.</p>
+  <h2>Display</h2>
+<form action="@routes.DisplayController.setupDisplay()">
+	<select id="id" name="id" class="input-small">
+	 @for(display <- displays) {
+		<option value="@display.id">@display.name</option>
+	}
+	</select>
+	<button class="btn" type="submit">Enable</button>
+</form>
+@* 	<hr />
+	<h2>Mobile</h2>
+<form action="@routes.DisplayController.connectToDisplay()">
+	<input id="username" name="username" class="input-small" type="text" placeholder="Username"> 
+	<select id="display" name="display" class="input-small">
+		 @for(display <- displays) {
+			<option value="@display.id">@display.name</option>
+		}
+	</select>
+	<button class="btn" type="submit">Connect</button>
+</form> *@
+</div>
+
+
+}
