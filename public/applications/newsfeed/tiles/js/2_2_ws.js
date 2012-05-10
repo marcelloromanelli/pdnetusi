@@ -27,7 +27,7 @@ $(function() {
 		var response = jQuery.parseJSON(evt.data);
 		queue = response.feeds;
 		$("#news").html(response.feeds[0]);
-		var timerId = setInterval(timerMethod, 1000); 
+		var timerId = setInterval(timerMethod, 5000); 
 	};
 
 	websocket.onerror = function(evt) { 
@@ -35,9 +35,8 @@ $(function() {
 	}; 
   	
   	function timerMethod() {
-  		console.log('timeout');
 		var newsFeedTile = $("#news");
-		newsFeedTile.html(queue[count%queue.length]);	
+		newsFeedTile.html(queue[count%queue.length]).hide().fadeIn('slow');;	
 		count++;
 	}
 });

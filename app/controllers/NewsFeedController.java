@@ -1,6 +1,3 @@
-/**
- * 
- */
 package controllers;
 
 import java.io.BufferedReader;
@@ -81,6 +78,7 @@ public class NewsFeedController extends Controller {
 							JsonNode jsonFeedsTitles = Json.toJson(feedsTitles);
 							response.put("feeds", jsonFeedsTitles);
 							tileOut.write(response);
+							removeTileFromAvailable(tileOut);
 						} else {
 							Logger.info("WTF: " + event.toString());
 						}

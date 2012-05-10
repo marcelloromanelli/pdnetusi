@@ -1,19 +1,19 @@
 <root>
   <tile>
     <id>1</id>
-    <appname>weather</appname>
+    <appname>newsfeed</appname>
     <width>2</width>
     <height>2</height>
-    <startX>2</startX>
+    <startX>0</startX>
     <startY>0</startY>
-    <htmlSource>http://localhost:9000/assets/applications/weather/tiles/2_2.html</htmlSource>
+    <htmlSource>http://localhost:9000/assets/applications/newsfeed/tiles/2_2.html</htmlSource>
   </tile>
   <tile>
     <id>2</id>
     <appname>newsfeed</appname>
     <width>2</width>
     <height>2</height>
-    <startX>0</startX>
+    <startX>2</startX>
     <startY>0</startY>
     <htmlSource>http://localhost:9000/assets/applications/newsfeed/tiles/2_2.html</htmlSource>
   </tile>
