@@ -40,8 +40,6 @@ public class Tile extends Model{
 	public String htmlSource;
 
 	
-	
-	
 	public static Finder<Long,Tile> find = new Finder<Long, Tile>(
 			Long.class, 
 			Tile.class

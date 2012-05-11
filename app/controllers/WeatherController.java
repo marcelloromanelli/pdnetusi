@@ -67,59 +67,67 @@ public class WeatherController extends Controller {
 						} else if(messageKind.equals("mobileRequest")){
 							String username = event.get("username").asText();
 							String location = event.get("location").asText();
-							try {
-
-								Out<JsonNode> tileOut = findDestinationTile(displayID,0,0);
-								
-								if (tileOut == null){
-									// SAY SORRY TO MOBILE, NO SPACE AT THE MOMENT
-								} 
-								else {
-									Logger.info("MOBILE: \n " + username + " on " + displayID + "\n request weather of " + location);
-									String weatherXMLFeed = "http://www.google.com/ig/api?weather=" + location;
-
-									WeatherController.Tile tile = fromWStoTile.get(tileOut);
-									Logger.info(tile.toString());
-									DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
-									DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-
-									URL xmlUrl = new URL(weatherXMLFeed);
-									InputStream in = xmlUrl.openStream();
-									Document doc = docBuilder.parse(in);	
-									doc.getDocumentElement().normalize();
-									NodeList current = doc.getElementsByTagName("current_conditions");
-									Node currentForecast = current.item(0);
-									ArrayList<String> info = processAttributes(currentForecast, location);
-									JsonNode today = Json.toJson(info);
-									ObjectNode response = Json.newObject();
-									response.put("kind", "forecast");
-									response.put("today",today);
-									
-									
-									if(tile.width == 2 && tile.height == 2){
-										tileOut.write(response);
-									} else if (tile.width == 4 && tile.height == 4){
-										NodeList forecastConditions = doc.getElementsByTagName("forecast_conditions");
-										int forecastDays = forecastConditions.getLength();
-										for(int s=0; s < forecastDays ; s++){
-											Node curr = forecastConditions.item(s);
-											ArrayList<String> currentInfo = processAttributes(curr,location);
-											JsonNode dayJson = Json.toJson(currentInfo);
-											response.put("day"+s,dayJson);
-										}
-										tileOut.write(response);
-									}
-									
-									removeTileFromAvailable(tileOut);
-								}
-
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-						} else {
+							processInput(displayID, username, location, false);
+						} else if(messageKind.equals("defaultRequest")){
+							String location = event.get("location").asText();
+							processInput(displayID, "default", location, true);
+						}else {
 							Logger.info("WTF: " + event.toString());
 						}
 
+					}
+
+					private void processInput(String displayID,String username, String location, boolean isDefault) {
+						try {
+
+							Out<JsonNode> tileOut = findDestinationTile(displayID,0,0);
+
+							if (tileOut == null){
+								// SAY SORRY TO MOBILE, NO SPACE AT THE MOMENT
+							} 
+							else {
+								Logger.info("MOBILE: \n " + username + " on " + displayID + "\n request weather of " + location);
+								String weatherXMLFeed = "http://www.google.com/ig/api?weather=" + location;
+
+								WeatherController.Tile tile = fromWStoTile.get(tileOut);
+								Logger.info(tile.toString());
+								DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+								DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+
+								URL xmlUrl = new URL(weatherXMLFeed);
+								InputStream in = xmlUrl.openStream();
+								Document doc = docBuilder.parse(in);	
+								doc.getDocumentElement().normalize();
+								NodeList current = doc.getElementsByTagName("current_conditions");
+								Node currentForecast = current.item(0);
+								ArrayList<String> info = processAttributes(currentForecast, location);
+								JsonNode today = Json.toJson(info);
+								ObjectNode response = Json.newObject();
+								response.put("kind", "forecast");
+								response.put("today",today);
+
+
+								if(tile.width == 2 && tile.height == 2){
+									tileOut.write(response);
+								} else if (tile.width == 4 && tile.height == 4){
+									NodeList forecastConditions = doc.getElementsByTagName("forecast_conditions");
+									int forecastDays = forecastConditions.getLength();
+									for(int s=0; s < forecastDays ; s++){
+										Node curr = forecastConditions.item(s);
+										ArrayList<String> currentInfo = processAttributes(curr,location);
+										JsonNode dayJson = Json.toJson(currentInfo);
+										response.put("day"+s,dayJson);
+									}
+									tileOut.write(response);
+								}
+								if(!isDefault){
+									removeTileFromAvailable(tileOut);
+								}
+							}
+
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 					}
 
 					private void saveTile(final WebSocket.Out<JsonNode> out,String displayID, String width, String height) {

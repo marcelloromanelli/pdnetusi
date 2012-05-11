@@ -2,10 +2,10 @@ var SIZE = 120;
 
 function createApp(appName, id, startX, startY, width, height,htmlSource){
 	var tile = $('<iframe class="application">');
-	
 	tile.addClass(appName);
 	
 	tile.attr('src',htmlSource);
+	tile.attr('id',appName + "_" + id);
 	
 	tile.css({
 		position: 'absolute',
@@ -18,12 +18,11 @@ function createApp(appName, id, startX, startY, width, height,htmlSource){
 
 	tile.css('background-color','red');
 		
-	tile.data({ 
-		likes : 0, 
-		tileWidth : width, 
-		tileHeight : height,
-		tileID: id
-	});
+//	tile.data({ 
+//		tileWidth : width, 
+//		tileHeight : height,
+//		tileID: id
+//	});
 
 
 	$('.content').append(tile);

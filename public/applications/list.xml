@@ -6,108 +6,108 @@
 		<link>http://172.16.224.104:9000/mobile/photostream</link>
 		<websocket_address>ws://echo.websocket.org/</websocket_address>
 		<description>Lorem	ipsum</description>
-		<sizes>
-			
-			<size>
-				<width>2</width>
-				<height>2</height>
-				<tile_source>http://localhost:9000/assets/applications/photostream/tiles/2_2.html</tile_source>
-				<preview_image>PATH</preview_image>
-			</size>
-			
-			<size>
-				<width>4</width>
-				<height>4</height>
-				<tile_source>http://localhost:9000/assets/applications/photostream/tiles/4_4.html</tile_source>
-				<preview_image>PATH</preview_image>
-			</size>
-			
-		</sizes>
+
+		<size>
+			<width>2</width>
+			<height>2</height>
+			<tile_source>http://localhost:9000/assets/applications/photostream/tiles/2_2.html</tile_source>
+			<preview_image>PATH</preview_image>
+			<setting>Default Image</setting>
+		</size>
+
+		<size>
+			<width>4</width>
+			<height>4</height>
+			<tile_source>http://localhost:9000/assets/applications/photostream/tiles/4_4.html</tile_source>
+			<preview_image>PATH</preview_image>
+			<setting>Default Image</setting>
+		</size>
+
 	</app>
-	
+
 	<app>
 		<name>News Feeds</name>
 		<namespace>newsfeed</namespace>
-		
+
 		<link>http://172.16.224.104:9000/mobile/feed</link>
 		<websocket_address>ws://echo.websocket.org/</websocket_address>
-		
+
 		<description>Lorem ipsum</description>
-		
-		<sizes>
-			
-			<size>
-				<width>2</width>
-				<height>2</height>
-				<tile_source>http://localhost:9000/assets/applications/newsfeed/tiles/2_2.html</tile_source>
-				<preview_image>PATH</preview_image>
-			</size>
-			
-			<size>
-				<width>4</width>
-				<height>4</height>
-				<tile_source>http://localhost:9000/assets/applications/newsfeed/tiles/4_4.html</tile_source>
-				<preview_image>PATH</preview_image>
-			</size>
-			
-		</sizes>
+
+
+		<size>
+			<width>2</width>
+			<height>2</height>
+			<tile_source>http://localhost:9000/assets/applications/newsfeed/tiles/2_2.html</tile_source>
+			<preview_image>PATH</preview_image>
+			<setting>Source 1</setting>
+			<setting>Source 2</setting>
+		</size>
+
+		<size>
+			<width>4</width>
+			<height>4</height>
+			<tile_source>http://localhost:9000/assets/applications/newsfeed/tiles/4_4.html</tile_source>
+			<preview_image>PATH</preview_image>
+			<setting>Source 1</setting>
+			<setting>Source 2</setting>
+		</size>
+
 	</app>
-	
+
 	<app>
 		<name>Weather</name>
 		<namespace>weather</namespace>
-		
+
 		<link>http://172.16.224.104:9000/mobile/weather</link>
 		<websocket_address>ws://echo.websocket.org/</websocket_address>
-		
+
 		<description>Lorem ipsum</description>
-		<sizes>
-			
-			<size>
-				<width>2</width>
-				<height>2</height>
-				<tile_source>http://localhost:9000/assets/applications/weather/tiles/2_2.html</tile_source>
-				<preview_image>PATH</preview_image>
-			</size>
-			
-			<size>
-				<width>4</width>
-				<height>4</height>
-				<tile_source>http://localhost:9000/assets/applications/weather/tiles/4_4.html</tile_source>
-				<preview_image>PATH</preview_image>
-			</size>
-			
-		</sizes>
+
+		<size>
+			<width>2</width>
+			<height>2</height>
+			<tile_source>http://localhost:9000/assets/applications/weather/tiles/2_2.html</tile_source>
+			<preview_image>PATH</preview_image>
+			<setting>Location</setting>
+		</size>
+
+		<size>
+			<width>4</width>
+			<height>4</height>
+			<tile_source>http://localhost:9000/assets/applications/weather/tiles/4_4.html</tile_source>
+			<preview_image>PATH</preview_image>
+			<setting>Location</setting>
+		</size>
+
 	</app>
-	
-	<app>
+
+	<!-- <app>
 		<name>Live scores</name>
 		<namespace>livescores</namespace>
-		
+
 		<link>http://172.16.224.104:9000/mobile/livescores</link>
 		<websocket_address> WS ADDRESS 4 </websocket_address>
-		
+
 		<description>Lorem ipsum</description>
-		<sizes>
-			
-			<size>
-				<width>2</width>
-				<height>2</height>
-				<tile_source>http://localhost:9000/assets/applications/livescores/tiles/4_4.html</tile_source>
-				
-				<preview_image>PATH</preview_image>
-			</size>
-			
-			<size>
-				<width>4</width>
-				<height>1</height>
-				<tile_source>http://localhost:9000/assets/applications/livescores/tiles/4_1.html</tile_source>
-				
-				<preview_image>PATH</preview_image>
-			</size>
-			
-		</sizes>
-	</app>
+
+		<size>
+			<width>2</width>
+			<height>2</height>
+			<tile_source>http://localhost:9000/assets/applications/livescores/tiles/4_4.html</tile_source>
+
+			<preview_image>PATH</preview_image>
+		</size>
+
+		<size>
+			<width>4</width>
+			<height>1</height>
+			<tile_source>http://localhost:9000/assets/applications/livescores/tiles/4_1.html</tile_source>
+
+			<preview_image>PATH</preview_image>
+		</size>
+
+	</app> -->
 </apps>
 
 

@@ -15,8 +15,9 @@ $(function() {
                 // Create a copy of the dragged object
                 var draggedTile = $(ui.draggable).clone();
                 
-                // HACK TO CLONE ONLY WSADDR
+                // HACK TO CLONE ONLY WSADDR AND SETTINGS
                 draggedTile.data("htmlSource",$(ui.draggable).data("htmlSource"));
+                draggedTile.data("settings",$(ui.draggable).data("settings"));
                 draggedTile.position(ui.position);
                 
                 var dtLeft = ui.position.left;
@@ -66,7 +67,32 @@ $(function() {
                 draggedTile.append("<span id='deletebutton' onclick='deletetile(this);'> DELETE <span>");
                 
                 draggedTile.dblclick(function(){
-                	$("#settings").html('waffanculo');
+                	// Empty settings tab
+                	$("#settings").html("");
+                	
+                	// Read setting values
+                	var settingsVals = draggedTile.data("settings");
+
+                	// Iterate trough settings and creates form
+                	$.each(settingsVals, function(i, n){
+                		$('<label for="'+n+'">'+i+"</label>").appendTo("#settings");
+                		$('<input id="'+n+'">').appendTo("#settings");
+                	});
+                	
+                	
+                	$('<button class="btn" id="saveprefs">Save Preferences</button>').appendTo("#settings");
+                	
+                	// Save values back to dom object
+                	$('#saveprefs').click(function(){
+                		$.each(settingsVals, function(i, n){
+                    		settingsVals[i] = $("#"+n).val();
+                    	});
+                		draggedTile.data("settings",settingsVals);
+                	});
+
+                	// OPEN THE FIRST TAB - SETTINGS
+                	$('#accordion').accordion('activate', 0);
+
                 });
 
         }

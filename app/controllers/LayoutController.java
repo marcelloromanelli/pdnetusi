@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -113,7 +114,8 @@ public class LayoutController extends Controller {
 		JsonNode json = request().body().asJson();
 		if(json.isArray()){
 			
-			// erase all the tiles associated
+			ArrayList<JsonNode> allTilesSettings = new ArrayList<JsonNode>();
+ 			// erase all the tiles associated
 			// with the layoutID specified
 			Tile.deleteLayoutTiles(layoutID);
 			
@@ -133,12 +135,12 @@ public class LayoutController extends Controller {
 				anyData.put("appName", current.get("appName").asText());
 				anyData.put("htmlSource", current.get("htmlSource").asText());
 				anyData.put("layoutID", layoutID.toString());
-
+				allTilesSettings.add(current.get("settings"));
 				Tile tile = filledForm.bind(anyData).get();
 				Tile.addNew(tile);
 				Logger.info("Tiles inserted correctly");
 			}
-			saveLayoutasXML(layoutID);
+			saveLayoutasXML(layoutID,allTilesSettings);
 		}
 		return ok("OK");
 	}
@@ -156,7 +158,7 @@ public class LayoutController extends Controller {
 		return redirect(routes.LayoutController.allLayouts());
 	}
 	
-	public static void saveLayoutasXML(Long layoutID){
+	public static void saveLayoutasXML(Long layoutID, ArrayList<JsonNode> allTilesSettings){
 		
 		Logger.info("DISPLAY: generating XML files for layoutID: " + layoutID);
 		try {
@@ -169,6 +171,7 @@ public class LayoutController extends Controller {
 
 			List<Tile> tiles = Tile.layoutTiles(layoutID);
 			Iterator<Tile> it = tiles.iterator();
+			Integer count = 0;
 			while(it.hasNext()){
 				Tile currentTile = it.next();
 				//create child element display and add it to the root
@@ -182,7 +185,22 @@ public class LayoutController extends Controller {
 				createNodeInTile(doc, tileElement, "startX", currentTile.startX);
 				createNodeInTile(doc, tileElement, "startY",currentTile.startY);
 				createNodeInTile(doc, tileElement, "htmlSource",currentTile.htmlSource);
-
+				
+				Element settingsElement = doc.createElement("settings");
+				tileElement.appendChild(settingsElement);
+				
+				
+				JsonNode tilesettings = allTilesSettings.get(count);
+				Iterator<String> settingFieldNames = tilesettings.getFieldNames();
+				while(settingFieldNames.hasNext()){
+					String currentFieldName = settingFieldNames.next();
+					Element displayName = doc.createElement("parameter");
+					displayName.setAttribute("value", tilesettings.get(currentFieldName).asText());
+					Text nameText = doc.createTextNode(currentFieldName);
+					displayName.appendChild(nameText);
+					settingsElement.appendChild(displayName);
+				}
+				count++;
 			}
 
 			TransformerFactory transfac = TransformerFactory.newInstance();
