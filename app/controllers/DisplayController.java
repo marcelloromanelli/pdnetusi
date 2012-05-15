@@ -90,6 +90,7 @@ public class DisplayController extends Controller {
 				in.onMessage(new Callback<JsonNode>() {
 					public void invoke(JsonNode event) {
 						String displayID = event.get("displayID").asText();
+						Logger.info("ADDING " + displayID);
 						activeDisplays.put(displayID, out);
 						outToID.put(out, displayID);
 					}
