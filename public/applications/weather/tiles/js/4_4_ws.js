@@ -1,7 +1,7 @@
 $(function() { 
 	output = $("#output"); 
 	var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
-	var wsUri = "ws://localhost:9000/weather/socket";
+	var wsUri = "ws://pdnet.inf.unisi.ch:9000/weather/socket";
 	websocket = new WS(wsUri); 
 	websocket.onopen = function(evt) { 
 		console.log("CONNECTED"); 

@@ -6,7 +6,7 @@
     <height>2</height>
     <startX>4</startX>
     <startY>1</startY>
-    <htmlSource>http://localhost:9000/assets/applications/weather/tiles/2_2.html</htmlSource>
+    <htmlSource>http://pdnet.inf.unisi.ch:9000/assets/applications/weather/tiles/2_2.html</htmlSource>
     <settings>
       <parameter value="location">Location</parameter>
     </settings>
@@ -18,7 +18,7 @@
     <height>2</height>
     <startX>2</startX>
     <startY>1</startY>
-    <htmlSource>http://localhost:9000/assets/applications/newsfeed/tiles/2_2.html</htmlSource>
+    <htmlSource>http://pdnet.inf.unisi.ch:9000/assets/applications/newsfeed/tiles/2_2.html</htmlSource>
     <settings>
       <parameter value="source_1">Source 1</parameter>
       <parameter value="source_2">Source 2</parameter>

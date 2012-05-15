@@ -5,7 +5,7 @@ $(function() {
 	var tileID = $(parent.document.getElementById(window.name)).attr("id").split("_")[1];
 	displayID = getUrlVars()["id"]
 	var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
-	var wsUri = "ws://localhost:9000/weather/socket";
+	var wsUri = "ws://pdnet.inf.unisi.ch:9000/weather/socket";
 	websocket = new WS(wsUri); 
 	websocket.onopen = function(evt) { 
 		console.log("CONNECTED"); 
@@ -48,7 +48,7 @@ $(function() {
 
 function loadDefaultParameters(tileID){
 	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET","http://localhost:9000/assets/displays/layouts/"+displayID+".xml" ,false);
+	xmlhttp.open("GET","http://pdnet.inf.unisi.ch:9000/assets/displays/layouts/"+displayID+".xml" ,false);
 	xmlhttp.send();
 	xmlDoc=xmlhttp.responseXML;
 	var tiles = xmlDoc.getElementsByTagName("tile");
