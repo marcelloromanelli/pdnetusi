@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import models.Display;
@@ -13,7 +14,8 @@ import views.html.*;
 
 public class DisplayController extends Controller {
 
-	
+	public static ArrayList<String> activeDisplays = new ArrayList<String>();
+
 	/**
 	 * Prepare the display with the tiles selected during
 	 * the layout creation
@@ -21,17 +23,22 @@ public class DisplayController extends Controller {
 	 * @return
 	 */
 	public static Result setupDisplay(String displayID) {
-		Display display = Display.get(new Long(displayID));
-		String name = display.name;
-		Logger.info("Enabling display " + name + "(" +  displayID + ")...");
-		List<Tile> tiles = Tile.layoutTiles(display.currentLayoutID);
-		return ok(views.html.display.render(displayID,name,tiles));
+		if(!activeDisplays.contains(displayID)){
+			Display display = Display.get(new Long(displayID));
+			String name = display.name;
+			Logger.info("DISPLAY CONTROLLER: \n Display " + name + "(" +  displayID + ") ENABLED");
+			List<Tile> tiles = Tile.layoutTiles(display.currentLayoutID);
+			activeDisplays.add(displayID);
+			return ok(views.html.display.render(displayID,name,tiles));
+		} else {
+			return ok("DISPLAY " + displayID + " IS ALREADY ACTIVE");
+		}
 	}
-	
-	
+
+
 	static Form<Display> displayRegistrationForm = form(Display.class);
 
-	
+
 	/**
 	 * Receives the input from a form, binds it and enters it
 	 * into a database.
@@ -50,7 +57,7 @@ public class DisplayController extends Controller {
 			return redirect(routes.DisplayController.showAvailableDisplays());  
 		}
 	}
-	
+
 	/**
 	 * Render the default view with all the displays
 	 * @return
@@ -58,7 +65,7 @@ public class DisplayController extends Controller {
 	public static Result showAvailableDisplays(){
 		return ok(displayManager.render(Display.all(), displayRegistrationForm, DisplayLayout.all()));
 	}
-	
+
 	/**
 	 * Remove a display from the database
 	 * @param displayID
@@ -68,5 +75,5 @@ public class DisplayController extends Controller {
 		Display.delete(displayID);
 		return redirect(routes.DisplayController.showAvailableDisplays());
 	}
-	
+
 }

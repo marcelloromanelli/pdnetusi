@@ -4,4 +4,6 @@ project/target
 target
 tmp
 .history
+.cache
 dist
+RUNNING_PID
