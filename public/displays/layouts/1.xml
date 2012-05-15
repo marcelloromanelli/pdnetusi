@@ -4,11 +4,24 @@
     <appname>weather</appname>
     <width>2</width>
     <height>2</height>
-    <startX>6</startX>
+    <startX>4</startX>
     <startY>1</startY>
     <htmlSource>http://localhost:9000/assets/applications/weather/tiles/2_2.html</htmlSource>
     <settings>
-      <parameter value="lugano">Location</parameter>
+      <parameter value="location">Location</parameter>
+    </settings>
+  </tile>
+  <tile>
+    <id>2</id>
+    <appname>newsfeed</appname>
+    <width>2</width>
+    <height>2</height>
+    <startX>2</startX>
+    <startY>1</startY>
+    <htmlSource>http://localhost:9000/assets/applications/newsfeed/tiles/2_2.html</htmlSource>
+    <settings>
+      <parameter value="source_1">Source 1</parameter>
+      <parameter value="source_2">Source 2</parameter>
     </settings>
   </tile>
 </root>

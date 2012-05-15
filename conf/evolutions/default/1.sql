@@ -4,7 +4,7 @@
 # --- !Ups
 
 create table display (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   name                      varchar(255),
   width                     integer,
   height                    integer,
@@ -15,13 +15,13 @@ create table display (
 ;
 
 create table display_layout (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   name                      varchar(255),
   constraint pk_display_layout primary key (id))
 ;
 
 create table tile (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   app_name                  varchar(255),
   start_x                   varchar(255),
   start_y                   varchar(255),
@@ -32,30 +32,18 @@ create table tile (
   constraint pk_tile primary key (id))
 ;
 
-create sequence display_seq;
-
-create sequence display_layout_seq;
-
-create sequence tile_seq;
-
 
 
 
 # --- !Downs
 
-SET REFERENTIAL_INTEGRITY FALSE;
+SET FOREIGN_KEY_CHECKS=0;
 
-drop table if exists display;
+drop table display;
 
-drop table if exists display_layout;
+drop table display_layout;
 
-drop table if exists tile;
+drop table tile;
 
-SET REFERENTIAL_INTEGRITY TRUE;
-
-drop sequence if exists display_seq;
-
-drop sequence if exists display_layout_seq;
-
-drop sequence if exists tile_seq;
+SET FOREIGN_KEY_CHECKS=1;
 
