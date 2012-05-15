@@ -6,20 +6,43 @@
 
 	<script src="@routes.Assets.at("javascripts/layout.js")" type="text/javascript"></script>
 	<script src="@routes.Assets.at("javascripts/responsiveslides.min.js")" type="text/javascript"></script>
+	<script type="text/javascript">
+	$(function() { 
+	var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
+	var wsUri = "ws://pdnet.inf.unisi.ch:9000/display/socket";
+	websocket = new WS(wsUri); 
+	websocket.onopen = function(evt) { 
+		console.log("DISPLAY ID " + displayID + " CONNECTED");
+		var hi = JSON.stringify
+		({
+			"displayID":  displayID
+		});
+		websocket.send(hi);
+	}; 
 
+	websocket.onclose = function(evt) { 
+		var bye = JSON.stringify
+		({
+			"displayID":  displayID
+		});
+		websocket.send(bye);
+	};
 
-	<script type="text/javascript" charset="utf-8">
-	$(function() {
+	websocket.onmessage = function(evt) { 
+		console.log(evt.data) ;
+	};
 
-		@for(tile <- tilesToShow) {
+	websocket.onerror = function(evt) { 
+		console.log(evt.data); 
+	}; 
+
+	// Creates the tiles
+	@for(tile <- tilesToShow) {
 			createApp("@tile.appName","@tile.id",@tile.startX,@tile.startY,@tile.width,@tile.height,"@tile.htmlSource");
-		}            
-
-
-
-	})
-
+		} 
+	});
 	</script>
+
 
 
 

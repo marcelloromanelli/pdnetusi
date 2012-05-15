@@ -7,6 +7,7 @@ GET     	/                           						controllers.Application.index()
 
 # Displays
 GET			/display					  						controllers.DisplayController.setupDisplay(id: String ?= null)
+GET			/display/socket										controllers.DisplayController.webSocket
 
 # Display Manager
 GET			/display/manager			  						controllers.DisplayController.showAvailableDisplays
