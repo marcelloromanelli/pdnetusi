@@ -12,10 +12,10 @@
 	var wsUri = "ws://pdnet.inf.unisi.ch:9000/display/socket";
 	websocket = new WS(wsUri); 
 	websocket.onopen = function(evt) { 
-		console.log("DISPLAY ID " + displayID + " CONNECTED");
+		console.log("DISPLAY ID " + "@displayID" + " CONNECTED");
 		var hi = JSON.stringify
 		({
-			"displayID":  displayID
+			"displayID":  "@displayID"
 		});
 		websocket.send(hi);
 	}; 
