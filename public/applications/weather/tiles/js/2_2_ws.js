@@ -19,7 +19,7 @@ $(function() {
 		websocket.send(hi);
 		console.log(hi);
 
-		console.log("DEFAULTS");
+		console.log("LOADING DEFAULTS FOR " + tileID);
 		loadDefaultParameters(tileID);
 	}; 
 
@@ -51,6 +51,7 @@ function loadDefaultParameters(tileID){
 	xmlhttp.open("GET","http://pdnet.inf.unisi.ch:9000/assets/displays/layouts/"+displayID+".xml" ,false);
 	xmlhttp.send();
 	xmlDoc=xmlhttp.responseXML;
+	console.log(xmlDoc);
 	var tiles = xmlDoc.getElementsByTagName("tile");
 	for(var i=0; i<tiles.length; i++)
 	{
