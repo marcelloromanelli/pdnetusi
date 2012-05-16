@@ -50,6 +50,8 @@ public class WeatherController extends Controller {
 
 				in.onMessage(new Callback<JsonNode>() {
 					public void invoke(JsonNode event) {
+						Logger.info("A FUCKING MESSAGE!");
+						Logger.info(event.toString());
 						String messageKind = event.get("kind").asText();						
 						String displayID = event.get("displayID").asText();
 
