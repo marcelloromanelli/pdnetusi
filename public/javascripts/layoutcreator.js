@@ -70,11 +70,11 @@ $(function() {
                 	// Empty settings tab
                 	$("#settings").html("");
                 	
-                	// Read setting values
-                	var settingsVals = draggedTile.data("settings");
+                	// Read setting parameters
+                	var settingsParams = draggedTile.data("settingsParameters");
 
                 	// Iterate trough settings and creates form
-                	$.each(settingsVals, function(i, n){
+                	$.each(settingsParams, function(i, n){
                 		$('<label for="'+n+'">'+i+"</label>").appendTo("#settings");
                 		$('<input id="'+n+'">').appendTo("#settings");
                 	});
@@ -82,12 +82,15 @@ $(function() {
                 	
                 	$('<button class="btn" id="saveprefs">Save Preferences</button>').appendTo("#settings");
                 	
+                	var settingsVals = new Array();
+                	
                 	// Save values back to dom object
                 	$('#saveprefs').click(function(){
-                		$.each(settingsVals, function(i, n){
+                		$.each(settingsParams, function(i, n){
                     		settingsVals[i] = $("#"+n).val();
                     	});
-                		draggedTile.data("settings",settingsVals);
+                		draggedTile.data("settingsValues",settingsVals);
+                		console.log(settingsVals)
                 	});
 
                 	// OPEN THE FIRST TAB - SETTINGS

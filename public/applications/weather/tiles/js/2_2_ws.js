@@ -48,7 +48,7 @@ $(function() {
 
 function loadDefaultParameters(tileID){
 	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET","http://pdnet.inf.unisi.ch:9000/assets/displays/layouts/list.xml" ,false);
+	xmlhttp.open("GET","http://pdnet.inf.unisi.ch:9000/assets/displays/list.xml" ,false);
 	xmlhttp.send();
 	var xmlDoc=xmlhttp.responseXML;
 	var displays = xmlDoc.getElementsByTagName("display");
