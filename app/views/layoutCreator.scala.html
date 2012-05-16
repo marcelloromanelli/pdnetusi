@@ -49,6 +49,7 @@ $(function() {
 	    	tileToAdd.attr('id', tileID);
 	    	tileToAdd.data("htmlSource", htmlSource);
 	    	tileToAdd.data("settingsParameters",settingsValues);
+	    	
 	    	currentAppContent.append(tileToAdd);
 	    	j++;
 	    }
@@ -128,7 +129,7 @@ $(function() {
 		    currentApp.width = parseInt(width,10);
 		    currentApp.height = parseInt(height,10);
 		    currentApp.htmlSource = $(this).data("htmlSource");
-		    currentApp.settings = $(this).data("settings");
+		    currentApp.settings = $(this).data("settingsValues");
 		    console.log(currentApp);
 		    result.push(currentApp);
 		  });

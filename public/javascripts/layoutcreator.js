@@ -17,7 +17,7 @@ $(function() {
                 
                 // HACK TO CLONE ONLY WSADDR AND SETTINGS
                 draggedTile.data("htmlSource",$(ui.draggable).data("htmlSource"));
-                draggedTile.data("settings",$(ui.draggable).data("settings"));
+                draggedTile.data("settingsParameters",$(ui.draggable).data("settingsParameters"));
                 draggedTile.position(ui.position);
                 
                 var dtLeft = ui.position.left;
@@ -66,31 +66,42 @@ $(function() {
                 draggedTile.html("<small>("+ startX + "," + startY + ")</small>");
                 draggedTile.append("<span id='deletebutton' onclick='deletetile(this);'> DELETE <span>");
                 
+				// WHEN IS DROPPED ON DBLCLICK
                 draggedTile.dblclick(function(){
                 	// Empty settings tab
                 	$("#settings").html("");
                 	
                 	// Read setting parameters
                 	var settingsParams = draggedTile.data("settingsParameters");
-
+					var settingsVals = draggedTile.data("settingsValues");
+                	// console.log("PARAMS");
+                	// 					console.log(settingsParams);
+                	// 					console.log("VALS");
+                	// 					console.log(settingsVals);
                 	// Iterate trough settings and creates form
                 	$.each(settingsParams, function(i, n){
                 		$('<label for="'+n+'">'+i+"</label>").appendTo("#settings");
-                		$('<input id="'+n+'">').appendTo("#settings");
+						if(settingsVals != undefined){
+                			$('<input id="'+n+'" value="'+ settingsVals[i] +'">').appendTo("#settings");
+						} else {
+							$('<input id="'+n+'">').appendTo("#settings");
+						}
                 	});
                 	
                 	
                 	$('<button class="btn" id="saveprefs">Save Preferences</button>').appendTo("#settings");
                 	
-                	var settingsVals = new Array();
+                	var settingsVals = {};
                 	
                 	// Save values back to dom object
                 	$('#saveprefs').click(function(){
                 		$.each(settingsParams, function(i, n){
-                    		settingsVals[i] = $("#"+n).val();
+                			settingsVals[i] = $("#"+n).val();
+                    		console.log(i + " : " + settingsVals[i])
+
                     	});
                 		draggedTile.data("settingsValues",settingsVals);
-                		console.log(settingsVals)
+						console.log(settingsVals);
                 	});
 
                 	// OPEN THE FIRST TAB - SETTINGS
