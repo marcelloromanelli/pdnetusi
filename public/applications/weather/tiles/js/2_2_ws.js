@@ -17,7 +17,9 @@ $(function() {
 			"height":2
 		});
 		websocket.send(hi);
+		console.log("SENDING HI MESSASGE");
 		console.log(hi);
+		console.log("\n\n");
 
 		console.log("LOADING DEFAULTS FOR " + tileID);
 		loadDefaultParameters(tileID);
@@ -52,10 +54,11 @@ function loadDefaultParameters(tileID){
 	xmlhttp.send();
 	var xmlDoc=xmlhttp.responseXML;
 	var displays = xmlDoc.getElementsByTagName("display");
-	var layoutID = null;
+	layoutID = null;
 	for(var j=0; j<displays.length; j++){
 		var currentDisplay = displays[j];
 		var currentDisplayID = currentDisplay.getElementsByTagName("id")[0].childNodes[0].nodeValue;
+		console.log(currentDisplayID);
 		if (currentDisplayID == displayID){
 			layoutID =  currentDisplay.getElementsByTagName("layoutID")[0].childNodes[0].nodeValue;
 			break;
@@ -68,7 +71,6 @@ function loadDefaultParameters(tileID){
 	xmlhttp.open("GET","http://pdnet.inf.unisi.ch:9000/assets/displays/layouts/"+layoutID+".xml" ,false);
 	xmlhttp.send();
 	xmlDoc=xmlhttp.responseXML;
-	console.log(xmlDoc);
 	var tiles = xmlDoc.getElementsByTagName("tile");
 	for(var i=0; i<tiles.length; i++)
 	{
@@ -86,8 +88,9 @@ function loadDefaultParameters(tileID){
 					"location" : paramValue
 				});
 				websocket.send(defaultRequest);
+				console.log("SENDING DEFAULT REQUEST ");
+				console.log(defaultRequest);
 				
-				console.log("PARAM: " + paramName + "\nVALUE: " + paramValue);
 			}
 		}
 	}
