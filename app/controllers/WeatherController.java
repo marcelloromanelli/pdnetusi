@@ -39,6 +39,9 @@ public class WeatherController extends Controller {
 	// Tells the Tile specifications given a websocket out
 	public static Map<WebSocket.Out<JsonNode>,WeatherController.Tile> fromWStoTile = new HashMap<WebSocket.Out<JsonNode>,WeatherController.Tile>();
 
+	// Tiles already used for dafault requests
+	public static ArrayList<WebSocket.Out<JsonNode>> usedDefaultTiles = new ArrayList<WebSocket.Out<JsonNode>>();
+
 	public static WebSocket<JsonNode> webSocket() {
 		return new WebSocket<JsonNode>() {
 
@@ -92,11 +95,11 @@ public class WeatherController extends Controller {
 												"\n  request weather of " + location +
 												"\n*********************************"
 										);
-								
+
 								String weatherXMLFeed = "http://www.google.com/ig/api?weather=" + location;
 
 								WeatherController.Tile tile = fromWStoTile.get(tileOut);
-								Logger.info(tile.toString());
+
 								DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
 								DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
 
@@ -200,9 +203,12 @@ public class WeatherController extends Controller {
 		Iterator<WebSocket.Out<JsonNode>> it = outs.iterator();
 		while (it.hasNext()){
 			WebSocket.Out<JsonNode> out = it.next();
-			Tile currentTile = fromWStoTile.get(out);
-			if(currentTile.width >= minWidth && currentTile.height >= minHeight){
-				return out;
+			if(!usedDefaultTiles.contains(out)){
+				Tile currentTile = fromWStoTile.get(out);
+				if(currentTile.width >= minWidth && currentTile.height >= minHeight){
+					usedDefaultTiles.add(out);
+					return out;
+				}
 			}
 		}	
 		return null;
