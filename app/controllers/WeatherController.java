@@ -83,10 +83,16 @@ public class WeatherController extends Controller {
 							Out<JsonNode> tileOut = findDestinationTile(displayID,0,0);
 
 							if (tileOut == null){
-								// SAY SORRY TO MOBILE, NO SPACE AT THE MOMENT
+								Logger.info("SORRY NO SPACE");
 							} 
 							else {
-								Logger.info("MOBILE: \n " + username + " on " + displayID + "\n request weather of " + location);
+								Logger.info(
+										"\n ******* MESSAGE RECIEVED *******" +
+												"\n" + username + " on " + displayID +
+												"\n  request weather of " + location +
+												"\n*********************************"
+										);
+								
 								String weatherXMLFeed = "http://www.google.com/ig/api?weather=" + location;
 
 								WeatherController.Tile tile = fromWStoTile.get(tileOut);
