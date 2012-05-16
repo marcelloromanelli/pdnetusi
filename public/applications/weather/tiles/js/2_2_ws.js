@@ -85,7 +85,7 @@ function loadDefaultParameters(tileID){
 				({
 					"kind":"defaultRequest",
 					"displayID":  displayID,
-					"location" : paramValue
+					"preference" : paramValue
 				});
 				websocket.send(defaultRequest);
 				console.log("SENDING DEFAULT REQUEST ");
