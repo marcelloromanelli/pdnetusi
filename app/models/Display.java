@@ -95,6 +95,7 @@ public class Display extends Model{
 				root.appendChild(displayElement);
 				
 				createNodeInDisplay(doc, displayElement, "id", Long.toString(currentDisplay.id));
+				createNodeInDisplay(doc, displayElement, "layoutID", Long.toString(currentDisplay.currentLayoutID));
 				createNodeInDisplay(doc, displayElement, "name", currentDisplay.name);
 				createNodeInDisplay(doc, displayElement, "width", Integer.toString(currentDisplay.width));
 				createNodeInDisplay(doc, displayElement, "height", Integer.toString(currentDisplay.height));

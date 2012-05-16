@@ -48,7 +48,24 @@ $(function() {
 
 function loadDefaultParameters(tileID){
 	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET","http://pdnet.inf.unisi.ch:9000/assets/displays/layouts/"+displayID+".xml" ,false);
+	xmlhttp.open("GET","http://pdnet.inf.unisi.ch:9000/assets/displays/layouts/list.xml" ,false);
+	xmlhttp.send();
+	var xmlDoc=xmlhttp.responseXML;
+	var displays = xmlDoc.getElementsByTagName("display");
+	var layoutID = null;
+	for(var j=0; j<displays.length; j++){
+		var currentDisplay = displays[j];
+		var currentDisplayID = currentDisplay.getElementsByTagName("id")[0].childNodes[0].nodeValue;
+		if (currentDisplayID == displayID){
+			layoutID =  currentDisplay.getElementsByTagName("layoutID")[0].childNodes[0].nodeValue;
+			break;
+		}
+	}
+	
+	
+
+	xmlhttp = new XMLHttpRequest();
+	xmlhttp.open("GET","http://pdnet.inf.unisi.ch:9000/assets/displays/layouts/"+layoutID+".xml" ,false);
 	xmlhttp.send();
 	xmlDoc=xmlhttp.responseXML;
 	console.log(xmlDoc);

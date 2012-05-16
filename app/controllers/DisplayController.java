@@ -33,12 +33,11 @@ public class DisplayController extends Controller {
 		if(!activeDisplays.containsKey(displayID)){
 			Display display = Display.get(new Long(displayID));
 			String name = display.name;
-			Logger.info("DISPLAY CONTROLLER: \n Display " + name + "(" +  displayID + ") ENABLED");
 			List<Tile> tiles = Tile.layoutTiles(display.currentLayoutID);
 			activeDisplays.put(displayID, null);
 			return ok(views.html.display.render(displayID,name,tiles));
 		} else {
-			return ok("DISPLAY " + displayID + " IS ALREADY ACTIVE");
+			return ok("SORRY, DISPLAY ID " + displayID + " IS ALREADY ACTIVE");
 		}
 	}
 
@@ -90,9 +89,13 @@ public class DisplayController extends Controller {
 				in.onMessage(new Callback<JsonNode>() {
 					public void invoke(JsonNode event) {
 						String displayID = event.get("displayID").asText();
-						Logger.info("ADDING " + displayID);
 						activeDisplays.put(displayID, out);
 						outToID.put(out, displayID);
+						Logger.info(
+								"\n ******* MESSAGE RECIEVED *******" +
+								"\n Display " + displayID + "is now active." +
+								"\n*********************************"
+						);
 					}
 				});
 
