@@ -69,10 +69,10 @@ public class WeatherController extends Controller {
 
 						} else if(messageKind.equals("mobileRequest")){
 							String username = event.get("username").asText();
-							String location = event.get("location").asText();
+							String location = event.get("preference").asText();
 							processInput(displayID, username, location, false);
 						} else if(messageKind.equals("defaultRequest")){
-							String location = event.get("location").asText();
+							String location = event.get("preference").asText();
 							processInput(displayID, "default", location, true);
 						}else {
 							Logger.info("WTF: " + event.toString());
@@ -82,8 +82,12 @@ public class WeatherController extends Controller {
 
 					private void processInput(String displayID,String username, String location, boolean isDefault) {
 						try {
-
-							Out<JsonNode> tileOut = findDestinationTile(displayID,0,0);
+							Out<JsonNode> tileOut = null;
+							if(isDefault){
+								tileOut = findDefaultDestinationTile(displayID,0,0);
+							} else{
+								tileOut = findDestinationTile(displayID,0,0);
+							}
 
 							if (tileOut == null){
 								Logger.info("SORRY NO SPACE");
@@ -92,7 +96,7 @@ public class WeatherController extends Controller {
 								Logger.info(
 										"\n ******* MESSAGE RECIEVED *******" +
 												"\n" + username + " on " + displayID +
-												"\n  request weather of " + location +
+												"\nrequest weather of " + location +
 												"\n*********************************"
 										);
 
@@ -199,6 +203,21 @@ public class WeatherController extends Controller {
 	 * @return
 	 */
 	public static WebSocket.Out<JsonNode> findDestinationTile(String displayID, Integer minWidth, Integer minHeight){
+		ArrayList<WebSocket.Out<JsonNode>> outs = freeTiles.get(displayID);
+		Iterator<WebSocket.Out<JsonNode>> it = outs.iterator();
+		while (it.hasNext()){
+			WebSocket.Out<JsonNode> out = it.next();
+			Tile currentTile = fromWStoTile.get(out);
+			if(currentTile.width >= minWidth && currentTile.height >= minHeight){
+				usedDefaultTiles.add(out);
+				return out;
+			}
+
+		}	
+		return null;
+	}
+
+	public static WebSocket.Out<JsonNode> findDefaultDestinationTile(String displayID, Integer minWidth, Integer minHeight){
 		ArrayList<WebSocket.Out<JsonNode>> outs = freeTiles.get(displayID);
 		Iterator<WebSocket.Out<JsonNode>> it = outs.iterator();
 		while (it.hasNext()){
