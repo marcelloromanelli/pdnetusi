@@ -22,14 +22,13 @@ function loadDefaultParameters(tileID,websocket){
 	xmlhttp.send();
 	var xmlDoc=xmlhttp.responseXML;
 	if (!xmlDoc){
-		console.error("list.xml was not fetched correctly!")
+		console.log("list.xml was not fetched correctly!")
 		return false;
 	}
 	
-	console.log("LIST OF DISPLAYS");
-	console.log(xmlDoc);
+
 	var displays = xmlDoc.getElementsByTagName("display");
-	layoutID = null;
+	var layoutID = null;
 	for(var j=0; j<displays.length; j++){
 		var currentDisplay = displays[j];
 		var currentDisplayID = currentDisplay.getElementsByTagName("id")[0].childNodes[0].nodeValue;
@@ -41,7 +40,7 @@ function loadDefaultParameters(tileID,websocket){
 	}
 	
 	if(layoutID == null){
-		console.error("unable to find layoutID");
+		console.log("unable to find layoutID");
 		return false;
 	}
 	
