@@ -58,7 +58,6 @@ function loadDefaultParameters(tileID){
 	for(var j=0; j<displays.length; j++){
 		var currentDisplay = displays[j];
 		var currentDisplayID = currentDisplay.getElementsByTagName("id")[0].childNodes[0].nodeValue;
-		console.log(currentDisplayID);
 		if (currentDisplayID == displayID){
 			layoutID =  currentDisplay.getElementsByTagName("layoutID")[0].childNodes[0].nodeValue;
 			break;

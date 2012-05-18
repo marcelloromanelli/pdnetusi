@@ -4,87 +4,89 @@
 		<name>Photostream</name>
 		<namespace>photostream</namespace>
 		<view>apps/photostream/view.html</view>
-		<websocket_address>http://pdnet.inf.unisi.ch:9000/photostream/socket</websocket_address>
-		<description>Lorem	ipsum</description>
+		<websocket_address>http://172.16.224.104:9000/photostream/socket</websocket_address>
+		<description>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</description>
 		<icon>images/photostream-icon.png</icon>
+		<preview-image>images/photostream.png</preview-image>
+		<sizes>
+			<size>
+				<width>2</width>
+				<height>2</height>
+				<tile_source>http://localhost:9000/assets/applications/photostream/tiles/2_2.html</tile_source>
+				<preview_image>PATH</preview_image>
+				<setting>Default Image</setting>
+			</size>
 
-		<size>
-			<width>2</width>
-			<height>2</height>
-			<tile_source>http://pdnet.inf.unisi.ch:9000/assets/applications/photostream/tiles/2_2.html</tile_source>
-			<preview_image>PATH</preview_image>
-			<setting>Default Image</setting>
-		</size>
-
-		<size>
-			<width>4</width>
-			<height>4</height>
-			<tile_source>http://pdnet.inf.unisi.ch:9000/assets/applications/photostream/tiles/4_4.html</tile_source>
-			<preview_image>PATH</preview_image>
-			<setting>Default Image</setting>
-		</size>
-
+			<size>
+				<width>4</width>
+				<height>4</height>
+				<tile_source>http://localhost:9000/assets/applications/photostream/tiles/4_4.html</tile_source>
+				<preview_image>PATH</preview_image>
+				<setting>Default Image</setting>
+			</size>
+		</sizes>
 	</app>
 
 	<app>
 		<name>News Feeds</name>
 		<namespace>newsfeed</namespace>
 		<view>apps/newsfeed/view.html</view>
-		<websocket_address>http://pdnet.inf.unisi.ch:9000/newsfeed/socket</websocket_address>
-		<description>Lorem	ipsum</description>
+		<websocket_address>http://172.16.224.104:9000/newsfeed/socket</websocket_address>
+		<description>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</description>
 		<icon>images/feed-icon.png</icon>
+		<preview-image>images/newsfeed.png</preview-image>
+		<sizes>
+			<size>
+				<width>2</width>
+				<height>2</height>
+				<tile_source>http://localhost:9000/assets/applications/newsfeed/tiles/2_2.html</tile_source>
+				<preview_image>PATH</preview_image>
+				<setting>Source 1</setting>
+				<setting>Source 2</setting>
+			</size>
 
-		<size>
-			<width>2</width>
-			<height>2</height>
-			<tile_source>http://pdnet.inf.unisi.ch:9000/assets/applications/newsfeed/tiles/2_2.html</tile_source>
-			<preview_image>PATH</preview_image>
-			<setting>Source 1</setting>
-			<setting>Source 2</setting>
-		</size>
-
-		<size>
-			<width>4</width>
-			<height>4</height>
-			<tile_source>http://pdnet.inf.unisi.ch:9000/assets/applications/newsfeed/tiles/4_4.html</tile_source>
-			<preview_image>PATH</preview_image>
-			<setting>Source 1</setting>
-			<setting>Source 2</setting>
-		</size>
-
+			<size>
+				<width>4</width>
+				<height>4</height>
+				<tile_source>http://localhost:9000/assets/applications/newsfeed/tiles/4_4.html</tile_source>
+				<preview_image>images/newsfeed.png</preview_image>
+				<setting>Source 1</setting>
+				<setting>Source 2</setting>
+			</size>
+		</sizes>
 	</app>
 
 	<app>
 		<name>Weather</name>
 		<namespace>weather</namespace>
-		<websocket_address>http://pdnet.inf.unisi.ch:9000/weather/socket</websocket_address>
-		<description>Lorem	ipsum</description>
+		<websocket_address>http://172.16.224.104:9000/weather/socket</websocket_address>
+		<description>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</description>
 		<view>apps/weather/view.html</view>
 		<icon>images/weather-icon.png</icon>
+		<preview-image>images/weather.png</preview-image>
+		<sizes>
+			<size>
+				<width>2</width>
+				<height>2</height>
+				<tile_source>http://localhost:9000/assets/applications/weather/tiles/2_2.html</tile_source>
+				<preview_image>PATH</preview_image>
+				<setting>Location</setting>
+			</size>
 
-		<size>
-			<width>2</width>
-			<height>2</height>
-			<tile_source>http://pdnet.inf.unisi.ch:9000/assets/applications/weather/tiles/2_2.html</tile_source>
-			<preview_image>PATH</preview_image>
-			<setting>Location</setting>
-		</size>
-
-		<size>
-			<width>4</width>
-			<height>4</height>
-			<tile_source>http://pdnet.inf.unisi.ch:9000/assets/applications/weather/tiles/4_4.html</tile_source>
-			<preview_image>PATH</preview_image>
-			<setting>Location</setting>
-		</size>
-
+			<size>
+				<width>4</width>
+				<height>4</height>
+				<tile_source>http://localhost:9000/assets/applications/weather/tiles/4_4.html</tile_source>
+				<preview_image>images/weather.png</preview_image>
+				<setting>Location</setting>
+			</size>
+		</sizes>
 	</app>
 
 	<!-- <app>
 		<name>Live scores</name>
 		<namespace>livescores</namespace>
-
-		<link>http://pdnet.inf.unisi.ch:9000/mobile/livescores</link>
+		<link>http://172.16.224.104:9000/mobile/livescores</link>
 		<websocket_address> WS ADDRESS 4 </websocket_address>
 
 		<description>Lorem ipsum</description>
@@ -92,7 +94,7 @@
 		<size>
 			<width>2</width>
 			<height>2</height>
-			<tile_source>http://pdnet.inf.unisi.ch:9000/assets/applications/livescores/tiles/4_4.html</tile_source>
+			<tile_source>http://localhost:9000/assets/applications/livescores/tiles/4_4.html</tile_source>
 
 			<preview_image>PATH</preview_image>
 		</size>
@@ -100,7 +102,7 @@
 		<size>
 			<width>4</width>
 			<height>1</height>
-			<tile_source>http://pdnet.inf.unisi.ch:9000/assets/applications/livescores/tiles/4_1.html</tile_source>
+			<tile_source>http://localhost:9000/assets/applications/livescores/tiles/4_1.html</tile_source>
 
 			<preview_image>PATH</preview_image>
 		</size>
