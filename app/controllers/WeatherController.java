@@ -50,7 +50,7 @@ public class WeatherController extends Controller {
 
 				in.onMessage(new Callback<JsonNode>() {
 					public void invoke(JsonNode event) {
-						Logger.info("A FUCKING MESSAGE!");
+						Logger.info("A MESSAGE!");
 						Logger.info(event.toString());
 						String messageKind = event.get("kind").asText();						
 						String displayID = event.get("displayID").asText();
@@ -120,7 +120,6 @@ public class WeatherController extends Controller {
 								ObjectNode response = Json.newObject();
 								response.put("kind", "forecast");
 								response.put("today",today);
-								Logger.info("HEHRE");
 
 								if(tile.width == 2 && tile.height == 2){
 									tileOut.write(response);
