@@ -1,20 +1,27 @@
 $(function() { 
-	output = $("#output"); 
+	var parentWindow = window.parent.document.getElementById(window.name);
+	var tileID = $(parentWindow).attr("id").split("_")[1];
+	displayID = getUrlVars()["id"];
 	var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
 	var wsUri = "ws://pdnet.inf.unisi.ch:9000/weather/socket";
 	websocket = new WS(wsUri); 
 	websocket.onopen = function(evt) { 
-		console.log("CONNECTED"); 
+		console.log("--- TILE CONNECTION ---"); 
 		var hi = JSON.stringify
 		({
 			"kind":"tileAvailable",
-			"displayID":  getUrlVars()["id"],
+			"displayID":  displayID,
 			"width": 4,
 			"height":4
 		});
 		websocket.send(hi);
-		console.log(hi);
+		console.debug(hi);
+		console.log("--- TILE CONNECTION FINISHED ---"); 
+
+		console.log("\n\nLOADING DEFAULTS FOR " + tileID);
+		loadDefaultParameters(tileID,websocket);
 	}; 
+	
 	
 	websocket.onclose = function(evt) { 
 		console.log("DISCONNECTED"); 
