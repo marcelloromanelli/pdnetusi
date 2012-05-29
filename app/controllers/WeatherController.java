@@ -93,6 +93,7 @@ public class WeatherController extends Controller {
 
 							if (tileOut == null){
 								Logger.info("SORRY NO SPACE");
+								// ADD TO A QUEUE?
 							} 
 							else {
 								Logger.info(

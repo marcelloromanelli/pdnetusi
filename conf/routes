@@ -5,20 +5,24 @@
 # Home page
 GET     	/                           						controllers.Application.index()
 
+# Manager
+GET			/manager											controllers.Application.manager()
+POST		/manager/updatedisplay								controllers.DisplayController.updateDisplayInformations()
+POST		/manager/deletedisplay								controllers.DisplayController.removeDisplay()
+POST		/manager/newdisplay									controllers.DisplayController.newDisplay()
+POST		/manager/deletelayout								controllers.LayoutController.deleteLayout()
+POST		/manager/updatelayout								controllers.LayoutController.updateLayoutInformations()
+POST		/manager/newlayout									controllers.LayoutController.newLayout()
+
 # Displays
 GET			/display					  						controllers.DisplayController.setupDisplay(id: String ?= null)
 GET			/display/socket										controllers.DisplayController.webSocket
 
-# Display Manager
-GET			/display/manager			  						controllers.DisplayController.showAvailableDisplays
-POST    	/display/manager			  						controllers.DisplayController.registerDisplay
-POST    	/display/manager/:id/delete	  						controllers.DisplayController.deleteDisplay(id: Long)
 
 # Display Layout 
-GET     /display/layouts                  	  					controllers.LayoutController.allLayouts()
-GET     /display/layouts/:id            						controllers.LayoutController.layout(id: Long)
-POST    /display/layouts                						controllers.LayoutController.newLayout()
-POST  	/display/layouts/:id/delete             				controllers.LayoutController.deleteLayout(id: Long)
+GET     /layouts/:id            						controllers.LayoutController.layout(id: Long)
+#POST    /display/layouts                						controllers.LayoutController.newLayout()
+#POST  	/display/layouts/:id/delete             				controllers.LayoutController.deleteLayout(id: Long)
 POST	/display/layouts/:id/save								controllers.LayoutController.saveLayout(id: Long)
 
 # Weather Socket

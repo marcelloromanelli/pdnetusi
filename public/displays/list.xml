@@ -1,10 +1,20 @@
 <root>
   <display>
-    <id>1</id>
-    <name>USI</name>
-    <width>1600</width>
-    <height>900</height>
-    <latitude>46.0107</latitude>
-    <longitude>8.91223</longitude>
+    <id>30</id>
+    <layoutID>3</layoutID>
+    <name>test2</name>
+    <width>123</width>
+    <height>123</height>
+    <latitude>123.0</latitude>
+    <longitude>123.0</longitude>
+  </display>
+  <display>
+    <id>31</id>
+    <layoutID>4</layoutID>
+    <name>lol</name>
+    <width>123</width>
+    <height>123</height>
+    <latitude>2131.0</latitude>
+    <longitude>123.0</longitude>
   </display>
 </root>

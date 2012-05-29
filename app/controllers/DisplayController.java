@@ -2,21 +2,23 @@ package controllers;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import models.Display;
-import models.DisplayLayout;
 import models.Tile;
 
 import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.node.ObjectNode;
 
 import play.Logger;
 import play.data.Form;
 import play.libs.F.Callback;
 import play.libs.F.Callback0;
+import play.mvc.BodyParser;
+import play.mvc.BodyParser.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.WebSocket;
-import views.html.displayManager;
 
 public class DisplayController extends Controller {
 
@@ -42,44 +44,102 @@ public class DisplayController extends Controller {
 	}
 
 
-	static Form<Display> displayRegistrationForm = form(Display.class);
 
+	@BodyParser.Of(Json.class)
+	public static Result updateDisplayInformations(){
+		JsonNode json = request().body().asJson();
 
-	/**
-	 * Receives the input from a form, binds it and enters it
-	 * into a database.
-	 * @return
-	 */
-	public static Result registerDisplay(){
-		Form<Display> filledForm = displayRegistrationForm.bindFromRequest();
-		if(filledForm.hasErrors()) {
-			return badRequest(displayManager.render(Display.all(), filledForm, DisplayLayout.all()));
-		} else {
-			Logger.info("DISPLAY CONTROLLER: \n" +
-					filledForm.get().name 
-					+ " has been added to the database with layout " + filledForm.get().currentLayoutID 
-					);
-			Display.addNew(filledForm.get());
-			return redirect(routes.DisplayController.showAvailableDisplays());  
+		if(json == null) {
+			return badRequest("Expecting Json data");
+		} 
+		else {
+			String kind = json.get("kind").asText();
+			ObjectNode result = play.libs.Json.newObject();
+
+			if(kind.equals("linking")){
+				Long layoutid = new Long(json.get("layoutid").asText());
+				Long currentSelected =new Long(json.get("currentSelected").asText());
+
+				Display.updateLayout(layoutid, currentSelected);
+				
+				result.put("layoutid", layoutid);
+				result.put("currentSelected", currentSelected);
+				return ok(result);
+			} else if(kind.equals("update")){
+				Long displayid = json.get("displayid").asLong();
+				String name = json.get("name").asText();
+				Integer width = json.get("width").asInt();
+				Integer height = json.get("height").asInt();
+				Float latitude = new Float(json.get("latitude").asText());
+				Float longitude = new Float(json.get("longitude").asText());
+				Display clone = (Display) Display.find.byId(displayid)._ebean_createCopy();
+				clone.name = name;
+				clone.width = width;
+				clone.height = height;
+				clone.latitude = latitude;
+				clone.longitude = longitude;
+				Display.delete(displayid);
+				Display.addNew(clone);
+				result.put("status", "ok");
+				return ok(result);
+				
+			} 
+		}
+		
+		return badRequest();
+	}
+
+	@BodyParser.Of(Json.class)
+	public static Result removeDisplay(){
+		JsonNode json = request().body().asJson();
+
+		if(json == null) {
+			return badRequest("Expecting Json data");
+		} 
+		else {
+			Long currentSelected =new Long(json.get("currentSelected").asText());
+
+			Display.delete(currentSelected);
+			ObjectNode result = play.libs.Json.newObject();
+			result.put("status", "ok");
+			result.put("currentSelected", currentSelected);
+			return ok(result);
 		}
 	}
+	
+	@BodyParser.Of(Json.class)
+	public static Result newDisplay(){
+		JsonNode json = request().body().asJson();
 
-	/**
-	 * Render the default view with all the displays
-	 * @return
-	 */
-	public static Result showAvailableDisplays(){
-		return ok(displayManager.render(Display.all(), displayRegistrationForm, DisplayLayout.all()));
-	}
-
-	/**
-	 * Remove a display from the database
-	 * @param displayID
-	 * @return
-	 */
-	public static Result deleteDisplay(Long displayID){
-		Display.delete(displayID);
-		return redirect(routes.DisplayController.showAvailableDisplays());
+		if(json == null) {
+			return badRequest("Expecting Json data");
+		} 
+		else {
+			Logger.info(json.toString());
+			String name = json.get("name").asText();
+			String width = json.get("width").asText();
+			String height = json.get("height").asText();
+			String latitude = json.get("latitude").asText();
+			String longitude = json.get("longitude").asText();
+			
+			Form<Display> filledForm = form(Display.class);
+			Map<String,String> anyData = new HashMap<String, String>();
+			anyData.put("name", name);
+			anyData.put("width", width);
+			anyData.put("height", height);
+			anyData.put("latitude", latitude);
+			anyData.put("longitude", longitude);
+			
+			Logger.info(anyData.toString());
+			
+			
+			Display display = filledForm.bind(anyData).get();
+			Display.addNew(display);
+			
+			ObjectNode result = play.libs.Json.newObject();
+			result.put("status", "ok");
+			return ok(result);
+		}
 	}
 
 	public static WebSocket<JsonNode> webSocket() {
@@ -93,9 +153,9 @@ public class DisplayController extends Controller {
 						outToID.put(out, displayID);
 						Logger.info(
 								"\n ******* MESSAGE RECIEVED *******" +
-								"\n Display " + displayID + "is now active." +
-								"\n*********************************"
-						);
+										"\n Display " + displayID + "is now active." +
+										"\n*********************************"
+								);
 					}
 				});
 
@@ -106,7 +166,7 @@ public class DisplayController extends Controller {
 						outToID.remove(out);
 						activeDisplays.remove(displayID);
 						Logger.info(
-										"\n ******* MESSAGE RECIEVED *******" +
+								"\n ******* MESSAGE RECIEVED *******" +
 										"\n Display " + displayID + "is now disconnected." +
 										"\n*********************************"
 								);

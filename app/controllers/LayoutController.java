@@ -32,8 +32,7 @@ import play.mvc.BodyParser;
 import play.mvc.BodyParser.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.layout;
-import views.html.layoutCreator;
+import views.html.*;
 /**
  * @author romanelm
  *
@@ -41,14 +40,6 @@ import views.html.layoutCreator;
 public class LayoutController extends Controller {
 	
 	
-	/**
-	 * View containing all the display layous
-	 * @return an ok Result
-	 */
-	public static Result allLayouts() {
-		return ok(layout.render(DisplayLayout.all()));
-	}
-
 	
 	/**
 	 * View where the user can modify an 
@@ -146,16 +137,33 @@ public class LayoutController extends Controller {
 	}
 
 
-	/**
-	 * Deletes a layout with the specified ID and all
-	 * the tiles associated with it.
-	 * @param id ID of the layout you want to delete
-	 * @return Result redirect
-	 */
-	public static Result deleteLayout(Long id){
+	
+	@BodyParser.Of(Json.class)
+	public static Result deleteLayout(){
+		JsonNode json = request().body().asJson();
+		if(json == null) {
+			return badRequest("Expecting Json data");
+		} 
+		Long id = json.get("layoutidselected").asLong();
 		DisplayLayout.delete(id);
 		Tile.deleteLayoutTiles(id);
-		return redirect(routes.LayoutController.allLayouts());
+		return redirect(routes.Application.manager());
+	}
+	
+	public static Result updateLayoutInformations(){
+		JsonNode json = request().body().asJson();
+		if(json == null) {
+			return badRequest("Expecting Json data");
+		} 
+		Long id = json.get("layoutidselected").asLong();
+		String name = json.get("name").asText();
+		
+		DisplayLayout clone = (DisplayLayout) DisplayLayout.find.byId(id)._ebean_createCopy();
+		clone.name = name;
+		DisplayLayout.delete(id);
+		DisplayLayout.addNew(clone);
+		
+		return redirect(routes.Application.manager());
 	}
 	
 	public static void saveLayoutasXML(Long layoutID, ArrayList<JsonNode> allTilesSettings){

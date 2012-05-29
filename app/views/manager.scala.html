@@ -1,0 +1,388 @@
+@(displays: List[Display],layouts: List[DisplayLayout])
+@import helper.twitterBootstrap._
+
+@main("Manager") {
+	<script type="text/javascript">
+
+	currentSelected = null;
+	layoutidselected = null;
+	objSelected = null;
+
+	function highlight(obj){
+		//console.log(obj);
+	}
+
+	function selectDisplay(displayid,caller){
+		currentSelected = displayid;
+		objSelected = caller;
+		console.log(currentSelected);
+	}
+
+	function deleteDisplay(){
+		var result = {};
+		result.currentSelected = currentSelected;
+		jQuery.ajax({
+			url: getBaseURL() + 'manager/deletedisplay',
+			type: 'POST',
+			data: JSON.stringify(result),
+			contentType: "application/json",
+			error: function(xhr, ajaxOptions, thrownError){ 
+				var msg = $('<div class="alert alert-block">'
+				+ '<a class="close" data-dismiss="alert">X</a><h4 class="alert-heading">Warning!</h4>'
+				+ xhr.responseText
+				+ '</div>');
+				$('#message').html(msg);
+			},
+			success: function(data){
+				window.location = getBaseURL() + 'manager' ;
+			}
+
+		});
+	}
+
+	function deleteLayout(){
+		var result = {};
+		result.layoutidselected = layoutidselected;
+		jQuery.ajax({
+			url: getBaseURL() + 'manager/deletelayout',
+			type: 'POST',
+			data: JSON.stringify(result),
+			contentType: "application/json",
+			error: function(xhr, ajaxOptions, thrownError){ 
+				var msg = $('<div class="alert alert-block">'
+				+ '<a class="close" data-dismiss="alert">X</a><h4 class="alert-heading">Warning!</h4>'
+				+ xhr.responseText
+				+ '</div>');
+				$('#message').html(msg);
+			},
+			success: function(data){
+				window.location = getBaseURL() + 'manager' ;
+			}
+
+		});
+	}
+
+	function linkDisplayToLayout(layoutid){
+		layoutidselected = layoutid;
+		if (currentSelected == null){
+			return;
+		}
+		var result = {};
+		result.kind = "linking";
+		result.layoutid = layoutid;
+		result.currentSelected = currentSelected;
+
+		jQuery.ajax({
+			url: getBaseURL() + 'manager/updatedisplay',
+			type: 'POST',
+			data: JSON.stringify(result),
+			contentType: "application/json",
+			error: function(xhr, ajaxOptions, thrownError){ 
+				var msg = $('<div class="alert alert-block">'
+				+ '<a class="close" data-dismiss="alert">X</a><h4 class="alert-heading">Warning!</h4>'
+				+ xhr.responseText
+				+ '</div>');
+				$('#message').html(msg);
+			},
+			success: function(data){
+				var layoutid =  $(objSelected).find('td:last'); 
+				layoutid.html(data.layoutid);
+				layoutid.css('font-weight','bold');
+
+				window.blinker = setInterval(function(){
+					if(window.blink){
+						layoutid.css('color','green');
+						window.blink=false;
+					}
+					else{
+						layoutid.css('color','whiteSmoke');
+						window.blink = true;
+					}
+					},250);
+					setTimeout(function()
+					{
+						if(window.blinker){ 
+							clearInterval(window.blinker); 
+							layoutid.css('color','#404040');
+							layoutid.css('font-weight','normal');
+						}
+						} , 2500);
+
+
+						var msg = $('<div class="alert alert-success">'
+						+ '<a class="close" data-dismiss="alert">X</a><h4 class="alert-heading">Well done!</h4>'
+						+ 'Your screen has been updated succesfully.'
+						+ '</div>');
+						$('#message').html(msg);
+					}
+
+				});
+			}
+
+			function modify(id, name, width, height, latitude, longitude){
+				$("#displayscard").toggleClass('hovered');
+
+				$("#displaymodify").show();			
+				$("#displaynew").hide();
+
+				$("#displayformname").val(name);
+				$("#displayformwidth").val(width);
+				$("#displayformheight").val(height);
+				$("#displayformlatitude").val(latitude);
+				$("#displayformlongitude").val(longitude);
+
+			}
+
+			function modifylayout(id, name){
+				$("#layoutcard").toggleClass('hovered');
+
+				$("#layoutmodify").show();			
+				$("#layoutnew").hide();
+
+				$("#layoutformname").val(name);
+
+			}
+
+			function opennewdisplay(){
+				$("#displayscard").toggleClass('hovered');
+				$("#displaymodify").hide();			
+				$("#displaynew").show();
+			}
+			
+			function opennewlayout(){
+				$("#layoutcard").toggleClass('hovered');
+				$("#layoutmodify").hide();			
+				$("#layoutnew").show();
+			}
+						
+
+			function addNewDisplay(){
+				var result = {};
+				result.name = $("#displayformnamen").val();
+				result.width = $("#displayformwidthn").val();
+				result.height = $("#displayformheightn").val();
+				result.latitude = $("#displayformlatituden").val();
+				result.longitude = $("#displayformlongituden").val();
+
+				jQuery.ajax({
+					url: getBaseURL() + 'manager/newdisplay',
+					type: 'POST',
+					data: JSON.stringify(result),
+					contentType: "application/json",
+					error: function(xhr, ajaxOptions, thrownError){ 
+						var msg = $('<div class="alert alert-block">'
+						+ '<a class="close" data-dismiss="alert">X</a><h4 class="alert-heading">Warning!</h4>'
+						+ xhr.responseText
+						+ '</div>');
+						$('#message').html(msg);
+					},
+					success: function(data){
+						window.location = getBaseURL() + 'manager' ;
+					}
+				});
+			}
+			
+			function addNewLayout(){
+			  var result = {};
+			  result.name = $("#layoutformnamen").val();
+			  jQuery.ajax({
+					url: getBaseURL() + 'manager/newlayout',
+					type: 'POST',
+					data: JSON.stringify(result),
+					contentType: "application/json",
+					error: function(xhr, ajaxOptions, thrownError){ 
+						var msg = $('<div class="alert alert-block">'
+						+ '<a class="close" data-dismiss="alert">X</a><h4 class="alert-heading">Warning!</h4>'
+						+ xhr.responseText
+						+ '</div>');
+						$('#message').html(msg);
+					},
+					success: function(data){
+						window.location = getBaseURL() + 'manager' ;
+					}
+				});
+			}
+			
+			function updateLayoutInformations(){
+				var result = {};
+				result.kind = "update";
+				result.layoutidselected = layoutidselected;
+				result.name = $("#layoutformname").val();
+				jQuery.ajax({
+					url: getBaseURL() + 'manager/updatelayout',
+					type: 'POST',
+					data: JSON.stringify(result),
+					contentType: "application/json",
+					error: function(xhr, ajaxOptions, thrownError){ 
+						var msg = $('<div class="alert alert-block">'
+						+ '<a class="close" data-dismiss="alert">X</a><h4 class="alert-heading">Warning!</h4>'
+						+ xhr.responseText
+						+ '</div>');
+						$('#message').html(msg);
+					},
+					success: function(data){
+						//	window.location = getBaseURL() + 'manager' ;
+					}
+				});
+			}
+			function updateDisplayInformations(){
+				var result = {};
+				result.kind = "update";
+				result.displayid = currentSelected;
+				result.name = $("#displayformname").val();
+				result.width = $("#displayformwidth").val();
+				result.height = $("#displayformheight").val();
+				result.latitude = $("#displayformlatitude").val();
+				result.longitude = $("#displayformlongitude").val();
+
+				jQuery.ajax({
+					url: getBaseURL() + 'manager/updatedisplay',
+					type: 'POST',
+					data: JSON.stringify(result),
+					contentType: "application/json",
+					error: function(xhr, ajaxOptions, thrownError){ 
+						var msg = $('<div class="alert alert-block">'
+						+ '<a class="close" data-dismiss="alert">X</a><h4 class="alert-heading">Warning!</h4>'
+						+ xhr.responseText
+						+ '</div>');
+						$('#message').html(msg);
+					},
+					success: function(data){
+						window.location = getBaseURL() + 'manager' ;
+
+					}
+				});
+			}
+			</script>
+			<div class="screencenter">
+				<div class="f1_container">
+					<div class="well shadow f1_card" id="displayscard">
+						<div class="front face" id="listofdisplays">
+							<h1>Displays</h1>
+							<button class="btn btn-mini" id="addnewdisplay" style="margin: 10px 215px 10px 215px;" onclick="opennewdisplay()">Add new</button>
+							<table class="table table-condensed">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Name</th>
+										<th>Size</th>
+										<th>Position</th>
+										<th>Layout ID</th>
+									</tr>
+								</thead>
+								<tbody id="displayTable">
+									@for(display <- displays) {
+										<tr onmouseover="highlight(this);" 
+										onclick="selectDisplay(@display.id,this)" 
+										onDblClick="modify(@display.id,
+										'@display.name',
+										@display.width,
+										@display.height,
+										@display.latitude,
+										@display.longitude
+										);">
+										<td>@display.id</td>
+										<td>@display.name</td>
+										<td>@display.width x @display.height</td>
+										<td>@display.latitude , @display.longitude</td>
+										<td>@if(display.currentLayoutID==null){NONE}else{@display.currentLayoutID}</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+					<div class="back face" id="displayback">
+						<div id="displaymodify" class="backform">
+							<label>Display name</label>
+							<input type="text" class="span3" id="displayformname"><br/><br/>
+
+							<label>Width</label>
+							<input type="text" class="span3" id="displayformwidth"><br/><br/>
+
+							<label>Height</label>
+							<input type="text" class="span3" id="displayformheight"><br/><br/>
+
+							<label>Latitude</label>
+							<input type="text" class="span3" id="displayformlatitude"><br/><br/>	
+
+							<label>Longitude</label>
+							<input type="text" class="span3" id="displayformlongitude"><br/><br/>
+
+							<a class="btn btn-danger" onclick="deleteDisplay()"><i class="icon-trash icon-white"></i> Delete</a>
+							<a class="btn" onclick="$('#displayscard').toggleClass('hovered')"> Cancel</a>
+							<a class="btn btn-success" href="#" onclick="updateDisplayInformations()"> Save changes</a>
+
+						</div>
+						<div id="displaynew" class="backform">
+							<label>Display name</label>
+							<input type="text" class="span3" id="displayformnamen"><br/><br/>
+
+							<label>Width</label>
+							<input type="text" class="span3" id="displayformwidthn"><br/><br/>
+
+							<label>Height</label>
+							<input type="text" class="span3" id="displayformheightn"><br/><br/>
+
+							<label>Latitude</label>
+							<input type="text" class="span3" id="displayformlatituden"><br/><br/>	
+
+							<label>Longitude</label>
+							<input type="text" class="span3" id="displayformlongituden"><br/><br/>
+
+							<a class="btn" onclick="$('#displayscard').toggleClass('hovered')"> Cancel</a>
+							<a class="btn btn-success" href="#" onclick="addNewDisplay()"> Add Display</a>
+						</div>
+					</div>		
+				</div>
+			</div>
+			<div class="screencenter">
+				<div class="f1_container" class="hover">
+					<div class="well shadow f1_card" id="layoutcard">
+						<div class="front face" id="listoflayouts">
+							<h1>Layouts</h1>
+							<button class="btn btn-mini" id="addnewlayout" style="margin: 10px 215px 10px 215px;" onclick="opennewlayout()">Add new</button>
+
+							<table class="table table-condensed">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Name</th>
+									</tr>
+								</thead>
+								<tbody style="overflow: auto;" id="layoutTable">
+									@for(layout <- layouts) {
+										<tr onclick="linkDisplayToLayout(@layout.id);"
+										onDblClick="modifylayout(@layout.id,'@layout.name')">
+										<td>@layout.id</td>
+										<td><a href="layouts/@layout.id">@layout.name</a></td>
+
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+					<div class="back face">
+						<div id="layoutmodify" class="backform">
+							<label>Layout name</label>
+							<input type="text" class="span3" id="layoutformname"><br/><br/>
+
+							<a class="btn btn-danger" onclick="deleteLayout()"><i class="icon-trash icon-white"></i> Delete</a>
+							<a class="btn" onclick="$('#layoutcard').toggleClass('hovered')"> Cancel</a>
+							<a class="btn btn-success" href="#" onclick="updateLayoutInformations()"> Save changes</a>
+
+						</div>
+						<div id="layoutnew" class="backform">
+							<label>Layout name</label>
+							<input type="text" class="span3" id="layoutformnamen"><br/><br/>
+
+							<a class="btn" onclick="$('#layoutcard').toggleClass('hovered')"> Cancel</a>
+							<a class="btn btn-success" href="#" onclick="addNewLayout()"> Add Layout</a>
+						</div>
+					</div>		
+				</div>
+			</div>
+
+		</div>
+
+		<div id="message" />
+}

@@ -4,11 +4,11 @@ html,body {
 	border: none;
 	background-image: url('../images/wood.jpeg');
 	background-repeat: repeat;
-	
 }
 
 .container h1 {
 	margin: 0;
+	margin-bottom: 20px;
 	padding: 0;
 	height: 5%;
 	width: 100%;
@@ -16,6 +16,83 @@ html,body {
 	color: #bebebe;
 }
 
+.screencenter {
+	width: 1100px;
+	margin: 0 auto;
+	margin-top: 40px;
+}
+
+.f1_container {
+	-webkit-perspective: 1000px;
+	-moz-perspective: 1000px;
+	-o-perspective: 1000px;
+	-ms-perspective: 1000px;
+	perspective: 1000px;
+	width: 450px;
+	height: 280px;
+	min-height: 280px;
+	max-height: 500px;
+	z-index: 1;
+	float:left;
+	margin: 50px;
+}
+
+.f1_card {
+	width: 100%;
+	height: 100%;
+	-webkit-transform-style: preserve-3d;
+	-webkit-transition: all 1.0s linear;
+	-moz-transform-style: preserve-3d;
+	-moz-transition: all 1.0s linear;
+	-o-transform-style: preserve-3d;
+	-o-transition: all 1.0s linear;
+	-ms-transform-style: preserve-3d;
+	-ms-transition: all 1.0s linear;
+	transform-style: preserve-3d;
+	transition: all 1.0s linear;
+}
+
+.hovered{
+	-webkit-transform: rotateY(180deg);
+	-moz-transform: rotateY(180deg);
+	-o-transform: rotateY(180deg);
+	-ms-transform: rotateY(180deg);
+	transform: rotateY(180deg);
+}
+
+.face {
+	position: absolute;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 100%;
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-o-backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+
+.face.back {
+	display: block;
+	-webkit-transform: rotateY(180deg);
+	-webkit-box-sizing: border-box;
+	-moz-transform: rotateY(180deg);
+	-moz-box-sizing: border-box;
+	-o-transform: rotateY(180deg);
+	-o-box-sizing: border-box;
+	-ms-transform: rotateY(180deg);
+	-ms-box-sizing: border-box;
+	transform: rotateY(180deg);
+	box-sizing: border-box;
+	color: #404040;
+	text-align: center;
+	background-color: whiteSmoke;
+}
+
+.backform{
+	margin-top: 50px;
+}
 
 /* APP 1  */
 .newsfeed_1_1 {
@@ -27,7 +104,8 @@ html,body {
 .newsfeed_2_2 {
 	width: 120px;
 	height: 120px;
-	background-image: url(http://placehold.it/120x120/00d607/FFFFFF&text=2x2);
+	background-image:
+		url(http://placehold.it/120x120/00d607/FFFFFF&text=2x2);
 }
 
 .newsfeed_2_1 {
@@ -40,32 +118,34 @@ html,body {
 	color: white;
 }
 
-
 /* PHOTOSTREAM  */
-
 .photostream_2_2 {
 	width: 120px;
 	height: 120px;
-	background-image: url(http://placehold.it/120x120/d66000/FFFFFF&text=2x2);
+	background-image:
+		url(http://placehold.it/120x120/d66000/FFFFFF&text=2x2);
 }
 
 .photostream_4_4 {
 	width: 240px;
 	height: 240px;
-	background-image: url(http://placehold.it/120x120/d66000/FFFFFF&text=4x4);
+	background-image:
+		url(http://placehold.it/120x120/d66000/FFFFFF&text=4x4);
 }
 
 /* WEATHER  */
 .weather_2_2 {
 	width: 120px;
 	height: 120px;
-	background-image: url(http://placehold.it/120x120/0096d6/FFFFFF&text=2x2);
+	background-image:
+		url(http://placehold.it/120x120/0096d6/FFFFFF&text=2x2);
 }
 
 .weather_4_4 {
 	width: 240px;
 	height: 240px;
-	background-image: url(http://placehold.it/120x120/0096d6/FFFFFF&text=4x4);
+	background-image:
+		url(http://placehold.it/120x120/0096d6/FFFFFF&text=4x4);
 }
 
 .content {
@@ -93,8 +173,8 @@ html,body {
 	-webkit-box-shadow: 0px 0px 9px #000000;
 	box-shadow: 0px 0px 9px #000000;
 	opacity: 0.8;
-	-ms-filter: progid:  DXImageTransform.Microsoft.Alpha(Opacity=  80 );
-	filter: alpha(opacity =   80);
+	-ms-filter: progid:    DXImageTransform.Microsoft.Alpha(Opacity=    80 );
+	filter: alpha(opacity =       80);
 }
 
 .container .content #accordion.ui-accordion {
@@ -131,27 +211,27 @@ a.menu:after,.dropdown-toggle:after {
 
 .buttonschoice {
 	width: 250px;
-	margin: auto;	
+	margin: auto;
 }
 
-#result{
+#result {
 	text-align: center;
 }
 
-#newLayoutText{
+#newLayoutText {
 	width: 350px;
 	margin: auto;
 	margin-top: 30px;
 	text-align: left;
 }
 
-#message{
+#message {
 	position: absolute;
 	left: 40px;
-	bottom:0px;
+	bottom: 0px;
 }
 
-.cleanTable{
+.cleanTable {
 	margin-bottom: 0px;
 	padding: 0;
 	width: 1920px;
@@ -162,8 +242,7 @@ table#tiles.cleanTable tbody tr.none td.none {
 	border-top: none;
 }
 
-#newDisplayForm{
-margin-top: 50px;
-width: 500px;
-	}
+#newDisplayForm {
+	margin-top: 50px;
+	width: 500px;
 }
