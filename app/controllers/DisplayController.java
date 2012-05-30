@@ -66,23 +66,33 @@ public class DisplayController extends Controller {
 				result.put("currentSelected", currentSelected);
 				return ok(result);
 			} else if(kind.equals("update")){
+				
 				Long displayid = json.get("displayid").asLong();
 				String name = json.get("name").asText();
 				Integer width = json.get("width").asInt();
 				Integer height = json.get("height").asInt();
 				Float latitude = new Float(json.get("latitude").asText());
 				Float longitude = new Float(json.get("longitude").asText());
+				
 				Display clone = (Display) Display.find.byId(displayid)._ebean_createCopy();
 				clone.name = name;
 				clone.width = width;
 				clone.height = height;
 				clone.latitude = latitude;
 				clone.longitude = longitude;
+				
 				Display.delete(displayid);
 				Display.addNew(clone);
-				result.put("status", "ok");
-				return ok(result);
 				
+				result.put("id", clone.id);
+				result.put("name", clone.name);
+				result.put("width", clone.width);
+				result.put("height", clone.height);
+				result.put("latitude", clone.latitude);
+				result.put("longitude", clone.longitude);
+				result.put("layoutid", clone.currentLayoutID);
+
+				return ok(result);
 			} 
 		}
 		
@@ -101,8 +111,7 @@ public class DisplayController extends Controller {
 
 			Display.delete(currentSelected);
 			ObjectNode result = play.libs.Json.newObject();
-			result.put("status", "ok");
-			result.put("currentSelected", currentSelected);
+			result.put("removedid", currentSelected);
 			return ok(result);
 		}
 	}
@@ -134,10 +143,15 @@ public class DisplayController extends Controller {
 			
 			
 			Display display = filledForm.bind(anyData).get();
-			Display.addNew(display);
+			Display res = Display.addNew(display);
 			
 			ObjectNode result = play.libs.Json.newObject();
-			result.put("status", "ok");
+			result.put("id", res.id);
+			result.put("name", name);
+			result.put("width", width);
+			result.put("height", height);
+			result.put("latitude", latitude);
+			result.put("longitude", longitude);
 			return ok(result);
 		}
 	}

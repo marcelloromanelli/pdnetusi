@@ -78,7 +78,6 @@ public class LayoutController extends Controller {
 				anyData.put("name", name);
 				DisplayLayout displayLayout = filledForm.bind(anyData).get();
 				DisplayLayout layout = DisplayLayout.addNew(displayLayout);
-				result.put("status", "OK");
 			    result.put("name", layout.name);
 			    result.put("id", layout.id);
 				return ok(result);
@@ -147,7 +146,10 @@ public class LayoutController extends Controller {
 		Long id = json.get("layoutidselected").asLong();
 		DisplayLayout.delete(id);
 		Tile.deleteLayoutTiles(id);
-		return redirect(routes.Application.manager());
+		
+		ObjectNode result = play.libs.Json.newObject();
+		result.put("removedid", id);
+		return ok(result);
 	}
 	
 	public static Result updateLayoutInformations(){
@@ -163,7 +165,10 @@ public class LayoutController extends Controller {
 		DisplayLayout.delete(id);
 		DisplayLayout.addNew(clone);
 		
-		return redirect(routes.Application.manager());
+		ObjectNode result = play.libs.Json.newObject();
+		result.put("id", clone.id);
+		result.put("name",clone.name);
+		return ok(result);
 	}
 	
 	public static void saveLayoutasXML(Long layoutID, ArrayList<JsonNode> allTilesSettings){

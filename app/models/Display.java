@@ -61,9 +61,10 @@ public class Display extends Model{
 	}
 
 	// Insert a new display inside the database
-	public static void addNew(Display display) {
+	public static Display addNew(Display display) {
 		display.save();
 		createXMLfile(Display.all());
+		return display;
 	}
 
 	//	Deletes a display with a given id
