@@ -44,7 +44,7 @@ $(function() {
 				"width": 2,
 				"height":2
 			});
-			setTimeout("websocket.send(hi); console.log('SENDING HI MESSASGE');" ,5000);
+			setTimeout(websocket.send(hi),5000);
 		}
 		console.log("SERVER APP ANSWER: ");
 		console.log(response) ;
