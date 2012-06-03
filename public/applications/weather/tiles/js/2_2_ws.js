@@ -37,7 +37,7 @@ $(function() {
 			$('#temperature').html(response.today[2] + "&ordm; C");
 			$('#location').html(response.today[6]);
 		}
-		setTimeout(websocket.send(hi);,10000);
+		setTimeout(websocket.send(hi),10000);
 		console.log("SERVER APP ANSWER: ");
 		console.log(response) ;
 	};
