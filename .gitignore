@@ -8,3 +8,4 @@ tmp
 dist
 RUNNING_PID
 public/displays/layouts/
+conf/application.conf 
