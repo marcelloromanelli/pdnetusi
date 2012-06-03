@@ -37,7 +37,7 @@ $(function() {
 		$('#location').html(response.today[6]);
 
 		if (response.kind == "mobileAnswer"){
-			setTimeout(websocket.send(hi),10000);
+			setTimeout(websocket.send(hi),5000);
 		}
 		console.log("SERVER APP ANSWER: ");
 		console.log(response) ;

@@ -119,7 +119,11 @@ public class WeatherController extends Controller {
 								ArrayList<String> info = processAttributes(currentForecast, location);
 								JsonNode today = Json.toJson(info);
 								ObjectNode response = Json.newObject();
-								response.put("kind", "default");
+								if(isDefault){
+									response.put("kind", "default");
+								} else {
+									response.put("kind", "mobileAnswer");
+								}
 								response.put("today",today);
 
 								if(tile.width == 2 && tile.height == 2){
@@ -133,12 +137,11 @@ public class WeatherController extends Controller {
 										JsonNode dayJson = Json.toJson(currentInfo);
 										response.put("day"+s,dayJson);
 									}
+									tileOut.write(response);
 								}
 								if(!isDefault){
-									response.put("kind", "mobileAnswer");
 									removeTileFromAvailable(tileOut);
 								}
-								tileOut.write(response);
 							}
 
 						} catch (Exception e) {
