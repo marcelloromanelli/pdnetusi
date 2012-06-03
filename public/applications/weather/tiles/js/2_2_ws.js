@@ -37,14 +37,7 @@ $(function() {
 		$('#location').html(response.today[6]);
 
 		if (response.kind == "mobileAnswer"){
-			var hi = JSON.stringify
-			({
-				"kind":"tileAvailable",
-				"displayID":  displayID,
-				"width": 2,
-				"height":2
-			});
-			setTimeout("websocket.send(hi)",5000);
+			setTimeout("sendHiMessage();",5000);
 		}
 		console.log("SERVER APP ANSWER: ");
 		console.log(response) ;
@@ -55,6 +48,17 @@ $(function() {
 	}; 
 
 });
+
+function sendHiMessage(){
+	var hi = JSON.stringify
+	({
+		"kind":"tileAvailable",
+		"displayID":  displayID,
+		"width": 2,
+		"height":2
+	});
+	websocket.send(hi);
+}
 
 function loadDefaultParameters(tileID){
 	var xmlhttp = new XMLHttpRequest();
