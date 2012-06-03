@@ -9,7 +9,7 @@ $(function() {
 	websocket = new WS(wsUri); 
 	websocket.onopen = function(evt) { 
 		console.log("CONNECTED"); 
-		hi = JSON.stringify
+		var hi = JSON.stringify
 		({
 			"kind":"tileAvailable",
 			"displayID":  displayID,
@@ -37,6 +37,13 @@ $(function() {
 		$('#location').html(response.today[6]);
 
 		if (response.kind == "mobileAnswer"){
+			var hi = JSON.stringify
+			({
+				"kind":"tileAvailable",
+				"displayID":  displayID,
+				"width": 2,
+				"height":2
+			});
 			setTimeout(websocket.send(hi),5000);
 		}
 		console.log("SERVER APP ANSWER: ");
