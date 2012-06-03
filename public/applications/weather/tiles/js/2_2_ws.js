@@ -1,11 +1,11 @@
-// ACCESS THE IFRAME THAT CONTAINS THIS CODE
-// GET TILEID
+//ACCESS THE IFRAME THAT CONTAINS THIS CODE
+//GET TILEID
 
 $(function() { 
 	var tileID = $(parent.document.getElementById(window.name)).attr("id").split("_")[1];
 	displayID = getUrlVars()["id"]
 	var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
-	var wsUri = "ws://pdnet.inf.unisi.ch:9000/weather/socket";
+			var wsUri = "ws://pdnet.inf.unisi.ch:9000/weather/socket";
 	websocket = new WS(wsUri); 
 	websocket.onopen = function(evt) { 
 		console.log("CONNECTED"); 
@@ -31,13 +31,14 @@ $(function() {
 
 	websocket.onmessage = function(evt) { 
 		var response = jQuery.parseJSON(evt.data);
-		if (response.kind == "forecast"){
-			var condition = lowerWithoutSpaces(response.today[0]);
-			$('#weather_img').attr('src','img/' + condition + '.png');
-			$('#temperature').html(response.today[2] + "&ordm; C");
-			$('#location').html(response.today[6]);
+		var condition = lowerWithoutSpaces(response.today[0]);
+		$('#weather_img').attr('src','img/' + condition + '.png');
+		$('#temperature').html(response.today[2] + "&ordm; C");
+		$('#location').html(response.today[6]);
+
+		if (response.kind == "mobileAnswer"){
+			setTimeout(websocket.send(hi),10000);
 		}
-		setTimeout(websocket.send(hi),10000);
 		console.log("SERVER APP ANSWER: ");
 		console.log(response) ;
 	};
@@ -64,8 +65,8 @@ function loadDefaultParameters(tileID){
 			break;
 		}
 	}
-	
-	
+
+
 
 	xmlhttp = new XMLHttpRequest();
 	xmlhttp.open("GET","http://pdnet.inf.unisi.ch:9000/assets/displays/layouts/"+layoutID+".xml" ,false);
@@ -90,7 +91,7 @@ function loadDefaultParameters(tileID){
 				websocket.send(defaultRequest);
 				console.log("SENDING DEFAULT REQUEST ");
 				console.log(defaultRequest);
-				
+
 			}
 		}
 	}
