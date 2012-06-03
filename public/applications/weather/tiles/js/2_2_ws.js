@@ -52,6 +52,7 @@ function loadDefaultParameters(tileID){
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.open("GET","http://pdnet.inf.unisi.ch:9000/assets/displays/list.xml" ,false);
 	xmlhttp.send();
+	console.log("DISPLAY ID:" + displayID);
 	var xmlDoc=xmlhttp.responseXML;
 	var displays = xmlDoc.getElementsByTagName("display");
 	layoutID = null;

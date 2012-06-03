@@ -106,11 +106,44 @@ $(function() {
                   $(this).data('startY',startY);
                   
                   $(this).html("<small>("+ startX + "," + startY + ")</small>");
+                  $(this).append("<span id='deletebutton' onclick='deletetile(this);'> DELETE <span>");
                 }
         });
         
         currentTile.dblclick(function(){
-                	$("#settings").html('waffanculo');
+           // Empty settings tab
+                $("#settings").html("");
+                	
+                	// Read setting parameters
+                	var settingsParams = currentTile.data("settingsParameters");
+					var settingsVals = currentTile.data("settingsValues");
+                	// Iterate trough settings and creates form
+                	$.each(settingsParams, function(i, n){
+                		$('<label for="'+n+'">'+i+"</label>").appendTo("#settings");
+						if(settingsVals != undefined){
+                			$('<input id="'+n+'" value="'+ settingsVals[i] +'">').appendTo("#settings");
+						} else {
+							$('<input id="'+n+'">').appendTo("#settings");
+						}
+                	});
+                	
+                	
+                	$('<button class="btn" id="saveprefs">save</button>').appendTo("#settings");
+                	
+                	var settingsVals = {};
+                	
+                	// Save values back to dom object
+                	$('#saveprefs').click(function(){
+                		$.each(settingsParams, function(i, n){
+                			settingsVals[i] = $("#"+n).val();
+                    	});
+                		currentTile.data("settingsValues",settingsVals);
+                		$("#settings").append("<div class='alert alert-success'>Settings saved</div>");
+                	});
+
+                	// OPEN THE FIRST TAB - SETTINGS
+                	$('#accordion').accordion('activate', 0);
+
         });
         
         currentTile.data('startX',@tile.startX);

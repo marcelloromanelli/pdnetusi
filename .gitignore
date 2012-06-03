@@ -7,3 +7,4 @@ tmp
 .cache
 dist
 RUNNING_PID
+public/displays/layouts/

@@ -38,6 +38,7 @@ public class Tile extends Model{
 	
 	@Constraints.Required	
 	public String htmlSource;
+	
 
 	
 	public static Finder<Long,Tile> find = new Finder<Long, Tile>(

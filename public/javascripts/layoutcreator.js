@@ -74,11 +74,7 @@ $(function() {
                 	// Read setting parameters
                 	var settingsParams = draggedTile.data("settingsParameters");
 					var settingsVals = draggedTile.data("settingsValues");
-                	// console.log("PARAMS");
-                	// 					console.log(settingsParams);
-                	// 					console.log("VALS");
-                	// 					console.log(settingsVals);
-                	// Iterate trough settings and creates form
+
                 	$.each(settingsParams, function(i, n){
                 		$('<label for="'+n+'">'+i+"</label>").appendTo("#settings");
 						if(settingsVals != undefined){
@@ -89,7 +85,7 @@ $(function() {
                 	});
                 	
                 	
-                	$('<button class="btn" id="saveprefs">Save Preferences</button>').appendTo("#settings");
+                	$('<button class="btn" id="saveprefs">Save Preferences</button>').css("margin-top","20px").appendTo("#settings");
                 	
                 	var settingsVals = {};
                 	
@@ -97,11 +93,11 @@ $(function() {
                 	$('#saveprefs').click(function(){
                 		$.each(settingsParams, function(i, n){
                 			settingsVals[i] = $("#"+n).val();
-                    		console.log(i + " : " + settingsVals[i])
-
                     	});
                 		draggedTile.data("settingsValues",settingsVals);
-						console.log(settingsVals);
+                		var success = $("<div class='alert alert-success'>Settings saved</div>");
+                		success.css({position: "absolute", bottom: "0", width: "70%"});
+                		$("#settings").append(success);
                 	});
 
                 	// OPEN THE FIRST TAB - SETTINGS

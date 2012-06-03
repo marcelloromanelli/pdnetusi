@@ -38,9 +38,9 @@ import views.html.*;
  *
  */
 public class LayoutController extends Controller {
-	
-	
-	
+
+
+
 	/**
 	 * View where the user can modify an 
 	 * existing layout
@@ -53,7 +53,7 @@ public class LayoutController extends Controller {
 		return ok(layoutCreator.render(tilesForLayoutId,displayLayout,id));
 	}
 
-	
+
 	/**
 	 * Process an incoming json in order to create a new
 	 * layout. The json that is received must contain
@@ -78,8 +78,8 @@ public class LayoutController extends Controller {
 				anyData.put("name", name);
 				DisplayLayout displayLayout = filledForm.bind(anyData).get();
 				DisplayLayout layout = DisplayLayout.addNew(displayLayout);
-			    result.put("name", layout.name);
-			    result.put("id", layout.id);
+				result.put("name", layout.name);
+				result.put("id", layout.id);
 				return ok(result);
 			}
 		}
@@ -103,19 +103,19 @@ public class LayoutController extends Controller {
 	public static Result saveLayout(Long layoutID){		 
 		JsonNode json = request().body().asJson();
 		if(json.isArray()){
-			
+
 			ArrayList<JsonNode> allTilesSettings = new ArrayList<JsonNode>();
- 			// erase all the tiles associated
+			// erase all the tiles associated
 			// with the layoutID specified
 			Tile.deleteLayoutTiles(layoutID);
-			
+
 			Logger.info(Integer.toString(json.size()));
 			Iterator<JsonNode> it = json.iterator();
 			// Iterate over all the elements contained
 			// in the json -> tiles
 			while(it.hasNext()){
 				JsonNode current = it.next();
-				
+
 				Form<Tile> filledForm = form(Tile.class);
 				Map<String,String> anyData = new HashMap<String, String>();
 				anyData.put("startX", current.get("startX").asText());
@@ -136,7 +136,7 @@ public class LayoutController extends Controller {
 	}
 
 
-	
+
 	@BodyParser.Of(Json.class)
 	public static Result deleteLayout(){
 		JsonNode json = request().body().asJson();
@@ -146,12 +146,12 @@ public class LayoutController extends Controller {
 		Long id = json.get("layoutidselected").asLong();
 		DisplayLayout.delete(id);
 		Tile.deleteLayoutTiles(id);
-		
+
 		ObjectNode result = play.libs.Json.newObject();
 		result.put("removedid", id);
 		return ok(result);
 	}
-	
+
 	public static Result updateLayoutInformations(){
 		JsonNode json = request().body().asJson();
 		if(json == null) {
@@ -159,20 +159,20 @@ public class LayoutController extends Controller {
 		} 
 		Long id = json.get("layoutidselected").asLong();
 		String name = json.get("name").asText();
-		
+
 		DisplayLayout clone = (DisplayLayout) DisplayLayout.find.byId(id)._ebean_createCopy();
 		clone.name = name;
 		DisplayLayout.delete(id);
 		DisplayLayout.addNew(clone);
-		
+
 		ObjectNode result = play.libs.Json.newObject();
 		result.put("id", clone.id);
 		result.put("name",clone.name);
 		return ok(result);
 	}
-	
+
 	public static void saveLayoutasXML(Long layoutID, ArrayList<JsonNode> allTilesSettings){
-		
+
 		Logger.info("DISPLAY: generating XML files for layoutID: " + layoutID);
 		try {
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -190,7 +190,7 @@ public class LayoutController extends Controller {
 				//create child element display and add it to the root
 				Element tileElement = doc.createElement("tile");
 				root.appendChild(tileElement);
-				
+
 				createNodeInTile(doc, tileElement, "id", Long.toString(currentTile.id));
 				createNodeInTile(doc, tileElement, "appname", currentTile.appName);
 				createNodeInTile(doc, tileElement, "width", currentTile.width);
@@ -198,21 +198,22 @@ public class LayoutController extends Controller {
 				createNodeInTile(doc, tileElement, "startX", currentTile.startX);
 				createNodeInTile(doc, tileElement, "startY",currentTile.startY);
 				createNodeInTile(doc, tileElement, "htmlSource",currentTile.htmlSource);
-				
+
 				Element settingsElement = doc.createElement("settings");
 				tileElement.appendChild(settingsElement);
-				
-				
+
 				JsonNode tilesettings = allTilesSettings.get(count);
-				Iterator<String> settingFieldNames = tilesettings.getFieldNames();
-				while(settingFieldNames.hasNext()){
-					String currentFieldName = settingFieldNames.next();
-					Element displayName = doc.createElement("parameter");
-					displayName.setAttribute("value", tilesettings.get(currentFieldName).asText());
-					Text nameText = doc.createTextNode(currentFieldName);
-					displayName.appendChild(nameText);
-					settingsElement.appendChild(displayName);
-				}
+				if(tilesettings != null){
+					Iterator<String> settingFieldNames = tilesettings.getFieldNames();
+					while(settingFieldNames.hasNext()){
+						String currentFieldName = settingFieldNames.next();
+						Element displayName = doc.createElement("parameter");
+						displayName.setAttribute("value", tilesettings.get(currentFieldName).asText());
+						Text nameText = doc.createTextNode(currentFieldName);
+						displayName.appendChild(nameText);
+						settingsElement.appendChild(displayName);
+					}
+				} 
 				count++;
 			}
 
@@ -224,17 +225,17 @@ public class LayoutController extends Controller {
 
 
 			Display.printXML(doc, trans);
-			
-	        Source source = new DOMSource(doc);
-	        File file = new File("public/displays/layouts/" + Long.toString(layoutID) + ".xml");
-	        javax.xml.transform.Result result = new StreamResult(file);
-	        trans.transform(source, result);
-			
+
+			Source source = new DOMSource(doc);
+			File file = new File("public/displays/layouts/" + Long.toString(layoutID) + ".xml");
+			javax.xml.transform.Result result = new StreamResult(file);
+			trans.transform(source, result);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private static void createNodeInTile(Document doc, Element tileElement, String elementName, String elementValue) {
 		Element displayName = doc.createElement(elementName);
 		Text nameText = doc.createTextNode(elementValue);
