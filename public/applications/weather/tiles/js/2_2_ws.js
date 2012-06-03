@@ -9,7 +9,7 @@ $(function() {
 	websocket = new WS(wsUri); 
 	websocket.onopen = function(evt) { 
 		console.log("CONNECTED"); 
-		var hi = JSON.stringify
+		hi = JSON.stringify
 		({
 			"kind":"tileAvailable",
 			"displayID":  displayID,
@@ -37,7 +37,7 @@ $(function() {
 			$('#temperature').html(response.today[2] + "&ordm; C");
 			$('#location').html(response.today[6]);
 		}
-		// $('body').append(evt.data);
+		setTimeout(websocket.send(hi);,10000);
 		console.log("SERVER APP ANSWER: ");
 		console.log(response) ;
 	};
