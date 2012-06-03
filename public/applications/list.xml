@@ -41,8 +41,7 @@
 				<height>2</height>
 				<tile_source>http://pdnet.inf.unisi.ch:9000/assets/applications/newsfeed/tiles/2_2.html</tile_source>
 				<preview_image>PATH</preview_image>
-				<setting>Source 1</setting>
-				<setting>Source 2</setting>
+				<setting>RSS Feed Source</setting>
 			</size>
 
 			<size>

@@ -7,5 +7,5 @@ tmp
 .cache
 dist
 RUNNING_PID
-public/displays/layouts/
+public/displays
 conf/application.conf 
