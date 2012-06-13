@@ -61,14 +61,12 @@ function loadDefaultParameters(tileID){
 	{
 		var currentTile = tiles[i];
 		var currentTileID = currentTile.getElementsByTagName("id")[0].childNodes[0].nodeValue;
-		console.log(currentTileID);
 		if (currentTileID == tileID){
 			var params = currentTile.getElementsByTagName("parameter");
-			console.log(currentTile);
 			for(var j=0; j<params.length;j++){
 				var paramName = params[j].childNodes[0].nodeValue;
 				var paramValue = params[j].getAttribute("value");
-				console.log(paramValue);
+				$("body").html("<img src='" + paramValue + "' />");
 			}
 		}
 	}
