@@ -251,6 +251,7 @@
                     var imgheight = 0;
                     theImage.load(function(){
                     	imgwidth     = $(this).width;
+                    	console.log(imgwidth);
                     	imgheight    = $(this).height; 
                     });
                     if((imgwidth > windowW)||(imgheight > windowH)){
