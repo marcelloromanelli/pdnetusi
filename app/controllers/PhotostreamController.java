@@ -97,6 +97,7 @@ public class PhotostreamController extends Controller {
 								//PhotostreamController.Tile tile = fromWStoTile.get(tileOut);
 								
 								ObjectNode response = Json.newObject();
+								response.put("kind", "mobileAnswer");
 								response.put("imgs", prefs);
 								tileOut.write(response);
 								

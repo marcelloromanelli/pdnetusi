@@ -25,7 +25,11 @@ $(function() {
 	websocket.onmessage = function(evt) { 
 		var response = jQuery.parseJSON(evt.data);
 		console.log(response);
+		$("#placeholder").hide();
 		$("#photos").show();
+		if (response.kind == "mobileAnswer"){
+			setTimeout("sendHiMessage();",5000);
+		}
 	};
 
 	websocket.onerror = function(evt) { 
@@ -34,6 +38,21 @@ $(function() {
   	
 
 });
+
+function sendHiMessage(){
+	var hi = JSON.stringify
+	({
+		"kind":"tileAvailable",
+		"displayID":  displayID,
+		"width": 8,
+		"height":5
+	});
+	websocket.send(hi);
+	console.log("SENDING HI MESSASGE");
+	console.log(hi);
+	console.log("\n\n");
+
+}
 
 function loadDefaultParameters(tileID){
 	var xmlhttp = new XMLHttpRequest();
@@ -68,7 +87,7 @@ function loadDefaultParameters(tileID){
 			for(var j=0; j<params.length;j++){
 				var paramName = params[j].childNodes[0].nodeValue;
 				var paramValue = params[j].getAttribute("value");
-				$("body").html("<img src='" + paramValue + "' />");
+				$("#placeholder").html("<img src='" + paramValue + "' />");
 			}
 		}
 	}
