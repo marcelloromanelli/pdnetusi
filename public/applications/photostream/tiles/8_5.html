@@ -247,13 +247,10 @@
                     var windowW      = 960-80;
                     var theImage     = $("<img>");
                     theImage.src     = $image.attr('src');
-                    var imgwidth = 0;
-                    var imgheight = 0;
-                    theImage.load(function(){
-                    	imgwidth     = $(this).width;
-                    	console.log(imgwidth);
-                    	imgheight    = $(this).height; 
-                    });
+                    
+                    var imgwidth = theImage.width();
+                    var imgheight = theImage.height();
+                    
                     if((imgwidth > windowW)||(imgheight > windowH)){
                         if(imgwidth > imgheight){
                             var newwidth = windowW;
