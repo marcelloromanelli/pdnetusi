@@ -5,7 +5,7 @@
 		<namespace>photostream</namespace>
 		<view>apps/photostream/view.html</view>
 		<websocket_address>http://pdnet.inf.unisi.ch:9000/photostream/socket</websocket_address>
-		<description>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</description>
+		<description>Shows galleries taken from Flickr when you pass by public displays</description>
 		<icon>images/photostream-icon.png</icon>
 		<preview-image>images/photostream.png</preview-image>
 		<sizes>
@@ -24,7 +24,7 @@
 				<preview_image>PATH</preview_image>
 				<setting>Default Image</setting>
 			</size>
-			
+
 			<size>
 				<width>8</width>
 				<height>5</height>
@@ -40,7 +40,7 @@
 		<namespace>newsfeed</namespace>
 		<view>apps/newsfeed/view.html</view>
 		<websocket_address>http://pdnet.inf.unisi.ch:9000/newsfeed/socket</websocket_address>
-		<description>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</description>
+		<description>Shows latest news of favorite your favorite topics when you pass by public displays</description>
 		<icon>images/feed-icon.png</icon>
 		<preview-image>images/newsfeed.png</preview-image>
 		<sizes>
@@ -67,7 +67,7 @@
 		<name>Weather</name>
 		<namespace>weather</namespace>
 		<websocket_address>http://pdnet.inf.unisi.ch:9000/weather/socket</websocket_address>
-		<description>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</description>
+		<description>Shows weather of favorite location when you pass by public displays</description>
 		<view>apps/weather/view.html</view>
 		<icon>images/weather-icon.png</icon>
 		<preview-image>images/weather.png</preview-image>
@@ -113,15 +113,13 @@
 
 			<preview_image>PATH</preview_image>
 		</size>
-
 	</app>
-	
+
 	<app>
 		<name>Slideshow</name>
 		<namespace>slideshow</namespace>
 		<link>http://pdnet.inf.unisi.ch:9000/mobile/slideshow</link>
 		<websocket_address> WS ADDRESS 4 </websocket_address>
-
 		<description>Slideshow for tomorrow presentation</description>
 
 		<size>
@@ -130,10 +128,5 @@
 			<tile_source>http://pdnet.inf.unisi.ch:9000/assets/applications/slideshow/tiles/index.html</tile_source>
 			<preview_image>PATH</preview_image>
 		</size>
-
 	</app>
 </apps>
-
-
-
-
