@@ -9,8 +9,10 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.node.ObjectNode;
 
 import play.Logger;
+import play.libs.Json;
 import play.libs.F.Callback;
 import play.libs.F.Callback0;
 import play.mvc.Controller;
@@ -62,15 +64,15 @@ public class PhotostreamController extends Controller {
 							String location = event.get("preference").asText();
 							processInput(displayID, username, location, false);
 						} else if(messageKind.equals("defaultRequest")){
-							String location = event.get("preference").asText();
-							processInput(displayID, "default", location, true);
+							String prefs = event.get("preference").asText();
+							processInput(displayID, "default", prefs, true);
 						}else {
 							Logger.info("WTF: " + event.toString());
 						}
 
 					}
 
-					private void processInput(String displayID,String username, String location, boolean isDefault) {
+					private void processInput(String displayID,String username, String prefs, boolean isDefault) {
 						try {
 							Out<JsonNode> tileOut = null;
 							if(isDefault){
@@ -87,14 +89,16 @@ public class PhotostreamController extends Controller {
 								Logger.info(
 										"\n ******* MESSAGE RECIEVED *******" +
 												"\n" + username + " on " + displayID +
-												"\nrequest weather of " + location +
+												"\nwants images" +
 												"\n*********************************"
 										);
 
 								
-								PhotostreamController.Tile tile = fromWStoTile.get(tileOut);
+								//PhotostreamController.Tile tile = fromWStoTile.get(tileOut);
 								
-								// DO SOMETHING
+								ObjectNode response = Json.newObject();
+								response.put("imgs", prefs);
+								tileOut.write(response);
 								
 								if(!isDefault){
 									removeTileFromAvailable(tileOut);
