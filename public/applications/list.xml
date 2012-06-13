@@ -24,6 +24,14 @@
 				<preview_image>PATH</preview_image>
 				<setting>Default Image</setting>
 			</size>
+			
+			<size>
+				<width>8</width>
+				<height>5</height>
+				<tile_source>http://pdnet.inf.unisi.ch:9000/assets/applications/photostream/tiles/8_5.html</tile_source>
+				<preview_image>PATH</preview_image>
+				<setting>Default Image</setting>
+			</size>
 		</sizes>
 	</app>
 

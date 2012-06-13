@@ -143,6 +143,13 @@ html,body {
 		url(http://placehold.it/120x120/d66000/FFFFFF&text=4x4);
 }
 
+.photostream_8_5 {
+	width: 480px;
+	height: 300px;
+	background-image:
+		url(http://placehold.it/120x120/d66000/FFFFFF&text=8x5);
+}
+
 /* WEATHER  */
 .weather_2_2 {
 	width: 120px;
