@@ -87,7 +87,7 @@
                         if($('#wrapper').find('img').length) return;
                         current 	= $this.index();
                         var $theImage   = $(this);
-                        console.log($theImage.width);
+                        console.log("WIDTH: " + $theImage.width);
                         /*
                         After it's loaded we hide the loading icon
                         and resize the image, given the window size;
@@ -249,7 +249,6 @@
                     theImage.src     = $image.attr("src");
                     var imgwidth     = theImage.width;
                     var imgheight    = theImage.height;
-                    console.log("WIDHT " + imgwidth);
                     if((imgwidth > windowW)||(imgheight > windowH)){
                         if(imgwidth > imgheight){
                             var newwidth = windowW;
