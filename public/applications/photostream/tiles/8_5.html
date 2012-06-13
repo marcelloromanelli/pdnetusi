@@ -241,8 +241,8 @@
                 considering the margin values
                  */
                 function resize($image){
-                    var windowH      = $(window).height()-100;
-                    var windowW      = $(window).width()-80;
+                    var windowH      = 600-100;
+                    var windowW      = 960-80;
                     var theImage     = new Image();
                     theImage.src     = $image.attr("src");
                     var imgwidth     = theImage.width;
@@ -278,7 +278,7 @@
                             }
                         }
                     }
-                    //$image.css({'width':theImage.width+'px','height':theImage.height+'px'});
+                    $image.css({'width':theImage.width+'px','height':theImage.height+'px'});
                 }
             });
         </script>
