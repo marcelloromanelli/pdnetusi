@@ -156,24 +156,6 @@ public class NewsFeedController extends Controller {
 						}
 						fromWStoDisplayID.put(out, displayID);
 						fromWStoTile.put(out, new Tile(new Integer(width), new Integer(height)));
-					}
-
-					private ArrayList<String> processAttributes(Node currentForecast, String location) {
-						NodeList list = currentForecast.getChildNodes(); 
-						int length = list.getLength();
-						ArrayList<String> info = new ArrayList<String>();
-						if (length > 0) { 
-							// Loop over the attributes and add them to an
-							// arraylist
-							for (int i = 0; i < length; i++){
-								Node currentInfo = list.item(i);
-								NamedNodeMap attrs = currentInfo.getAttributes();
-								Attr attribute = (Attr) attrs.item(0);
-								info.add(attribute.getValue());
-							}
-						}
-						info.add(location);
-						return info;
 					} 
 				});
 
