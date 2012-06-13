@@ -42,7 +42,7 @@
 		</div>
 	</div>
         <script type="text/javascript">
-            $(window).load(function() {
+            $(function() {
                 /* this is the index of the last clicked picture */
                 var current = -1;
                 /* number of pictures */
@@ -242,13 +242,12 @@
                 considering the margin values
                  */
                 function resize($image){
-                    console.log("RESIZE: " + $image);
                     var windowH      = $(window).height()-100;
                     var windowW      = $(window).width()-80;
                     var theImage     = new Image();
                     theImage.src     = $image.attr("src");
-                    var imgwidth     = theImage.width;
-                    var imgheight    = theImage.height;
+                    var imgwidth     = theImage.width();
+                    var imgheight    = theImage.height();
                     
                     
                     if((imgwidth > windowW)||(imgheight > windowH)){
