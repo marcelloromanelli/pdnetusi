@@ -26,7 +26,8 @@ $(function() {
 		var response = jQuery.parseJSON(evt.data);
 		var imgs = jQuery.parseJSON(response.imgs);
 		$.each(imgs, function(index, value) { 
-			  $("#content").prepend("<img src='" + value[1] +"' alt='" + value[0] + "' title=""/>");
+			console.log(value);
+//			  $("#content").prepend("<img src='" + value[1] +"' alt='" + value[0] + "' title=""/>");
 			});
 		
 		$("#placeholder").hide();
