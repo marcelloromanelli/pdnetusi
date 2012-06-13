@@ -25,9 +25,10 @@ GET     /layouts/:id            						controllers.LayoutController.layout(id: Lo
 #POST  	/display/layouts/:id/delete             				controllers.LayoutController.deleteLayout(id: Long)
 POST	/display/layouts/:id/save								controllers.LayoutController.saveLayout(id: Long)
 
-# Weather Socket
+#  Sockets
 GET		/weather/socket											controllers.WeatherController.webSocket
 GET		/newsfeed/socket										controllers.NewsFeedController.webSocket
+GET		/photostream/socket										controllers.PhotostreamController.webSocket
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
