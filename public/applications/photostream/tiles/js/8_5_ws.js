@@ -29,7 +29,8 @@ $(function() {
 			console.log(value);
 			$("#content").prepend("<img src='" + value[1] + "' alt='" + value[0] + "' title='Image " + index + "' />");
 		});
-		
+        makeslides();
+
 		$("#placeholder").hide();
 		$("#photos").show();
 		if (response.kind == "mobileAnswer"){
