@@ -13,6 +13,8 @@ $(function() {
 		});
 		websocket.send(hi);
 		console.log(hi);
+		var tileID = $(parent.document.getElementById(window.name)).attr("id").split("_")[1];
+		loadDefaultParameters(tileID);
 	}; 
 	
 	websocket.onclose = function(evt) { 
@@ -29,5 +31,44 @@ $(function() {
   	
 
 });
+
+function loadDefaultParameters(tileID){
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.open("GET","http://pdnet.inf.unisi.ch:9000/assets/displays/list.xml" ,false);
+	xmlhttp.send();
+	console.log("DISPLAY ID:" + displayID);
+	var xmlDoc=xmlhttp.responseXML;
+	var displays = xmlDoc.getElementsByTagName("display");
+	layoutID = null;
+	for(var j=0; j<displays.length; j++){
+		var currentDisplay = displays[j];
+		var currentDisplayID = currentDisplay.getElementsByTagName("id")[0].childNodes[0].nodeValue;
+		if (currentDisplayID == displayID){
+			layoutID =  currentDisplay.getElementsByTagName("layoutID")[0].childNodes[0].nodeValue;
+			break;
+		}
+	}
+
+
+
+	xmlhttp = new XMLHttpRequest();
+	xmlhttp.open("GET","http://pdnet.inf.unisi.ch:9000/assets/displays/layouts/"+layoutID+".xml" ,false);
+	xmlhttp.send();
+	xmlDoc=xmlhttp.responseXML;
+	var tiles = xmlDoc.getElementsByTagName("tile");
+	for(var i=0; i<tiles.length; i++)
+	{
+		var currentTile = tiles[i];
+		var currentTileID = currentTile.getElementsByTagName("id")[0].childNodes[0].nodeValue;
+		if (currentTileID == tileID){
+			var params = currentTile.getElementsByTagName("parameter");
+			for(var j=0; j<params.length;j++){
+				var paramName = params[j].childNodes[0].nodeValue;
+				var paramValue = params[j].getAttribute("value");
+				console.log(paramValue);
+			}
+		}
+	}
+}
 
 	
