@@ -7,15 +7,7 @@ $(function() {
 	websocket = new WS(wsUri); 
 	websocket.onopen = function(evt) { 
 		console.log("--- TILE CONNECTION ---"); 
-		var hi = JSON.stringify
-		({
-			"kind":"tileAvailable",
-			"displayID":  displayID,
-			"width": 4,
-			"height":4
-		});
-		websocket.send(hi);
-		console.debug(hi);
+		sendHiMessage();
 		console.log("--- TILE CONNECTION FINISHED ---"); 
 
 		console.log("\n\nLOADING DEFAULTS FOR " + tileID);
@@ -58,6 +50,9 @@ $(function() {
 		$('#weather_img_day3').attr('src','img/' + lowerWithoutSpaces(day3[4]) + '.png');
 		$("#desc_day3").html(day3[4]);		
 		
+		if (response.kind == "mobileAnswer"){
+			setTimeout("sendHiMessage();",5000);
+		}
 		
 		console.log(response) ;
 	};
@@ -68,6 +63,20 @@ $(function() {
   	
 });
 
+function sendHiMessage(){
+	var hi = JSON.stringify
+	({
+		"kind":"tileAvailable",
+		"displayID":  displayID,
+		"width": 4,
+		"height":4
+	});
+	websocket.send(hi);
+	console.log("SENDING HI MESSASGE");
+	console.log(hi);
+	console.log("\n\n");
+
+}
 
 function loadDefaultParameters(tileID){
 	var xmlhttp = new XMLHttpRequest();

@@ -9,18 +9,7 @@ $(function() {
 	websocket = new WS(wsUri); 
 	websocket.onopen = function(evt) { 
 		console.log("CONNECTED"); 
-		var hi = JSON.stringify
-		({
-			"kind":"tileAvailable",
-			"displayID":  displayID,
-			"width": 2,
-			"height":2
-		});
-		websocket.send(hi);
-		console.log("SENDING HI MESSASGE");
-		console.log(hi);
-		console.log("\n\n");
-
+		sendHiMessage();
 		console.log("LOADING DEFAULTS FOR " + tileID);
 		loadDefaultParameters(tileID);
 	}; 
@@ -58,6 +47,10 @@ function sendHiMessage(){
 		"height":2
 	});
 	websocket.send(hi);
+	console.log("SENDING HI MESSASGE");
+	console.log(hi);
+	console.log("\n\n");
+
 }
 
 function loadDefaultParameters(tileID){
