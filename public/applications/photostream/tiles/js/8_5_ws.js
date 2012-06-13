@@ -27,8 +27,8 @@ $(function() {
 		var imgs = jQuery.parseJSON(response.imgs);
 		$.each(imgs, function(index, value) { 
 			console.log(value);
-//			  $("#content").prepend("<img src='" + value[1] +"' alt='" + value[0] + "' title=""/>");
-			});
+			$("#content").append("<img src='" + value[1] + "' alt='" + value[0] + "' title='' />");
+		});
 		
 		$("#placeholder").hide();
 		$("#photos").show();
