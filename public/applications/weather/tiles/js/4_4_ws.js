@@ -32,10 +32,10 @@ $(function() {
 		
 		var today = response.today;
 		$('#weather_img_today').attr('src','img/' + lowerWithoutSpaces(today[0]) + '.png');
-		$('#info').append("<h6>Now in " + today[6] + "<h6>");
-		$('#info').append("<h6>" + today[2] + "&ordm; C" + "</h6>");
-		$('#info').append("<h6>" + today[3] + "</h6>");
-		$('#info').append("<h6>" + today[5] + "</h6>");
+		$('#info').html("<h6>Now in " + today[6] + "<h6>");
+		$('#info').html("<h6>" + today[2] + "&ordm; C" + "</h6>");
+		$('#info').html("<h6>" + today[3] + "</h6>");
+		$('#info').html("<h6>" + today[5] + "</h6>");
 		
 		
 		var day0 = response.day0;

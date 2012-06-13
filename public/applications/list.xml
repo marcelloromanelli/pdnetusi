@@ -82,7 +82,7 @@
 		</sizes>
 	</app>
 
-	<!-- <app>
+	<app>
 		<name>Live scores</name>
 		<namespace>livescores</namespace>
 		<link>http://pdnet.inf.unisi.ch:9000/mobile/livescores</link>
@@ -106,7 +106,7 @@
 			<preview_image>PATH</preview_image>
 		</size>
 
-	</app> -->
+	</app>
 </apps>
 
 
