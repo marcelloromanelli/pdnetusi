@@ -87,6 +87,7 @@
                         if($('#wrapper').find('img').length) return;
                         current 	= $this.index();
                         var $theImage   = $(this);
+                        console.log($theImage);
                         /*
                         After it's loaded we hide the loading icon
                         and resize the image, given the window size;
@@ -241,7 +242,7 @@
                 considering the margin values
                  */
                 function resize($image){
-                    console.log($image);
+                    console.log("RESIZE: " + $image);
                     var windowH      = 600-100;
                     var windowW      = 960-80;
                     var theImage     = new Image();
