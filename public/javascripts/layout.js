@@ -12,7 +12,7 @@ function createApp(appName, id, startX, startY, width, height,htmlSource){
 		left: startX*SIZE+'px',
 		top: startY*SIZE+'px',
 		width: width*SIZE+'px',
-		height: width*SIZE+'px',
+		height: height*SIZE+'px',
 		border: "0"
 	});	
 
