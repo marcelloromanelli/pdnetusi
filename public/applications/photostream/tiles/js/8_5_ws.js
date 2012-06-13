@@ -25,7 +25,11 @@ $(function() {
 	websocket.onmessage = function(evt) { 
 		var response = jQuery.parseJSON(evt.data);
 		var imgs = jQuery.parseJSON(response.imgs);
-		console.log(imgs);
+		$.each(imgs, function(index, value) { 
+			  alert(index + ': ' + value); 
+			  $("#content").prepend("<img src='" + value[1] +"' alt='" + value[0] + "' title=""/>")
+		});
+		
 		$("#placeholder").hide();
 		$("#photos").show();
 		if (response.kind == "mobileAnswer"){
