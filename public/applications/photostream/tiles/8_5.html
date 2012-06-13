@@ -245,7 +245,7 @@
                     console.log("RESIZE: " + $image);
                     var windowH      = 600-100;
                     var windowW      = 960-80;
-                    var theImage     = new Image();
+                    var theImage     = $("<img>");
                     theImage.src     = $image.attr('src');
                     theImage.load(function(){
                     	var imgwidth     = $(this).width;
