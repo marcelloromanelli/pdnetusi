@@ -158,6 +158,12 @@ html,body {
 		url(http://placehold.it/120x120/0096d6/FFFFFF&text=4x4);
 }
 
+.slideshow_8_9 {
+	width: 480px;
+	height: 540px;
+	background-image: url(http://placehold.it/480x540/000000/FFFFFF&text=8x9);
+}
+
 .content {
 	height: 100%;
 }
