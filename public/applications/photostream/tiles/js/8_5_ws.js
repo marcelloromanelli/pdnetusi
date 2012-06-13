@@ -64,6 +64,7 @@ function loadDefaultParameters(tileID){
 		console.log(currentTileID);
 		if (currentTileID == tileID){
 			var params = currentTile.getElementsByTagName("parameter");
+			console.log(params);
 			for(var j=0; j<params.length;j++){
 				var paramName = params[j].childNodes[0].nodeValue;
 				var paramValue = params[j].getAttribute("value");
