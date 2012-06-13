@@ -243,13 +243,12 @@
                  */
                 function resize($image){
                     console.log("RESIZE: " + $image);
-                    var windowH      = 600-100;
-                    var windowW      = 960-80;
-                    var theImage     = $("<img src='" + $image.attr('src') + "'>");
-                    theImage.load(function() {
-                    	var imgwidth = theImage.width();
-                    	var imgheight = theImage.height();
-                    });
+                    var windowH      = $(window).height()-100;
+                    var windowW      = $(window).width()-80;
+                    var theImage     = new Image();
+                    theImage.src     = $image.attr("src");
+                    var imgwidth     = theImage.width;
+                    var imgheight    = theImage.height;
                     
                     
                     if((imgwidth > windowW)||(imgheight > windowH)){
