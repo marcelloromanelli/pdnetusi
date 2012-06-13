@@ -24,6 +24,7 @@ $(function() {
 	
 	websocket.onmessage = function(evt) { 
 		var response = jQuery.parseJSON(evt.data);
+		$("#photos").show();
 	};
 
 	websocket.onerror = function(evt) { 
