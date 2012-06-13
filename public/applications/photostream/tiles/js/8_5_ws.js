@@ -50,7 +50,7 @@ function loadDefaultParameters(tileID){
 		}
 	}
 
-
+	
 
 	xmlhttp = new XMLHttpRequest();
 	xmlhttp.open("GET","http://pdnet.inf.unisi.ch:9000/assets/displays/layouts/"+layoutID+".xml" ,false);
@@ -61,6 +61,7 @@ function loadDefaultParameters(tileID){
 	{
 		var currentTile = tiles[i];
 		var currentTileID = currentTile.getElementsByTagName("id")[0].childNodes[0].nodeValue;
+		console.log(currentTileID);
 		if (currentTileID == tileID){
 			var params = currentTile.getElementsByTagName("parameter");
 			for(var j=0; j<params.length;j++){
