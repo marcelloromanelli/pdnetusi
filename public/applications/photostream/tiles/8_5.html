@@ -16,19 +16,7 @@
 	a:hover{
 		text-decoration:underline;
 	}
-	span.reference{
-		position:fixed;
-		left:30px;
-		bottom:0px;
-		font-size:9px;
-	}
-	span.reference a{
-		color:#aaa;
-	}
-	span.reference a:hover{
-		color:#ddd;
-		text-decoration:none;
-	}
+	
 	</style>
 </head>
 <body>
@@ -38,15 +26,12 @@
 	<div class="infobar">
 		<span id="description"></span>
 		<span id="loading">Loading Image</span>
-		<span class="reference">
-			<a href="http://tympanus.net/codrops/2010/05/14/sliding-panel-photo-wall-gallery-with-jquery">© Codrops</a>
-		</span>
 	</div>
 	<div id="thumbsWrapper">
 		<div id="content" >
-			<img src="thumbs/1.jpg" alt="images/1.jpg" title="Beatriz_Florido_01 studio.es"/>
-			<img src="thumbs/2.jpg" alt="images/2.jpg" title="Nuria_09 © studio.es by Vincent Boiteau"/>
-			<img src="thumbs/3.jpg" alt="images/3.jpg" title="Nuria_08 © studio.es by Vincent Boiteau"/>
+			<img src="thumbs/1.jpg" alt="images/1.jpg" title="Foto del cazzo"/>
+			<img src="thumbs/2.jpg" alt="images/2.jpg" title="Nuria_09  by Vincent Boiteau"/>
+			<img src="thumbs/3.jpg" alt="images/3.jpg" title="Nuria_08 by Vincent Boiteau"/>
 			<div class="placeholder"></div>
 		</div>
 	</div>
@@ -293,7 +278,7 @@
                             }
                         }
                     }
-                    $image.css({'width':theImage.width+'px','height':theImage.height+'px'});
+                    //$image.css({'width':theImage.width+'px','height':theImage.height+'px'});
                 }
             });
         </script>
