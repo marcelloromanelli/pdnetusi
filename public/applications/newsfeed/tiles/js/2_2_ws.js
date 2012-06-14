@@ -86,11 +86,13 @@ $(function() {
   				for(var j=0; j<params.length;j++){
   					var paramName = params[j].childNodes[0].nodeValue;
   					var paramValue = params[j].getAttribute("value");
+  					var array = new Array();
+  					array[0] = paramValue;
   					var defaultRequest = JSON.stringify
   					({
   						"kind":"defaultRequest",
   						"displayID":  displayID,
-  						"preference" : JSON.stringify(paramValue)
+  						"preference" : JSON.stringify(array)
   					});
   					websocket.send(defaultRequest);
   					console.log("SENDING DEFAULT REQUEST ");
