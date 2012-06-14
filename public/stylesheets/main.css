@@ -5,6 +5,7 @@ html,body {
 /* 	background-image: url('../images/wood.jpeg');
 	background-repeat: repeat;*/
 	background-color: #A89898;
+	user-select: none;
 }
 
 .container h1 {
