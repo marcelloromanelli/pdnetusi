@@ -107,6 +107,11 @@ public class NewsFeedController extends Controller {
 									}
 								}
 								JsonNode jsonFeedsTitles = Json.toJson(feedsTitles);
+								if(isDefault){
+									response.put("kind", "default");
+								} else {
+									response.put("kind", "mobileAnswer");
+								}
 								response.put("feeds", jsonFeedsTitles);
 								tileOut.write(response);
 								if(!isDefault){
