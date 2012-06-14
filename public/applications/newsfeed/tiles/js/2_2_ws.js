@@ -90,7 +90,7 @@ $(function() {
   					({
   						"kind":"defaultRequest",
   						"displayID":  displayID,
-  						"preference" : {paramValue}
+  						"preference" : JSON.stringify(paramValue)
   					});
   					websocket.send(defaultRequest);
   					console.log("SENDING DEFAULT REQUEST ");
