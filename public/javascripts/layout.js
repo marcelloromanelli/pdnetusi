@@ -14,7 +14,6 @@ function createApp(appName, id, startX, startY, width, height,htmlSource){
 		width: width*SIZE+'px',
 		height: height*SIZE+'px',
 		border: "0",
-        user-select: 'none'
 	});	
 
 	tile.css('background-color','red');
