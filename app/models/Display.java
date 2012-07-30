@@ -41,15 +41,9 @@ public class Display extends Model{
 	@Required
 	public String name;
 
-	public Integer width;
-
-	public Integer height;
-
 	public Float latitude;
 
 	public Float longitude;
-
-	public Long currentLayoutID;
 
 
 	public static Finder<Long,Display> find = new Finder<Long, Display>(Long.class, Display.class);
@@ -97,11 +91,7 @@ public class Display extends Model{
 
 				createNodeInDisplay(doc, displayElement, "id", Long.toString(currentDisplay.id));
 
-				createNodeInDisplay(doc, displayElement, "layoutID", Long.toString(currentDisplay.currentLayoutID));
-
 				createNodeInDisplay(doc, displayElement, "name", currentDisplay.name);
-				createNodeInDisplay(doc, displayElement, "width", Integer.toString(currentDisplay.width));
-				createNodeInDisplay(doc, displayElement, "height", Integer.toString(currentDisplay.height));
 				createNodeInDisplay(doc, displayElement, "latitude", Float.toString(currentDisplay.latitude));
 				createNodeInDisplay(doc, displayElement, "longitude", Float.toString(currentDisplay.longitude));
 
@@ -150,7 +140,6 @@ public class Display extends Model{
 	public static void updateLayout(Long layoutid, Long displayid){
 		
 		Display clone = (Display) find.byId(displayid)._ebean_createCopy();
-		clone.currentLayoutID = layoutid;
 		Display.delete(displayid);
 		Display.addNew(clone);
 	}
@@ -160,19 +149,18 @@ public class Display extends Model{
 	public Display(Long id, String name, Integer width, Integer height, Float latitude, Float longitude, Long currentLayoutID) {
 		this.id = id;
 		this.name = name;
-		this.width = width;
-		this.height = height;
 		this.latitude = latitude;
 		this.longitude = longitude;
-		this.currentLayoutID = currentLayoutID;
 	}
 
 	@Override
 	public String toString() {
-		return "Display [id=" + id + ", name=" + name + ", width=" + width
-				+ ", height=" + height + ", latitude=" + latitude
-				+ ", longitude=" + longitude + ", currentLayoutID="
-				+ currentLayoutID + "]";
+		return "Display [" +
+				"id=" + id + 
+				", name=" + name 
+				+ ", latitude=" + latitude
+				+ ", longitude=" + longitude 
+				+ "]";
 	}
 
 }

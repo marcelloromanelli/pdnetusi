@@ -12,5 +12,9 @@ public class Application extends Controller {
 	public static Result index() {
 		return ok(views.html.index.render(Display.all()));
 	}
+	
+	public static Result manager() {
+		return ok(views.html.manager.render(Display.all()));
+	}
 
 }

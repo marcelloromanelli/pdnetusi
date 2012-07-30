@@ -6,6 +6,7 @@
 GET     	/                           						controllers.Application.index()
 
 # Manager
+GET			/manager											controllers.Application.manager()
 POST		/manager/updatedisplay								controllers.DisplayController.updateDisplayInformations()
 POST		/manager/deletedisplay								controllers.DisplayController.removeDisplay()
 POST		/manager/newdisplay									controllers.DisplayController.newDisplay()

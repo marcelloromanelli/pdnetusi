@@ -66,15 +66,11 @@ public class DisplayController extends Controller {
 				
 				Long displayid = json.get("displayid").asLong();
 				String name = json.get("name").asText();
-				Integer width = json.get("width").asInt();
-				Integer height = json.get("height").asInt();
 				Float latitude = new Float(json.get("latitude").asText());
 				Float longitude = new Float(json.get("longitude").asText());
 				
 				Display clone = (Display) Display.find.byId(displayid)._ebean_createCopy();
 				clone.name = name;
-				clone.width = width;
-				clone.height = height;
 				clone.latitude = latitude;
 				clone.longitude = longitude;
 				
@@ -83,11 +79,8 @@ public class DisplayController extends Controller {
 				
 				result.put("id", clone.id);
 				result.put("name", clone.name);
-				result.put("width", clone.width);
-				result.put("height", clone.height);
 				result.put("latitude", clone.latitude);
 				result.put("longitude", clone.longitude);
-				result.put("layoutid", clone.currentLayoutID);
 
 				return ok(result);
 			} 
@@ -123,16 +116,12 @@ public class DisplayController extends Controller {
 		else {
 			Logger.info(json.toString());
 			String name = json.get("name").asText();
-			String width = json.get("width").asText();
-			String height = json.get("height").asText();
 			String latitude = json.get("latitude").asText();
 			String longitude = json.get("longitude").asText();
 			
 			Form<Display> filledForm = form(Display.class);
 			Map<String,String> anyData = new HashMap<String, String>();
 			anyData.put("name", name);
-			anyData.put("width", width);
-			anyData.put("height", height);
 			anyData.put("latitude", latitude);
 			anyData.put("longitude", longitude);
 			
@@ -145,8 +134,6 @@ public class DisplayController extends Controller {
 			ObjectNode result = play.libs.Json.newObject();
 			result.put("id", res.id);
 			result.put("name", name);
-			result.put("width", width);
-			result.put("height", height);
 			result.put("latitude", latitude);
 			result.put("longitude", longitude);
 			return ok(result);
