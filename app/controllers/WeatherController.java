@@ -59,6 +59,7 @@ public class WeatherController extends Controller {
 						}
 
 						if(messageKind.equals("appReady")){
+							
 							// Can be either small or big
 							String size = event.get("size").asText();
 							
@@ -72,12 +73,21 @@ public class WeatherController extends Controller {
 							
 							Logger.info(
 									"\n ******* MESSAGE RECIEVED *******" +
-											"\n The "+ size + " view of \n" +
-											"weather app is now available on displayID: " + displayID +
-											"\n*********************************"
+									"\n The "+ size + " view of \n" +
+									"weather app is now available on displayID: " + displayID +
+									"\n*********************************"
 									);
 
 						} else if(messageKind.equals("mobileRequest")){
+							Integer spacesLeft = status.get(displayID);
+							if(spacesLeft > 0){
+								// DO SOMETHING
+								
+								status.put(displayID, spacesLeft-1);
+								Logger.info(status.toString());
+							}
+							
+							
 							String username = event.get("username").asText();
 							String location = event.get("preference").asText();
 							//							processInput(displayID, username, location, false);
