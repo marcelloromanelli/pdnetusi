@@ -1,47 +1,57 @@
 @(displayID: String, displayName: String) 
 
 @main("Showing " + displayName) {
-
-	<div id="onError" style="display:none"><span></span></div>
-
-	<script src="@routes.Assets.at("javascripts/layout.js")" type="text/javascript"></script>
-	<script type="text/javascript">
+	
+  <script type="text/javascript">
 	$(function() { 
-	var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
-	var wsUri = "ws://pdnet.inf.unisi.ch:9000/display/socket";
-	websocket = new WS(wsUri); 
-	websocket.onopen = function(evt) { 
-		console.log("DISPLAY ID " + "@displayID" + " CONNECTED");
-		var hi = JSON.stringify
-		({
-			"displayID":  "@displayID"
-		});
-		websocket.send(hi);
-	}; 
-
-	websocket.onclose = function(evt) { 
-		var bye = JSON.stringify
-		({
-			"displayID":  displayID
-		});
-		websocket.send(bye);
-	};
-
-	websocket.onmessage = function(evt) { 
-		console.log(evt.data) ;
-	};
-
-	websocket.onerror = function(evt) { 
-		console.log(evt.data); 
-	}; 
-
-	// Creates the tiles
-
+		var WS = WebSocket;
+		var wsUri = "ws://pdnet.inf.unisi.ch:9000/display/socket";
+		websocket = new WS(wsUri); 
+		websocket.onopen = function(evt) { 
+			console.log("DISPLAY ID " + "@displayID" + " CONNECTED");
+			var hi = JSON.stringify
+			({
+				"displayID":  "@displayID"
+			});
+			websocket.send(hi);
+		}; 
+	
+		websocket.onclose = function(evt) { 
+			var bye = JSON.stringify
+			({
+				"displayID":  "@displayID"
+			});
+			websocket.send(bye);
+		};
+	
+		websocket.onmessage = function(evt) { 
+			console.log(evt.data) ;
+		};
+	
+		websocket.onerror = function(evt) { 
+			console.log(evt.data); 
+		}; 
 	});
 	</script>
 
+	
+
+	<div id="left">
+		<iframe id="leftsmall" src="weather/wheatersmall.html"></iframe>
+		<iframe id="leftbig" src="weather/wheaterbig.html" style="display: none;"></iframe>
+	</div>
+
+	<div id="bar"></div>
+
+	<div id="right">
+		<iframe id="rightsmall" src="news/newssmall.html" style="display: none;"></iframe>
+		<iframe id="rightbig" src="news/newsbig.html" ></iframe>
+	</div>
 
 
-
-
-	}
+	<div id="extra-apps" style="left: 0;">
+			<div id="app1" class="extra-app first">APP1</div>
+			<div id="app2" class="extra-app">APP2</div>
+			<div id="app3" class="extra-app last">APP3</div>
+	</div>
+}
