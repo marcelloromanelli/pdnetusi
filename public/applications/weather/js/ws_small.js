@@ -32,18 +32,18 @@ $(function() {
 
 });
 
+
+/* Send initial message to the websocket of the
+ * corresponding app in order to notify its availability.
+ */
 function sendHiMessage(){
 	var hi = JSON.stringify
 	({
-		"kind":"tileAvailable",
+		"kind":"appReady",
 		"displayID":  displayID,
 		"size": "small"
 	});
 	websocket.send(hi);
-	console.log("SENDING HI MESSASGE");
-	console.log(hi);
-	console.log("\n\n");
-
 }
 
 function loadDefaultParameters(tileID){
