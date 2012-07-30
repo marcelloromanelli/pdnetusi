@@ -3,28 +3,14 @@
  */
 package controllers;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.node.ObjectNode;
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import play.Logger;
 import play.libs.F.Callback;
 import play.libs.F.Callback0;
-import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.WebSocket;
 /**
@@ -32,7 +18,11 @@ import play.mvc.WebSocket;
  */
 public class WeatherController extends Controller {
 
+	public static Integer MAX_REQUEST = 3;
+	
+	public static HashMap<String, ArrayList<WebSocket.Out<JsonNode>>> sockets = new HashMap<String, ArrayList<WebSocket.Out<JsonNode>>>();
 
+	
 	public static WebSocket<JsonNode> webSocket() {
 		return new WebSocket<JsonNode>() {
 
