@@ -14,9 +14,7 @@
 									<tr>
 										<th>ID</th>
 										<th>Name</th>
-										<th>Size</th>
 										<th>Position</th>
-										<th>Layout ID</th>
 									</tr>
 								</thead>
 								<tbody id="displayTable">
@@ -25,16 +23,12 @@
 										onclick="selectDisplay(@display.id,this)" 
 										onDblClick="modify(@display.id,
 										'@display.name',
-										@display.width,
-										@display.height,
 										@display.latitude,
 										@display.longitude
 										);">
 										<td>@display.id</td>
 										<td>@display.name</td>
-										<td>@display.width x @display.height</td>
 										<td>@display.latitude , @display.longitude</td>
-										<td>@if(display.currentLayoutID==null){NONE}else{@display.currentLayoutID}</td>
 									</tr>
 								}
 							</tbody>
@@ -44,12 +38,6 @@
 						<div id="displaymodify" class="backform">
 							<label>Display name</label>
 							<input type="text" class="span3" id="displayformname"><br/><br/>
-
-							<label>Width</label>
-							<input type="text" class="span3" id="displayformwidth"><br/><br/>
-
-							<label>Height</label>
-							<input type="text" class="span3" id="displayformheight"><br/><br/>
 
 							<label>Latitude</label>
 							<input type="text" class="span3" id="displayformlatitude"><br/><br/>	
@@ -65,12 +53,6 @@
 						<div id="displaynew" class="backform">
 							<label>Display name</label>
 							<input type="text" class="span3" id="displayformnamen"><br/><br/>
-
-							<label>Width</label>
-							<input type="text" class="span3" id="displayformwidthn"><br/><br/>
-
-							<label>Height</label>
-							<input type="text" class="span3" id="displayformheightn"><br/><br/>
 
 							<label>Latitude</label>
 							<input type="text" class="span3" id="displayformlatituden"><br/><br/>	
