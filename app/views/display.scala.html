@@ -35,7 +35,40 @@
 	</script>
 
 	
+	<script type="text/javascript">
+	// On document ready
+	isLeftCollapsed = true;
 
+	$(function(){
+
+		$("#bar").click(function(){
+			if(isLeftCollapsed){
+				$("#left").animate({width: '70%'});
+				$("#right").animate({width: '28.5%'});
+				
+				$("#leftsmall").fadeOut();
+				$("#leftbig").fadeIn();
+
+				$("#rightbig").fadeOut();
+				$("#rightsmall").fadeIn();
+				
+				isLeftCollapsed = false;
+			} else {
+				$("#right").animate({width: '70%'});
+				$("#left").animate({width: '28.5%'});
+
+				$("#leftbig").fadeOut();
+				$("#leftsmall").fadeIn();
+
+				$("#rightbig").fadeIn();
+				$("#rightsmall").fadeOut();
+
+				isLeftCollapsed = true;
+			}
+		});
+
+	});
+	</script>
 	<div id="left">
 		<iframe id="leftsmall" src="assets/applications/weather/wheatersmall.html"></iframe>
 		<iframe id="leftbig" src="assets/applications/weather/wheaterbig.html" style="display: none;"></iframe>
