@@ -1,0 +1,81 @@
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://isotope.metafizzy.co/jquery.isotope.min.js"></script>
+	
+	<style type="text/css">
+		html, body {
+			margin: 0;
+			background-color: #787878;
+		}
+		
+		/**** Isotope CSS3 transitions ****/
+
+		.isotope,
+		.isotope .isotope-item {
+		  -webkit-transition-duration: 0.8s;
+		     -moz-transition-duration: 0.8s;
+		      -ms-transition-duration: 0.8s;
+		       -o-transition-duration: 0.8s;
+		          transition-duration: 0.8s;
+		}
+
+		.isotope {
+		  -webkit-transition-property: height, width;
+		     -moz-transition-property: height, width;
+		      -ms-transition-property: height, width;
+		       -o-transition-property: height, width;
+		          transition-property: height, width;
+		}
+
+		.isotope .isotope-item {
+		  -webkit-transition-property: -webkit-transform, opacity;
+		     -moz-transition-property:    -moz-transform, opacity;
+		      -ms-transition-property:     -ms-transform, opacity;
+		       -o-transition-property:         top, left, opacity;
+		          transition-property:         transform, opacity;
+		}
+
+		/**** disabling Isotope CSS3 transitions ****/
+
+		.isotope.no-transition,
+		.isotope.no-transition .isotope-item,
+		.isotope .isotope-item.no-transition {
+		  -webkit-transition-duration: 0s;
+		     -moz-transition-duration: 0s;
+		      -ms-transition-duration: 0s;
+		       -o-transition-duration: 0s;
+		          transition-duration: 0s;
+		}
+
+		.news{
+			width: 150px;
+			height: 150px;
+			background-color: yellow;
+			float: left;
+			margin: 40px;
+		}
+
+		.container{
+
+		}
+	</style>
+
+	<script type="text/javascript">
+	$('#container').isotope({
+	  // options
+	  itemSelector : '.news',
+	  layoutMode : 'fitRows'
+	});
+	</script>
+</head>
+<body>
+<div id="container">
+  <div class="news">A news</div>
+  <div class="news">Another news</div>
+  <div class="news">Some news</div>
+</div>
+
+
+</body>
+</html>
