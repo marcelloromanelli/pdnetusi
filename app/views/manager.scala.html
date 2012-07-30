@@ -1,4 +1,4 @@
-@(displays: List[Display],layouts: List[DisplayLayout])
+@(displays: List[Display])
 @import helper.twitterBootstrap._
 
 @main("Manager") {
@@ -84,53 +84,6 @@
 					</div>		
 				</div>
 			</div>
-			<div class="screencenter">
-				<div class="f1_container" class="hover">
-					<div class="well shadow f1_card" id="layoutcard">
-						<div class="front face" id="listoflayouts">
-							<h1>Layouts</h1>
-							<button class="btn btn-mini" id="addnewlayout" style="margin: 10px 215px 10px 215px;" onclick="opennewlayout()">Add new</button>
-
-							<table class="table table-condensed">
-								<thead>
-									<tr>
-										<th>ID</th>
-										<th>Name</th>
-									</tr>
-								</thead>
-								<tbody style="overflow: auto;" id="layoutTable">
-									@for(layout <- layouts) {
-										<tr onclick="linkDisplayToLayout(@layout.id);"
-										onDblClick="modifylayout(@layout.id,'@layout.name')">
-										<td>@layout.id</td>
-										<td><a href="layouts/@layout.id" class="transition">@layout.name</a></td>
-
-									</tr>
-								}
-							</tbody>
-						</table>
-					</div>
-					<div class="back face">
-						<div id="layoutmodify" class="backform">
-							<label>Layout name</label>
-							<input type="text" class="span3" id="layoutformname"><br/><br/>
-
-							<a class="btn btn-danger" onclick="deleteLayout()"><i class="icon-trash icon-white"></i> Delete</a>
-							<a class="btn" onclick="$('#layoutcard').toggleClass('hovered')"> Cancel</a>
-							<a class="btn btn-success" onclick="updateLayoutInformations()"> Save changes</a>
-
-						</div>
-						<div id="layoutnew" class="backform">
-							<label>Layout name</label>
-							<input type="text" class="span3" id="layoutformnamen"><br/><br/>
-
-							<a class="btn" onclick="$('#layoutcard').toggleClass('hovered')"> Cancel</a>
-							<a class="btn btn-success" onclick="addNewLayout()"> Add Layout</a>
-						</div>
-					</div>		
-				</div>
-			</div>
-
 		</div>
 
 		<div id="message" />
