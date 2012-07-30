@@ -2,7 +2,7 @@ html,body {
 	margin: 0;
 	padding: 0;
 	border: none;
-/* 	background-image: url('../images/wood.jpeg');
+	/* 	background-image: url('../images/wood.jpeg');
 	background-repeat: repeat;*/
 	background-color: #A89898;
 	user-select: none;
@@ -41,7 +41,7 @@ html,body {
 	-khtml-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
-	user-select: none;		
+	user-select: none;
 }
 
 .f1_card {
@@ -64,7 +64,7 @@ html,body {
 	-moz-transform: rotateY(180deg);
 	-o-transform: rotateY(180deg);
 	-ms-transform: rotateY(180deg);
-	transform: rotateY(180deg);	
+	transform: rotateY(180deg);
 }
 
 .f1_container table tr {
@@ -98,91 +98,15 @@ html,body {
 	box-sizing: border-box;
 	color: #404040;
 	text-align: center;
-	background-color: whiteSmoke;	
+	background-color: whiteSmoke;
 }
 
 .backform {
 	margin-top: 50px;
 }
 
-/* APP 1  */
-.newsfeed_1_1 {
-	width: 60px;
-	height: 60px;
-	background-image: url(http://placehold.it/60x60/00d607/FFFFFF&text=1x1);
-}
-
-.newsfeed_2_2 {
-	width: 120px;
-	height: 120px;
-	background-image:
-		url(http://placehold.it/120x120/00d607/FFFFFF&text=2x2);
-}
-
-.newsfeed_2_1 {
-	width: 120px;
-	height: 60px;
-	background-image: url(http://placehold.it/120x60/00d607/FFFFFF&text=2x1);
-}
-
-.newsfeed h1 {
-	color: white;
-}
-
-/* PHOTOSTREAM  */
-.photostream_2_2 {
-	width: 120px;
-	height: 120px;
-	background-image:
-		url(http://placehold.it/120x120/d66000/FFFFFF&text=2x2);
-}
-
-.photostream_4_4 {
-	width: 240px;
-	height: 240px;
-	background-image:
-		url(http://placehold.it/120x120/d66000/FFFFFF&text=4x4);
-}
-
-.photostream_8_5 {
-	width: 480px;
-	height: 300px;
-	background-image:
-		url(http://placehold.it/120x120/d66000/FFFFFF&text=8x5);
-}
-
-/* WEATHER  */
-.weather_2_2 {
-	width: 120px;
-	height: 120px;
-	background-image:
-		url(http://placehold.it/120x120/0096d6/FFFFFF&text=2x2);
-}
-
-.weather_4_4 {
-	width: 240px;
-	height: 240px;
-	background-image:
-		url(http://placehold.it/120x120/0096d6/FFFFFF&text=4x4);
-}
-
-.slideshow_8_9 {
-	width: 480px;
-	height: 540px;
-	background-image: url(http://placehold.it/480x540/000000/FFFFFF&text=8x9);
-}
-
 .content {
 	height: 100%;
-}
-
-.editarea {
-	padding: 80px 40px 40px 40px;
-	width: 100%;
-	height: 100%;
-	display: block;
-	/* background-image: url('../images/wood.jpeg');
-	background-position: 40px 40px; */
 }
 
 #screen {
@@ -197,9 +121,9 @@ html,body {
 	-webkit-box-shadow: 0px 0px 9px #000000;
 	box-shadow: 0px 0px 9px #000000;
 	opacity: 0.8;
-	-ms-filter: progid:     DXImageTransform.Microsoft.Alpha(Opacity=     80
+	-ms-filter: progid:      DXImageTransform.Microsoft.Alpha(Opacity=      80
 		);
-	filter: alpha(opacity =         80);
+	filter: alpha(opacity =           80);
 }
 
 .container .content #accordion.ui-accordion {
@@ -270,4 +194,128 @@ table#tiles.cleanTable tbody tr.none td.none {
 #newDisplayForm {
 	margin-top: 50px;
 	width: 500px;
+}
+
+/* NEW */
+iframe {
+	border: 0;
+	width: 100%;
+	height: 1080px;
+}
+
+a {
+	color: white;
+}
+
+html,body {
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	user-select: none;
+	background-color: #787878;
+}
+
+#left {
+	background-color: #787878;
+	width: 28.5%;
+	height: 100%;
+	float: left;
+	user-select: none;
+	border: 0;
+}
+
+#right {
+	background-color: gray;
+	width: 70%;
+	height: 100%;
+	float: left;
+	user-select: none;
+	border: 0;
+}
+
+#bar {
+	background: url("images/barra_dx.png");
+	width: 1.5%;
+	height: 100%;
+	float: left;
+}
+
+/*  #extra-apps{background-color: white; width: 100%; height: 15%; clear: both; overflow:auto; overflow-x:hidden; overflow-y:hidden; margin:0 auto;}*/
+#extra-apps {
+	position: absolute;
+	top: 67%;
+	margin: auto;
+}
+
+.extra-app {
+	-webkit-user-select: none;
+	margin: 10px 0 10px -52px;
+	cursor: pointer;
+	width: 100px;
+	-webkit-box-shadow: inset 0px 0px 7px 0px #ffffff;
+	box-shadow: inset 0px 0px 7px 0px #ffffff;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ededed
+		), color-stop(1, #dfdfdf) );
+	background-color: #ededed;
+	border-radius: 15px 15px 0px 0px;
+	border: 1px solid #dcdcdc;
+	color: #777777;
+	font-family: arial;
+	font-size: 13px;
+	font-weight: bold;
+	padding: 6px 10px;
+	text-decoration: none;
+	text-shadow: 1px 1px 0px #ffffff;
+	-webkit-transform: rotate(90deg);
+	text-align: center;
+}
+
+.extra-app:hover {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dfdfdf
+		), color-stop(1, #ededed) );
+	background-color: #dfdfdf;
+}
+
+.extra-app:active {
+	position: relative;
+	left: -8px;
+}
+
+.extra-app.first {
+	margin: 0px 0px 110px -52px;
+}
+
+.extra-app.last {
+	margin: 110px 0px 0px -52px;
+}
+
+.button {
+	-webkit-user-select: none;
+	cursor: pointer;
+	position: absolute;
+	top: 50%;
+	width: 50px;
+	padding: 30px 15px;
+	margin: 0px 10px;
+	background-color: #CEC4C4;
+	color: #fff;
+	font-weight: bold;
+	font-size: 14px;
+	text-decoration: none;
+	text-align: center;
+	border: 1px solid;
+	border-color: #CEC4C4;
+	-webkit-border-radius: 78px;
+	-webkit-box-shadow: inset 5px -4px 5px rgba(255, 255, 255, 0.2), 5px 1px
+		5px rgba(255, 255, 255, 0.2);
+}
+
+.button:hover {
+	background-color: #CEC4C4;
+	color: #e3e3e3;
+}
+
+.button:active {
+	-webkit-box-shadow: inset 0px 4px 5px rgba(255, 255, 255, 0.4), inset
+		0px -1px 5px rgba(255, 255, 255, 0.2);
 }
