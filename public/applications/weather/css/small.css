@@ -1,0 +1,94 @@
+@import url(http://fonts.googleapis.com/css?family=Ubuntu);
+
+html,body {
+	background:
+		url("http://iskin.co.uk/wallpapers/imagecache/1920x1080/sunny_clouds_sky.jpg");
+	/* width: 542px; */
+	margin: 0;
+	border: 0;
+	font-family: 'Ubuntu', sans-serif;
+	color: white;
+}
+
+img {
+	margin: 0 auto;
+}
+
+h1 {
+	font-weight: 550;
+	font-size: 62px;
+	opacity: 1;
+	text-align: center;
+	margin-bottom: 0;
+	margin-top: -50px;
+}
+
+h2 {
+	font-size: 50px;
+	text-align: left;
+	/*		text-shadow: 1px 1px #2C2C2C;
+*/
+	margin: 0;
+}
+
+#first {
+	width: 464px;
+	height: 450px;
+	padding: 30px;
+	margin: 80px auto 10px auto;
+	background-color: rgba(0, 0, 0, 0.6);
+}
+
+.light {
+	opacity: 0.5;
+}
+
+.other {
+	margin: 0 auto;
+	margin-bottom: 10px;
+	width: 464px;
+	height: 140px;
+	padding: 30px;
+	background-color: rgba(0, 0, 0, 0.6);
+}
+
+.info {
+	width: 275px;
+	float: left;
+	margin-left: -30px;
+}
+
+#current_temp {
+	font-size: 90px;
+}
+
+.current_temp_other {
+	font-size: 70px;
+}
+
+.maxmin {
+	font-size: 35px;
+	margin-left: 450px;
+}
+
+.maxmin_other {
+	font-size: 30px;
+	margin-top: -70px;
+	float: right;
+}
+
+.humiwind {
+	font-size: 30px;
+}
+
+.sexy_line {
+	display: block;
+	border: none;
+	color: white;
+	height: 1px;
+	background: black;
+	background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 350, from(#bfbfbf),
+		to(#5c5c5c) );
+	clear: both;
+}
+​
