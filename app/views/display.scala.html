@@ -1,4 +1,4 @@
-@(displayID: String, displayName: String, tilesToShow: List[Tile]) 
+@(displayID: String, displayName: String) 
 
 @main("Showing " + displayName) {
 
@@ -36,9 +36,7 @@
 	}; 
 
 	// Creates the tiles
-	@for(tile <- tilesToShow) {
-			createApp("@tile.appName","@tile.id",@tile.startX,@tile.startY,@tile.width,@tile.height,"@tile.htmlSource");
-		} 
+
 	});
 	</script>
 

@@ -6,24 +6,15 @@
 GET     	/                           						controllers.Application.index()
 
 # Manager
-GET			/manager											controllers.Application.manager()
 POST		/manager/updatedisplay								controllers.DisplayController.updateDisplayInformations()
 POST		/manager/deletedisplay								controllers.DisplayController.removeDisplay()
 POST		/manager/newdisplay									controllers.DisplayController.newDisplay()
-POST		/manager/deletelayout								controllers.LayoutController.deleteLayout()
-POST		/manager/updatelayout								controllers.LayoutController.updateLayoutInformations()
-POST		/manager/newlayout									controllers.LayoutController.newLayout()
+
 
 # Displays
 GET			/display					  						controllers.DisplayController.setupDisplay(id: String ?= null)
 GET			/display/socket										controllers.DisplayController.webSocket
 
-
-# Display Layout 
-GET     /layouts/:id            						controllers.LayoutController.layout(id: Long)
-#POST    /display/layouts                						controllers.LayoutController.newLayout()
-#POST  	/display/layouts/:id/delete             				controllers.LayoutController.deleteLayout(id: Long)
-POST	/display/layouts/:id/save								controllers.LayoutController.saveLayout(id: Long)
 
 #  Sockets
 GET		/weather/socket											controllers.WeatherController.webSocket

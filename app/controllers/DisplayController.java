@@ -1,11 +1,9 @@
 package controllers;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import models.Display;
-import models.Tile;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
@@ -35,9 +33,8 @@ public class DisplayController extends Controller {
 		if(!activeDisplays.containsKey(displayID)){
 			Display display = Display.get(new Long(displayID));
 			String name = display.name;
-			List<Tile> tiles = Tile.layoutTiles(display.currentLayoutID);
 			activeDisplays.put(displayID, null);
-			return ok(views.html.display.render(displayID,name,tiles));
+			return ok(views.html.display.render(displayID,name));
 		} else {
 			return ok("SORRY, DISPLAY ID " + displayID + " IS ALREADY ACTIVE");
 		}
