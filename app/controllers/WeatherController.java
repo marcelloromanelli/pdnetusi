@@ -68,6 +68,8 @@ public class WeatherController extends Controller {
 								sockets.get(displayID).add(1, out);
 							}
 
+							Logger.info(sockets.toString());
+							
 							Logger.info(
 									"\n ******* MESSAGE RECIEVED *******" +
 											"\n The "+ size + " view of \n" +
