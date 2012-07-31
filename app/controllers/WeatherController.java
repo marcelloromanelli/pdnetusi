@@ -87,12 +87,14 @@ public class WeatherController extends Controller {
 									);
 
 							// TODO: look for defaults values
-							findForecast("adsqw");
+							
+							findForecast("lugano switzerland");
+							
+							
 						} else if(messageKind.equals("mobileRequest")){
 							Integer spacesLeft = status.get(displayID);
 							if(spacesLeft > 0){
 								// DO SOMETHING
-
 								status.put(displayID, spacesLeft-1);
 								Logger.info(status.toString());
 							} else {
@@ -160,11 +162,11 @@ public class WeatherController extends Controller {
 			if(actualObj.get("places").get("total").asInt() == 0){
 				Logger.info("City not found");
 				// TODO: city not found!
+			} else {
+				String woeid = actualObj.get("places").get("place").get(0).get("woeid").asText();
+				Logger.info(woeid);
+
 			}
-			
-			String woeid = actualObj.get("places").get("place").get(0).get("woeid").asText();
-			
-			Logger.info(woeid);
 
 		} catch (Exception e) {
 			e.printStackTrace();
