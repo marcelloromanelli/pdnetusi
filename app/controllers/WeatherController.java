@@ -92,7 +92,9 @@ public class WeatherController extends Controller {
 							
 							
 						} else if(messageKind.equals("mobileRequest")){
+							
 							Integer spacesLeft = status.get(displayID);
+							
 							if(spacesLeft > 0){
 								// DO SOMETHING
 								status.put(displayID, spacesLeft-1);
@@ -163,8 +165,19 @@ public class WeatherController extends Controller {
 				Logger.info("City not found");
 				// TODO: city not found!
 			} else {
+				
+				// Extract the woeid from the JSON
 				String woeid = actualObj.get("places").get("place").get(0).get("woeid").asText();
 				Logger.info(woeid);
+				
+				String unit = "c";
+				String request2 = "http://weather.yahooapis.com/forecastjson?w=" 
+						+ woeid + "&"
+						+ "u=" + unit 
+						+ "&d=4";
+				jp = factory.createJsonParser(readUrl(request2));
+				Logger.info(mapper.readTree(jp).toString());
+				return mapper.readTree(jp);
 
 			}
 
