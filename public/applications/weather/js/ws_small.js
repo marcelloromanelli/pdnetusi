@@ -1,3 +1,4 @@
+// TEST
 $(function() { 
 	displayID = getUrlVars()["id"]
 	var WS = WebSocket;
