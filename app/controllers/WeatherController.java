@@ -157,7 +157,7 @@ public class WeatherController extends Controller {
 			JsonNode actualObj = mapper.readTree(jp);
 			
 			// Check if we found any city
-			if(actualObj.get("places").get("place").get("total").asInt() == 0){
+			if(actualObj.get("places").get("total").asInt() == 0){
 				Logger.info("City not found");
 				// TODO: city not found!
 			}
