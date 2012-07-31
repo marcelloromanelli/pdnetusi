@@ -154,7 +154,7 @@ public class WeatherController extends Controller {
 			JsonFactory factory = mapper.getJsonFactory();
 			JsonParser jp = factory.createJsonParser(readUrl(request));
 			JsonNode actualObj = mapper.readTree(jp);
-			String woeid = actualObj.get("places").get("place").toString();
+			String woeid = actualObj.get("places").get("place").get(0).get("woeid").asText();
 			
 			Logger.info(woeid);
 
