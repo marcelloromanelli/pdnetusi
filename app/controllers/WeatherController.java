@@ -87,7 +87,7 @@ public class WeatherController extends Controller {
 									);
 
 							// TODO: look for defaults values
-							findForecast("lugano");
+							findForecast("adsqw");
 						} else if(messageKind.equals("mobileRequest")){
 							Integer spacesLeft = status.get(displayID);
 							if(spacesLeft > 0){
@@ -150,10 +150,18 @@ public class WeatherController extends Controller {
 							"format=json&" +
 							"appid=" + appid;
 
+			// Extract from the generated JSON  the WOEID (if any) of the location
 			ObjectMapper mapper = new ObjectMapper();
 			JsonFactory factory = mapper.getJsonFactory();
 			JsonParser jp = factory.createJsonParser(readUrl(request));
 			JsonNode actualObj = mapper.readTree(jp);
+			
+			// Check if we found any city
+			if(actualObj.get("places").get("place").get("total").asInt() == 0){
+				Logger.info("City not found");
+				// TODO: city not found!
+			}
+			
 			String woeid = actualObj.get("places").get("place").get(0).get("woeid").asText();
 			
 			Logger.info(woeid);
