@@ -13,7 +13,8 @@ $(function() {
 		console.log("DISCONNECTED"); 
 	};
 
-	websocket.onmessage = function(evt) { 
+	websocket.onmessage = function(evt) {
+		console.log("MESSAGE");
 		var response = jQuery.parseJSON(evt.data);
 //		var condition = lowerWithoutSpaces(response.today[0]);
 //		$('#weather_img').attr('src','img/' + condition + '.png');
