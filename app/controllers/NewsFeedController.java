@@ -37,6 +37,7 @@ public class NewsFeedController extends Controller {
 	// Tiles already used for dafault requests
 	public static ArrayList<WebSocket.Out<JsonNode>> usedDefaultTiles = new ArrayList<WebSocket.Out<JsonNode>>();
 
+	
 	public static WebSocket<JsonNode> webSocket() {
 		return new WebSocket<JsonNode>() {
 
