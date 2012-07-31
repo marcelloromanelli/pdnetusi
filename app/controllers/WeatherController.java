@@ -25,7 +25,7 @@ import play.mvc.WebSocket;
  */
 public class WeatherController extends Controller {
 
-	public static Integer MAX_REQUEST = 3;
+	public static Integer MAX_REQUEST = 300;
 
 
 	/**
@@ -87,31 +87,29 @@ public class WeatherController extends Controller {
 									);
 
 							// TODO: look for defaults values
-							
-							
-							
+
+
+
 						} else if(messageKind.equals("mobileRequest")){
-							
+
 							Integer spacesLeft = status.get(displayID);
-							
+
 							if(spacesLeft > 0){								
-								
+
 								String location = event.get("preference").asText();
 								JsonNode forecast = findForecast(location);
 
 								ArrayList<WebSocket.Out<JsonNode>> displaySockets = sockets.get(displayID);
-								for(WebSocket.Out<JsonNode> out : displaySockets){
-									out.write(forecast);
-								}
-								
+								displaySockets.get(0).write(forecast);
+
 								status.put(displayID, spacesLeft-1);
 
-								
+
 							} else {
 								// TODO: put in queue or notify mobile
 							}
-							
-							
+
+
 						} else {
 							Logger.info("WTF: " + event.toString());
 						}
@@ -165,17 +163,17 @@ public class WeatherController extends Controller {
 			JsonFactory factory = mapper.getJsonFactory();
 			JsonParser jp = factory.createJsonParser(readUrl(request));
 			JsonNode actualObj = mapper.readTree(jp);
-			
+
 			// Check if we found any city
 			if(actualObj.get("places").get("total").asInt() == 0){
 				Logger.info("City not found");
 				// TODO: city not found!
 			} else {
-				
+
 				// Extract the woeid from the JSON
 				String woeid = actualObj.get("places").get("place").get(0).get("woeid").asText();
 				Logger.info(woeid);
-				
+
 				String unit = "c";
 				String request2 = "http://weather.yahooapis.com/forecastjson?w=" 
 						+ woeid + "&"
