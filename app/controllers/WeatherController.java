@@ -101,7 +101,8 @@ public class WeatherController extends Controller {
 
 								ArrayList<WebSocket.Out<JsonNode>> displaySockets = sockets.get(displayID);
 								displaySockets.get(0).write(forecast);
-
+								Logger.info(forecast.toString());
+								
 								status.put(displayID, spacesLeft-1);
 
 
@@ -180,7 +181,7 @@ public class WeatherController extends Controller {
 						+ "u=" + unit 
 						+ "&d=4";
 				jp = factory.createJsonParser(readUrl(request2));
-				Logger.info(mapper.readTree(jp).toString());
+//				Logger.info(mapper.readTree(jp).toString());
 				return mapper.readTree(jp);
 
 			}
