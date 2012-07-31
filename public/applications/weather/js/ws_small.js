@@ -17,7 +17,12 @@ $(function() {
 		
 		var response = jQuery.parseJSON(evt.data);
 		$("#first_location").html(response.location.city);
-		
+		$("#first_current_temp").html(response.condition.temperature);
+		$("#first_humidity").html(response.atmosphere.humidity);
+		$("#first_wind_speed").html(response.wind.speed);
+		$("#first_wind_direction").html(response.wind.direction);
+		$("#first_maxtemp").html(response.forecast[0].high_temperature);
+		$("#first_mintemp").html(response.forecast[0].low_temperature);
 
 		console.log("SERVER APP ANSWER: ");
 		console.log(response) ;
