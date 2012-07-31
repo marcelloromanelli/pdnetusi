@@ -14,16 +14,11 @@ $(function() {
 	};
 
 	websocket.onmessage = function(evt) {
-		console.log("MESSAGE");
+		
 		var response = jQuery.parseJSON(evt.data);
-//		var condition = lowerWithoutSpaces(response.today[0]);
-//		$('#weather_img').attr('src','img/' + condition + '.png');
-//		$('#temperature').html(response.today[2] + "&ordm; C");
-//		$('#location').html(response.today[6]);
-//
-//		if (response.kind == "mobileAnswer"){
-//			setTimeout("sendHiMessage();",5000);
-//		}
+		$("#first_location").html(response.location.city);
+		
+
 		console.log("SERVER APP ANSWER: ");
 		console.log(response) ;
 	};
