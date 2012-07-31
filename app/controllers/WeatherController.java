@@ -10,8 +10,10 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonNode;
-import org.json.JSONObject;
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import play.Logger;
 import play.libs.F.Callback;
@@ -127,7 +129,7 @@ public class WeatherController extends Controller {
 		};
 	}
 
-	public static JSONObject findForecast(String location){
+	public static JsonNode findForecast(String location){
 
 		// Language
 		String lang = "it";
@@ -148,9 +150,11 @@ public class WeatherController extends Controller {
 							"format=json&" +
 							"appid=" + appid;
 
-		    JSONObject json = new JSONObject(readUrl("..."));
-		    Logger.info(json.toString());
-			
+			ObjectMapper mapper = new ObjectMapper();
+			JsonFactory factory = mapper.getJsonFactory();
+			JsonParser jp = factory.createJsonParser(readUrl(request));
+			JsonNode actualObj = mapper.readTree(jp);
+			Logger.info(actualObj.toString());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
