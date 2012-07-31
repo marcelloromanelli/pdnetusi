@@ -154,6 +154,8 @@ public class WeatherController extends Controller {
 			URL url = new URL(request);
 			URLConnection connection = url.openConnection();
 
+			Logger.info(request);
+			
 			String line;
 			StringBuilder builder = new StringBuilder();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
