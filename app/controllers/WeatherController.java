@@ -147,8 +147,7 @@ public class WeatherController extends Controller {
 			String request = 
 					"http://where.yahooapis.com/v1/places.q('"+ URLEncoder.encode(location,"UTF-8") + "');" +
 							"start=0;count="+ max +"&" +
-							"lang=" + lang + "&" +
-							"format=json&" +
+							"lang=" + lang +
 							"?appid=" + appid;
 
 			URL url = new URL(request);
