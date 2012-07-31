@@ -88,24 +88,30 @@ public class WeatherController extends Controller {
 
 							// TODO: look for defaults values
 							
-							findForecast("lugano switzerland");
 							
 							
 						} else if(messageKind.equals("mobileRequest")){
 							
 							Integer spacesLeft = status.get(displayID);
 							
-							if(spacesLeft > 0){
-								// DO SOMETHING
+							if(spacesLeft > 0){								
+								
+								String location = event.get("preference").asText();
+								JsonNode forecast = findForecast(location);
+
+								ArrayList<WebSocket.Out<JsonNode>> displaySockets = sockets.get(displayID);
+								for(WebSocket.Out<JsonNode> out : displaySockets){
+									out.write(forecast);
+								}
+								
 								status.put(displayID, spacesLeft-1);
-								Logger.info(status.toString());
+
+								
 							} else {
 								// TODO: put in queue or notify mobile
 							}
-
-
-							//							String username = event.get("username").asText();
-							//							String location = event.get("preference").asText();
+							
+							
 						} else {
 							Logger.info("WTF: " + event.toString());
 						}
@@ -184,7 +190,6 @@ public class WeatherController extends Controller {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 
 		return null;
 	}
