@@ -154,8 +154,10 @@ public class WeatherController extends Controller {
 			JsonFactory factory = mapper.getJsonFactory();
 			JsonParser jp = factory.createJsonParser(readUrl(request));
 			JsonNode actualObj = mapper.readTree(jp);
-			Logger.info(actualObj.toString());
+			String woeid = actualObj.get("places").get("place").toString();
 			
+			Logger.info(woeid);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -163,23 +165,23 @@ public class WeatherController extends Controller {
 
 		return null;
 	}
-	
-	private static String readUrl(String urlString) throws Exception {
-	    BufferedReader reader = null;
-	    try {
-	        URL url = new URL(urlString);
-	        reader = new BufferedReader(new InputStreamReader(url.openStream()));
-	        StringBuffer buffer = new StringBuffer();
-	        int read;
-	        char[] chars = new char[1024];
-	        while ((read = reader.read(chars)) != -1)
-	            buffer.append(chars, 0, read); 
 
-	        return buffer.toString();
-	    } finally {
-	        if (reader != null)
-	            reader.close();
-	    }
+	private static String readUrl(String urlString) throws Exception {
+		BufferedReader reader = null;
+		try {
+			URL url = new URL(urlString);
+			reader = new BufferedReader(new InputStreamReader(url.openStream()));
+			StringBuffer buffer = new StringBuffer();
+			int read;
+			char[] chars = new char[2048];
+			while ((read = reader.read(chars)) != -1)
+				buffer.append(chars, 0, read); 
+
+			return buffer.toString();
+		} finally {
+			if (reader != null)
+				reader.close();
+		}
 	}
 
 
