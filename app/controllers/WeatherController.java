@@ -5,16 +5,13 @@ package controllers;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.ObjectMapper;
+import org.json.JSONObject;
 
 import play.Logger;
 import play.libs.F.Callback;
@@ -130,7 +127,7 @@ public class WeatherController extends Controller {
 		};
 	}
 
-	public static JsonNode findForecast(String location){
+	public static JSONObject findForecast(String location){
 
 		// Language
 		String lang = "it";
@@ -147,24 +144,13 @@ public class WeatherController extends Controller {
 			String request = 
 					"http://where.yahooapis.com/v1/places.q('"+ URLEncoder.encode(location,"UTF-8") + "');" +
 							"start=0;count="+ max +"&" +
-							"lang=" + lang +
-							"?appid=" + appid;
+							"lang=" + lang + "?" +
+							"format=json&" +
+							"appid=" + appid;
 
-			URL url = new URL(request);
-			URLConnection connection = url.openConnection();
-
-			Logger.info(request);
+		    JSONObject json = new JSONObject(readUrl("..."));
+		    Logger.info(json.toString());
 			
-			String line;
-			StringBuilder builder = new StringBuilder();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-			while((line = reader.readLine()) != null) {
-				builder.append(line);
-			}
-
-			ObjectMapper mapper = new ObjectMapper();
-			JsonNode df = mapper.readValue(builder.toString(), JsonNode.class);
-			Logger.info(df.toString());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -173,5 +159,25 @@ public class WeatherController extends Controller {
 
 		return null;
 	}
+	
+	private static String readUrl(String urlString) throws Exception {
+	    BufferedReader reader = null;
+	    try {
+	        URL url = new URL(urlString);
+	        reader = new BufferedReader(new InputStreamReader(url.openStream()));
+	        StringBuffer buffer = new StringBuffer();
+	        int read;
+	        char[] chars = new char[1024];
+	        while ((read = reader.read(chars)) != -1)
+	            buffer.append(chars, 0, read); 
+
+	        return buffer.toString();
+	    } finally {
+	        if (reader != null)
+	            reader.close();
+	    }
+	}
+
+
 
 }
