@@ -14,6 +14,9 @@ import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.node.ObjectNode;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import play.Logger;
 import play.libs.F.Callback;
@@ -25,8 +28,6 @@ import play.mvc.WebSocket;
  */
 public class WeatherController extends Controller {
 
-	public static Integer MAX_REQUEST = 300;
-
 
 	/**
 	 * Hashmap that given an ID of a Display, returns 
@@ -35,49 +36,48 @@ public class WeatherController extends Controller {
 	 * Position 0: small
 	 * Position 1: big
 	 */
-	public static HashMap<String, ArrayList<WebSocket.Out<JsonNode>>> sockets = 
-			new HashMap<String, ArrayList<WebSocket.Out<JsonNode>>>();
+	public static HashMap<String, ArrayList<WebSocket.Out<JSONObject>>> sockets = 
+			new HashMap<String, ArrayList<WebSocket.Out<JSONObject>>>();
 
 	/**
 	 * Hashmap that given an ID of a Display, returns 
-	 * an Integer that represent the number of requests
-	 * that can be sent to the display.
+	 * an object (Space) that represent the internal
+	 * status of the weather application.
 	 */
-	public static HashMap<String, Integer> status = new HashMap<String, Integer>();
+	public static HashMap<String, WeatherController.Space> internalStatus = 
+			new HashMap<String, WeatherController.Space>();
 
-
-	public static WebSocket<JsonNode> webSocket() {
-		return new WebSocket<JsonNode>() {
+	public static WebSocket<JSONObject> webSocket() {
+		return new WebSocket<JSONObject>() {
 
 			// Called when the Websocket Handshake is done.
-			public void onReady(WebSocket.In<JsonNode> in, final WebSocket.Out<JsonNode> out) {
+			public void onReady(WebSocket.In<JSONObject> in, final WebSocket.Out<JSONObject> out) {
 
-				in.onMessage(new Callback<JsonNode>() {
-					public void invoke(JsonNode event) {
+				
+				in.onMessage(new Callback<JSONObject>() {
+					public void invoke(JSONObject event) throws JSONException {
 
 						Logger.info("MESSAGE FOR WEATHER WS");
 						Logger.info(event.toString());
 
-						String messageKind = event.get("kind").asText();						
-						String displayID = event.get("displayID").asText();
+						String messageKind = event.getString("kind");						
+						String displayID = event.getString("displayID");
 
 						if(!sockets.containsKey(displayID)){
-							sockets.put(displayID, new ArrayList<WebSocket.Out<JsonNode>>());
-							status.put(displayID, MAX_REQUEST);
+							sockets.put(displayID, new ArrayList<WebSocket.Out<JSONObject>>());
+							internalStatus.put(displayID, new Space(true, true, true));
 						}
 
 						if(messageKind.equals("appReady")){
 
 							// Can be either small or big
-							String size = event.get("size").asText();
+							String size = event.getString("size");
 
 							if(size.equals("small")){
 								sockets.get(displayID).add(0, out);
 							} else {
 								sockets.get(displayID).add(1, out);
 							}
-
-							Logger.info(sockets.toString());
 
 							Logger.info(
 									"\n ******* MESSAGE RECIEVED *******" +
@@ -88,24 +88,37 @@ public class WeatherController extends Controller {
 
 							// TODO: look for defaults values
 
-
-
 						} else if(messageKind.equals("mobileRequest")){
 
-							Integer spacesLeft = status.get(displayID);
+							Space status = internalStatus.get(displayID); 
+							if(status.space1 || status.space2 || status.space3){								
 
-							if(spacesLeft > 0){								
-
-								String location = event.get("preference").asText();
+								String location = event.getString("preference");
 								JsonNode forecast = findForecast(location);
-
-								ArrayList<WebSocket.Out<JsonNode>> displaySockets = sockets.get(displayID);
-								displaySockets.get(0).write(forecast);
-								Logger.info(forecast.toString());
 								
-								status.put(displayID, spacesLeft-1);
-
-
+								try {
+									JSONObject json = new JSONObject();
+									json.put("forecast", forecast);
+									ArrayList<WebSocket.Out<JSONObject>> displaySockets = sockets.get(displayID);
+									Logger.info(forecast.toString());
+									
+									if(status.space1){
+										json.put("space", 1);
+										status.space1 = false;
+									} else if (status.space2) {
+										json.put("space", 2);
+										status.space2 = false;
+									} else {
+										json.put("space", 3);
+										status.space3 = false;
+									}
+									
+									displaySockets.get(0).write(json);
+									
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+								
 							} else {
 								// TODO: put in queue or notify mobile
 							}
@@ -116,7 +129,6 @@ public class WeatherController extends Controller {
 						}
 
 					}
-
 
 				});
 
@@ -181,9 +193,7 @@ public class WeatherController extends Controller {
 						+ "u=" + unit 
 						+ "&d=4";
 				jp = factory.createJsonParser(readUrl(request2));
-//				Logger.info(mapper.readTree(jp).toString());
 				return mapper.readTree(jp);
-
 			}
 
 		} catch (Exception e) {
@@ -211,6 +221,27 @@ public class WeatherController extends Controller {
 		}
 	}
 
+	
+	public static class Space {
+		// TURE = FREE
+		// FALSE = OCCUPIED
+		public Boolean space1;
+		public Boolean space2;
+		public Boolean space3;
+		
+		public Space(Boolean space1, Boolean space2, Boolean space3) {
+			this.space1 = space1;
+			this.space2 = space2;
+			this.space3 = space3;
+		}
 
+		@Override
+		public String toString() {
+			return "Space [space1=" + space1 + ", space2=" + space2
+					+ ", space3=" + space3 + "]";
+		}
+		
+		
+	} 
 
 }
