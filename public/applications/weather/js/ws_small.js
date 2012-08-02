@@ -43,10 +43,10 @@ function findFree(response){
 		updateFirst(response);
 		first = false;
 	} else if (second){
-		console.log("second");
+		updateSecond(response);
 		second = false;
 	} else if (third) {
-		console.log("third");
+		updateThird(response);
 		third = false;
 	} else {
 		console.log("error");
