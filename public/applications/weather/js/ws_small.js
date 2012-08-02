@@ -63,6 +63,20 @@ function updateFirst(response){
 	$("#first_mintemp").html(response.forecast[0].low_temperature + "º");
 }
 
+function updateSecond(response){
+	$("#second_location").html(response.location.city);
+	$("#second_current_temp").html(response.condition.temperature + "º");
+	$("#second_maxtemp").html(response.forecast[0].high_temperature + "º");
+	$("#second_mintemp").html(response.forecast[0].low_temperature + "º");
+}
+
+function updateThird(response){
+	$("#third_location").html(response.location.city);
+	$("#third_current_temp").html(response.condition.temperature + "º");
+	$("#third_maxtemp").html(response.forecast[0].high_temperature + "º");
+	$("#third_mintemp").html(response.forecast[0].low_temperature + "º");
+}
+
 function getUrlVars()
 {
 	var vars = [], hash;
