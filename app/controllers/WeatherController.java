@@ -91,30 +91,11 @@ public class WeatherController extends Controller {
 
 								String location = event.get("preference").asText();
 								JsonNode forecast = findForecast(location);
+
+								ArrayList<WebSocket.Out<JsonNode>> displaySockets = sockets.get(displayID);
+								displaySockets.get(0).write(forecast);
+								Logger.info(forecast.toString());
 								
-								try {
-									ObjectMapper mapper = new ObjectMapper();
-									
-									
-									ArrayList<WebSocket.Out<JsonNode>> displaySockets = sockets.get(displayID);
-									Logger.info(forecast.toString());
-									
-									if(status.space1){
-//										json.put("space", 1);
-										status.space1 = false;
-									} else if (status.space2) {
-//										json.put("space", 2);
-										status.space2 = false;
-									} else {
-//										json.put("space", 3);
-										status.space1 = false;
-
-									}
-									displaySockets.get(0).write(forecast);
-
-								} catch (Exception e) {
-									e.printStackTrace();
-								}
 								
 							} else {
 								// TODO: put in queue or notify mobile
