@@ -1,4 +1,6 @@
-status = new Array(true, true, true);
+var first=true;
+var second=true;
+var third=true;
 
 $(function() { 
 	displayID = getUrlVars()["id"];
@@ -23,10 +25,10 @@ $(function() {
 	websocket.onmessage = function(evt) {
 
 		var response = jQuery.parseJSON(evt.data);
+		findFree(response);
 		
-		console.log(findFree());
-		console.log("SERVER APP ANSWER: ");
-		console.log(response) ;
+//		console.log("SERVER APP ANSWER: ");
+//		console.log(response) ;
 	};
 
 	websocket.onerror = function(evt) { 
@@ -36,19 +38,22 @@ $(function() {
 });
 
 
-function findFree(){
-	for (var idx in status) {
-		console.log(status[idx]);
-		if(status[idx]){
-			status[idx] = false;
-			return idx;
-		} else {
-			console.log("ERROR: TO MANY REQUESTS");
-		}
+function findFree(response){
+	if(first){
+		updateFirst(response);
+		first = false;
+	} else if (second){
+		console.log("second");
+		second = false;
+	} else if (third) {
+		console.log("third");
+		third = false;
+	} else {
+		console.log("error");
 	}
 }
 
-function updateFirst(evt){
+function updateFirst(response){
 	$("#first_location").html(response.location.city);
 	$("#first_current_temp").html(response.condition.temperature + "º");
 	$("#first_humidity").html(response.atmosphere.humidity);
