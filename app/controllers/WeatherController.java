@@ -103,6 +103,9 @@ public class WeatherController extends Controller {
 							}
 
 
+						} else if(messageKind.equals("free")){
+							Integer freeSpaces = status.get(displayID);
+							status.put(displayID, freeSpaces+1);
 						} else {
 							Logger.info("WTF: " + event.toString());
 						}

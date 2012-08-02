@@ -1,6 +1,12 @@
 var first=true;
+var firstInterval;
+
 var second=true;
+var secondInterval;
+
 var third=true;
+var thirdIterval;
+
 
 $(function() { 
 	displayID = getUrlVars()["id"];
@@ -42,15 +48,27 @@ function findFree(response){
 	if(first){
 		updateFirst(response);
 		first = false;
+		firstInterval=setInterval(function(){freeSpace();first=true;},5000);
 	} else if (second){
 		updateSecond(response);
 		second = false;
+		secondInterval=setInterval(function(){freeSpace();second=true;},5000);
 	} else if (third) {
 		updateThird(response);
 		third = false;
+		thirdInterval=setInterval(function(){freeSpace();third=true;},5000);
 	} else {
 		console.log("error");
 	}
+}
+
+function freeSpace(){
+	var free = JSON.stringify
+	({
+		"kind":"free",
+		"displayID":  displayID,
+	});
+	websocket.send(free);
 }
 
 function updateFirst(response){
@@ -61,6 +79,7 @@ function updateFirst(response){
 	$("#first_wind_direction").html(response.wind.direction);
 	$("#first_maxtemp").html(response.forecast[0].high_temperature + "º");
 	$("#first_mintemp").html(response.forecast[0].low_temperature + "º");
+	
 }
 
 function updateSecond(response){
