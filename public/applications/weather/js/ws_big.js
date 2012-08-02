@@ -70,6 +70,7 @@ function freeSpace(){
 
 function updateFirst(response){
 
+	$("#first_city").html(response.location.city);
 	for(var i = 1; i < 6; i++){
 		$("#first_d" + i + "_day_name").html(response.forecast[i-1].day);
 		$("#first_d" + i + "_maxtemp").html(response.forecast[i-1].high_temperature + "º");
@@ -79,6 +80,7 @@ function updateFirst(response){
 }
 
 function updateSecond(response){
+	$("#second_city").html(response.location.city);
 	for(var i = 1; i < 6; i++){
 		$("#second_d" + i + "_day_name").html(response.forecast[i-1].day);
 		$("#second_d" + i + "_maxtemp").html(response.forecast[i-1].high_temperature + "º");
@@ -87,6 +89,7 @@ function updateSecond(response){
 }
 
 function updateThird(response){
+	$("#third_city").html(response.location.city);
 	for(var i = 1; i < 6; i++){
 		$("#third_d" + i + "_day_name").html(response.forecast[i-1].day);
 		$("#third_d" + i + "_maxtemp").html(response.forecast[i-1].high_temperature + "º");
