@@ -14,7 +14,6 @@ import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.node.ObjectNode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -96,7 +95,6 @@ public class WeatherController extends Controller {
 								String location = event.getString("preference");
 								JsonNode forecast = findForecast(location);
 								
-								try {
 									JSONObject json = new JSONObject();
 									json.put("forecast", forecast);
 									ArrayList<WebSocket.Out<JSONObject>> displaySockets = sockets.get(displayID);
@@ -115,10 +113,7 @@ public class WeatherController extends Controller {
 									
 									displaySockets.get(0).write(json);
 									
-								} catch (JSONException e) {
-									e.printStackTrace();
-								}
-								
+
 							} else {
 								// TODO: put in queue or notify mobile
 							}
