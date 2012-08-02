@@ -48,15 +48,15 @@ function findFree(response){
 	if(first){
 		updateFirst(response);
 		first = false;
-		firstInterval=setInterval(function(){freeSpace();first=true;},5000);
+		firstInterval=setInterval(function(){freeSpace(); clearInterval(firstInterval); first=true;},5000);
 	} else if (second){
 		updateSecond(response);
 		second = false;
-		secondInterval=setInterval(function(){freeSpace();second=true;},5000);
+		secondInterval=setInterval(function(){freeSpace();clearInterval(secondInterval);second=true;},5000);
 	} else if (third) {
 		updateThird(response);
 		third = false;
-		thirdInterval=setInterval(function(){freeSpace();third=true;},5000);
+		thirdInterval=setInterval(function(){freeSpace();clearInterval(thirdInterval);third=true;},5000);
 	} else {
 		console.log("error");
 	}
