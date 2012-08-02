@@ -35,8 +35,8 @@ public class WeatherController extends Controller {
 	 * Position 0: small
 	 * Position 1: big
 	 */
-	public static HashMap<String, ArrayList<WebSocket.Out<JSONObject>>> sockets = 
-			new HashMap<String, ArrayList<WebSocket.Out<JSONObject>>>();
+	public static HashMap<String, ArrayList<WebSocket.Out<JsonNode>>> sockets = 
+			new HashMap<String, ArrayList<WebSocket.Out<JsonNode>>>();
 
 	/**
 	 * Hashmap that given an ID of a Display, returns 
@@ -46,31 +46,30 @@ public class WeatherController extends Controller {
 	public static HashMap<String, WeatherController.Space> internalStatus = 
 			new HashMap<String, WeatherController.Space>();
 
-	public static WebSocket<JSONObject> webSocket() {
-		return new WebSocket<JSONObject>() {
+	public static WebSocket<JsonNode> webSocket() {
+		return new WebSocket<JsonNode>() {
 
 			// Called when the Websocket Handshake is done.
-			public void onReady(WebSocket.In<JSONObject> in, final WebSocket.Out<JSONObject> out) {
+			public void onReady(WebSocket.In<JsonNode> in, final WebSocket.Out<JsonNode> out) {
 
-				
-				in.onMessage(new Callback<JSONObject>() {
-					public void invoke(JSONObject event) throws JSONException {
+				in.onMessage(new Callback<JsonNode>() {
+					public void invoke(JsonNode event) {
 
 						Logger.info("MESSAGE FOR WEATHER WS");
 						Logger.info(event.toString());
 
-						String messageKind = event.getString("kind");						
-						String displayID = event.getString("displayID");
+						String messageKind = event.get("kind").asText();						
+						String displayID = event.get("displayID").asText();
 
 						if(!sockets.containsKey(displayID)){
-							sockets.put(displayID, new ArrayList<WebSocket.Out<JSONObject>>());
+							sockets.put(displayID, new ArrayList<WebSocket.Out<JsonNode>>());
 							internalStatus.put(displayID, new Space(true, true, true));
 						}
 
 						if(messageKind.equals("appReady")){
 
 							// Can be either small or big
-							String size = event.getString("size");
+							String size = event.get("size").asText();
 
 							if(size.equals("small")){
 								sockets.get(displayID).add(0, out);
@@ -92,12 +91,13 @@ public class WeatherController extends Controller {
 							Space status = internalStatus.get(displayID); 
 							if(status.space1 || status.space2 || status.space3){								
 
-								String location = event.getString("preference");
+								String location = event.get("preference").asText();
 								JsonNode forecast = findForecast(location);
 								
+								try {
 									JSONObject json = new JSONObject();
 									json.put("forecast", forecast);
-									ArrayList<WebSocket.Out<JSONObject>> displaySockets = sockets.get(displayID);
+									ArrayList<WebSocket.Out<JsonNode>> displaySockets = sockets.get(displayID);
 									Logger.info(forecast.toString());
 									
 									if(status.space1){
@@ -108,12 +108,15 @@ public class WeatherController extends Controller {
 										status.space2 = false;
 									} else {
 										json.put("space", 3);
-										status.space3 = false;
-									}
-									
-									displaySockets.get(0).write(json);
-									
+										status.space1 = false;
 
+									}
+									displaySockets.get(0).write(forecast);
+
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+								
 							} else {
 								// TODO: put in queue or notify mobile
 							}
@@ -124,6 +127,7 @@ public class WeatherController extends Controller {
 						}
 
 					}
+
 
 				});
 
