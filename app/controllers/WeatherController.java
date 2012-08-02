@@ -165,7 +165,6 @@ public class WeatherController extends Controller {
 
 				// Extract the woeid from the JSON
 				String woeid = actualObj.get("places").get("place").get(0).get("woeid").asText();
-				Logger.info(woeid);
 
 				String unit = "c";
 				String request2 = "http://weather.yahooapis.com/forecastjson?w=" 
