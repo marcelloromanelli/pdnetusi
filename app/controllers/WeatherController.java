@@ -38,11 +38,12 @@ public class WeatherController extends Controller {
 
 	/**
 	 * Hashmap that given an ID of a Display, returns 
-	 * an object (Space) that represent the internal
-	 * status of the weather application.
+	 * how many request the application can still recieve
 	 */
-	public static HashMap<String, WeatherController.Space> internalStatus = 
-			new HashMap<String, WeatherController.Space>();
+	public static HashMap<String,Integer> status = 
+			new HashMap<String, Integer>();
+	
+	public static Integer MAX_REQ = 3;
 
 	public static WebSocket<JsonNode> webSocket() {
 		return new WebSocket<JsonNode>() {
@@ -61,7 +62,7 @@ public class WeatherController extends Controller {
 
 						if(!sockets.containsKey(displayID)){
 							sockets.put(displayID, new ArrayList<WebSocket.Out<JsonNode>>());
-							internalStatus.put(displayID, new Space(true, true, true));
+							status.put(displayID, MAX_REQ);
 						}
 
 						if(messageKind.equals("appReady")){
@@ -86,8 +87,8 @@ public class WeatherController extends Controller {
 
 						} else if(messageKind.equals("mobileRequest")){
 
-							Space status = internalStatus.get(displayID); 
-							if(status.space1 || status.space2 || status.space3){								
+							Integer freeSpaces = status.get(displayID);
+							if(freeSpaces>0){								
 
 								String location = event.get("preference").asText();
 								JsonNode forecast = findForecast(location);
@@ -95,7 +96,7 @@ public class WeatherController extends Controller {
 								ArrayList<WebSocket.Out<JsonNode>> displaySockets = sockets.get(displayID);
 								displaySockets.get(0).write(forecast);
 								Logger.info(forecast.toString());
-								
+								status.put(displayID, freeSpaces-1);
 								
 							} else {
 								// TODO: put in queue or notify mobile
