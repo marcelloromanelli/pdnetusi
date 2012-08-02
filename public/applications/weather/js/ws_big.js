@@ -69,14 +69,13 @@ function freeSpace(){
 }
 
 function updateFirst(response){
-	$("#first_location").html(response.location.city);
-	$("#first_current_temp").html(response.condition.temperature + "¼");
-	$("#first_humidity").html(response.atmosphere.humidity);
-	$("#first_wind_speed").html(response.wind.speed);
-	$("#first_wind_direction").html(response.wind.direction);
-	$("#first_maxtemp").html(response.forecast[0].high_temperature + "¼");
-	$("#first_mintemp").html(response.forecast[0].low_temperature + "¼");
-	
+
+	for(var i = 1; i < 6; i++){
+		$("#first_d" + i + "_day_name").html(response.forecast[i-1].day);
+		$("#first_d" + i + "_maxtemp").html(response.forecast[i-1].high_temperature + "¼");
+		$("#first_d" + i + "_mintemp").html(response.forecast[i-1].low_temperature);
+	}
+
 }
 
 function updateSecond(response){
