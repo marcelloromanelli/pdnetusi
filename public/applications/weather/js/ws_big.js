@@ -72,24 +72,26 @@ function updateFirst(response){
 
 	for(var i = 1; i < 6; i++){
 		$("#first_d" + i + "_day_name").html(response.forecast[i-1].day);
-		$("#first_d" + i + "_maxtemp").html(response.forecast[i-1].high_temperature + "ผ");
-		$("#first_d" + i + "_mintemp").html(response.forecast[i-1].low_temperature);
+		$("#first_d" + i + "_maxtemp").html(response.forecast[i-1].high_temperature + "ยบ");
+		$("#first_d" + i + "_mintemp").html(response.forecast[i-1].low_temperature + "ยบ");
 	}
 
 }
 
 function updateSecond(response){
-	$("#second_location").html(response.location.city);
-	$("#second_current_temp").html(response.condition.temperature + "ผ");
-	$("#second_maxtemp").html(response.forecast[0].high_temperature + "ผ");
-	$("#second_mintemp").html(response.forecast[0].low_temperature + "ผ");
+	$for(var i = 1; i < 6; i++){
+		$("#second_d" + i + "_day_name").html(response.forecast[i-1].day);
+		$("#second_d" + i + "_maxtemp").html(response.forecast[i-1].high_temperature + "ยบ");
+		$("#second_d" + i + "_mintemp").html(response.forecast[i-1].low_temperature + "ยบ");
+	}
 }
 
 function updateThird(response){
-	$("#third_location").html(response.location.city);
-	$("#third_current_temp").html(response.condition.temperature + "ผ");
-	$("#third_maxtemp").html(response.forecast[0].high_temperature + "ผ");
-	$("#third_mintemp").html(response.forecast[0].low_temperature + "ผ");
+	for(var i = 1; i < 6; i++){
+		$("#third_d" + i + "_day_name").html(response.forecast[i-1].day);
+		$("#third_d" + i + "_maxtemp").html(response.forecast[i-1].high_temperature + "ยบ");
+		$("#third_d" + i + "_mintemp").html(response.forecast[i-1].low_temperature + "ยบ");
+	}
 }
 
 function getUrlVars()
