@@ -94,7 +94,11 @@ public class WeatherController extends Controller {
 								JsonNode forecast = findForecast(location);
 
 								ArrayList<WebSocket.Out<JsonNode>> displaySockets = sockets.get(displayID);
+								
+								// Send the forecast to the two views of the application
 								displaySockets.get(0).write(forecast);
+								displaySockets.get(1).write(forecast);
+
 								Logger.info(forecast.toString());
 								status.put(displayID, freeSpaces-1);
 								
