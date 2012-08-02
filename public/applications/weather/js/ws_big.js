@@ -79,7 +79,7 @@ function updateFirst(response){
 }
 
 function updateSecond(response){
-	$for(var i = 1; i < 6; i++){
+	for(var i = 1; i < 6; i++){
 		$("#second_d" + i + "_day_name").html(response.forecast[i-1].day);
 		$("#second_d" + i + "_maxtemp").html(response.forecast[i-1].high_temperature + "º");
 		$("#second_d" + i + "_mintemp").html(response.forecast[i-1].low_temperature + "º");
