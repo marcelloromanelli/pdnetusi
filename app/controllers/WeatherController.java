@@ -43,7 +43,7 @@ public class WeatherController extends Controller {
 	public static HashMap<String,Integer> status = 
 			new HashMap<String, Integer>();
 	
-	public static Integer MAX_REQ = 3;
+	public static Integer MAX_REQ = 300;
 
 	public static WebSocket<JsonNode> webSocket() {
 		return new WebSocket<JsonNode>() {

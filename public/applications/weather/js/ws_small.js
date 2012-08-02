@@ -1,4 +1,4 @@
-status = [true, true, true];
+status = new Array(true, true, true);
 
 $(function() { 
 	displayID = getUrlVars()["id"];
