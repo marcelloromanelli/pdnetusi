@@ -14,7 +14,6 @@ import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.json.JSONObject;
 
 import play.Logger;
 import play.libs.F.Callback;
@@ -94,19 +93,20 @@ public class WeatherController extends Controller {
 								JsonNode forecast = findForecast(location);
 								
 								try {
-									JSONObject json = new JSONObject();
-									json.put("forecast", forecast);
+									ObjectMapper mapper = new ObjectMapper();
+									
+									
 									ArrayList<WebSocket.Out<JsonNode>> displaySockets = sockets.get(displayID);
 									Logger.info(forecast.toString());
 									
 									if(status.space1){
-										json.put("space", 1);
+//										json.put("space", 1);
 										status.space1 = false;
 									} else if (status.space2) {
-										json.put("space", 2);
+//										json.put("space", 2);
 										status.space2 = false;
 									} else {
-										json.put("space", 3);
+//										json.put("space", 3);
 										status.space1 = false;
 
 									}
