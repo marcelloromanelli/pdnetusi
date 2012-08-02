@@ -38,7 +38,7 @@ $(function() {
 
 function findFree(){
 	for (var idx in status) {  
-		if(status[idx]){
+		if(status[idx]==true){
 			status[idx] = false;
 			return idx;
 		} else {
