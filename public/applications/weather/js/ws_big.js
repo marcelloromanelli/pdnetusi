@@ -80,8 +80,8 @@ function updateFirst(response){
 	$("#first_wind_direction").html(response.wind.direction);
 	$("#first_maxtemp").html(response.forecast[0].high_temperature + "º");
 	$("#first_mintemp").html(response.forecast[0].low_temperature + "º");
-	
-	for(var i = 1; i < 6; i++){
+
+	for(var i = 2; i < 6; i++){
 		$("#first_d" + i + "_day_name").html(response.forecast[i-1].day);
 		$("#first_d" + i + "_desc").html(response.forecast[i-1].condition);
 		$("#first_d" + i + "_maxtemp").html(response.forecast[i-1].high_temperature + "º");
@@ -92,8 +92,18 @@ function updateFirst(response){
 
 function updateSecond(response){
 	$("#second_city").html(response.location.city);
-	for(var i = 1; i < 6; i++){
+	$("#second_img").attr("src","css/icons/"+response.condition.code +".png")
+	$("#second_location").html(response.location.city);
+	$("#second_current_temp").html(response.condition.temperature + "º");
+	$("#second_humidity").html(response.atmosphere.humidity);
+	$("#second_wind_speed").html(response.wind.speed);
+	$("#second_wind_direction").html(response.wind.direction);
+	$("#second_maxtemp").html(response.forecast[0].high_temperature + "º");
+	$("#second_mintemp").html(response.forecast[0].low_temperature + "º");
+
+	for(var i = 2; i < 6; i++){
 		$("#second_d" + i + "_day_name").html(response.forecast[i-1].day);
+		$("#second_d" + i + "_desc").html(response.forecast[i-1].condition);
 		$("#second_d" + i + "_maxtemp").html(response.forecast[i-1].high_temperature + "º");
 		$("#second_d" + i + "_mintemp").html(response.forecast[i-1].low_temperature + "º");
 	}
@@ -101,8 +111,18 @@ function updateSecond(response){
 
 function updateThird(response){
 	$("#third_city").html(response.location.city);
-	for(var i = 1; i < 6; i++){
+	$("#third_img").attr("src","css/icons/"+response.condition.code +".png")
+	$("#third_location").html(response.location.city);
+	$("#third_current_temp").html(response.condition.temperature + "º");
+	$("#third_humidity").html(response.atmosphere.humidity);
+	$("#third_wind_speed").html(response.wind.speed);
+	$("#third_wind_direction").html(response.wind.direction);
+	$("#third_maxtemp").html(response.forecast[0].high_temperature + "º");
+	$("#third_mintemp").html(response.forecast[0].low_temperature + "º");
+	
+	for(var i = 2; i < 6; i++){
 		$("#third_d" + i + "_day_name").html(response.forecast[i-1].day);
+		$("#third_d" + i + "_desc").html(response.forecast[i-1].condition);
 		$("#third_d" + i + "_maxtemp").html(response.forecast[i-1].high_temperature + "º");
 		$("#third_d" + i + "_mintemp").html(response.forecast[i-1].low_temperature + "º");
 	}

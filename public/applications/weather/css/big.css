@@ -11,8 +11,8 @@ html,body {
 
 .city {
 	width: 365px;
-	height: 700px;
-	margin-left: 90px;
+	height: 750px;
+	margin-left: 60px;
 	margin-top: 190px;
 	background-color: black;
 	opacity: 0.7;
@@ -26,9 +26,6 @@ html,body {
 	text-shadow: 1px 1px #2C2C2C;
 }
 
-#first_current_temp {
-	font-size: 60px;
-}
 
 .maxmin {
 	font-size: 25px;
@@ -56,4 +53,6 @@ html,body {
 
 .tempbig{
 	width: 115px;
+	font-size: 60px;
+	
 }
