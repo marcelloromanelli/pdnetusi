@@ -207,7 +207,7 @@ html,body {
 
 #left {
 	background-color: #787878;
-	width: 542px;
+	width: 560px;
 	height: 100%;
 	float: left;
 	user-select: none;
@@ -231,7 +231,7 @@ html,body {
 }
 
 #dock {
-	width: 34px;
+	width: 28px;
 	height: 1080px;
 	background-color: red;
 	float: left;
