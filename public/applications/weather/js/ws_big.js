@@ -72,6 +72,15 @@ function freeSpace(){
 function updateFirst(response){
 
 	$("#first_city").html(response.location.city);
+	$("#first_img").attr("src","css/icons/"+response.condition.code +".png")
+	$("#first_location").html(response.location.city);
+	$("#first_current_temp").html(response.condition.temperature + "º");
+	$("#first_humidity").html(response.atmosphere.humidity);
+	$("#first_wind_speed").html(response.wind.speed);
+	$("#first_wind_direction").html(response.wind.direction);
+	$("#first_maxtemp").html(response.forecast[0].high_temperature + "º");
+	$("#first_mintemp").html(response.forecast[0].low_temperature + "º");
+	
 	for(var i = 1; i < 6; i++){
 		$("#first_d" + i + "_day_name").html(response.forecast[i-1].day);
 		$("#first_d" + i + "_maxtemp").html(response.forecast[i-1].high_temperature + "º");

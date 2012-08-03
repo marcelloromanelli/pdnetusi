@@ -12,7 +12,7 @@ html,body {
 .city {
 	width: 365px;
 	height: 700px;
-	margin-left: 45px;
+	margin-left: 90px;
 	margin-top: 190px;
 	background-color: black;
 	opacity: 0.7;
@@ -36,7 +36,7 @@ html,body {
 
 .humiwind {
 	font-size: 25px;
-	padding: 0 20px;
+	width: 170px;
 }
 
 .light {
@@ -48,4 +48,12 @@ html,body {
 	border-spacing:30px;
 	margin: 0 auto;
 	font-size: 20px;
+}
+
+.bold{
+	font-weight: bold;
+}
+
+.tempbig{
+	width: 115px;
 }
