@@ -5,14 +5,16 @@
 		background: url("http://iskin.co.uk/wallpapers/imagecache/1920x1080/sunny_clouds_sky.jpg");
 		font-family: 'Ubuntu', sans-serif;
 		color: white;
+		width: 1335px;
 	}
 
 	.city{
-/*		width: 1232px;*/
-		width: 1290px;
-		height: 250px;
+		width: 500px;
+		height: 700px;
 		margin-left: 45px;
 		margin-top:90px;
+		background-color: black;
+		opacity: 0.7;
 	}
 	
 	h1 {
@@ -31,15 +33,7 @@
 	}
 	
 	.forecastday{
-/*		border-radius: 20px;
-		box-shadow:  0px 7px 9px rgba(50, 50, 50, 0.75);
-*/		height: 250px;
-		width: 176px;
-		background-color: black;
-		opacity: 0.7;
-		position: relative;
-		top: -53px;
-		float: left;
+		
 /*		margin-left: 5px;*/
 	}
 	
