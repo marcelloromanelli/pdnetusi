@@ -73,6 +73,7 @@ function freeSpace(){
 }
 
 function updateFirst(response){
+	$("#first_img").attr("src","css/icons/"+response.condition.code +".png")
 	$("#first_location").html(response.location.city);
 	$("#first_current_temp").html(response.condition.temperature + "º");
 	$("#first_humidity").html(response.atmosphere.humidity);
