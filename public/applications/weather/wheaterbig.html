@@ -23,7 +23,7 @@
 				<tr>
 					<td><span id="first_current_temp">29º</span></td>
 
-					<td class="humiwind"><span class="light">Humidity</span><span
+					<td class="humiwind" style="padding: 0 40px;"><span class="light">Humidity</span><span
 						id="first_humidity">60</span>%<br /> <span class="light">Wind</span>
 						<span id="first_wind_speed">7</span> <span
 						id="first_wind_direction">N</span></td>
@@ -31,13 +31,14 @@
 						id="first_maxtemp">31º</span> <span class="light">L</span><span
 						id="first_mintemp">19º</span></td>
 				</tr>
+				
 			</table>
 
 
 		</div>
 
 		
-		<table width="90%" cellspacing="5">
+		<table class="forecast">
 			<tr>
 				<td id="first_d2_day_name">Tomorrow</td>
 				<td id="first_d2_desc">Sunny</td>
@@ -66,127 +67,119 @@
 
 		
 	</div>
-	<!-- 
-	<div class="city">
-		<h1 class="cityname" id="second_city">Lugano</h1>
+		<div class="city">
+		<h1 class="cityname" id="first_city">Lugano</h1>
 
+		<div id="first" class="forecastday">
 
-		<div class="forecastday">
-			<h2 class="dayname" id="second_d1_day_name">Today</h2>
-			<div style="margin: -20px auto 0 auto; width: 150px; height: 150px;">
-				<img id="second_d1_img" src="small_icons/icona_12.png" width="150px"
-					height="150px" />
+			<div style="width: 400px; margin: -50px auto;">
+				<img id="first_img" src="css/icons/34.png" width="400px" />
 			</div>
-			<div class="maxtemp" id="second_d1_maxtemp">31º</div>
-			<div class="mintemp" id="second_d1_mintemp">25º</div>
-			<div class="headerDivider"></div>
+			<table border="0" style="width: 100%; margin: -10px auto 0 auto;">
+				<tr>
+					<td><span id="first_current_temp">29º</span></td>
+
+					<td class="humiwind" style="padding: 0 40px;"><span class="light">Humidity</span><span
+						id="first_humidity">60</span>%<br /> <span class="light">Wind</span>
+						<span id="first_wind_speed">7</span> <span
+						id="first_wind_direction">N</span></td>
+					<td class="maxmin"><span class="light">H</span><span
+						id="first_maxtemp">31º</span> <span class="light">L</span><span
+						id="first_mintemp">19º</span></td>
+				</tr>
+				
+			</table>
+
+
 		</div>
 
+		
+		<table class="forecast">
+			<tr>
+				<td id="first_d2_day_name">Tomorrow</td>
+				<td id="first_d2_desc">Sunny</td>
+				<td id="first_d2_maxtemp">34</td>
+				<td id="first_d2_mintemp">24</td>
+			</tr>
+			<tr>
+				<td id="first_d3_day_name">Tomorrow</td>
+				<td id="first_d3_desc">Sunny</td>
+				<td id="first_d3_maxtemp">34</td>
+				<td id="first_d3_mintemp">24</td>
+			</tr>
+			<tr>
+				<td id="first_d4_day_name">Tomorrow</td>
+				<td id="first_d4_desc">Sunny</td>
+				<td id="first_d4_maxtemp">34</td>
+				<td id="first_d4_mintemp">24</td>
+			</tr>
+			<tr>
+				<td id="first_d5_day_name">Tomorrow</td>
+				<td id="first_d5_desc">Sunny</td>
+				<td id="first_d5_maxtemp">34</td>
+				<td id="first_d5_mintemp">24</td>
+			</tr>
+		</table>
 
-		<div class="forecastday">
-			<h2 class="dayname" id="second_d2_day_name">Today</h2>
-			<div style="margin: -20px auto 0 auto; width: 150px; height: 150px;">
-				<img id="second_d2_img" src="small_icons/icona_12.png" width="150px"
-					height="150px" />
-			</div>
-			<div class="maxtemp" id="second_d2_maxtemp">31º</div>
-			<div class="mintemp" id="second_d2_mintemp">25º</div>
-			<div class="headerDivider"></div>
-		</div>
-
-		<div class="forecastday">
-			<h2 class="dayname" id="second_d3_day_name">Today</h2>
-			<div style="margin: -20px auto 0 auto; width: 150px; height: 150px;">
-				<img id="second_d3_img" src="small_icons/icona_12.png" width="150px"
-					height="150px" />
-			</div>
-			<div class="maxtemp" id="second_d3_maxtemp">31º</div>
-			<div class="mintemp" id="second_d3_mintemp">25º</div>
-			<div class="headerDivider"></div>
-		</div>
-
-		<div class="forecastday">
-			<h2 class="dayname" id="second_d4_day_name">Today</h2>
-			<div style="margin: -20px auto 0 auto; width: 150px; height: 150px;">
-				<img id="second_d1_img" src="small_icons/icona_12.png" width="150px"
-					height="150px" />
-			</div>
-			<div class="maxtemp" id="second_d4_maxtemp">31º</div>
-			<div class="mintemp" id="second_d4_mintemp">25º</div>
-			<div class="headerDivider"></div>
-		</div>
-
-		<div class="forecastday">
-			<h2 class="dayname" id="second_d5_day_name">Today</h2>
-			<div style="margin: -20px auto 0 auto; width: 150px; height: 150px;">
-				<img id="second_d5_img" src="small_icons/icona_12.png" width="150px"
-					height="150px" />
-			</div>
-			<div class="maxtemp" id="second_d5_maxtemp">31º</div>
-			<div class="mintemp" id="second_d5_mintemp">25º</div>
-			<div class="headerDivider"></div>
-		</div>
+		
 	</div>
+	
+		<div class="city">
+		<h1 class="cityname" id="first_city">Lugano</h1>
 
-	<div class="city">
-		<h1 class="cityname" id="third_city">Lugano</h1>
+		<div id="first" class="forecastday">
 
-
-		<div class="forecastday">
-			<h2 class="dayname" id="third_d1_day_name">Today</h2>
-			<div style="margin: -20px auto 0 auto; width: 150px; height: 150px;">
-				<img id="third_d1_img" src="small_icons/icona_12.png" width="150px"
-					height="150px" />
+			<div style="width: 400px; margin: -50px auto;">
+				<img id="first_img" src="css/icons/34.png" width="400px" />
 			</div>
-			<div class="maxtemp" id="third_d1_maxtemp">31º</div>
-			<div class="mintemp" id="third_d1_mintemp">25º</div>
-			<div class="headerDivider"></div>
+			<table border="0" style="width: 100%; margin: -10px auto 0 auto;">
+				<tr>
+					<td><span id="first_current_temp">29º</span></td>
+
+					<td class="humiwind" style="padding: 0 40px;"><span class="light">Humidity</span><span
+						id="first_humidity">60</span>%<br /> <span class="light">Wind</span>
+						<span id="first_wind_speed">7</span> <span
+						id="first_wind_direction">N</span></td>
+					<td class="maxmin"><span class="light">H</span><span
+						id="first_maxtemp">31º</span> <span class="light">L</span><span
+						id="first_mintemp">19º</span></td>
+				</tr>
+				
+			</table>
+
+
 		</div>
 
+		
+		<table class="forecast">
+			<tr>
+				<td id="first_d2_day_name">Tomorrow</td>
+				<td id="first_d2_desc">Sunny</td>
+				<td id="first_d2_maxtemp">34</td>
+				<td id="first_d2_mintemp">24</td>
+			</tr>
+			<tr>
+				<td id="first_d3_day_name">Tomorrow</td>
+				<td id="first_d3_desc">Sunny</td>
+				<td id="first_d3_maxtemp">34</td>
+				<td id="first_d3_mintemp">24</td>
+			</tr>
+			<tr>
+				<td id="first_d4_day_name">Tomorrow</td>
+				<td id="first_d4_desc">Sunny</td>
+				<td id="first_d4_maxtemp">34</td>
+				<td id="first_d4_mintemp">24</td>
+			</tr>
+			<tr>
+				<td id="first_d5_day_name">Tomorrow</td>
+				<td id="first_d5_desc">Sunny</td>
+				<td id="first_d5_maxtemp">34</td>
+				<td id="first_d5_mintemp">24</td>
+			</tr>
+		</table>
 
-		<div class="forecastday">
-			<h2 class="dayname" id="third_d2_day_name">Today</h2>
-			<div style="margin: -20px auto 0 auto; width: 150px; height: 150px;">
-				<img id="third_d2_img" src="small_icons/icona_12.png" width="150px"
-					height="150px" />
-			</div>
-			<div class="maxtemp" id="third_d2_maxtemp">31º</div>
-			<div class="mintemp" id="third_d2_mintemp">25º</div>
-			<div class="headerDivider"></div>
-		</div>
-
-		<div class="forecastday">
-			<h2 class="dayname" id="third_d3_day_name">Today</h2>
-			<div style="margin: -20px auto 0 auto; width: 150px; height: 150px;">
-				<img id="third_d3_img" src="small_icons/icona_12.png" width="150px"
-					height="150px" />
-			</div>
-			<div class="maxtemp" id="third_d3_maxtemp">31º</div>
-			<div class="mintemp" id="third_d3_mintemp">25º</div>
-			<div class="headerDivider"></div>
-		</div>
-
-		<div class="forecastday">
-			<h2 class="dayname" id="third_d4_day_name">Today</h2>
-			<div style="margin: -20px auto 0 auto; width: 150px; height: 150px;">
-				<img id="third_d1_img" src="small_icons/icona_12.png" width="150px"
-					height="150px" />
-			</div>
-			<div class="maxtemp" id="third_d4_maxtemp">31º</div>
-			<div class="mintemp" id="third_d4_mintemp">25º</div>
-			<div class="headerDivider"></div>
-		</div>
-
-		<div class="forecastday">
-			<h2 class="dayname" id="third_d5_day_name">Today</h2>
-			<div style="margin: -20px auto 0 auto; width: 150px; height: 150px;">
-				<img id="third_d5_img" src="small_icons/icona_12.png" width="150px"
-					height="150px" />
-			</div>
-			<div class="maxtemp" id="third_d5_maxtemp">31º</div>
-			<div class="mintemp" id="third_d5_mintemp">25º</div>
-			<div class="headerDivider"></div>
-		</div>
-	</div> -->
+		
+	</div>
+	
 </body>
 </html>

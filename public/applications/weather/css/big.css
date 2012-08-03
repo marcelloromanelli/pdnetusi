@@ -1,64 +1,47 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu);
-	
-	html, body {
-		margin: 0;
-		background: url("http://iskin.co.uk/wallpapers/imagecache/1920x1080/sunny_clouds_sky.jpg");
-		font-family: 'Ubuntu', sans-serif;
-		color: white;
-		width: 1335px;
-	}
 
-	.city{
-		width: 500px;
-		height: 700px;
-		margin-left: 45px;
-		margin-top:90px;
-		background-color: black;
-		opacity: 0.7;
-	}
-	
-	h1 {
-		font-size: 50px;
-		margin: 0;	
-	}
-	
-	.cityname{
-		text-shadow: 1px 1px #333333;
-		position:relative;
-		top: -60px;
-	}
+html,body {
+	margin: 0;
+	background:
+		url("http://iskin.co.uk/wallpapers/imagecache/1920x1080/sunny_clouds_sky.jpg");
+	font-family: 'Ubuntu', sans-serif;
+	color: white;
+	width: 1335px;
+}
 
-	.clear{
-		opacity: 0.6;
-	}
-	
-	.forecastday{
-		
-/*		margin-left: 5px;*/
-	}
-	
-	.dayname{
-		text-align: center;
-	}
-	
-	.maxtemp{
-		margin-left: 10px;
-		float: left;
-		font-size: 42px;
-	}
-	
-	.mintemp{
-		float: right;
-		font-size: 42px;
-		margin-right: 10px;
-	}
-	
-	.headerDivider {
-     border-left:1px solid #646464; 
-     border-right:1px solid #16222c; 
-     height:220px;
-     width: 0px;
-     position:relative;
-     left:175px;
-     top:-180px; 	
- }
+.city {
+	width: 400px;
+	height: 700px;
+	margin-left: 45px;
+	margin-top: 90px;
+	background-color: black;
+	opacity: 0.7;
+	float: left;
+}
+
+h1 {
+	font-size: 50px;
+	margin: 0;
+}
+
+#first_current_temp {
+	font-size: 60px;
+}
+
+.maxmin {
+	font-size: 25px;
+}
+
+.humiwind {
+	font-size: 25px;
+}
+
+.light {
+	opacity: 0.5;
+}
+
+.forecast{
+	width:90%; 
+	border-spacing:40px;
+	margin: 0 auto;
+}
