@@ -85,6 +85,7 @@ function updateFirst(response){
 }
 
 function updateSecond(response){
+	$("#second_img").attr("src","css/small_icons/"+response.condition.code +".png")
 	$("#second_location").html(response.location.city);
 	$("#second_current_temp").html(response.condition.temperature + "º");
 	$("#second_maxtemp").html(response.forecast[0].high_temperature + "º");
@@ -92,6 +93,7 @@ function updateSecond(response){
 }
 
 function updateThird(response){
+	$("#third_img").attr("src","css/small_icons/"+response.condition.code +".png")
 	$("#third_location").html(response.location.city);
 	$("#third_current_temp").html(response.condition.temperature + "º");
 	$("#third_maxtemp").html(response.forecast[0].high_temperature + "º");
