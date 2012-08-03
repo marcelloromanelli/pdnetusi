@@ -42,8 +42,11 @@ public class WeatherController extends Controller {
 	 */
 	public static HashMap<String,Integer> status = 
 			new HashMap<String, Integer>();
-	
-	public static Integer MAX_REQ = 300;
+	/**
+	 * The number of maximum request must be multiplied
+	 * by two because we have a SMALL and a BIG view 
+	 */
+	public static Integer MAX_REQ = 3*2;
 
 	public static WebSocket<JsonNode> webSocket() {
 		return new WebSocket<JsonNode>() {
@@ -94,14 +97,14 @@ public class WeatherController extends Controller {
 								JsonNode forecast = findForecast(location);
 
 								ArrayList<WebSocket.Out<JsonNode>> displaySockets = sockets.get(displayID);
-								
+
 								// Send the forecast to the two views of the application
 								displaySockets.get(0).write(forecast);
 								displaySockets.get(1).write(forecast);
 
 								Logger.info(forecast.toString());
-								status.put(displayID, freeSpaces-1);
-								
+								status.put(displayID, freeSpaces-2);
+
 							} else {
 								// TODO: put in queue or notify mobile
 							}
@@ -207,14 +210,14 @@ public class WeatherController extends Controller {
 		}
 	}
 
-	
+
 	public static class Space {
 		// TURE = FREE
 		// FALSE = OCCUPIED
 		public Boolean space1;
 		public Boolean space2;
 		public Boolean space3;
-		
+
 		public Space(Boolean space1, Boolean space2, Boolean space3) {
 			this.space1 = space1;
 			this.space2 = space2;
@@ -226,8 +229,8 @@ public class WeatherController extends Controller {
 			return "Space [space1=" + space1 + ", space2=" + space2
 					+ ", space3=" + space3 + "]";
 		}
-		
-		
+
+
 	} 
 
 }
