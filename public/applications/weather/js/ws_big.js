@@ -83,6 +83,7 @@ function updateFirst(response){
 	
 	for(var i = 1; i < 6; i++){
 		$("#first_d" + i + "_day_name").html(response.forecast[i-1].day);
+		$("#first_d" + i + "_desx").html(response.forecast[i-1].condition);
 		$("#first_d" + i + "_maxtemp").html(response.forecast[i-1].high_temperature + "º");
 		$("#first_d" + i + "_mintemp").html(response.forecast[i-1].low_temperature + "º");
 	}
