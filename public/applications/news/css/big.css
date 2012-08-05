@@ -1,0 +1,59 @@
+@import url(http://fonts.googleapis.com/css?family=Ubuntu);
+
+
+html,body {
+	margin: 0;
+	background: url("Bridge_1920.png");
+}
+
+.news {
+	width: 200px;
+	height: 160px;
+	margin: 20px;
+	background-color: white;
+	box-shadow: 6px 5px 9px rgba(50, 50, 50, 0.73);
+	font-family: Helvetica;
+	font-size: 45px;
+	float: left;
+}
+
+.test {
+	margin: 0;
+	clear: both;
+}
+
+h1 {
+	font-family: 'Ubuntu', sans-serif;
+	color: white;
+	font-size: 40px;
+	margin: 0;
+	text-align: right;
+	margin-right: 10px;
+}
+
+.categorytitle {
+	width: 500px;
+	height: 50px;
+	float: right;
+}
+
+.hot {
+	margin-top: 30px;
+	background: rgba(255, 0, 0, 0.9);
+}
+
+.tech {
+	background: rgba(157, 175, 0, 0.9);
+}
+
+.sport {
+	background: rgba(0, 64, 255, 0.9);
+}
+
+.culture {
+	background: rgba(255, 204, 0, 0.9);
+}
+
+.clear {
+	clear: both;
+}

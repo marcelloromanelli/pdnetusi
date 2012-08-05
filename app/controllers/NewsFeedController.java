@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package controllers;
 
 import java.io.BufferedReader;
@@ -10,7 +8,6 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -28,16 +25,29 @@ import play.mvc.WebSocket;
 public class NewsFeedController extends Controller {
 
 
-	public static Map<String, ArrayList<WebSocket.Out<JsonNode>>> freeTiles = new HashMap<String, ArrayList<WebSocket.Out<JsonNode>>>();
-	// Tells the displayID given a websocket out
-	public static Map<WebSocket.Out<JsonNode>,String> fromWStoDisplayID = new HashMap<WebSocket.Out<JsonNode>, String>();
-	// Tells the Tile specifications given a websocket out
-	public static Map<WebSocket.Out<JsonNode>,Tile> fromWStoTile = new HashMap<WebSocket.Out<JsonNode>,Tile>();
+	/**
+	 * Hashmap that given an ID of a Display, returns 
+	 * an list of 2 websockets: one for the small view
+	 * and one for the big one.	
+	 * Position 0: small
+	 * Position 1: big
+	 */
+	public static HashMap<String, ArrayList<WebSocket.Out<JsonNode>>> sockets = 
+			new HashMap<String, ArrayList<WebSocket.Out<JsonNode>>>();
 
-	// Tiles already used for dafault requests
-	public static ArrayList<WebSocket.Out<JsonNode>> usedDefaultTiles = new ArrayList<WebSocket.Out<JsonNode>>();
+	/**
+	 * Hashmap that given an ID of a Display, returns 
+	 * how many request the application can still recieve
+	 */
+	public static HashMap<String,Integer> status = 
+			new HashMap<String, Integer>();
 
-	
+	/**
+	 * The number of maximum request must be multiplied
+	 * by two because we have a SMALL and a BIG view 
+	 */
+	public static Integer MAX_REQ = 10*2;
+
 	public static WebSocket<JsonNode> webSocket() {
 		return new WebSocket<JsonNode>() {
 
@@ -46,127 +56,54 @@ public class NewsFeedController extends Controller {
 
 				in.onMessage(new Callback<JsonNode>() {
 					public void invoke(JsonNode event) {
-						Logger.info("A MESSAGE!");
+
+						Logger.info("MESSAGE FOR WEATHER WS");
 						Logger.info(event.toString());
+
 						String messageKind = event.get("kind").asText();						
 						String displayID = event.get("displayID").asText();
 
-						if(messageKind.equals("tileAvailable")){
+						if(!sockets.containsKey(displayID)){
+							sockets.put(displayID, new ArrayList<WebSocket.Out<JsonNode>>());
+							status.put(displayID, MAX_REQ);
+						}
 
-							String width = event.get("width").asText();
-							String height  = event.get("height").asText();
+						if(messageKind.equals("appReady")){
+							// Can be either small or big
+							String size = event.get("size").asText();
+
+							if(size.equals("small")){
+								sockets.get(displayID).add(0, out);
+							} else {
+								sockets.get(displayID).add(1, out);
+							}
 
 							Logger.info(
 									"\n ******* MESSAGE RECIEVED *******" +
-											"\n New feed tile available on " + displayID +
-											"\n SIZE: (" + width + "," + height + ")" +
+											"\n The "+ size + " view of \n" +
+											"weather app is now available on displayID: " + displayID +
 											"\n*********************************"
 									);
 
-							saveTile(out, displayID, width, height);
+							// TODO: look for defaults values
+
 
 						} else if(messageKind.equals("mobileRequest")){
 							String username = event.get("username").asText();
 							JsonNode feeds = event.get("preference");
-							processInput(displayID, username, feeds, false);
-						} else if(messageKind.equals("defaultRequest")){
-							JsonNode feeds = event.get("preference");
-							processInput(displayID, "default", feeds, true);
-						}else {
+						} else {
 							Logger.info("WTF: " + event.toString());
 						}
 
 					}
 
-					private void processInput(String displayID,String username, JsonNode feeds, boolean isDefault) {
-						try {
-							Out<JsonNode> tileOut = null;
-							if(isDefault){
-								tileOut = findDefaultDestinationTile(displayID,0,0);
-							} else{
-								tileOut = findDestinationTile(displayID,0,0);
-							}
-
-							if (tileOut == null){
-								Logger.info("SORRY NO SPACE");
-								// ADD TO A QUEUE?
-							} 
-							else {
-
-								ObjectNode response = Json.newObject();
-								Logger.info("MOBILE: \n " + username + " on " + displayID + " request feeds");
-
-								ArrayList<String> feedsTitles = new ArrayList<String>();
-								Iterator<JsonNode> it = feeds.getElements();
-								while(it.hasNext()){
-									JsonNode jsonFeed = xmlJsonObject(it.next().asText()).get("responseData").get("feed");
-									Logger.info("PROCESSING: " + jsonFeed.get("title"));
-									Iterator<JsonNode> entries = jsonFeed.get("entries").getElements();
-									while(entries.hasNext()){
-										JsonNode currentEntry = entries.next();
-										feedsTitles.add(currentEntry.get("title").asText());
-									}
-								}
-								JsonNode jsonFeedsTitles = Json.toJson(feedsTitles);
-								if(isDefault){
-									response.put("kind", "default");
-								} else {
-									response.put("kind", "mobileAnswer");
-								}
-								response.put("feeds", jsonFeedsTitles);
-								tileOut.write(response);
-								if(!isDefault){
-									removeTileFromAvailable(tileOut);
-								}
-							}
-
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-
-					protected JsonNode xmlJsonObject(String feedURL) {
-						String baseURL = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=";
-						try {
-							URL url = new URL(baseURL + feedURL);
-							URLConnection connection = url.openConnection();
-
-							String line;
-							StringBuilder builder = new StringBuilder();
-							BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-							while((line = reader.readLine()) != null) {
-								builder.append(line);
-							}
-
-							ObjectMapper mapper = new ObjectMapper();
-							JsonNode df = mapper.readValue(builder.toString(), JsonNode.class);
-
-							return df;
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-						return null;
-					}
-
-					private void saveTile(final WebSocket.Out<JsonNode> out,String displayID, String width, String height) {
-						if(freeTiles.containsKey(displayID)){
-							freeTiles.get(displayID).add(out);
-						} else {
-							ArrayList<WebSocket.Out<JsonNode>> outs = new ArrayList<WebSocket.Out<JsonNode>>();
-							outs.add(out);
-							freeTiles.put(displayID, outs);
-						}
-						fromWStoDisplayID.put(out, displayID);
-						fromWStoTile.put(out, new Tile(new Integer(width), new Integer(height)));
-					} 
 				});
 
 				// When the socket is closed.
 				in.onClose(new Callback0() {
 					public void invoke() {
-						String displayID = removeTileFromAvailable(out);
 						Logger.info("\n ******* MESSAGE RECIEVED *******" +
-								"\n A weather tile on " + displayID +
+								"\n A weather tile on " + "TODO" +
 								"\n is now disconnected." +
 								"\n*********************************"
 								);
@@ -179,63 +116,66 @@ public class NewsFeedController extends Controller {
 
 		};
 	}
+	
+	public static JsonNode xmlToJSON(String feedURL) {
+		String baseURL = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=";
+		try {
+			URL url = new URL(baseURL + feedURL);
+			URLConnection connection = url.openConnection();
 
+			String line;
+			StringBuilder builder = new StringBuilder();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			while((line = reader.readLine()) != null) {
+				builder.append(line);
+			}
 
+			ObjectMapper mapper = new ObjectMapper();
+			JsonNode df = mapper.readValue(builder.toString(), JsonNode.class);
+			return df;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	
 	/**
-	 * Find the socket of a tile within the given constraint of width and height. Later
-	 * removes it from the available tiles
-	 * @param displayID
-	 * @param minWidth
-	 * @param minHeight
+	 * Given a JSON containing a set of feeds sources,
+	 * it returns a new JSON containing the titles of the various
+	 * news.
+	 * @param json of feeds recieved from the mobile 
 	 * @return
 	 */
-	public static WebSocket.Out<JsonNode> findDestinationTile(String displayID, Integer minWidth, Integer minHeight){
-		ArrayList<WebSocket.Out<JsonNode>> outs = freeTiles.get(displayID);
-		Iterator<WebSocket.Out<JsonNode>> it = outs.iterator();
-		while (it.hasNext()){
-			WebSocket.Out<JsonNode> out = it.next();
-			Tile currentTile = fromWStoTile.get(out);
-			if(currentTile.width >= minWidth && currentTile.height >= minHeight){
-				usedDefaultTiles.add(out);
-				return out;
+	public static ObjectNode extractTitles(JsonNode feeds) {
+				
+		ArrayList<String> feedsTitles = new ArrayList<String>();
+		
+		ArrayList<String> categories = new ArrayList<String>();
+		
+		Iterator<JsonNode> it = feeds.getElements();
+		
+		while(it.hasNext()){
+			JsonNode jsonFeed = xmlToJSON(it.next().asText()).get("responseData").get("feed");
+			Logger.info("PROCESSING: " + jsonFeed.get("title"));
+			Iterator<JsonNode> entries = jsonFeed.get("entries").getElements();
+			while(entries.hasNext()){
+				JsonNode currentEntry = entries.next();
+				feedsTitles.add(currentEntry.get("title").asText());
 			}
-
-		}	
-		return null;
+		}
+		
+		JsonNode jsonFeedsTitles = Json.toJson(feedsTitles);
+		
+		// Build the JSON that is going to be sent back
+		// to the display.
+		ObjectNode response = Json.newObject();
+		response.put("kind", "mobileAnswer");
+		response.put("feeds", jsonFeedsTitles);
+		return response;
 	}
 
-	public static WebSocket.Out<JsonNode> findDefaultDestinationTile(String displayID, Integer minWidth, Integer minHeight){
-		ArrayList<WebSocket.Out<JsonNode>> outs = freeTiles.get(displayID);
-		Iterator<WebSocket.Out<JsonNode>> it = outs.iterator();
-		while (it.hasNext()){
-			WebSocket.Out<JsonNode> out = it.next();
-			if(!usedDefaultTiles.contains(out)){
-				Tile currentTile = fromWStoTile.get(out);
-				if(currentTile.width >= minWidth && currentTile.height >= minHeight){
-					usedDefaultTiles.add(out);
-					return out;
-				}
-			}
-		}	
-		return null;
-	}
 
-	public static String removeTileFromAvailable(final WebSocket.Out<JsonNode> out) {
-		String displayID = fromWStoDisplayID.get(out);
-		freeTiles.get(displayID).remove(out);
-		fromWStoDisplayID.remove(out);
-		fromWStoTile.remove(out);
-		return displayID;
-	}
-
-	public static class Tile {
-		final Integer width;
-		final Integer height;
-
-		public Tile(Integer width, Integer height) {
-			this.width = width;
-			this.height = height;
-		}		
-	} 
 
 }
