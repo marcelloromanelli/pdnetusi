@@ -57,8 +57,8 @@ public class NewsFeedController extends Controller {
 				in.onMessage(new Callback<JsonNode>() {
 					public void invoke(JsonNode event) {
 
-						Logger.info("MESSAGE FOR WEATHER WS");
-						Logger.info(event.toString());
+						Logger.info("INCOMING MESSAGE ON NEWSFEED WS:\n" 
+						+ event.toString());
 
 						String messageKind = event.get("kind").asText();						
 						String displayID = event.get("displayID").asText();
@@ -81,7 +81,7 @@ public class NewsFeedController extends Controller {
 							Logger.info(
 									"\n ******* MESSAGE RECIEVED *******" +
 											"\n The "+ size + " view of \n" +
-											"weather app is now available on displayID: " + displayID +
+											"newsfeed app is now available on displayID: " + displayID +
 											"\n*********************************"
 									);
 
@@ -91,6 +91,7 @@ public class NewsFeedController extends Controller {
 						} else if(messageKind.equals("mobileRequest")){
 							String username = event.get("username").asText();
 							JsonNode feeds = event.get("preference");
+							extractTitles(feeds);
 						} else {
 							Logger.info("WTF: " + event.toString());
 						}
@@ -149,7 +150,13 @@ public class NewsFeedController extends Controller {
 	 * @return
 	 */
 	public static ObjectNode extractTitles(JsonNode feeds) {
-				
+		
+		JsonNode hot = feeds.get("hot");
+		JsonNode tech = feeds.get("tech");
+		JsonNode sport = feeds.get("sport");
+		JsonNode culture = feeds.get("culture");
+
+		Logger.info(hot.toString() + "\n\n" + tech.toString()  + "\n\n" + sport.toString()  + "\n\n" + culture.toString());
 		ArrayList<String> feedsTitles = new ArrayList<String>();
 		
 		ArrayList<String> categories = new ArrayList<String>();
