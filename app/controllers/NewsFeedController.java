@@ -63,7 +63,6 @@ public class NewsFeedController extends Controller {
 						String messageKind = event.get("kind").asText();						
 						String displayID = event.get("displayID").asText();
 
-						Logger.info("\n\nMK\n\n"+messageKind);
 						if(!sockets.containsKey(displayID)){
 							sockets.put(displayID, new ArrayList<WebSocket.Out<JsonNode>>());
 							status.put(displayID, MAX_REQ);
@@ -72,8 +71,10 @@ public class NewsFeedController extends Controller {
 
 						if(messageKind.equals("appReady")){
 							// Can be either small or big
+							
+							Logger.info("\n\nHERE!!!");
 							String size = event.get("size").asText();
-
+							
 							if(size.equals("small")){
 								sockets.get(displayID).add(0, out);
 							} else {
