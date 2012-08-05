@@ -4,6 +4,7 @@
 html,body {
 	margin: 0;
 	background: url("Bridge_1920.png");
+	overflow: hidden;
 }
 
 .news {
