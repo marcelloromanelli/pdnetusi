@@ -1,8 +1,7 @@
 var timeout = 30000;
 
-
-
 var activeCategories = new Array();
+var inactiveCategories = new Array();
 
 $(function() { 
 	displayID = getUrlVars()["id"];
@@ -38,25 +37,70 @@ $(function() {
 
 
 function partitionSpace(response){
-	
+
 	if(response.culture.length > 0 && (jQuery.inArray("culture", activeCategories) == -1)){
 		activeCategories.push("culture");
+		inactiveCategories.splice(jQuery.inArray("culture",inactiveCategories),1);
+
+	} else {
+		inactiveCategories.push("culture");
 	}
-	
+
 	if(response.hot.length > 0 && (jQuery.inArray("hot", activeCategories) == -1)){
 		activeCategories.push("hot");
+		inactiveCategories.splice(jQuery.inArray("hot",inactiveCategories),1);
+	} else {
+		inactiveCategories.push("hot");
 	}
-	
+
 	if(response.sport.length > 0 && (jQuery.inArray("sport", activeCategories) == -1)){
 		activeCategories.push("sport");
+		inactiveCategories.splice(jQuery.inArray("sport",inactiveCategories),1);
+	} else {
+		inactiveCategories.push("sport");
 	}
-	
-	if(response.hot.length > 0 && (jQuery.inArray("sport", activeCategories) == -1)){
-		activeCategories.push("sport");
+
+	if(response.tech.length > 0 && (jQuery.inArray("tech", activeCategories) == -1)){
+		activeCategories.push("tech");
+		inactiveCategories.splice(jQuery.inArray("tech",inactiveCategories),1);
+	} else {
+		inactiveCategories.push("tech");
 	}
-	
+
+
+	if(activeCategories.length == 1){
+
+		var catname = activeCategories[0];
+		$("." + catname).show();
+
+		for(var currentInactiveCat in inactiveCategories)
+		{
+			$("." + currentInactiveCat).hide();
+		}
+
+	} else if (activeCategories.length == 2){
+
+		for(var currentActiveCat in activeCategories)
+		{
+			$("." + currentActiveCat + ".small").show();
+			$("." + currentActiveCat + ".half").show();
+		}
+
+		for(var currentInactiveCat in inactiveCategories)
+		{
+			$("." + currentInactiveCat).hide();
+		}
+	} else {
+		for(var currentInactiveCat in inactiveCategories)
+		{
+			$("." + currentInactiveCat).hide();
+		}
+	}
+
 	console.log(activeCategories);
-	
+	console.log(inactiveCategories);
+
+
 }
 
 function freeSpace(){
