@@ -61,9 +61,10 @@ function partitionSpace(response){
 		var catname = activeCategories[0];
 		$("." + catname).show();
 
-		for(var currentInactiveCat in inactiveCategories)
+		for(var i in inactiveCategories)
 		{
-			$("." + currentInactiveCat).hide();
+			$("." + inactiveCategories[i]).hide();
+			console.log("hiding");
 		}
 
 	} else if (activeCategories.length == 2){
