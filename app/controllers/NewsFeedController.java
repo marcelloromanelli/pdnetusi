@@ -72,13 +72,14 @@ public class NewsFeedController extends Controller {
 						if(messageKind.equals("appReady")){
 							// Can be either small or big
 							
-							Logger.info("\n\nHERE!!!");
 							String size = event.get("size").asText();
 							
 							if(size.equals("small")){
 								sockets.get(displayID).add(0, out);
+								Logger.info("SMALL WS ADDED");
 							} else {
 								sockets.get(displayID).add(1, out);
+								Logger.info("BIG WS ADDED");
 							}
 
 							Logger.info(
@@ -88,8 +89,7 @@ public class NewsFeedController extends Controller {
 											"\n*********************************"
 									);
 
-							// TODO: look for defaults values
-
+							Logger.info("wella");
 
 						} else if(messageKind.equals("mobileRequest")){
 							String username = event.get("username").asText();
