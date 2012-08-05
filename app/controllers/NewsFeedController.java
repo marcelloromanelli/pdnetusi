@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -137,9 +138,9 @@ public class NewsFeedController extends Controller {
 	}
 	
 	public static JsonNode xmlToJSON(String feedURL) {
-		String baseURL = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=";
+		String baseURL = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=" + feedURL + "&num=10";
 		try {
-			URL url = new URL(baseURL + feedURL + "&num=10");
+			URL url = new URL(baseURL);
 			URLConnection connection = url.openConnection();
 
 			String line;
