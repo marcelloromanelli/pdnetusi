@@ -56,7 +56,7 @@ function insertNews(responseArray,name){
 			$(this).find("h3").html(responseArray[index].source);
 			$(this).find("p").html(responseArray[index].title);
 		} else {
-//			$(this).hide();
+			$(this).hide();
 			return;
 		}
 	});
