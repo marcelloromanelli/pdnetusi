@@ -150,36 +150,43 @@ public class NewsFeedController extends Controller {
 	 * @return
 	 */
 	public static ObjectNode extractTitles(JsonNode feeds) {
+		Logger.info("here");
 		
 		JsonNode hot = feeds.get("hot");
 		JsonNode tech = feeds.get("tech");
 		JsonNode sport = feeds.get("sport");
 		JsonNode culture = feeds.get("culture");
 
-		Logger.info(hot.toString() + "\n\n" + tech.toString()  + "\n\n" + sport.toString()  + "\n\n" + culture.toString());
-		ArrayList<String> feedsTitles = new ArrayList<String>();
-		
-		ArrayList<String> categories = new ArrayList<String>();
-		
-		Iterator<JsonNode> it = feeds.getElements();
-		
-		while(it.hasNext()){
-			JsonNode jsonFeed = xmlToJSON(it.next().asText()).get("responseData").get("feed");
-			Logger.info("PROCESSING: " + jsonFeed.get("title"));
-			Iterator<JsonNode> entries = jsonFeed.get("entries").getElements();
-			while(entries.hasNext()){
-				JsonNode currentEntry = entries.next();
-				feedsTitles.add(currentEntry.get("title").asText());
-			}
-		}
-		
-		JsonNode jsonFeedsTitles = Json.toJson(feedsTitles);
-		
-		// Build the JSON that is going to be sent back
-		// to the display.
+		Logger.info
+				(
+				hot.toString() 
+				+ "\n\n" + tech.toString()  
+				+ "\n\n" + sport.toString()  
+				+ "\n\n" + culture.toString()
+				);
+//		ArrayList<String> feedsTitles = new ArrayList<String>();
+//		
+//		ArrayList<String> categories = new ArrayList<String>();
+//		
+//		Iterator<JsonNode> it = feeds.getElements();
+//		
+//		while(it.hasNext()){
+//			JsonNode jsonFeed = xmlToJSON(it.next().asText()).get("responseData").get("feed");
+//			Logger.info("PROCESSING: " + jsonFeed.get("title"));
+//			Iterator<JsonNode> entries = jsonFeed.get("entries").getElements();
+//			while(entries.hasNext()){
+//				JsonNode currentEntry = entries.next();
+//				feedsTitles.add(currentEntry.get("title").asText());
+//			}
+//		}
+//		
+//		JsonNode jsonFeedsTitles = Json.toJson(feedsTitles);
+//		
+//		// Build the JSON that is going to be sent back
+//		// to the display.
 		ObjectNode response = Json.newObject();
-		response.put("kind", "mobileAnswer");
-		response.put("feeds", jsonFeedsTitles);
+//		response.put("kind", "mobileAnswer");
+//		response.put("feeds", jsonFeedsTitles);
 		return response;
 	}
 
