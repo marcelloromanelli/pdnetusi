@@ -30,14 +30,14 @@ public class DisplayController extends Controller {
 	 * @return
 	 */
 	public static Result setupDisplay(String displayID) {
-		if(!activeDisplays.containsKey(displayID)){
+//		if(!activeDisplays.containsKey(displayID)){
 			Display display = Display.get(new Long(displayID));
 			String name = display.name;
 			activeDisplays.put(displayID, null);
 			return ok(views.html.display.render(displayID,name));
-		} else {
-			return ok("SORRY, DISPLAY ID " + displayID + " IS ALREADY ACTIVE");
-		}
+//		} else {
+//			return ok("SORRY, DISPLAY ID " + displayID + " IS ALREADY ACTIVE");
+//		}
 	}
 
 
