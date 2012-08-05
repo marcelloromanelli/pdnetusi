@@ -1,18 +1,9 @@
-var first=true;
-var firstInterval;
-
-var second=true;
-var secondInterval;
-
-var third=true;
-var thirdIterval;
-
 var timeout = 30000;
 
 $(function() { 
 	displayID = getUrlVars()["id"];
 	var WS = WebSocket;
-	var wsUri = "ws://pdnet.inf.unisi.ch:9000/weather/socket";
+	var wsUri = "ws://pdnet.inf.unisi.ch:9000/newsfeed/socket";
 	websocket = new WS(wsUri); 
 	websocket.onopen = function(evt) { 
 		console.log("CONNECTED"); 
@@ -45,23 +36,6 @@ $(function() {
 });
 
 
-function findFree(response){
-	if(first){
-		updateFirst(response);
-		first = false;
-		firstInterval=setInterval(function(){freeSpace(); clearInterval(firstInterval); first=true;},timeout);
-	} else if (second){
-		updateSecond(response);
-		second = false;
-		secondInterval=setInterval(function(){freeSpace();clearInterval(secondInterval);second=true;},timeout);
-	} else if (third) {
-		updateThird(response);
-		third = false;
-		thirdInterval=setInterval(function(){freeSpace();clearInterval(thirdInterval);third=true;},timeout);
-	} else {
-		console.log("error");
-	}
-}
 
 function freeSpace(){
 	var free = JSON.stringify
@@ -70,34 +44,6 @@ function freeSpace(){
 		"displayID":  displayID,
 	});
 	websocket.send(free);
-}
-
-function updateFirst(response){
-	$("#first_img").attr("src","css/icons/"+response.condition.code +".png")
-	$("#first_location").html(response.location.city);
-	$("#first_current_temp").html(response.condition.temperature + "º");
-	$("#first_humidity").html(response.atmosphere.humidity);
-	$("#first_wind_speed").html(response.wind.speed);
-	$("#first_wind_direction").html(response.wind.direction);
-	$("#first_maxtemp").html(response.forecast[0].high_temperature + "º");
-	$("#first_mintemp").html(response.forecast[0].low_temperature + "º");
-	
-}
-
-function updateSecond(response){
-	$("#second_img").attr("src","css/small_icons/"+response.condition.code +".png")
-	$("#second_location").html(response.location.city);
-	$("#second_current_temp").html(response.condition.temperature + "º");
-	$("#second_maxtemp").html(response.forecast[0].high_temperature + "º");
-	$("#second_mintemp").html(response.forecast[0].low_temperature + "º");
-}
-
-function updateThird(response){
-	$("#third_img").attr("src","css/small_icons/"+response.condition.code +".png")
-	$("#third_location").html(response.location.city);
-	$("#third_current_temp").html(response.condition.temperature + "º");
-	$("#third_maxtemp").html(response.forecast[0].high_temperature + "º");
-	$("#third_mintemp").html(response.forecast[0].low_temperature + "º");
 }
 
 function getUrlVars()

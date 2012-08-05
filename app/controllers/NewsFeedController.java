@@ -70,14 +70,17 @@ public class NewsFeedController extends Controller {
 						}
 
 						if(messageKind.equals("appReady")){
-							// Can be either small or big
 							
+							Logger.info("Newsfeed app is ready!");
+							
+							// Can be either small or big
 							String size = event.get("size").asText();
 							
 							if(size.equals("small")){
 								sockets.get(displayID).add(0, out);
 								Logger.info("SMALL WS ADDED");
-							} else {
+							} else if(size.equals("big")) {
+								Logger.info("BIG WS ADDED");
 								sockets.get(displayID).add(1, out);
 								Logger.info("BIG WS ADDED");
 							}
