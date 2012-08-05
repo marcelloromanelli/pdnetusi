@@ -53,8 +53,10 @@ function insertNews(responseArray,name){
 	console.log(responseArray);
 	$(".news."+name).each(function(index){
 		if(responseArray[index] != undefined){
-			$(this).html(responseArray[index].title);
+			$(this).find("h3").html(responseArray[index].source);
+			$(this).find("p").html(responseArray[index].title);
 		} else {
+//			$(this).hide();
 			return;
 		}
 	});
