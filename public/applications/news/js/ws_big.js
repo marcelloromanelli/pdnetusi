@@ -52,9 +52,9 @@ function updateStatus(responseArray,name){
 function partitionSpace(response){
 
 	updateStatus(response.culture, "culture");
-	updateStatus(response.culture, "hot");
-	updateStatus(response.culture, "sport");
-	updateStatus(response.culture, "tech");
+	updateStatus(response.hot, "hot");
+	updateStatus(response.sport, "sport");
+	updateStatus(response.tech, "tech");
 
 	if(activeCategories.length == 1){
 
