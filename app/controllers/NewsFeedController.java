@@ -63,10 +63,11 @@ public class NewsFeedController extends Controller {
 						String messageKind = event.get("kind").asText();						
 						String displayID = event.get("displayID").asText();
 
+						Logger.info("\n\nMK\n\n"+messageKind);
 						if(!sockets.containsKey(displayID)){
 							sockets.put(displayID, new ArrayList<WebSocket.Out<JsonNode>>());
 							status.put(displayID, MAX_REQ);
-							Logger.info("DisplayID " + displayID + "was added to the system");
+							Logger.info("DisplayID " + displayID + " was added to the system.");
 						}
 
 						if(messageKind.equals("appReady")){
