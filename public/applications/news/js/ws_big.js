@@ -69,21 +69,22 @@ function partitionSpace(response){
 
 	} else if (activeCategories.length == 2){
 
-		for(var currentActiveCat in activeCategories)
+		console.log("2 ACTIVES");
+		for(var i in activeCategories)
 		{
-			$("." + currentActiveCat + ".small").show();
-			$("." + currentActiveCat + ".half").show();
-			$("." + currentActiveCat + ".big").hide();
+			$("." + activeCategories[i] + ".small").show();
+			$("." + activeCategories[i] + ".half").show();
+			$("." + activeCategories[i] + ".big").hide();
 		}
 
-		for(var currentInactiveCat in inactiveCategories)
+		for(var j in inactiveCategories)
 		{
-			$("." + currentInactiveCat).hide();
+			$("." + inactiveCategories[j]).hide();
 		}
 	} else {
-		for(var currentInactiveCat in inactiveCategories)
+		for(var j in inactiveCategories)
 		{
-			$("." + currentInactiveCat).hide();
+			$("." + inactiveCategories[j]).hide();
 		}
 	}
 
