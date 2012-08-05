@@ -78,11 +78,8 @@ public class NewsFeedController extends Controller {
 							
 							if(size.equals("small")){
 								sockets.get(displayID).add(0, out);
-								Logger.info("SMALL WS ADDED");
 							} else if(size.equals("big")) {
-								Logger.info("BIG WS ADDED");
 								sockets.get(displayID).add(1, out);
-								Logger.info("BIG WS ADDED");
 							}
 
 							Logger.info(
@@ -92,12 +89,10 @@ public class NewsFeedController extends Controller {
 											"\n*********************************"
 									);
 
-							Logger.info("wella");
-
 						} else if(messageKind.equals("mobileRequest")){
 							String username = event.get("username").asText();
 							JsonNode feeds = event.get("preference");
-							extractTitles(feeds);
+							processFeeds(feeds);
 						} else {
 							Logger.info("WTF: " + event.toString());
 						}
@@ -155,9 +150,7 @@ public class NewsFeedController extends Controller {
 	 * @param json of feeds recieved from the mobile 
 	 * @return
 	 */
-	public static ObjectNode extractTitles(JsonNode feeds) {
-		Logger.info("here");
-		
+	public static ObjectNode processFeeds(JsonNode feeds) {		
 		JsonNode hot = feeds.get("hot");
 		JsonNode tech = feeds.get("tech");
 		JsonNode sport = feeds.get("sport");
@@ -165,37 +158,48 @@ public class NewsFeedController extends Controller {
 
 		Logger.info
 				(
-				hot.toString() 
+				"FEEDS RECIEVED: \n"
+				+ "\n\n" + hot.toString() 
 				+ "\n\n" + tech.toString()  
 				+ "\n\n" + sport.toString()  
 				+ "\n\n" + culture.toString()
 				);
-//		ArrayList<String> feedsTitles = new ArrayList<String>();
-//		
-//		ArrayList<String> categories = new ArrayList<String>();
-//		
-//		Iterator<JsonNode> it = feeds.getElements();
-//		
-//		while(it.hasNext()){
-//			JsonNode jsonFeed = xmlToJSON(it.next().asText()).get("responseData").get("feed");
-//			Logger.info("PROCESSING: " + jsonFeed.get("title"));
-//			Iterator<JsonNode> entries = jsonFeed.get("entries").getElements();
-//			while(entries.hasNext()){
-//				JsonNode currentEntry = entries.next();
-//				feedsTitles.add(currentEntry.get("title").asText());
-//			}
-//		}
-//		
-//		JsonNode jsonFeedsTitles = Json.toJson(feedsTitles);
-//		
-//		// Build the JSON that is going to be sent back
-//		// to the display.
+
+
+		// Build the JSON that is going to be sent back
+		// to the display.
 		ObjectNode response = Json.newObject();
-//		response.put("kind", "mobileAnswer");
-//		response.put("feeds", jsonFeedsTitles);
+		response.put("hot", extractInformations(hot));
+		response.put("tech", extractInformations(tech));
+		response.put("sport", extractInformations(sport));
+		response.put("culture", extractInformations(culture));
+
+		Logger.info(response.toString());
 		return response;
 	}
 
-
+	public static JsonNode extractInformations(JsonNode feed) {		
+		
+		ArrayList<ObjectNode> feedsTitles = new ArrayList<ObjectNode>();
+		Iterator<JsonNode> it = feed.getElements();
+		
+		while(it.hasNext()){
+			JsonNode jsonFeed = xmlToJSON(it.next().asText()).get("responseData").get("feed");
+			String newsSource = jsonFeed.get("title").asText();
+			Logger.info("PROCESSING: " + newsSource);
+			Iterator<JsonNode> entries = jsonFeed.get("entries").getElements();
+			while(entries.hasNext()){
+				JsonNode currentEntry = entries.next();
+				
+				ObjectNode currentNews = Json.newObject();
+				currentNews.put("source", newsSource);
+				currentNews.put("title", currentEntry.get("title").asText());
+				feedsTitles.add(currentNews);
+			}
+		}
+		
+		JsonNode jsonFeedsTitles = Json.toJson(feedsTitles);
+		return jsonFeedsTitles;
+	}
 
 }
