@@ -38,7 +38,7 @@ $(function() {
 function updateStatus(responseArray,name){
 	if(responseArray.length > 0 && (jQuery.inArray(name, activeCategories) == -1)){
 		activeCategories.push(name);
-
+		insertNews(responseArray, name);
 		var index = jQuery.inArray(name,inactiveCategories);
 		if (index != - 1){
 			inactiveCategories.splice(index,1);
@@ -47,6 +47,12 @@ function updateStatus(responseArray,name){
 	} else {
 		inactiveCategories.push(name);
 	}
+}
+
+function insertNews(responseArray,name){
+	$(".news."+name).each(function(index){
+		$(this).html(responseArray[index].title);
+	});
 }
 
 function partitionSpace(response){
