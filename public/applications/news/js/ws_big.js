@@ -50,6 +50,7 @@ function updateStatus(responseArray,name){
 }
 
 function insertNews(responseArray,name){
+	console.log(responseArray);
 	$(".news."+name).each(function(index){
 		$(this).html(responseArray[index].title);
 	});
