@@ -90,9 +90,26 @@ public class NewsFeedController extends Controller {
 									);
 
 						} else if(messageKind.equals("mobileRequest")){
-							String username = event.get("username").asText();
-							JsonNode feeds = event.get("preference");
-							processFeeds(feeds);
+
+							Integer freeSpaces = status.get(displayID);
+							if(freeSpaces>0){								
+
+								String username = event.get("username").asText();
+								JsonNode feeds = event.get("preference");
+								ObjectNode response = processFeeds(feeds);
+								
+								ArrayList<WebSocket.Out<JsonNode>> displaySockets = sockets.get(displayID);
+
+								// Send the forecast to the two views of the application
+								displaySockets.get(0).write(response);
+								displaySockets.get(1).write(response);
+
+								Logger.info(response.toString());
+								status.put(displayID, freeSpaces-2);
+
+							} else {
+								// TODO: put in queue or notify mobile
+							}
 						} else {
 							Logger.info("WTF: " + event.toString());
 						}
@@ -174,7 +191,6 @@ public class NewsFeedController extends Controller {
 		response.put("sport", extractInformations(sport));
 		response.put("culture", extractInformations(culture));
 
-		Logger.info(response.toString());
 		return response;
 	}
 
@@ -193,6 +209,7 @@ public class NewsFeedController extends Controller {
 				
 				ObjectNode currentNews = Json.newObject();
 				currentNews.put("source", newsSource);
+				currentNews.put("link", currentEntry.get("link").asText());
 				currentNews.put("title", currentEntry.get("title").asText());
 				feedsTitles.add(currentNews);
 			}
