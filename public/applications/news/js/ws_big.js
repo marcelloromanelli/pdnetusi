@@ -35,38 +35,26 @@ $(function() {
 
 });
 
+function updateStatus(responseArray,name){
+	if(responseArray.length > 0 && (jQuery.inArray(name, activeCategories) == -1)){
+		activeCategories.push(name);
+
+		var index = jQuery.inArray(name,inactiveCategories);
+		if (index != - 1){
+			inactiveCategories.splice(index,1);
+		}
+
+	} else {
+		inactiveCategories.push(name);
+	}
+}
 
 function partitionSpace(response){
 
-	if(response.culture.length > 0 && (jQuery.inArray("culture", activeCategories) == -1)){
-		activeCategories.push("culture");
-		inactiveCategories.splice(jQuery.inArray("culture",inactiveCategories),1);
-
-	} else {
-		inactiveCategories.push("culture");
-	}
-
-	if(response.hot.length > 0 && (jQuery.inArray("hot", activeCategories) == -1)){
-		activeCategories.push("hot");
-		inactiveCategories.splice(jQuery.inArray("hot",inactiveCategories),1);
-	} else {
-		inactiveCategories.push("hot");
-	}
-
-	if(response.sport.length > 0 && (jQuery.inArray("sport", activeCategories) == -1)){
-		activeCategories.push("sport");
-		inactiveCategories.splice(jQuery.inArray("sport",inactiveCategories),1);
-	} else {
-		inactiveCategories.push("sport");
-	}
-
-	if(response.tech.length > 0 && (jQuery.inArray("tech", activeCategories) == -1)){
-		activeCategories.push("tech");
-		inactiveCategories.splice(jQuery.inArray("tech",inactiveCategories),1);
-	} else {
-		inactiveCategories.push("tech");
-	}
-
+	updateStatus(response.culture, "culture");
+	updateStatus(response.culture, "hot");
+	updateStatus(response.culture, "sport");
+	updateStatus(response.culture, "tech");
 
 	if(activeCategories.length == 1){
 
