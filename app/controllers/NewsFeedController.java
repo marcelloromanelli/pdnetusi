@@ -139,7 +139,7 @@ public class NewsFeedController extends Controller {
 	public static JsonNode xmlToJSON(String feedURL) {
 		String baseURL = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=";
 		try {
-			URL url = new URL(baseURL + feedURL);
+			URL url = new URL(baseURL + feedURL + "&num=10");
 			URLConnection connection = url.openConnection();
 
 			String line;
@@ -186,10 +186,19 @@ public class NewsFeedController extends Controller {
 		// Build the JSON that is going to be sent back
 		// to the display.
 		ObjectNode response = Json.newObject();
-		response.put("hot", extractInformations(hot));
-		response.put("tech", extractInformations(tech));
-		response.put("sport", extractInformations(sport));
-		response.put("culture", extractInformations(culture));
+		
+		hot = extractInformations(hot);
+		if(hot != null){ response.put("hot", hot); }
+		
+		tech = extractInformations(tech);
+		if(tech != null){ response.put("tech", tech); }
+
+		sport = extractInformations(sport);
+		if(sport != null){ response.put("sport", sport); }
+
+		
+		culture = extractInformations(culture);
+		if(culture != null){ response.put("culture", culture); }
 
 		return response;
 	}
@@ -213,6 +222,10 @@ public class NewsFeedController extends Controller {
 				currentNews.put("title", currentEntry.get("title").asText());
 				feedsTitles.add(currentNews);
 			}
+		}
+		
+		if(feedsTitles.size() == 0){
+			return null;
 		}
 		
 		JsonNode jsonFeedsTitles = Json.toJson(feedsTitles);
