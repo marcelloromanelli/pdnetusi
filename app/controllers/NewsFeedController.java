@@ -186,19 +186,10 @@ public class NewsFeedController extends Controller {
 		// Build the JSON that is going to be sent back
 		// to the display.
 		ObjectNode response = Json.newObject();
-		
-		hot = extractInformations(hot);
-		if(hot != null){ response.put("hot", hot); }
-		
-		tech = extractInformations(tech);
-		if(tech != null){ response.put("tech", tech); }
-
-		sport = extractInformations(sport);
-		if(sport != null){ response.put("sport", sport); }
-
-		
-		culture = extractInformations(culture);
-		if(culture != null){ response.put("culture", culture); }
+		response.put("hot", extractInformations(hot));
+		response.put("tech", extractInformations(tech));
+		response.put("sport", extractInformations(sport));
+		response.put("culture", extractInformations(culture));
 
 		return response;
 	}
@@ -222,10 +213,6 @@ public class NewsFeedController extends Controller {
 				currentNews.put("title", currentEntry.get("title").asText());
 				feedsTitles.add(currentNews);
 			}
-		}
-		
-		if(feedsTitles.size() == 0){
-			return null;
 		}
 		
 		JsonNode jsonFeedsTitles = Json.toJson(feedsTitles);
