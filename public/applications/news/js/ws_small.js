@@ -23,10 +23,6 @@ $(function() {
 	websocket.onmessage = function(evt) {
 
 		var response = jQuery.parseJSON(evt.data);
-		findFree(response);
-		
-//		console.log("SERVER APP ANSWER: ");
-//		console.log(response) ;
 	};
 
 	websocket.onerror = function(evt) { 

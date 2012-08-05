@@ -1,5 +1,9 @@
 var timeout = 30000;
 
+
+
+var activeCategories = new Array();
+
 $(function() { 
 	displayID = getUrlVars()["id"];
 	var WS = WebSocket;
@@ -31,6 +35,28 @@ $(function() {
 
 });
 
+
+function partitionSpace(response){
+	
+	if(response.culture.length > 0 && (jQuery.inArray("culture", activeCategories) == -1)){
+		activeCategories.push("culture");
+	}
+	
+	if(response.hot.length > 0 && (jQuery.inArray("hot", activeCategories) == -1)){
+		activeCategories.push("hot");
+	}
+	
+	if(response.sport.length > 0 && (jQuery.inArray("sport", activeCategories) == -1)){
+		activeCategories.push("sport");
+	}
+	
+	if(response.hot.length > 0 && (jQuery.inArray("sport", activeCategories) == -1)){
+		activeCategories.push("sport");
+	}
+	
+	console.log(activeCategories);
+	
+}
 
 function freeSpace(){
 	var free = JSON.stringify
