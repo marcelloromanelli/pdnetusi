@@ -73,6 +73,7 @@ function partitionSpace(response){
 		{
 			$("." + currentActiveCat + ".small").show();
 			$("." + currentActiveCat + ".half").show();
+			$("." + currentActiveCat + ".big").hide();
 		}
 
 		for(var currentInactiveCat in inactiveCategories)
