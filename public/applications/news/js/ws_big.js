@@ -1,6 +1,6 @@
 var timeout = 30000;
 
-var activeCategories = new Array();
+var activeCategories = {};
 var inactiveCategories = new Array();
 
 $(function() { 
@@ -36,14 +36,18 @@ $(function() {
 });
 
 function updateStatus(responseArray,name){
-	if(responseArray.length > 0 && (jQuery.inArray(name, activeCategories) == -1)){
-		activeCategories.push(name);
-		insertNews(responseArray, name);
-		var index = jQuery.inArray(name,inactiveCategories);
-		if (index != - 1){
+	if(responseArray.length > 0){
+		
+		// Check if the category is contained in the inactive
+		// categories. If this is the case the element will be removed.
+		var index = jQuery.inArray(name, inactiveCategories);
+		if(index != -1){
 			inactiveCategories.splice(index,1);
 		}
-
+		
+		activeCategories.name += 1;
+		insertNews(responseArray, name);
+		
 	} else {
 		inactiveCategories.push(name);
 	}
@@ -52,11 +56,14 @@ function updateStatus(responseArray,name){
 function insertNews(responseArray,name){
 	console.log(responseArray);
 	$(".news."+name).each(function(index){
+		// Check for the case where there are more tiles
+		// than news
 		if(responseArray[index] != undefined){
 			$(this).find("h3").html(responseArray[index].source);
 			$(this).find("p").html(responseArray[index].title);
 		} else {
-			$(this).hide();
+			// take news from index on
+			// and insert them in a queue
 			return;
 		}
 	});
@@ -69,9 +76,11 @@ function partitionSpace(response){
 	updateStatus(response.sport, "sport");
 	updateStatus(response.tech, "tech");
 
-	if(activeCategories.length == 1){
+	var catnames = Object.keys(activeCategories);
+	
+	if(catnames.length == 1){
 
-		var catname = activeCategories[0];
+		var catname = catnames[0];
 		$("." + catname).show();
 
 		for(var i in inactiveCategories)
@@ -80,14 +89,14 @@ function partitionSpace(response){
 			console.log("hiding");
 		}
 
-	} else if (activeCategories.length == 2){
+	} else if (catnames.length == 2){
 
 		console.log("2 ACTIVES");
-		for(var i in activeCategories)
+		for(var i in catnames)
 		{
-			$("." + activeCategories[i] + ".small").show();
-			$("." + activeCategories[i] + ".half").show();
-			$("." + activeCategories[i] + ".big").hide();
+			$("." + catnames[i] + ".small").show();
+			$("." + catnames[i] + ".half").show();
+			$("." + catnames[i] + ".big").hide();
 		}
 
 		for(var j in inactiveCategories)
@@ -103,8 +112,6 @@ function partitionSpace(response){
 
 	console.log(activeCategories);
 	console.log(inactiveCategories);
-
-
 }
 
 function freeSpace(){
