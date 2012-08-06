@@ -27,7 +27,6 @@ $(function() {
 
 	websocket.onmessage = function(evt) {
 		var response = jQuery.parseJSON(evt.data);
-		console.log(response);
 		partitionSpace(response);
 	};
 
@@ -84,7 +83,6 @@ function insertNews(responseArray,name){
 	var to = setTimeout(
 			function(){
 				activeCategories[name] = activeCategories[name] - 1;
-				console.log(name + " = " + activeCategories[name]);
 				if(activeCategories[name] == 0){
 					$("." + name).fadeOut();
 					inactiveCategories.push(name);
@@ -94,6 +92,9 @@ function insertNews(responseArray,name){
 					inactiveCategories = new Array();
 					showDefaults();
 				}
+				
+				console.log(inactiveCategories);
+				console.log(activeCategories);
 			}
 			,timeout
 	);
