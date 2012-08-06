@@ -224,7 +224,7 @@ html,body {
 }
 
 #bar {
-	background: url("images/bar_dx.png");
+	background-image: url("images/bar_dx.png");
 	width: 28px;
 	height: 100%;
 	float: left;
