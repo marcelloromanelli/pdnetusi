@@ -88,11 +88,28 @@ function insertNews(responseArray,name){
 				if(activeCategories[name] == 0 && inactiveCategories.length != 3){
 					$("." + name).fadeOut();
 					inactiveCategories.push(name);
+				} else if (inactiveCategories.length == 3){
+					inactiveCategories = new Array();
+					showDefaults();
 				}
 			}
 			,timeout
 	);
 
+}
+
+function showDefaults(){
+	$(".categorytitle .culture").fadeIn();
+	$(".culture.small").fadeIn();
+	
+	$(".categorytitle .hot").fadeIn();
+	$(".hot.small").fadeIn();
+	
+	$(".categorytitle .sport").fadeIn();
+	$(".culture.sport").fadeIn();
+	
+	$(".categorytitle .tech").fadeIn();
+	$(".tech.small").fadeIn();
 }
 
 function partitionSpace(response){
