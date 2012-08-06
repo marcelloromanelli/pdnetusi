@@ -20,6 +20,7 @@ import play.libs.F.Callback0;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.WebSocket;
+import play.mvc.WebSocket.Out;
 /**
  * @author romanelm
  */
@@ -33,8 +34,8 @@ public class NewsFeedController extends Controller {
 	 * Position 0: small
 	 * Position 1: big
 	 */
-	public static HashMap<String, ArrayList<WebSocket.Out<JsonNode>>> sockets = 
-			new HashMap<String, ArrayList<WebSocket.Out<JsonNode>>>();
+	public static HashMap<String, Sockets> sockets = 
+			new HashMap<String, Sockets>();
 
 	/**
 	 * Hashmap that given an ID of a Display, returns 
@@ -60,28 +61,28 @@ public class NewsFeedController extends Controller {
 					public void invoke(JsonNode event) {
 
 						Logger.info("INCOMING MESSAGE ON NEWSFEED WS:\n" 
-						+ event.toString());
+								+ event.toString());
 
 						String messageKind = event.get("kind").asText();						
 						String displayID = event.get("displayID").asText();
 
 						if(!sockets.containsKey(displayID)){
-							sockets.put(displayID, new ArrayList<WebSocket.Out<JsonNode>>());
+							sockets.put(displayID, new Sockets(null, null));
 							status.put(displayID, MAX_REQ);
 							Logger.info("DisplayID " + displayID + " was added to the system.");
 						}
 
 						if(messageKind.equals("appReady")){
-							
+
 							Logger.info("Newsfeed app is ready!");
-							
+
 							// Can be either small or big
 							String size = event.get("size").asText();
-							
+
 							if(size.equals("small")){
-								sockets.get(displayID).add(0, out);
+								sockets.get(displayID).small = out;
 							} else if(size.equals("big")) {
-								sockets.get(displayID).add(1, out);
+								sockets.get(displayID).big  = out;
 							}
 
 							Logger.info(
@@ -99,12 +100,12 @@ public class NewsFeedController extends Controller {
 								String username = event.get("username").asText();
 								JsonNode feeds = event.get("preference");
 								ObjectNode response = processFeeds(feeds);
-								
-								ArrayList<WebSocket.Out<JsonNode>> displaySockets = sockets.get(displayID);
+
+								Sockets displaySockets = sockets.get(displayID);
 
 								// Send the forecast to the two views of the application
-								displaySockets.get(0).write(response);
-								displaySockets.get(1).write(response);
+								displaySockets.small.write(response);
+								displaySockets.big.write(response);
 
 								Logger.info(response.toString());
 								status.put(displayID, freeSpaces-2);
@@ -137,7 +138,7 @@ public class NewsFeedController extends Controller {
 
 		};
 	}
-	
+
 	public static JsonNode xmlToJSON(String feedURL) {
 		String baseURL = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=" + feedURL + "&num=20";
 		try {
@@ -159,9 +160,9 @@ public class NewsFeedController extends Controller {
 		}
 		return null;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Given a JSON containing a set of feeds sources,
 	 * it returns a new JSON containing the titles of the various
@@ -176,12 +177,12 @@ public class NewsFeedController extends Controller {
 		JsonNode culture = feeds.get("culture");
 
 		Logger.info
-				(
+		(
 				"FEEDS RECIEVED: \n"
-				+ "\n\n" + hot.toString() 
-				+ "\n\n" + tech.toString()  
-				+ "\n\n" + sport.toString()  
-				+ "\n\n" + culture.toString()
+						+ "\n\n" + hot.toString() 
+						+ "\n\n" + tech.toString()  
+						+ "\n\n" + sport.toString()  
+						+ "\n\n" + culture.toString()
 				);
 
 
@@ -197,10 +198,10 @@ public class NewsFeedController extends Controller {
 	}
 
 	public static JsonNode extractInformations(JsonNode feed) {		
-		
+
 		ArrayList<ObjectNode> feedsTitles = new ArrayList<ObjectNode>();
 		Iterator<JsonNode> it = feed.getElements();
-		
+
 		while(it.hasNext()){
 			JsonNode jsonFeed = xmlToJSON(it.next().asText()).get("responseData").get("feed");
 			String newsSource = jsonFeed.get("title").asText();
@@ -215,9 +216,18 @@ public class NewsFeedController extends Controller {
 				feedsTitles.add(currentNews);
 			}
 		}
-		
+
 		JsonNode jsonFeedsTitles = Json.toJson(feedsTitles);
 		return jsonFeedsTitles;
 	}
 
+	public static class Sockets {
+		public WebSocket.Out<JsonNode> small;
+		public WebSocket.Out<JsonNode> big;
+		
+		public Sockets(Out<JsonNode> small, Out<JsonNode> big) {
+			this.small = small;
+			this.big = big;
+		}
+	} 
 }
