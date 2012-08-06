@@ -85,14 +85,33 @@ function insertNews(responseArray,name){
 			function(){
 				activeCategories[name] = activeCategories[name] - 1;
 				console.log(name + " = " + activeCategories[name]);
-				if(activeCategories[name] == 0 && inactiveCategories.length != 3){
+				if(activeCategories[name] == 0){
 					$("." + name).fadeOut();
 					inactiveCategories.push(name);
+				} 
+				
+				if(inactiveCategories.length == 4){
+					inactiveCategories = new Array();
+					showDefaults();
 				}
 			}
 			,timeout
 	);
 
+}
+
+function showDefaults(){
+	$(".categorytitle .culture").show();
+	$(".culture .small").show();
+	
+	$(".categorytitle .hot").show();
+	$(".hot .small").show();
+	
+	$(".categorytitle .sport").show();
+	$(".culture .sport").show();
+	
+	$(".categorytitle .tech").show();
+	$(".tech .small").show();
 }
 
 function partitionSpace(response){
