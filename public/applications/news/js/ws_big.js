@@ -1,4 +1,4 @@
-var timeout = 5000;
+var timeout = 30000;
 
 var activeCategories = {};
 var inactiveCategories = new Array();
