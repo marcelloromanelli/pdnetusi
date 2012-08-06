@@ -94,6 +94,7 @@ function insertNews(responseArray,name){
 					showDefaults();
 				}
 				
+				console.log("\n\n --- TIMEOUT ---")
 				console.log(inactiveCategories);
 				console.log(activeCategories);
 			}
