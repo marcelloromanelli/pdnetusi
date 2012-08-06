@@ -104,6 +104,7 @@ function partitionSpace(response){
 		console.log("2 ACTIVES");
 		for(var i in catnames)
 		{
+			$(".categorytitle" + "." + catnames[i]).fadeIn();
 			$("." + catnames[i] + ".small").fadeIn();
 			$("." + catnames[i] + ".half").fadeIn();
 			$("." + catnames[i] + ".big").fadeOut();
@@ -116,6 +117,7 @@ function partitionSpace(response){
 	} else {
 		for(var i in catnames)
 		{
+			$(".categorytitle" + "." + catnames[i]).fadeIn();
 			$("." + catnames[i] + ".small").fadeIn();
 			$("." + catnames[i] + ".half").fadeOut();
 			$("." + catnames[i] + ".big").fadeOut();

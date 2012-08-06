@@ -62,6 +62,10 @@ p {
 	background: rgba(157, 175, 0, 0.9);
 }
 
+img{
+	background: none !important;
+}
+
 .sport {
 	background: rgba(0, 64, 255, 0.9);
 }
