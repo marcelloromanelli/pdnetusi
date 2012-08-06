@@ -69,7 +69,7 @@ p {
 
 img {
 	background: none !important;
-	border: none;
+	border-top-style: none !important;
 }
 
 .sport {
