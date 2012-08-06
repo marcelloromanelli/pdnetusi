@@ -85,10 +85,12 @@ function insertNews(responseArray,name){
 			function(){
 				activeCategories[name] = activeCategories[name] - 1;
 				console.log(name + " = " + activeCategories[name]);
-				if(activeCategories[name] == 0 && inactiveCategories.length != 3){
+				if(activeCategories[name] == 0){
 					$("." + name).fadeOut();
 					inactiveCategories.push(name);
-				} else if (inactiveCategories.length == 3){
+				} 
+				
+				if(inactiveCategories.length == 4){
 					inactiveCategories = new Array();
 					showDefaults();
 				}
