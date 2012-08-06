@@ -52,7 +52,9 @@
 				$("#rightbig").fadeOut();
 				$("#rightsmall").fadeIn();
 				
-				$("#bar").animate({background-image: url('assets/stylesheets/images/bar_sx.png')});
+				$("#bar").animate({
+					background-image: 'url("assets/stylesheets/images/bar_sx.png"')
+								});
 				
 				isLeftCollapsed = false;
 			} else {
@@ -65,8 +67,9 @@
 				$("#rightbig").fadeIn();
 				$("#rightsmall").fadeOut();
 
-				$("#bar").animate({background-image: url('assets/stylesheets/images/bar_dx.png')});
-				
+				$("#bar").animate({
+					background-image: 'url("assets/stylesheets/images/bar_dx.png"')
+								});				
 				isLeftCollapsed = true;
 			}
 		});
