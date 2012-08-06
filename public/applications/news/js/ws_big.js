@@ -66,7 +66,7 @@ function updateStatus(responseArray,name){
 }
 
 function insertNews(responseArray,name){
-	console.log(responseArray);
+//	console.log(responseArray);
 	$(".news."+name).each(function(index){
 		// Check for the case where there are more tiles
 		// than news
