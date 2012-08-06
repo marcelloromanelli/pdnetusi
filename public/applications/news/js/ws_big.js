@@ -37,19 +37,22 @@ $(function() {
 
 function updateStatus(responseArray,name){
 	if(responseArray.length > 0){
-		
+
 		// Check if the category is contained in the inactive
 		// categories. If this is the case the element will be removed.
 		var index = jQuery.inArray(name, inactiveCategories);
 		if(index != -1){
 			inactiveCategories.splice(index,1);
 		}
-		
-		activeCategories.name += 1;
+
+		activeCategories[name] += 1;
 		insertNews(responseArray, name);
-		
+
 	} else {
-		inactiveCategories.push(name);
+		var index = jQuery.inArray(name, inactiveCategories);
+		if(index == -1){
+			inactiveCategories.push(name);
+		}
 	}
 }
 
@@ -77,7 +80,7 @@ function partitionSpace(response){
 	updateStatus(response.tech, "tech");
 
 	var catnames = Object.keys(activeCategories);
-	
+
 	if(catnames.length == 1){
 
 		var catname = catnames[0];
