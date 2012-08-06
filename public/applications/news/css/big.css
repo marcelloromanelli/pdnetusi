@@ -1,6 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu);
 
-
 html,body {
 	margin: 0;
 	background: url("Bridge_1920.png");
@@ -12,11 +11,12 @@ html,body {
 	width: 200px;
 	height: 160px;
 	margin: 20px;
-	background-color: rgba(255, 255, 255, 0.7) !important;
-	box-shadow: 6px 5px 9px rgba(50, 50, 50, 0.73);
+	background-color: rgba(255, 255, 255, 0.7) !important; box-shadow : 6px
+	5px 9px rgba( 50, 50, 50, 0.73);
 	font-family: Helvetica;
 	font-size: 45px;
 	float: left;
+	box-shadow: 6px 5px 9px rgba(50, 50, 50, 0.73);
 }
 
 .test {
@@ -33,7 +33,7 @@ h1 {
 	margin-right: 10px;
 }
 
-h3{
+h3 {
 	font-size: 15px;
 	margin-left: 10px;
 	margin-top: 5px;
@@ -45,6 +45,7 @@ p {
 	margin-left: 10px;
 	margin-top: -5px;
 	color: black !important;
+	font-family: "Times New Roman", Times, serif;
 }
 
 .categorytitle {
@@ -62,7 +63,7 @@ p {
 	background: rgba(157, 175, 0, 0.9);
 }
 
-img{
+img {
 	background: none !important;
 }
 
