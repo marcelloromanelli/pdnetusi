@@ -58,8 +58,10 @@ function updateStatus(responseArray,name){
 		insertNews(responseArray, name);
 
 	} else {
-		var index = jQuery.inArray(name, inactiveCategories);
-		if(index == -1){
+		var indexInactive = jQuery.inArray(name, inactiveCategories);
+		var indexActive = jQuery.inArray(name, activeCategories);
+
+		if(indexInactive == -1 && activeCategories == -1){
 			inactiveCategories.push(name);
 		}
 	}
