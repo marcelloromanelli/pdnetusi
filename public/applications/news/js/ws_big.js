@@ -101,17 +101,17 @@ function insertNews(responseArray,name){
 }
 
 function showDefaults(){
-	$(".categorytitle .culture").show();
-	$(".culture .small").show();
+	$(".categorytitle.culture").fadeIn();
+	$(".culture.small").fadeIn();
 	
-	$(".categorytitle .hot").show();
-	$(".hot .small").show();
+	$(".categorytitle.hot").fadeIn();
+	$(".hot.small").fadeIn();
 	
-	$(".categorytitle .sport").show();
-	$(".culture .sport").show();
+	$(".categorytitle .sport").fadeIn();
+	$(".sport.small").fadeIn();
 	
-	$(".categorytitle .tech").show();
-	$(".tech .small").show();
+	$(".categorytitle.tech").fadeIn();
+	$(".tech.small").fadeIn();
 }
 
 function partitionSpace(response){
