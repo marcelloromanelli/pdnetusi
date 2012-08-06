@@ -89,8 +89,8 @@ function insertNews(responseArray,name){
 				} 
 				
 				if(inactiveCategories.length == 4){
-					inactiveCategories = new Array();
-					activeCategories[name] = activeCategories[name] + 1;
+					inactiveCategories = ["hot","culture","tech","sport"];
+					activeCategories = {};
 					showDefaults();
 				}
 				
