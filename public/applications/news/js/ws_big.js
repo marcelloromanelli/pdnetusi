@@ -90,6 +90,7 @@ function insertNews(responseArray,name){
 				
 				if(inactiveCategories.length == 4){
 					inactiveCategories = new Array();
+					activeCategories[name] = activeCategories[name] + 1;
 					showDefaults();
 				}
 				
