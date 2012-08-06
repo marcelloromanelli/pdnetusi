@@ -37,9 +37,11 @@ h3 {
 	font-size: 15px;
 	color: black !important;
 	background-color: #9B9B9B;
+	opacity: 0.8;
 	width: 195px;
 	margin-top: 0px;
 	padding-left: 5px;
+	padding-top: 10px;
 }
 
 p {
