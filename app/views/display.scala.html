@@ -52,6 +52,8 @@
 				$("#rightbig").fadeOut();
 				$("#rightsmall").fadeIn();
 				
+				$("#bar").attr("background","url('images/bar_sx.png')");
+				
 				isLeftCollapsed = false;
 			} else {
 				$("#right").animate({width: '1289px'});
@@ -63,6 +65,8 @@
 				$("#rightbig").fadeIn();
 				$("#rightsmall").fadeOut();
 
+				$("#bar").attr("background","url('images/bar_dx.png')");
+				
 				isLeftCollapsed = true;
 			}
 		});
