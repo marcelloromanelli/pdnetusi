@@ -109,7 +109,7 @@ function showDefaults(){
 	$(".categorytitle.hot").fadeIn();
 	$(".hot.small").fadeIn();
 	
-	$(".categorytitle .sport").fadeIn();
+	$(".categorytitle.sport").fadeIn();
 	$(".sport.small").fadeIn();
 	
 	$(".categorytitle.tech").fadeIn();
