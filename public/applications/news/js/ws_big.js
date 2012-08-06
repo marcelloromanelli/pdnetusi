@@ -86,9 +86,9 @@ function insertNews(responseArray,name){
 			function(){
 				activeCategories[name] = activeCategories[name] - 1;
 				console.log(name + " = " + activeCategories[name]);
-				if(activeCategories[name] == 0 && inactiveCategories.length < 4){
-					inactiveCategories.push(name);
+				if(activeCategories[name] == 0 && inactiveCategories.length != 3){
 					$("." + name).fadeOut();
+					inactiveCategories.push(name);
 				}
 			}
 			,timeout
