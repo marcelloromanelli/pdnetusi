@@ -115,6 +115,8 @@ function showDefaults(){
 	
 	$(".categorytitle.tech").fadeIn();
 	$(".tech.small").fadeIn();
+	
+	
 }
 
 function partitionSpace(response){
@@ -134,7 +136,6 @@ function partitionSpace(response){
 		for(var i in inactiveCategories)
 		{
 			$("." + inactiveCategories[i]).fadeOut();
-			console.log("hiding");
 		}
 
 	} else if (catnames.length == 2){
@@ -165,8 +166,6 @@ function partitionSpace(response){
 		}
 	}
 
-	console.log(activeCategories);
-	console.log(inactiveCategories);
 }
 
 function freeSpace(){
