@@ -57,10 +57,14 @@ p {
 .hot {
 	margin-top: 30px;
 	background: rgba(255, 0, 0, 0.9);
+	border-right-style:solid;
+	border-color: rgba(255, 0, 0, 0.9);
 }
 
 .tech {
 	background: rgba(157, 175, 0, 0.9);
+	border-right-style:solid;
+	border-color: rgba(157, 175, 0, 0.9);
 }
 
 img {
@@ -69,10 +73,14 @@ img {
 
 .sport {
 	background: rgba(0, 64, 255, 0.9);
+	border-right-style:solid;
+	border-color: rgba(0, 64, 255, 0.9);
 }
 
 .culture {
 	background: rgba(255, 204, 0, 0.9);
+	border-right-style:solid;
+	border-color: rgba(255, 204, 0, 0.9);
 }
 
 .clear {
