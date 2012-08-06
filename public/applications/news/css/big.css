@@ -12,7 +12,8 @@ html,body {
 	width: 200px;
 	height: 160px;
 	margin: 20px;
-	background-color: white;
+	background-color: white !important;
+	color: black !important;
 	box-shadow: 6px 5px 9px rgba(50, 50, 50, 0.73);
 	font-family: Helvetica;
 	font-size: 45px;
