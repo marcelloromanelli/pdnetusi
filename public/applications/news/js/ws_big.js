@@ -114,6 +114,12 @@ function partitionSpace(response){
 			$("." + inactiveCategories[j]).hide();
 		}
 	} else {
+		for(var i in catnames)
+		{
+			$("." + catnames[i] + ".small").show();
+			$("." + catnames[i] + ".half").hide();
+			$("." + catnames[i] + ".big").hide();
+		}
 		for(var j in inactiveCategories)
 		{
 			$("." + inactiveCategories[j]).hide();
