@@ -1,5 +1,7 @@
 var timeout = 30000;
 
+var timerId = 0;
+
 var activeCategories = {};
 var inactiveCategories = new Array();
 
@@ -77,7 +79,7 @@ function insertNews(responseArray,name){
 			return;
 		}
 	});
-	setTimeout(
+	var to = setTimeout(
 			function(){
 				activeCategories[name] = activeCategories[name] - 1;
 				console.log(name + " = " + activeCategories[name]);
