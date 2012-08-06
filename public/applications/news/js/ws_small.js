@@ -27,7 +27,6 @@ $(function() {
 
 	websocket.onmessage = function(evt) {
 		var response = jQuery.parseJSON(evt.data);
-		console.log(response);
 		partitionSpace(response);
 	};
 
@@ -84,7 +83,6 @@ function insertNews(responseArray,name){
 	var to = setTimeout(
 			function(){
 				activeCategories[name] = activeCategories[name] - 1;
-				console.log(name + " = " + activeCategories[name]);
 				if(activeCategories[name] == 0){
 					$("." + name).fadeOut();
 					inactiveCategories.push(name);
@@ -92,8 +90,13 @@ function insertNews(responseArray,name){
 				
 				if(inactiveCategories.length == 4){
 					inactiveCategories = new Array();
+					activeCategories[name] = activeCategories[name] + 1;
 					showDefaults();
 				}
+				
+				console.log("\n\n --- TIMEOUT ---")
+				console.log(inactiveCategories);
+				console.log(activeCategories);
 			}
 			,timeout
 	);
@@ -101,17 +104,19 @@ function insertNews(responseArray,name){
 }
 
 function showDefaults(){
-	$(".categorytitle .culture").show();
-	$(".culture .small").show();
+	$(".categorytitle.culture").fadeIn();
+	$(".culture.small").fadeIn();
 	
-	$(".categorytitle .hot").show();
-	$(".hot .small").show();
+	$(".categorytitle.hot").fadeIn();
+	$(".hot.small").fadeIn();
 	
-	$(".categorytitle .sport").show();
-	$(".culture .sport").show();
+	$(".categorytitle.sport").fadeIn();
+	$(".sport.small").fadeIn();
 	
-	$(".categorytitle .tech").show();
-	$(".tech .small").show();
+	$(".categorytitle.tech").fadeIn();
+	$(".tech.small").fadeIn();
+	
+	
 }
 
 function partitionSpace(response){
@@ -131,7 +136,6 @@ function partitionSpace(response){
 		for(var i in inactiveCategories)
 		{
 			$("." + inactiveCategories[i]).fadeOut();
-			console.log("hiding");
 		}
 
 	} else if (catnames.length == 2){
@@ -162,8 +166,6 @@ function partitionSpace(response){
 		}
 	}
 
-	console.log(activeCategories);
-	console.log(inactiveCategories);
 }
 
 function freeSpace(){
