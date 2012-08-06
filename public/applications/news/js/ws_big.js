@@ -45,7 +45,14 @@ function updateStatus(responseArray,name){
 			inactiveCategories.splice(index,1);
 		}
 
-		activeCategories[name] += 1;
+		if(activeCategories[name] == undefined){
+			activeCategories[name] = 1;
+		} else {
+			activeCategories[name] = activeCategories[name] + 1;
+
+		}
+		
+		
 		insertNews(responseArray, name);
 
 	} else {
