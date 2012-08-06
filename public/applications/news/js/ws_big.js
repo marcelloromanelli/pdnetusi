@@ -59,9 +59,7 @@ function updateStatus(responseArray,name){
 
 	} else {
 		var indexInactive = jQuery.inArray(name, inactiveCategories);
-		var indexActive = jQuery.inArray(name, activeCategories);
-
-		if(indexInactive == -1 && indexActive == -1){
+		if(indexInactive == -1){
 			inactiveCategories.push(name);
 		}
 	}
@@ -88,7 +86,10 @@ function insertNews(responseArray,name){
 				console.log(name + " = " + activeCategories[name]);
 				if(activeCategories[name] == 0 && inactiveCategories.length != 3){
 					$("." + name).fadeOut();
-					inactiveCategories.push(name);
+					var indexInactive = jQuery.inArray(name, inactiveCategories);
+					if(indexInactive == -1){
+						inactiveCategories.push(name);
+					}
 				}
 			}
 			,timeout

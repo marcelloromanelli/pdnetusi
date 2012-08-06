@@ -208,7 +208,6 @@ public class NewsFeedController extends Controller {
 			Iterator<JsonNode> entries = jsonFeed.get("entries").getElements();
 			while(entries.hasNext()){
 				JsonNode currentEntry = entries.next();
-				
 				ObjectNode currentNews = Json.newObject();
 				currentNews.put("source", newsSource);
 				currentNews.put("link", currentEntry.get("link").asText());
