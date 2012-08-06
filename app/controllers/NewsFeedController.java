@@ -46,8 +46,9 @@ public class NewsFeedController extends Controller {
 	/**
 	 * The number of maximum request must be multiplied
 	 * by two because we have a SMALL and a BIG view 
+	 * TEST VALUE
 	 */
-	public static Integer MAX_REQ = 10*2;
+	public static Integer MAX_REQ = 1000*2;
 
 	public static WebSocket<JsonNode> webSocket() {
 		return new WebSocket<JsonNode>() {

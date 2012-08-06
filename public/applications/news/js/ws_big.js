@@ -1,4 +1,4 @@
-var timeout = 30000;
+var timeout = 5000;
 
 var activeCategories = {};
 var inactiveCategories = new Array();
@@ -77,6 +77,17 @@ function insertNews(responseArray,name){
 			return;
 		}
 	});
+	setTimeout(
+			function(){
+				activeCategories[name] = activeCategories[name] - 1;
+				if(activeCategories[name] == 0){
+					inactiveCategories.push(name);
+					$("." + name).fadeOut();
+				}
+			}
+			,timeout
+	);
+
 }
 
 function partitionSpace(response){
@@ -101,7 +112,6 @@ function partitionSpace(response){
 
 	} else if (catnames.length == 2){
 
-		console.log("2 ACTIVES");
 		for(var i in catnames)
 		{
 			$(".categorytitle" + "." + catnames[i]).fadeIn();
