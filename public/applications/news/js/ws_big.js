@@ -76,6 +76,7 @@ function insertNews(responseArray,name){
 			$(this).find("h3").html(responseArray[index].source);
 			$(this).find("p").html(responseArray[index].title);
 		} else {
+			$(this).hide();
 			// take news from index on
 			// and insert them in a queue
 			return;
@@ -85,7 +86,7 @@ function insertNews(responseArray,name){
 			function(){
 				activeCategories[name] = activeCategories[name] - 1;
 				console.log(name + " = " + activeCategories[name]);
-				if(activeCategories[name] == 0){
+				if(activeCategories[name] == 0 && inactiveCategories.length > 1){
 					inactiveCategories.push(name);
 					$("." + name).fadeOut();
 				}
