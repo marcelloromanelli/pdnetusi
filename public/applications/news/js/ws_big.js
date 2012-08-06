@@ -61,7 +61,7 @@ function updateStatus(responseArray,name){
 		var indexInactive = jQuery.inArray(name, inactiveCategories);
 		var indexActive = jQuery.inArray(name, activeCategories);
 
-		if(indexInactive == -1 && activeCategories == -1){
+		if(indexInactive == -1 && indexActive == -1){
 			inactiveCategories.push(name);
 		}
 	}
