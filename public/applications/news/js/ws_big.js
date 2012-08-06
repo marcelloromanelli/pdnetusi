@@ -80,6 +80,7 @@ function insertNews(responseArray,name){
 	setTimeout(
 			function(){
 				activeCategories[name] = activeCategories[name] - 1;
+				console.log(name + " = " + activeCategories[name]);
 				if(activeCategories[name] == 0){
 					inactiveCategories.push(name);
 					$("." + name).fadeOut();
