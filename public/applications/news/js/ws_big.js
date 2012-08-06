@@ -59,7 +59,8 @@ function updateStatus(responseArray,name){
 
 	} else {
 		var indexInactive = jQuery.inArray(name, inactiveCategories);
-		if(indexInactive == -1){
+
+		if(indexInactive == -1 && activeCategories[name] != undefined){
 			inactiveCategories.push(name);
 		}
 	}
@@ -86,10 +87,7 @@ function insertNews(responseArray,name){
 				console.log(name + " = " + activeCategories[name]);
 				if(activeCategories[name] == 0 && inactiveCategories.length != 3){
 					$("." + name).fadeOut();
-					var indexInactive = jQuery.inArray(name, inactiveCategories);
-					if(indexInactive == -1){
-						inactiveCategories.push(name);
-					}
+					inactiveCategories.push(name);
 				}
 			}
 			,timeout
