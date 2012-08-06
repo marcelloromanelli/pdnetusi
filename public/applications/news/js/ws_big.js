@@ -91,11 +91,11 @@ function partitionSpace(response){
 	if(catnames.length == 1){
 
 		var catname = catnames[0];
-		$("." + catname).show();
+		$("." + catname).fadeIn();
 
 		for(var i in inactiveCategories)
 		{
-			$("." + inactiveCategories[i]).hide();
+			$("." + inactiveCategories[i]).fadeOut();
 			console.log("hiding");
 		}
 
@@ -104,25 +104,25 @@ function partitionSpace(response){
 		console.log("2 ACTIVES");
 		for(var i in catnames)
 		{
-			$("." + catnames[i] + ".small").show();
-			$("." + catnames[i] + ".half").show();
-			$("." + catnames[i] + ".big").hide();
+			$("." + catnames[i] + ".small").fadeIn();
+			$("." + catnames[i] + ".half").fadeIn();
+			$("." + catnames[i] + ".big").fadeOut();
 		}
 
 		for(var j in inactiveCategories)
 		{
-			$("." + inactiveCategories[j]).hide();
+			$("." + inactiveCategories[j]).fadeOut();
 		}
 	} else {
 		for(var i in catnames)
 		{
-			$("." + catnames[i] + ".small").show();
-			$("." + catnames[i] + ".half").hide();
-			$("." + catnames[i] + ".big").hide();
+			$("." + catnames[i] + ".small").fadeIn();
+			$("." + catnames[i] + ".half").fadeOut();
+			$("." + catnames[i] + ".big").fadeOut();
 		}
 		for(var j in inactiveCategories)
 		{
-			$("." + inactiveCategories[j]).hide();
+			$("." + inactiveCategories[j]).fadeOut();
 		}
 	}
 
