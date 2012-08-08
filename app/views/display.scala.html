@@ -81,6 +81,19 @@ displayName) {
   			}
   			return false;
 		});
+		
+		$("#showmore").click(function(){
+			if($("#dock").hasClass("hiddenDock")){
+				$("#dock").removeClass( "hiddenDock", 100);
+				$("#dock").addClass( "visibleDock", 100);
+				$(this).animate({bottom: "80px"});
+  			} else {
+  				$("#dock").removeClass( "visibleDock", 100);
+				$("#dock").addClass( "hiddenDock", 100);
+				$(this).animate({bottom: "0"});
+  			}
+  			return false;
+		});
 
 	});
 	</script>
@@ -105,7 +118,7 @@ displayName) {
 SHOW MORE APPS
 </div>
 
-<div id="dock">
+<div id="dock" class="hiddenDock">
 	<div class="icon hidden">
 		<img src="/assets/prova/class.png" />
 	</div>

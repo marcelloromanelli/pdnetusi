@@ -235,10 +235,16 @@ html,body {
 	height: 80px;
 	position: absolute;
 	left: 32%;
-	bottom: 0;
-	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 	padding: 0 50px;
+}
+
+.hiddenDock{
+	bottom: -80px;
+}
+
+.visibleDock{
+	bottom: 0px;
 }
 
 #showmore {
@@ -247,7 +253,7 @@ html,body {
 	color: white;
 	position: absolute;
 	left: 32%;
-	bottom: 80px;
+	bottom: 0;
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 	padding: 0 50px;
