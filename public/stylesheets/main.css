@@ -250,9 +250,9 @@ html,body {
 #showmore {
 	background-color: rgba(0, 0, 0, 0.8);
 	height: 20px;
+	width: 100%;
 	color: white;
 	position: absolute;
-	left: 32%;
 	bottom: 0;
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
@@ -265,6 +265,9 @@ html,body {
 	float: left;
 	margin: 10px 20px 0px 20px;
 	position: relative;
+	padding: 10px;
+	background-color: white;
+	border-radius: 10px;
 }
 
 .hidden {
