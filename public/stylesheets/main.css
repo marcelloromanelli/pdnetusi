@@ -232,7 +232,7 @@ html,body {
 
 #dock {
 	background-color: rgba(0, 0, 0, 0.8);
-	height: 80px;
+	height: 100px;
 	width: 100%;
 	position: absolute;
 	border-top-right-radius: 10px;
@@ -240,7 +240,7 @@ html,body {
 }
 
 .hiddenDock{
-	bottom: -80px;
+	bottom: -100px;
 }
 
 .visibleDock{
