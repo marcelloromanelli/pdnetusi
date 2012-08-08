@@ -37,7 +37,8 @@ displayName) {
 <script type="text/javascript">
 	// On document ready
 	isLeftCollapsed = true;
-
+	var t;
+	
 	$(function(){
 
 		$("#bar").click(function(){
@@ -88,13 +89,14 @@ displayName) {
 				$("#dock").addClass( "visibleDock", 100);
 				$(this).animate({bottom: "80px"},100);
 				$(this).html("HIDE");
-				setTimeout(function(){
+				t = setTimeout(function(){
 					$("#dock").removeClass( "visibleDock", 100);
 					$("#dock").addClass( "hiddenDock", 100);
 					$("#showmore").animate({bottom: "0"},100);
 					$("#showmore").html("SHOW MORE APPS");
 					},5000);
   			} else {
+  				clearTimeout(t)
   				$("#dock").removeClass( "visibleDock", 100);
 				$("#dock").addClass( "hiddenDock", 100);
 				$(this).animate({bottom: "0"},100);
