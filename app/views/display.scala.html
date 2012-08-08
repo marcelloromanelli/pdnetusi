@@ -1,8 +1,7 @@
-@(displayID: String, displayName: String) 
+@(displayID: String, displayName: String) @main("Showing " +
+displayName) {
 
-@main("Showing " + displayName) {
-	
-  <script type="text/javascript">
+<script type="text/javascript">
 	$(function() { 
 		var WS = WebSocket;
 		var wsUri = "ws://pdnet.inf.unisi.ch:9000/display/socket";
@@ -34,8 +33,8 @@
 	});
 	</script>
 
-	
-	<script type="text/javascript">
+
+<script type="text/javascript">
 	// On document ready
 	isLeftCollapsed = true;
 
@@ -70,26 +69,54 @@
 				isLeftCollapsed = true;
 			}
 		});
+		
+		$(".icon").click(function() {
+			if($(this).hasClass("hidden")){
+  				$(this).removeClass( "hidden", 100);
+  				$(this).addClass( "active", 100);
+		       	$(this).effect("bounce", {times:3,distance: 10}, 300);
+  			} else {
+  				 $(this).addClass( "hidden", 100);
+   				 $(this).removeClass( "active", 100);
+  			}
+  			return false;
+		});
 
 	});
 	</script>
-	
-	<div id="dock" style="z-index: 10;">
-		<img src="assets/images/bar.png" style="position: relative; z-index: 30;"/>
+
+
+<div id="left">
+	<iframe id="leftsmall"
+		src="assets/applications/weather/wheatersmall.html"></iframe>
+	<iframe id="leftbig" src="assets/applications/weather/wheaterbig.html"
+		style="display: none;"></iframe>
+</div>
+
+<div id="bar"></div>
+
+<div id="right">
+	<iframe id="rightsmall" src="assets/applications/news/newssmall.html"
+		style="display: none;"></iframe>
+	<iframe id="rightbig" src="assets/applications/news/newsbig.html"></iframe>
+</div>
+
+
+<div id="dock">
+	<div class="icon hidden">
+		<img src="/assets/prova/class.png" />
 	</div>
-	
-	
-	<div id="left">
-		<iframe id="leftsmall" src="assets/applications/weather/wheatersmall.html"></iframe>
-		<iframe id="leftbig" src="assets/applications/weather/wheaterbig.html" style="display: none;"></iframe>
+	<div class="icon active">
+		<img src="/assets/prova/news.png" />
 	</div>
-
-	<div id="bar"></div>
-
-	<div id="right">
-		<iframe id="rightsmall" src="assets/applications/news/newssmall.html" style="display: none;"></iframe>
-		<iframe id="rightbig" src="assets/applications/news/newsbig.html" ></iframe>
+	<div class="icon hidden">
+		<img src="/assets/prova/pictures.png" />
 	</div>
-
-
+	<div class="icon hidden">
+		<img src="/assets/prova/usinews.png" />
+	</div>
+	<div class="icon active">
+		<img src="/assets/prova/weather.png" />
+	</div>
+</div>
 }
