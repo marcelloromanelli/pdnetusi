@@ -2,104 +2,126 @@
 displayName) {
 
 <script type="text/javascript">
-	$(function() { 
+	$(function() {
 		var WS = WebSocket;
 		var wsUri = "ws://pdnet.inf.unisi.ch:9000/display/socket";
-		websocket = new WS(wsUri); 
-		websocket.onopen = function(evt) { 
+		websocket = new WS(wsUri);
+		websocket.onopen = function(evt) {
 			console.log("DISPLAY ID " + "@displayID" + " CONNECTED");
-			var hi = JSON.stringify
-			({
-				"displayID":  "@displayID"
+			var hi = JSON.stringify({
+				"displayID" : "@displayID"
 			});
 			websocket.send(hi);
-		}; 
-	
-		websocket.onclose = function(evt) { 
-			var bye = JSON.stringify
-			({
-				"displayID":  "@displayID"
+		};
+
+		websocket.onclose = function(evt) {
+			var bye = JSON.stringify({
+				"displayID" : "@displayID"
 			});
 			websocket.send(bye);
 		};
-	
-		websocket.onmessage = function(evt) { 
-			console.log(evt.data) ;
+
+		websocket.onmessage = function(evt) {
+			console.log(evt.data);
 		};
-	
-		websocket.onerror = function(evt) { 
-			console.log(evt.data); 
-		}; 
+
+		websocket.onerror = function(evt) {
+			console.log(evt.data);
+		};
 	});
-	</script>
+</script>
 
 
 <script type="text/javascript">
 	// On document ready
 	isLeftCollapsed = true;
 	var t;
-	
-	$(function(){
 
-		$("#bar").click(function(){
-			if(isLeftCollapsed){
-				$("#left").animate({width: '1317px'});
-				$("#right").animate({width: '575px'});
-				
-				$("#leftsmall").fadeOut();
-				$("#leftbig").fadeIn();
+	$(function() {
 
-				$("#rightbig").fadeOut();
-				$("#rightsmall").fadeIn();
-				
-				$("#bar").css({'background-image': 'url(assets/stylesheets/images/bar_sn.png)'});				
+		$("#bar")
+				.click(
+						function() {
+							if (isLeftCollapsed) {
+								$("#left").animate({
+									width : '1317px'
+								});
+								$("#right").animate({
+									width : '575px'
+								});
 
-				
-				isLeftCollapsed = false;
-			} else {
-				$("#right").animate({width: '1317px'});
-				$("#left").animate({width: '575px'});
+								$("#leftsmall").fadeOut();
+								$("#leftbig").fadeIn();
 
-				$("#leftbig").fadeOut();
-				$("#leftsmall").fadeIn();
+								$("#rightbig").fadeOut();
+								$("#rightsmall").fadeIn();
 
-				$("#rightbig").fadeIn();
-				$("#rightsmall").fadeOut();
+								$("#bar")
+										.css(
+												{
+													'background-image' : 'url(assets/stylesheets/images/bar_sn.png)'
+												});
 
-				$("#bar").css({'background-image': 'url(assets/stylesheets/images/bar_dx.png)'});				
-				isLeftCollapsed = true;
-			}
-		});
-		
+								isLeftCollapsed = false;
+							} else {
+								$("#right").animate({
+									width : '1317px'
+								});
+								$("#left").animate({
+									width : '575px'
+								});
+
+								$("#leftbig").fadeOut();
+								$("#leftsmall").fadeIn();
+
+								$("#rightbig").fadeIn();
+								$("#rightsmall").fadeOut();
+
+								$("#bar")
+										.css(
+												{
+													'background-image' : 'url(assets/stylesheets/images/bar_dx.png)'
+												});
+								isLeftCollapsed = true;
+							}
+						});
+
 		$(".icon").click(function() {
-			if($(this).hasClass("hidden")){
-  				$(this).removeClass( "hidden", 100);
-  				$(this).addClass( "active", 100);
-		       	$(this).effect("bounce", {times:3,distance: 10}, 300);
-  			} else {
-  				 $(this).addClass( "hidden", 100);
-   				 $(this).removeClass( "active", 100);
-  			}
-  			return false;
+			if ($(this).hasClass("hidden")) {
+				$(this).removeClass("hidden", 100);
+				$(this).addClass("active", 100);
+				$(this).effect("bounce", {
+					times : 3,
+					distance : 10
+				}, 300);
+			} else {
+				$(this).addClass("hidden", 100);
+				$(this).removeClass("active", 100);
+			}
+			return false;
 		});
-		
-		$("#showmore").click(function(){
-			if($("#dock").hasClass("hiddenDock")){
-				$("#dock").removeClass( "hiddenDock", 100);
-				$("#dock").addClass( "visibleDock", 100);
-				$(this).animate({bottom: "100px"},100);
+
+		$("#showmore").click(function() {
+			if ($("#dock").hasClass("hiddenDock")) {
+				$("#dock").removeClass("hiddenDock", 100);
+				$("#dock").addClass("visibleDock", 100);
+				$(this).animate({
+					bottom : "100px"
+				}, 100);
 				$(this).html("HIDE");
-  			} else {
-  				$("#dock").removeClass( "visibleDock", 100);
-				$("#dock").addClass( "hiddenDock", 100);
-				$(this).animate({bottom: "0"},100);
+			} else {
+				$("#dock").removeClass("visibleDock", 100);
+				$("#dock").addClass("hiddenDock", 100);
+				$(this).animate({
+					bottom : "0"
+				}, 100);
 				$(this).html("SHOW MORE APPS");
-  			}
-  			return false;
+			}
+			return false;
 		});
 
 	});
-	</script>
+</script>
 
 
 <div id="left">
@@ -117,25 +139,25 @@ displayName) {
 	<iframe id="rightbig" src="assets/applications/news/newsbig.html"></iframe>
 </div>
 
-<div id="showmore">
-SHOW MORE APPS
-</div>
+<div id="showmore">SHOW MORE APPS</div>
 
 <div id="dock" class="hiddenDock">
-	<div class="icon hidden">
-		<img src="/assets/prova/class.png" />
-	</div>
-	<div class="icon active">
-		<img src="/assets/prova/news.png" />
-	</div>
-	<div class="icon hidden">
-		<img src="/assets/prova/pictures.png" />
-	</div>
-	<div class="icon hidden">
-		<img src="/assets/prova/usinews.png" />
-	</div>
-	<div class="icon active">
-		<img src="/assets/prova/weather.png" />
+	<div class="icons">
+		<div class="icon hidden">
+			<img src="/assets/prova/class.png" />
+		</div>
+		<div class="icon active">
+			<img src="/assets/prova/news.png" />
+		</div>
+		<div class="icon hidden">
+			<img src="/assets/prova/pictures.png" />
+		</div>
+		<div class="icon hidden">
+			<img src="/assets/prova/usinews.png" />
+		</div>
+		<div class="icon active">
+			<img src="/assets/prova/weather.png" />
+		</div>
 	</div>
 </div>
 }

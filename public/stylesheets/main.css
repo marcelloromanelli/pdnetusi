@@ -269,6 +269,11 @@ html,body {
 	border-radius: 10px;
 }
 
+.icons{
+	width: 600px;
+	margin: 0 auto;
+}
+
 .hidden {
 	margin-top: 40px;
 }
