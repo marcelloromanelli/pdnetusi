@@ -15,11 +15,14 @@ import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import controllers.NewsFeedController.Sockets;
+
 import play.Logger;
 import play.libs.F.Callback;
 import play.libs.F.Callback0;
 import play.mvc.Controller;
 import play.mvc.WebSocket;
+import play.mvc.WebSocket.Out;
 /**
  * @author romanelm
  */
@@ -33,8 +36,8 @@ public class WeatherController extends Controller {
 	 * Position 0: small
 	 * Position 1: big
 	 */
-	public static HashMap<String, ArrayList<WebSocket.Out<JsonNode>>> sockets = 
-			new HashMap<String, ArrayList<WebSocket.Out<JsonNode>>>();
+	public static HashMap<String, Sockets> sockets = 
+			new HashMap<String, Sockets>();
 
 	/**
 	 * Hashmap that given an ID of a Display, returns 
@@ -64,8 +67,9 @@ public class WeatherController extends Controller {
 						String displayID = event.get("displayID").asText();
 
 						if(!sockets.containsKey(displayID)){
-							sockets.put(displayID, new ArrayList<WebSocket.Out<JsonNode>>());
+							sockets.put(displayID, new Sockets(null, null));
 							status.put(displayID, MAX_REQ);
+							Logger.info("DisplayID " + displayID + " was added to the system.");
 						}
 
 						if(messageKind.equals("appReady")){
@@ -74,10 +78,11 @@ public class WeatherController extends Controller {
 							String size = event.get("size").asText();
 
 							if(size.equals("small")){
-								sockets.get(displayID).add(0, out);
-							} else {
-								sockets.get(displayID).add(1, out);
+								sockets.get(displayID).small = out;
+							} else if(size.equals("big")) {
+								sockets.get(displayID).big  = out;
 							}
+
 
 							Logger.info(
 									"\n ******* MESSAGE RECIEVED *******" +
@@ -96,11 +101,11 @@ public class WeatherController extends Controller {
 								String location = event.get("preference").asText();
 								JsonNode forecast = findForecast(location);
 
-								ArrayList<WebSocket.Out<JsonNode>> displaySockets = sockets.get(displayID);
+								Sockets displaySockets = sockets.get(displayID);
 
 								// Send the forecast to the two views of the application
-								displaySockets.get(0).write(forecast);
-								displaySockets.get(1).write(forecast);
+								displaySockets.small.write(forecast);
+								displaySockets.big.write(forecast);
 
 								Logger.info(forecast.toString());
 								status.put(displayID, freeSpaces-2);
@@ -211,26 +216,14 @@ public class WeatherController extends Controller {
 	}
 
 
-	public static class Space {
-		// TURE = FREE
-		// FALSE = OCCUPIED
-		public Boolean space1;
-		public Boolean space2;
-		public Boolean space3;
+	public static class Sockets {
+		public WebSocket.Out<JsonNode> small;
+		public WebSocket.Out<JsonNode> big;
 
-		public Space(Boolean space1, Boolean space2, Boolean space3) {
-			this.space1 = space1;
-			this.space2 = space2;
-			this.space3 = space3;
+		public Sockets(Out<JsonNode> small, Out<JsonNode> big) {
+			this.small = small;
+			this.big = big;
 		}
-
-		@Override
-		public String toString() {
-			return "Space [space1=" + space1 + ", space2=" + space2
-					+ ", space3=" + space3 + "]";
-		}
-
-
 	} 
 
 }
