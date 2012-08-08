@@ -57,6 +57,9 @@ displayName) {
 								$("#rightsmall").fadeIn();
 
 								isLeftCollapsed = false;
+								
+								$("#arrow").animate({"-webkit-transform": "rotate(270deg)"});
+								
 							} else {
 								$("#right").animate({
 									width : '1317px'
@@ -70,6 +73,8 @@ displayName) {
 
 								$("#rightbig").fadeIn();
 								$("#rightsmall").fadeOut();
+
+								$("#arrow").animate({"-webkit-transform": "rotate(270deg)"});
 
 								isLeftCollapsed = true;
 							}
@@ -120,7 +125,7 @@ displayName) {
 
 <div id="bar">
 	<div style="position: relative; top: 50%;">
-		<img src="/assets/stylesheets/images/arrow_news_dx.png"/>
+		<img id="arrow" src="/assets/stylesheets/images/arrow_news_dx.png"/>
 	</div>
 </div>
 
