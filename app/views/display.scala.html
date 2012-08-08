@@ -108,14 +108,12 @@ displayName) {
 				$(this).animate({
 					bottom : "100px"
 				}, 100);
-				$(this).html("HIDE");
 			} else {
 				$("#dock").removeClass("visibleDock", 100);
 				$("#dock").addClass("hiddenDock", 100);
 				$(this).animate({
 					bottom : "0"
 				}, 100);
-				$(this).html("SHOW MORE APPS");
 			}
 			return false;
 		});
@@ -139,7 +137,9 @@ displayName) {
 	<iframe id="rightbig" src="assets/applications/news/newsbig.html"></iframe>
 </div>
 
-<div id="showmore">SHOW MORE APPS</div>
+<div id="showmore">
+	<img src="/assets/stylesheets/images/arrow_news_dx.png"/>
+</div>
 
 <div id="dock" class="hiddenDock">
 	<div class="icons">
