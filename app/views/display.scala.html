@@ -56,12 +56,6 @@ displayName) {
 								$("#rightbig").fadeOut();
 								$("#rightsmall").fadeIn();
 
-								$("#bar")
-										.css(
-												{
-													'background-image' : 'url(assets/stylesheets/images/bar_sn.png)'
-												});
-
 								isLeftCollapsed = false;
 							} else {
 								$("#right").animate({
@@ -77,11 +71,6 @@ displayName) {
 								$("#rightbig").fadeIn();
 								$("#rightsmall").fadeOut();
 
-								$("#bar")
-										.css(
-												{
-													'background-image' : 'url(assets/stylesheets/images/bar_dx.png)'
-												});
 								isLeftCollapsed = true;
 							}
 						});
@@ -130,7 +119,9 @@ displayName) {
 </div>
 
 <div id="bar">
+	<div style="position: relative; top: 50%;">
 		<img src="/assets/stylesheets/images/arrow_news_dx.png"/>
+	</div>
 </div>
 
 <div id="right">
