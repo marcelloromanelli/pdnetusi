@@ -131,11 +131,14 @@ function createElements(responseArray,name){
 }
 
 function fadeQR(event){
-	event.data.share.fadeOut(1000,function(event){event.data.qr.fadeIn();});
-	setTimeout(function(){
-					event.data.qr.fadeOut(1000,
+	var share = event.data.share;
+	var qr = event.data.qr;
+	
+	share.fadeOut(1000,function(){qr.fadeIn();});
+	
+	setTimeout(function(){qr.fadeOut(1000,
 						function(){
-							event.data.share.fadeIn();
+							share.fadeIn();
 						}
 					);
 				},10000);
