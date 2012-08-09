@@ -36,6 +36,10 @@ $(function() {
 	websocket.onerror = function(evt) { 
 		console.log(evt.data); 
 	}; 
+	
+	$(".news_desc").each(function(){
+		$(this).dotdotdot({});
+	});
 
 });
 
@@ -60,8 +64,8 @@ function insertNews(response){
 		$("body").append(currentNews);
 	}
 	
-	$(".news_desc").ThreeDots({ max_rows:3 });
-
+	$
+	
 }
 
 function createElements(responseArray,name){
@@ -90,7 +94,9 @@ function createElements(responseArray,name){
 		
 		// NEWS DESC
 		var newsDescDiv = $("<div class='news_desc'>");
-		newsDescDiv.html((currentNews.content).replace(/(<([^>]+)>)/ig,""));
+		newsDescDiv.html("<p>" +
+						(currentNews.content).replace(/(<([^>]+)>)/ig,"") +
+						"</p>");
 		
 		
 		newsContainerDiv.append(newsDescDiv);
