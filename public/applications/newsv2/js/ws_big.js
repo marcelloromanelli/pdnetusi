@@ -60,9 +60,7 @@ function insertNews(response){
 		$("body").append(currentNews);
 	}
 	
-	$(".news_desc").each(function(){
-		$(this).dotdotdot({});
-	});
+	$(".news_desc").dotdotdot({});
 	
 }
 
@@ -92,6 +90,7 @@ function createElements(responseArray,name){
 		
 		// NEWS DESC
 		var newsDescDiv = $("<div class='news_desc'>");
+		newsDescDiv.css("height","200px");
 		newsDescDiv.html("<p>" +
 						(currentNews.content).replace(/(<([^>]+)>)/ig,"") +
 						"</p>");
