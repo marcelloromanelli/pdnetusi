@@ -60,7 +60,7 @@ function insertNews(response){
 		$("body").append(currentNews);
 	}
 	
-	$(".newsText").ellipsis();
+//	$(".newsText").ellipsis();
 
 }
 
