@@ -2,6 +2,9 @@ var lastPosition = -260;
 var newsHeight = 360;
 var space = 50;
 
+var startingPositions = [];
+var newsDivs = [];
+
 $(function() { 
 	displayID = getUrlVars()["id"];
 	var WS = WebSocket;
@@ -46,6 +49,14 @@ function insertNews(response){
 	
 	var tech = response.tech;
 	createElements(tech,"tech");
+	
+	newsDivs.sort(function() { return 0.5 - Math.random() });
+	
+	for(var i in newsDivs){
+		var currentNews = newsDivs[i];
+		currentNews.css("top",startingPositions[i]);
+		$("body").append(currentNews);
+	}
 
 }
 
@@ -57,9 +68,9 @@ function createElements(responseArray,name){
 		
 		// NEWS
 		var newsDiv = $("<div class='news'>");
-		newsDiv.css("top",lastPosition);
+		//newsDiv.css("top",lastPosition);
+		startingPositions.push(lastPosition);
 		lastPosition += (newsHeight + space);
-		$("body").append(newsDiv);
 
 		// NEWS CONTAINER
 		var newsContainerDiv = $("<div class='news_container'>");
@@ -127,6 +138,7 @@ function createElements(responseArray,name){
 		
 		socialDiv.append(socialShareDiv);
 	
+		newsDivs.push(newsDiv);
 	}
 }
 
