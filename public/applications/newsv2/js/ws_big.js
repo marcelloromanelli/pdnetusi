@@ -90,6 +90,7 @@ function createElements(responseArray,name){
 
 					if(parent.hasClass("first") && pos.top > 559){
 						$(".news").animate({"top":"-="+total});
+						return;
 					}
 					if(pos.top > 559){
 						$(".news").animate({"top":"+="+total});
