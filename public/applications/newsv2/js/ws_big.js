@@ -88,7 +88,8 @@ function createElements(responseArray,name){
 		
 		// NEWS DESC
 		var newsDescDiv = $("<div class='news_desc'>");
-		newsDescDiv.html(currentNews.content);
+		newsDescDiv.html((currentNews.content).replace(/(<([^>]+)>)/ig,""));
+		
 		newsContainerDiv.append(newsDescDiv);
 		
 		// CATEGORY
