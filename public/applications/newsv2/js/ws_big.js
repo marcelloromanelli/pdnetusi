@@ -49,7 +49,7 @@ function createElements(responseArray,name){
 		console.log(currentNews.content + "\n\n");
 		
 		// NEWS
-		var newsDiv = $("<div class='news'");
+		var newsDiv = $("<div class='news'>");
 		newsDiv.css("top",lastPosition);
 		lastPosition += (newsHeight + space);
 		
