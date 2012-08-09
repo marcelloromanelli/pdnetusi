@@ -77,7 +77,9 @@ function createElements(responseArray,name){
 		newsContainerDiv.append(newsDescDiv);
 		
 		// CATEGORY
-		newsDiv.append('<div class="category lime"><p class="vertical_text">'+ name +'</p></div>');
+		var categoryDiv = $('<div class="category"><p class="vertical_text">'+ name +'</p></div>');
+		categoryDiv.addClass(name);
+		newsDiv.append(categoryDiv);
 		
 		// SOCIAL
 		var socialDiv = $("<div class='social'>");
