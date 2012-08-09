@@ -65,7 +65,7 @@ function createElements(responseArray,name){
 		newsContainerDiv.append("<hr class='style' />");
 		
 		// NEWS DESC
-		var newsDescDiv = $("div class='news_desc'>");
+		var newsDescDiv = $("<div class='news_desc'>");
 		newsDescDiv.html(currentNews.content);
 		newsContainerDiv.append(newsDescDiv);
 		
