@@ -57,9 +57,15 @@ function insertNews(response){
 	for(var i in newsDivs){
 		
 		var currentNews = newsDivs[i];
+		
 		if(i == 0){
 			currentNews.addClass("first");
 		}
+		
+		if(i == newsDivs.length-1){
+			currentNews.addClass("last");
+		}
+		
 		currentNews.css("top",startingPositions[i]);
 		$("body").append(currentNews);
 	}
@@ -92,6 +98,12 @@ function createElements(responseArray,name){
 						$(".news").animate({"top":"-="+total});
 						return;
 					}
+					
+					if(parent.hasClass("last") && pos.top < 559){
+						$(".news").animate({"top":"+="+total});
+						return;
+					}
+					
 					if(pos.top > 559){
 						$(".news").animate({"top":"+="+total});
 					} else {
