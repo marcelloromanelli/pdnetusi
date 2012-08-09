@@ -82,8 +82,8 @@ function createElements(responseArray,name){
 		var newsTitleDiv = $("<div class='news_title'>");
 		newsTitleDiv.html(currentNews.title);
 		newsContainerDiv.append(newsTitleDiv);
+		newsContainerDiv.css("height","350px");
 		newsTitleDiv.click(function(){$(".news").animate({"top":"-="+total});});
-		
 		newsContainerDiv.append("<hr class='style' />");
 		
 		// NEWS DESC
