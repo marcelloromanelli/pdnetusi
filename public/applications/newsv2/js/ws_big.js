@@ -59,6 +59,8 @@ function insertNews(response){
 		currentNews.css("top",startingPositions[i]);
 		$("body").append(currentNews);
 	}
+	
+	$(".newsText").ellipsis();
 
 }
 
@@ -87,9 +89,10 @@ function createElements(responseArray,name){
 		
 		// NEWS DESC
 		var newsDescDiv = $("<div class='news_desc'>");
-		newsDescDiv.html((currentNews.content).replace(/(<([^>]+)>)/ig,""));
+		newsDescDiv.html("<span class='newsText'>" + 
+						(currentNews.content).replace(/(<([^>]+)>)/ig,"") +
+						"</span>");
 		newsDescDiv.css("height","300px");
-		newsContainerDiv.ellipsis();
 		
 		newsDiv.append(newsDescDiv);
 		
