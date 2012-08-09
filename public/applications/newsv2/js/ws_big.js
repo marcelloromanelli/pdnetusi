@@ -88,12 +88,9 @@ function createElements(responseArray,name){
 		newsContainerDiv.append("<hr class='style' />");
 		
 		// NEWS DESC
-		var newsDescDiv = $("<div class='news_desc'>");
-		var paragraph = $("<p>");
-		paragraph.html((currentNews.content).replace(/(<([^>]+)>)/ig,""));
-		newsDescDiv.append(paragraph);
-		
-		newsDiv.append(newsDescDiv);
+		var paragraph = $("<p class='news_desc'>");
+		paragraph.html((currentNews.content).replace(/(<([^>]+)>)/ig,""));		
+		newsDiv.append(paragraph);
 		
 		// CATEGORY
 		var categoryDiv = $('<div class="category"><p class="vertical_text">'+ name +'</p></div>');
