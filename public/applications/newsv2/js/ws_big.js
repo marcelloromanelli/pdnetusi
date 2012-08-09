@@ -25,7 +25,7 @@ $(function() {
 	websocket.onmessage = function(evt) {
 		var response = jQuery.parseJSON(evt.data);
 		insertNews(response);
-		shuffleNews();
+//		shuffleNews();
 	};
 
 	websocket.onerror = function(evt) { 
@@ -123,7 +123,7 @@ function createElements(responseArray,name){
 		socialShareDiv.append(shareImg);
 		socialShareDiv.append(qrImg);
 
-		socialShareDiv.click(function(){
+		shareImg.click(function(){
 			shareImg.fadeOut(1000,function(){qrImg.fadeIn();});
 			setTimeout(function(){
 							qrImg.fadeOut(1000,
