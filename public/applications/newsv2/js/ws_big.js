@@ -27,7 +27,7 @@ $(function() {
 
 	websocket.onmessage = function(evt) {
 		var response = jQuery.parseJSON(evt.data);
-		partitionSpace(response);
+		insertNews(response);
 	};
 
 	websocket.onerror = function(evt) { 
@@ -45,7 +45,7 @@ function insertNews(response){
 	
 }
 
-var createElements(responseArray,name){
+function createElements(responseArray,name){
 	for(var i in responseArray){
 		var currentNews = responseArray[i];
 		console.log(currentNews.title);
