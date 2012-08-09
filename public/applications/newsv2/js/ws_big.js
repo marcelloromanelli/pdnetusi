@@ -123,8 +123,7 @@ function createElements(responseArray,name){
 		socialShareDiv.append(shareImg);
 		socialShareDiv.append(qrImg);
 
-		socialShareDiv.click(function({share: shareImg, qr: qrImg}){
-			console.log("ciaooo");
+		socialShareDiv.click({share: shareImg, qr: qrImg},function(){
 			event.data.share.fadeOut(1000,function(){event.data.qr.fadeIn();});
 			setTimeout(function(){
 							event.data.qr.fadeOut(1000,
