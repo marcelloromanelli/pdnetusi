@@ -123,13 +123,13 @@ function createElements(responseArray,name){
 		socialShareDiv.append(shareImg);
 		socialShareDiv.append(qrImg);
 
-		socialShareDiv.click(function(){
+		socialShareDiv.click(function({share: shareImg, qr: qrImg}){
 			console.log("ciaooo");
-			shareImg.fadeOut(1000,function(){qrImg.fadeIn();});
+			event.data.share.fadeOut(1000,function(){event.data.qr.fadeIn();});
 			setTimeout(function(){
-							qrImg.fadeOut(1000,
+							event.data.qr.fadeOut(1000,
 								function(){
-									shareImg.fadeIn();
+									event.data.share.fadeIn();
 								}
 							);
 						},10000);
