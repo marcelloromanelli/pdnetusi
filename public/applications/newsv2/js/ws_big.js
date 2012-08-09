@@ -55,7 +55,11 @@ function insertNews(response){
 	newsDivs.sort(function() { return 0.5 - Math.random() });
 
 	for(var i in newsDivs){
+		
 		var currentNews = newsDivs[i];
+		if(i == 0){
+			currentNews.addClass("first");
+		}
 		currentNews.css("top",startingPositions[i]);
 		$("body").append(currentNews);
 	}
@@ -81,7 +85,12 @@ function createElements(responseArray,name){
 		newsDiv.append(newsContainerDiv);
 		newsContainerDiv.click(
 				function(){
-					var pos = $(this).parent().position();
+					var parent = $(this).parent();
+					var pos = parent.position();
+
+					if(parent.hasClass("first") && pos.top > 559){
+						$(".news").animate({"top":"-="+total});
+					}
 					if(pos.top > 559){
 						$(".news").animate({"top":"+="+total});
 					} else {
