@@ -123,22 +123,22 @@ function createElements(responseArray,name){
 		socialShareDiv.append(shareImg);
 		socialShareDiv.append(qrImg);
 
-		socialShareDiv.click({share: shareImg, qr: qrImg},function(){
-			event.data.share.fadeOut(1000,function(event){event.data.qr.fadeIn();});
-			setTimeout(function(){
-							event.data.qr.fadeOut(1000,
-								function(){
-									event.data.share.fadeIn();
-								}
-							);
-						},10000);
-		});
+		socialShareDiv.click({share: shareImg, qr: qrImg},fadeQR);
 		
 		socialDiv.append(socialShareDiv);
-
-
-		
+	
 	}
+}
+
+function fadeQR(event){
+	event.data.share.fadeOut(1000,function(event){event.data.qr.fadeIn();});
+	setTimeout(function(){
+					event.data.qr.fadeOut(1000,
+						function(){
+							event.data.share.fadeIn();
+						}
+					);
+				},10000);
 }
 
 function freeSpace(){
