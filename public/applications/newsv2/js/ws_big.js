@@ -1,9 +1,6 @@
-var timeout = 30000;
-
-var timerId = 0;
-
-var activeCategories = {};
-var inactiveCategories = new Array();
+var lastPosition = -260;
+var newsHeight = 360;
+var space = 50;
 
 $(function() { 
 	displayID = getUrlVars()["id"];
@@ -50,6 +47,31 @@ function createElements(responseArray,name){
 		var currentNews = responseArray[i];
 		console.log(currentNews.title);
 		console.log(currentNews.content + "\n\n");
+		
+		// NEWS
+		var newsDiv = $("<div class='news'");
+		newsDiv.css("top",lastPosition);
+		lastPosition += (newsHeight + space);
+		
+		// NEWS CONTAINER
+		var newsContainerDiv = $("<div class='news_container'>");
+		newsDiv.append(newsContainerDiv);
+		
+		// NEWS TITLE
+		var newsTitleDiv = $("<div class='news_title'>");
+		newsTitleDiv.html(currentNews.title);
+		newsContainerDiv.append(newsTitleDiv);
+		
+		newsContainerDiv.append("<hr class='style' />");
+		
+		// NEWS DESC
+		var newsDescDiv = $("div class='news_desc'>");
+		newsDescDiv.html(currentNews.content);
+		newsContainerDiv.append(newsDescDiv);
+		
+		$("body").append(newsDiv);
+
+		
 	}
 }
 

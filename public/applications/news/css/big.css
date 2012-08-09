@@ -17,6 +17,7 @@ html,body {
 	font-size: 45px;
 	float: left;
 	box-shadow: 6px 5px 9px rgba(50, 50, 50, 0.73);
+	position: absolute;
 }
 
 .test {
