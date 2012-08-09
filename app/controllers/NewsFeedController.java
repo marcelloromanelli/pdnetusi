@@ -5,7 +5,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -211,8 +210,14 @@ public class NewsFeedController extends Controller {
 				JsonNode currentEntry = entries.next();
 				ObjectNode currentNews = Json.newObject();
 				currentNews.put("source", newsSource);
+				String content = currentEntry.get("content").asText();
+				if(content == null){
+					continue;
+				}
 				currentNews.put("link", currentEntry.get("link").asText());
 				currentNews.put("title", currentEntry.get("title").asText());
+				currentNews.put("content", content);
+
 				feedsTitles.add(currentNews);
 			}
 		}
