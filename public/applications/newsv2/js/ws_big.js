@@ -37,10 +37,6 @@ $(function() {
 		console.log(evt.data); 
 	}; 
 	
-	$(".news_desc").each(function(){
-		$(this).dotdotdot({});
-	});
-
 });
 
 function insertNews(response){
@@ -64,7 +60,9 @@ function insertNews(response){
 		$("body").append(currentNews);
 	}
 	
-	$
+	$(".news_desc").each(function(){
+		$(this).dotdotdot({});
+	});
 	
 }
 
