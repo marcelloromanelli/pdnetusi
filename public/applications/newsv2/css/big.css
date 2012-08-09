@@ -42,11 +42,9 @@ hr.style {
 .news {
 	width: 1019px;
 	height: 360px;
-	margin-left: 150px;
-	margin-right: 150px;
+	margin-left: 110px;
 	position: absolute;
-	/*	    box-shadow: 0px 0px 10px rgba(0,0,0,.8);
-*/
+	box-shadow: 0px 0px 10px rgba(0,0,0,.8);
 }
 
 .news_container {
