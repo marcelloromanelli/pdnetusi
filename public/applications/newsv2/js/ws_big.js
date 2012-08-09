@@ -1,11 +1,18 @@
 var lastPosition = -260;
 var newsHeight = 360;
 var space = 50;
+var total = space + newsHeight;
 
 var startingPositions = [];
 var newsDivs = [];
 
-$(function() { 
+$(function() {
+	$(document).keyup(function(evt) {
+	    if (evt.keyCode == 32) {
+	      $(".news").css("top","+="+total);
+	    }
+	})
+	  
 	displayID = getUrlVars()["id"];
 	var WS = WebSocket;
 	var wsUri = "ws://pdnet.inf.unisi.ch:9000/newsfeed/socket";
