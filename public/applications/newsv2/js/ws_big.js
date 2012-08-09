@@ -36,6 +36,22 @@ $(function() {
 
 });
 
+function insertNews(response){
+	var culture = response.culture;
+	createElements(culture,"culture");
+	var hot = response.hot;
+	var sport = response.sport;
+	var tech = response.tech;
+	
+}
+
+var createElements(responseArray,name){
+	for(var i in responseArray){
+		var currentNews = responseArray[i];
+		console.log(currentNews.title);
+		console.log(currentNews.content + "\n\n");
+	}
+}
 
 function freeSpace(){
 	var free = JSON.stringify
