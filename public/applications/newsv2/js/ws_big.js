@@ -36,10 +36,16 @@ $(function() {
 function insertNews(response){
 	var culture = response.culture;
 	createElements(culture,"culture");
-	var hot = response.hot;
-	var sport = response.sport;
-	var tech = response.tech;
 	
+	var hot = response.hot;
+	createElements(hot,"hot");
+	
+	var sport = response.sport;
+	createElements(sport,"sport");
+	
+	var tech = response.tech;
+	createElements(tech,"tech");
+
 }
 
 function createElements(responseArray,name){
@@ -52,7 +58,8 @@ function createElements(responseArray,name){
 		var newsDiv = $("<div class='news'>");
 		newsDiv.css("top",lastPosition);
 		lastPosition += (newsHeight + space);
-		
+		$("body").append(newsDiv);
+
 		// NEWS CONTAINER
 		var newsContainerDiv = $("<div class='news_container'>");
 		newsDiv.append(newsContainerDiv);
@@ -69,7 +76,61 @@ function createElements(responseArray,name){
 		newsDescDiv.html(currentNews.content);
 		newsContainerDiv.append(newsDescDiv);
 		
-		$("body").append(newsDiv);
+		// CATEGORY
+		newsDiv.append('<div class="category lime"><p class="vertical_text">'+ name +'</p></div>');
+		
+		// SOCIAL
+		var socialDiv = $("<div class='social'>");
+		newsDiv.append(socialDiv);
+		
+		// SOCIAL TABS
+		
+		// LIKE
+		var socialLikeDiv = $("<div class='social_tab first'>");
+		socialLikeDiv.addClass(name);
+		socialLikeDiv.append("<img src='images/up.png' width='50px' " +
+							"style='clear: both; margin-top: 15px; margin-left: 15px;'></img>");
+		socialLikeDiv.append("<p class='counter'>0</p>");
+		socialDiv.append(socialLikeDiv);
+		
+		socialLikeDiv.click(function(){
+			var count = parseInt($(this).find("p").html()) + 1;
+			$(this).find("p").html(count);
+		});
+		
+		// DISLIKE
+		var socialDislikeDiv = $("<div class='social_tab center'>");
+		socialDislikeDiv.addClass(name);
+		socialDislikeDiv.append("<img src='images/down.png' width='50px' " +
+							"style='clear: both; margin-top: 15px; margin-left: 15px;'></img>");
+		socialDislikeDiv.append("<p class='counter'>0</p>");
+		socialDiv.append(socialDislikeDiv);
+		
+		socialDislikeDiv.click(function(){
+			var count = parseInt($(this).find("p").html()) + 1;
+			$(this).find("p").html(count);
+		});
+		
+		// SHARE
+		var socialShareDiv = $("<div class='social_tab last'>");
+		socialShareDiv.addClass(name);
+		var shareImg = $("<img src='images/share.png' width='50px'></img>")
+		var qrImg = $("<img src='http://chart.apis.google.com/chart?cht=qr&chs=120x120&chl=http%3A//www.usi.ch&chld=H|0' " +
+				"style='display:none; width:100%;'></img>");
+		
+		socialShareDiv.click(function(){
+			shareImg.fadeOut(1000,function(){qrImg.fadeIn();});
+			setTimeout(function(){
+							qrImg.fadeOut(1000,
+								function(){
+									shareImg.fadeIn();
+								}
+							);
+						},10000);
+		});
+		
+		socialDiv.append(socialShareDiv);
+
 
 		
 	}

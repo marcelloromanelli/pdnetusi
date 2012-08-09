@@ -11,27 +11,6 @@
 	<link rel="stylesheet" media="screen" href="css/big.css" type="text/css"></link>
 	<script type="text/javascript" src="js/ws_big.js" charset="utf-8"></script>
 	
-	<script type="text/javascript">
-	$(function(){
-		$("#share").click(function(){
-			$("#share").fadeOut(1000,function(){$("#qr").fadeIn();});
-			setTimeout(function(){
-						$("#qr").fadeOut(1000,
-								function(){
-									$("#share").fadeIn();
-								}
-							);
-						},10000);
-		});
-
-		$(".count").click(function(){
-			var count = parseInt($(this).find("p").html()) + 1;
-			$(this).find("p").html(count);
-		});
-
-	});
-	</script>
-
 </head>
 
 <body>
@@ -51,12 +30,12 @@
 		<div class="social">
 			<div class="social_tab count lime first">
 				<img src="images/up.png" width="50px" style="clear: both; margin-top: 15px; margin-left: 15px;"></img>
-				<p class="counter">320</p>
+				<p class="counter">0</p>
 			</div>
 			
 			<div class="social_tab count lime center">
 				<img src="images/down.png" width="50px" style="clear: both; margin-top: 15px; margin-left: 15px;"></img>
-				<p class="counter">19</p>
+				<p class="counter">0</p>
 
 			</div>
 			

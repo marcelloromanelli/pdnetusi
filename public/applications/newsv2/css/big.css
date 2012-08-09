@@ -8,21 +8,17 @@ html,body {
 }
 
 /* Colors for the categories */
-.red {
-	background: rgba(255, 0, 0, 1);
-}
+.hot {background: rgba(255, 0, 0, 1);}
+.social_tab.hot {border: 10px solid rgba(255, 0, 0, 1);}
 
-.lime {
-	background: rgba(157, 175, 0, 1);
-}
+.tech {background: rgba(157, 175, 0, 1);}
+.social_tab.tech {border: 10px solid rgba(157, 175, 0, 1);}
 
-.blue {
-	background: rgba(0, 64, 255, 1);
-}
+.culture {background: rgba(0, 64, 255, 1);}
+.social_tab.culture {border: 10px solid rgba(0, 64, 255, 1);}
 
-.yellow {
-	background: rgba(255, 204, 0, 1);
-}
+.sport {background: rgba(255, 204, 0, 1);}
+.social_tab.sport {border: 10px solid rgba(255, 204, 0, 1);}
 
 /* separator */
 hr.style {
@@ -112,11 +108,6 @@ hr.style {
 .social_tab.last {
 	margin-bottom: 0px;
 }
-
-.social_tab.lime {
-	border: 10px solid rgba(157, 175, 0, 1);
-}
-
 .counter {
 	color: white;
 	font-weight: lighter;
