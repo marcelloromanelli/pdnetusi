@@ -59,8 +59,6 @@ function insertNews(response){
 		currentNews.css("top",startingPositions[i]);
 		$("body").append(currentNews);
 	}
-	
-	$(".news_desc").ellipsis();
 
 }
 
@@ -85,12 +83,14 @@ function createElements(responseArray,name){
 		newsTitleDiv.html(currentNews.title);
 		newsContainerDiv.append(newsTitleDiv);
 		newsTitleDiv.click(function(){$(".news").animate({"top":"-="+total});});
+		
 		newsContainerDiv.append("<hr class='style' />");
 		
 		// NEWS DESC
-		var paragraph = $("<p class='news_desc'>");
-		paragraph.html((currentNews.content).replace(/(<([^>]+)>)/ig,""));		
-		newsDiv.append(paragraph);
+		var newsDescDiv = $("<div class='news_desc'>");
+		newsDescDiv.html((currentNews.content).replace(/(<([^>]+)>)/ig,""));
+		
+		newsContainerDiv.append(newsDescDiv);
 		
 		// CATEGORY
 		var categoryDiv = $('<div class="category"><p class="vertical_text">'+ name +'</p></div>');
