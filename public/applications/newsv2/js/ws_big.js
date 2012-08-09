@@ -124,7 +124,7 @@ function createElements(responseArray,name){
 		socialShareDiv.append(qrImg);
 
 		socialShareDiv.click({share: shareImg, qr: qrImg},function(){
-			event.data.share.fadeOut(1000,function(){event.data.qr.fadeIn();});
+			event.data.share.fadeOut(1000,function(event){event.data.qr.fadeIn();});
 			setTimeout(function(){
 							event.data.qr.fadeOut(1000,
 								function(){
