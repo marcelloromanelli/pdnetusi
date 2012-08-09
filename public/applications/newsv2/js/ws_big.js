@@ -7,11 +7,6 @@ var startingPositions = [];
 var newsDivs = [];
 
 $(function() {
-	$(document).keyup(function(evt) {
-	    if (evt.keyCode == 32) {
-	      $(".news").css("top","+="+total);
-	    }
-	})
 	  
 	displayID = getUrlVars()["id"];
 	var WS = WebSocket;
@@ -87,6 +82,7 @@ function createElements(responseArray,name){
 		var newsTitleDiv = $("<div class='news_title'>");
 		newsTitleDiv.html(currentNews.title);
 		newsContainerDiv.append(newsTitleDiv);
+		newsTitleDiv.click(function(){$(".news").css("top","+="+total);});
 		
 		newsContainerDiv.append("<hr class='style' />");
 		
