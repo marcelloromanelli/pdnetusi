@@ -60,7 +60,7 @@ function insertNews(response){
 		$("body").append(currentNews);
 	}
 	
-	$(".news_desc").ThreeDots();
+	$(".news_desc").ThreeDots({ max_rows:3 });
 
 }
 
