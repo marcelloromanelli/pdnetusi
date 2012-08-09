@@ -59,6 +59,8 @@ function insertNews(response){
 		currentNews.css("top",startingPositions[i]);
 		$("body").append(currentNews);
 	}
+	
+	$(".news_desc").ThreeDots();
 
 }
 
@@ -89,6 +91,7 @@ function createElements(responseArray,name){
 		// NEWS DESC
 		var newsDescDiv = $("<div class='news_desc'>");
 		newsDescDiv.html((currentNews.content).replace(/(<([^>]+)>)/ig,""));
+		
 		
 		newsContainerDiv.append(newsDescDiv);
 		
