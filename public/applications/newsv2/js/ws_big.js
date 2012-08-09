@@ -89,10 +89,9 @@ function createElements(responseArray,name){
 		
 		// NEWS DESC
 		var newsDescDiv = $("<div class='news_desc'>");
-		newsDescDiv.html("<p>" + 
-						(currentNews.content).replace(/(<([^>]+)>)/ig,"") +
-						"</p>");
-		newsDescDiv.css("height","300px");
+		var paragraph = $("<p>");
+		paragraph.html((currentNews.content).replace(/(<([^>]+)>)/ig,""));
+		newsDescDiv.append(paragraph);
 		
 		newsDiv.append(newsDescDiv);
 		
