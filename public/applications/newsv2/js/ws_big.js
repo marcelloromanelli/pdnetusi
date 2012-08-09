@@ -95,19 +95,19 @@ function createElements(responseArray,name){
 					var pos = parent.position();
 
 					if(parent.hasClass("first") && pos.top > 559){
-						$(".news").animate({"top":"-="+total});
+						$(".news").animate({"top":"+="+total});
 						return;
 					}
 					
 					if(parent.hasClass("last") && pos.top < 559){
-						$(".news").animate({"top":"+="+total});
+						$(".news").animate({"top":"-="+total});
 						return;
 					}
 					
 					if(pos.top > 559){
-						$(".news").animate({"top":"+="+total});
-					} else {
 						$(".news").animate({"top":"-="+total});
+					} else {
+						$(".news").animate({"top":"+="+total});
 					}
 				}
 		);
