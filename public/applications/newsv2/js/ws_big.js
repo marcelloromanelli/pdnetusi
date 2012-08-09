@@ -7,7 +7,7 @@ var startingPositions = [];
 var newsDivs = [];
 
 $(function() {
-	  
+
 	displayID = getUrlVars()["id"];
 	var WS = WebSocket;
 	var wsUri = "ws://pdnet.inf.unisi.ch:9000/newsfeed/socket";
@@ -36,32 +36,32 @@ $(function() {
 	websocket.onerror = function(evt) { 
 		console.log(evt.data); 
 	}; 
-	
+
 });
 
 function insertNews(response){
 	var culture = response.culture;
 	createElements(culture,"culture");
-	
+
 	var hot = response.hot;
 	createElements(hot,"hot");
-	
+
 	var sport = response.sport;
 	createElements(sport,"sport");
-	
+
 	var tech = response.tech;
 	createElements(tech,"tech");
-	
+
 	newsDivs.sort(function() { return 0.5 - Math.random() });
-	
+
 	for(var i in newsDivs){
 		var currentNews = newsDivs[i];
 		currentNews.css("top",startingPositions[i]);
 		$("body").append(currentNews);
 	}
-	
+
 	$(".news_desc").dotdotdot({});
-	
+
 }
 
 function createElements(responseArray,name){
@@ -69,7 +69,7 @@ function createElements(responseArray,name){
 		var currentNews = responseArray[i];
 		console.log(currentNews.title);
 		console.log(currentNews.content + "\n\n");
-		
+
 		// NEWS
 		var newsDiv = $("<div class='news'>");
 		//newsDiv.css("top",lastPosition);
@@ -79,75 +79,84 @@ function createElements(responseArray,name){
 		// NEWS CONTAINER
 		var newsContainerDiv = $("<div class='news_container'>");
 		newsDiv.append(newsContainerDiv);
-		
+		newsContainerDiv.click(
+				function(){
+					var pos = $(this).parent().position();
+					if(pos.top > 559){
+						$(".news").animate({"top":"+="+total});
+					} else {
+						$(".news").animate({"top":"-="+total});
+					}
+				}
+		);
+
 		// NEWS TITLE
 		var newsTitleDiv = $("<div class='news_title'>");
 		newsTitleDiv.html(currentNews.title);
 		newsContainerDiv.append(newsTitleDiv);
-		newsTitleDiv.click(function(){$(".news").animate({"top":"-="+total});});
-		
+
 		newsContainerDiv.append("<hr class='style' />");
-		
+
 		// NEWS DESC
 		var newsDescDiv = $("<div class='news_desc'>");
 		newsDescDiv.css("height","200px");
 		newsDescDiv.html("<p>" +
-						(currentNews.content).replace(/(<([^>]+)>)/ig,"") +
-						"</p>");
-		
-		
+				(currentNews.content).replace(/(<([^>]+)>)/ig,"") +
+		"</p>");
+
+
 		newsContainerDiv.append(newsDescDiv);
-		
+
 		// CATEGORY
 		var categoryDiv = $('<div class="category"><p class="vertical_text">'+ name +'</p></div>');
 		categoryDiv.addClass(name);
 		newsDiv.append(categoryDiv);
-		
+
 		// SOCIAL
 		var socialDiv = $("<div class='social'>");
 		newsDiv.append(socialDiv);
-		
+
 		// SOCIAL TABS
-		
+
 		// LIKE
 		var socialLikeDiv = $("<div class='social_tab first'>");
 		socialLikeDiv.addClass(name);
 		socialLikeDiv.append("<img src='images/up.png' width='50px' " +
-							"style='clear: both; margin-top: 15px; margin-left: 15px;'></img>");
+		"style='clear: both; margin-top: 15px; margin-left: 15px;'></img>");
 		socialLikeDiv.append("<p class='counter'>0</p>");
 		socialDiv.append(socialLikeDiv);
-		
+
 		socialLikeDiv.click(function(){
 			var count = parseInt($(this).find("p").html()) + 1;
 			$(this).find("p").html(count);
 		});
-		
+
 		// DISLIKE
 		var socialDislikeDiv = $("<div class='social_tab center'>");
 		socialDislikeDiv.addClass(name);
 		socialDislikeDiv.append("<img src='images/down.png' width='50px' " +
-							"style='clear: both; margin-top: 15px; margin-left: 15px;'></img>");
+		"style='clear: both; margin-top: 15px; margin-left: 15px;'></img>");
 		socialDislikeDiv.append("<p class='counter'>0</p>");
 		socialDiv.append(socialDislikeDiv);
-		
+
 		socialDislikeDiv.click(function(){
 			var count = parseInt($(this).find("p").html()) + 1;
 			$(this).find("p").html(count);
 		});
-		
+
 		// SHARE
 		var socialShareDiv = $("<div class='social_tab last'>");
 		socialShareDiv.addClass(name);
 		var shareImg = $("<img class='share' src='images/share.png' width='50px'></img>")
 		var qrImg = $("<img src='http://chart.apis.google.com/chart?cht=qr&chs=120x120&chl=http%3A//www.usi.ch&chld=H|0' " +
-				"style='display:none; width:100%;'></img>");
+		"style='display:none; width:100%;'></img>");
 		socialShareDiv.append(shareImg);
 		socialShareDiv.append(qrImg);
 
 		socialShareDiv.click({share: shareImg, qr: qrImg},fadeQR);
-		
+
 		socialDiv.append(socialShareDiv);
-	
+
 		newsDivs.push(newsDiv);
 	}
 }
@@ -155,15 +164,15 @@ function createElements(responseArray,name){
 function fadeQR(event){
 	var share = event.data.share;
 	var qr = event.data.qr;
-	
+
 	share.fadeOut(1000,function(){qr.fadeIn();});
-	
+
 	setTimeout(function(){qr.fadeOut(1000,
-						function(){
-							share.fadeIn();
-						}
-					);
-				},10000);
+			function(){
+		share.fadeIn();
+	}
+	);
+	},10000);
 }
 
 function freeSpace(){
