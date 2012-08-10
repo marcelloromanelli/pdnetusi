@@ -11,6 +11,7 @@ html,body {
 /* Colors for the categories */
 .hot {background: rgba(255, 0, 0, 1);}
 .social_tab.hot {border: 10px solid rgba(255, 0, 0, 1);}
+.social_tab.hot:HOVER {background-color: rgba(255, 0, 0, 0.4);}
 
 .tech {background: rgba(157, 175, 0, 1);}
 .social_tab.tech {border: 10px solid rgba(157, 175, 0, 1);}
