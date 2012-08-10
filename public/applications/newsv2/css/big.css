@@ -11,16 +11,19 @@ html,body {
 /* Colors for the categories */
 .hot {background: rgba(255, 0, 0, 1);}
 .social_tab.hot {border: 10px solid rgba(255, 0, 0, 1);}
-.social_tab.hot:HOVER {background-color: rgba(255, 0, 0, 0.4);}
+.social_tab.hot:ACTIVE {background-color: rgba(255, 0, 0, 0.4);}
 
 .tech {background: rgba(157, 175, 0, 1);}
 .social_tab.tech {border: 10px solid rgba(157, 175, 0, 1);}
+.social_tab.tech:ACTIVE {background-color: rgba(157, 175, 0, 0.4);}
 
 .culture {background: rgba(0, 64, 255, 1);}
 .social_tab.culture {border: 10px solid rgba(0, 64, 255, 1);}
+.social_tab.culture:ACTIVE {background-color: rgba(0, 64, 255, 0.4);}
 
 .sport {background: rgba(255, 204, 0, 1);}
 .social_tab.sport {border: 10px solid rgba(255, 204, 0, 1);}
+.social_tab.sport:ACTIVE {background-color: rgba(255, 204, 0, 0.4);}
 
 /* separator */
 hr.style {
