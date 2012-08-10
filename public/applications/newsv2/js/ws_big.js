@@ -126,9 +126,15 @@ function createElements(responseArray,name){
 				(currentNews.content).replace(/(<([^>]+)>)/ig,"") +
 		"</p>");
 
-
 		newsContainerDiv.append(newsDescDiv);
+		
+		// READ MORE
+		var boilerPipeAPI = "http://boilerpipe-web.appspot.com/extract?url=";
+		var readMoreDiv = $("<a>Read More</a>");
+		readMoreDiv.attr("href",boilerPipeAPI + currentNews.link);
+		newsContainerDiv.append(readMoreDiv);
 
+		
 		// CATEGORY
 		var categoryDiv = $('<div class="category"><p class="vertical_text">'+ name +'</p></div>');
 		categoryDiv.addClass(name);
