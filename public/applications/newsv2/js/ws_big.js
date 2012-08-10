@@ -129,10 +129,12 @@ function createElements(responseArray,name){
 		newsContainerDiv.append(newsDescDiv);
 		
 		// READ MORE
-		var boilerPipeAPI = "http://boilerpipe-web.appspot.com/extract?url=";
 		var readMoreDiv = $("<a>Read More</a>");
-		readMoreDiv.attr("href",boilerPipeAPI + currentNews.link + "&extractor=ArticleExtractor&output=text");
+		readMoreDiv.click(function(){
+			console.log(currentNews.full);
+		});
 		newsContainerDiv.append(readMoreDiv);
+		
 
 		
 		// CATEGORY
