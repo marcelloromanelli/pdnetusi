@@ -178,7 +178,7 @@ function createElements(responseArray,name){
 		var socialShareDiv = $("<div class='social_tab last'>");
 		socialShareDiv.addClass(name);
 		var shareImg = $("<img class='share' src='images/share.png' width='50px'></img>")
-		var qrImg = $("<img src='http://chart.apis.google.com/chart?cht=qr&chs=120x120&chl=http%3A//www.usi.ch&chld=H|0' " +
+		var qrImg = $("<img src='http://chart.apis.google.com/chart?cht=qr&chs=120x120&chl="+currentNews.link+"&chld=H|0' " +
 		"style='display:none; width:100%;'></img>");
 		socialShareDiv.append(shareImg);
 		socialShareDiv.append(qrImg);
