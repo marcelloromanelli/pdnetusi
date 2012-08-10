@@ -3,6 +3,7 @@ package controllers;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -12,6 +13,9 @@ import java.util.Iterator;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
+
+import de.l3s.boilerpipe.BoilerpipeProcessingException;
+import de.l3s.boilerpipe.extractors.ArticleExtractor;
 
 import play.Logger;
 import play.libs.F.Callback;
@@ -188,15 +192,18 @@ public class NewsFeedController extends Controller {
 		// Build the JSON that is going to be sent back
 		// to the display.
 		ObjectNode response = Json.newObject();
-		response.put("hot", extractInformations(hot));
-		response.put("tech", extractInformations(tech));
-		response.put("sport", extractInformations(sport));
-		response.put("culture", extractInformations(culture));
-
+		try {
+			response.put("hot", extractInformations(hot));
+			response.put("tech", extractInformations(tech));
+			response.put("sport", extractInformations(sport));
+			response.put("culture", extractInformations(culture));
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		return response;
 	}
 
-	public static JsonNode extractInformations(JsonNode feed) {		
+	public static JsonNode extractInformations(JsonNode feed) throws MalformedURLException {		
 
 		ArrayList<ObjectNode> feedsTitles = new ArrayList<ObjectNode>();
 		Iterator<JsonNode> it = feed.getElements();
@@ -214,9 +221,21 @@ public class NewsFeedController extends Controller {
 				if(content == null){
 					continue;
 				}
-				currentNews.put("link", currentEntry.get("link").asText());
+
+				String link = currentEntry.get("link").asText();
+				String text = null;
+				URL url = new URL(link);
+				try {
+					text = ArticleExtractor.INSTANCE.getText(url);
+				} catch (BoilerpipeProcessingException e) {
+					e.printStackTrace();
+				}
+
+				currentNews.put("link", link);
 				currentNews.put("title", currentEntry.get("title").asText());
 				currentNews.put("content", content);
+				currentNews.put("full", text);
+
 
 				feedsTitles.add(currentNews);
 			}
@@ -229,7 +248,7 @@ public class NewsFeedController extends Controller {
 	public static class Sockets {
 		public WebSocket.Out<JsonNode> small;
 		public WebSocket.Out<JsonNode> big;
-		
+
 		public Sockets(Out<JsonNode> small, Out<JsonNode> big) {
 			this.small = small;
 			this.big = big;

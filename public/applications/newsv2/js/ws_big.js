@@ -131,7 +131,7 @@ function createElements(responseArray,name){
 		// READ MORE
 		var boilerPipeAPI = "http://boilerpipe-web.appspot.com/extract?url=";
 		var readMoreDiv = $("<a>Read More</a>");
-		readMoreDiv.attr("href",boilerPipeAPI + currentNews.link);
+		readMoreDiv.attr("href",boilerPipeAPI + currentNews.link + "&extractor=ArticleExtractor&output=text");
 		newsContainerDiv.append(readMoreDiv);
 
 		
@@ -228,3 +228,4 @@ function getUrlVars()
 function lowerWithoutSpaces(input){
 	return input.toLowerCase().split(' ').join('');
 }
+
