@@ -5,6 +5,7 @@ html,body {
 	width: 1317px;
 	height: 1080px;
 	overflow: hidden;
+	cursor: pointer;
 }
 
 /* Colors for the categories */
@@ -57,11 +58,16 @@ hr.style {
 
 .news_title {
 	font-size: 40px;
+	user-select: none;
+   -webkit-user-select: none;
 }
 
 .news_desc {
 	margin-top: 15px;
 	font-size: 18px;
+	user-select: none;
+   -webkit-user-select: none;
+	
 }
 
 .category {
@@ -72,10 +78,16 @@ hr.style {
 	width: 80px;
 	color: white;
 	font-weight: bold;
+	user-select: none;
+   -webkit-user-select: none;
+	
 }
 
 .vertical_text {
 	-webkit-transform: rotate(90deg);
+	user-select: none;
+   -webkit-user-select: none;
+	
 }
 
 /*SOCIAL*/
@@ -83,6 +95,8 @@ hr.style {
 	height: 320px;
 	width: 1px;
 	float: left;
+	user-select: none;
+   -webkit-user-select: none;
 }
 
 .social_tab {
@@ -93,18 +107,27 @@ hr.style {
 	clear: both;
 	background-color: rgba(255, 255, 255, 0.4);
 	margin-left: -10px;
+	user-select: none;
+   -webkit-user-select: none;
 }
 
 .social_tab.first {
 	margin-top: 40px;
+	user-select: none;
+   -webkit-user-select: none;
+	
 }
 
 .social_tab.center {
 	margin: 10px 0px 10px -10px;
+	user-select: none;
+   -webkit-user-select: none;
 }
 
 .social_tab.last {
 	margin-bottom: 0px;
+	user-select: none;
+   -webkit-user-select: none;
 }
 .counter {
 	color: white;
@@ -113,6 +136,8 @@ hr.style {
 	margin: 0;
 	text-align: center;
 	opacity: 0.8;
+	user-select: none;
+   -webkit-user-select: none;
 }
 
 .share {
@@ -121,4 +146,6 @@ hr.style {
 	margin-left: 15px;
 	opacity: 0.6;
 	width: 50px;
+	user-select: none;
+   -webkit-user-select: none;
 }
