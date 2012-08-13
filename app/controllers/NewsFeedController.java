@@ -276,12 +276,12 @@ public class NewsFeedController extends Controller {
 				}
 
 				currentNews.put("link", link);
-				currentNews.put("title", currentEntry.get("title").asText());
+				String title = currentEntry.get("title").asText();
+				if(title == null) continue;
+				currentNews.put("title", title);
 				currentNews.put("content", content);
 				currentNews.put("imgs", Json.toJson(imgs));
-				
-				Logger.info("news added");
-				
+
 				feedsTitles.add(currentNews);
 			}
 		}
