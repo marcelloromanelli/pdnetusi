@@ -244,7 +244,8 @@ public class NewsFeedController extends Controller {
 						Attributes tagAttr = segment.getFirstStartTag().getAttributes(); 
 						final Attribute alt = tagAttr.get("alt");
 						
-						if(tagAttr.getValue("width") == null) continue;
+						if(tagAttr.getValue("width") == null || tagAttr.getValue("height") == null) 
+							continue;
 						
 						final Integer width = new Integer(tagAttr.getValue("width"));
 						final Integer height = new Integer(tagAttr.getValue("height"));
