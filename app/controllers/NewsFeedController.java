@@ -188,14 +188,14 @@ public class NewsFeedController extends Controller {
 		JsonNode sport = feeds.get("sport");
 		JsonNode culture = feeds.get("culture");
 
-		Logger.info
-		(
-				"FEEDS RECIEVED: \n"
-						+ "\n\n" + hot.toString() 
-						+ "\n\n" + tech.toString()  
-						+ "\n\n" + sport.toString()  
-						+ "\n\n" + culture.toString()
-				);
+//		Logger.info
+//		(
+//				"FEEDS RECIEVED: \n"
+//						+ "\n\n" + hot.toString() 
+//						+ "\n\n" + tech.toString()  
+//						+ "\n\n" + sport.toString()  
+//						+ "\n\n" + culture.toString()
+//				);
 
 
 		// Build the JSON that is going to be sent back
