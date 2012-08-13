@@ -71,7 +71,6 @@ function insertNews(response){
 	}
 	$(".news_title").dotdotdot({});
 	$(".news_desc").dotdotdot({});
-	$(".news_img").each(function(){$(this).scale("center");});
 }
 
 function createElements(responseArray,name){
@@ -118,9 +117,12 @@ function createElements(responseArray,name){
 		newsContainerDiv.append(newsTitleDiv);
 
 		newsContainerDiv.append("<hr class='style' />");
-		
+
 		// NEWS IMG
 		var img = $("<img class='news_img'>");
+		if(currentNews.imgs.length == 0){
+			img.attr("src","http://panhandletickets.com/images/not_available.jpg");
+		}
 		img.attr("src",$(currentNews.imgs[0]).attr("src"));
 		newsContainerDiv.append(img);
 
