@@ -80,6 +80,9 @@ hr.style {
 		height: 215px;
 		width: 215px;
 		margin-right: 15px;
+		margin-top: 20px;
+		border-radius: 20px;
+		-webkit-box-reflect: below 0px -webkit-gradient(linear, left bottom, left top, from(white), to(transparent));
 }
 	
 .category {
