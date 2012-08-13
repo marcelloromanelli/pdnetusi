@@ -266,8 +266,8 @@ public class NewsFeedController extends Controller {
 										)
 								)
 						{
-							Logger.info("FOUND IMG: " + segment);
 							imgs.add(segment.toString());
+							Logger.info("FOUND IMG: " + segment);
 						}
 					}
 				} catch (IOException e) {
@@ -279,8 +279,9 @@ public class NewsFeedController extends Controller {
 				currentNews.put("title", currentEntry.get("title").asText());
 				currentNews.put("content", content);
 				currentNews.put("imgs", Json.toJson(imgs));
-
-
+				
+				Logger.info("news added");
+				
 				feedsTitles.add(currentNews);
 			}
 		}
