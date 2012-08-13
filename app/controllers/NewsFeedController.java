@@ -10,6 +10,8 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -225,8 +227,16 @@ public class NewsFeedController extends Controller {
 				try {
 					file = new WebFile(link);
 					Object pageContent = file.getContent( );
-					if (content instanceof String )
+					if (pageContent instanceof String )
 					{
+						String imgRegex = "<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>";
+						Pattern p = Pattern.compile(imgRegex);
+						Matcher m = p.matcher((String)pageContent);
+						if (m.find()) {
+						  String src = m.group(2);
+						  Logger.info(src);
+						}
+						
 						String html = (String)pageContent;
 						Logger.info(html);
 						currentNews.put("html",html);
