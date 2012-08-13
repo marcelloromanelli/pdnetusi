@@ -258,7 +258,7 @@ public class NewsFeedController extends Controller {
 						} 
 
 						Integer height = 0;
-						if(tagAttr.getValue("width") != null){
+						if(tagAttr.getValue("height") != null){
 							height = new Integer(tagAttr.getValue("height"));
 						}
 
