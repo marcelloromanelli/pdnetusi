@@ -81,14 +81,13 @@ function createElements(responseArray,name){
 
 		$(currentNews.html).find("img").each(
 				function(){
-					if($(this).clientWidth >= 340 && $(this).clientHeight >= 340){
-						imgs.push(
-								{	
-									"src":$(this).attr("src"),
-									"alt":$(this).attr("alt")
-								}
-						);
-					}
+					imgs.push(
+							{	
+								"src":$(this).attr("src"),
+								"alt":$(this).attr("alt")
+							}
+					);
+
 				}
 		);
 
