@@ -236,7 +236,7 @@ public class NewsFeedController extends Controller {
 					for (Segment segment : elementList) {
 						System.out.println("-------------------------------------------------------------------------------");
 						System.out.println(segment.getDebugInfo());
-						System.out.println(segment);
+						System.out.println(segment.getFirstStartTag().getAttributes().get("alt"));
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
