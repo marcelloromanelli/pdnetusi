@@ -11,9 +11,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import net.htmlparser.jericho.*;
+
+import net.htmlparser.jericho.Attribute;
+import net.htmlparser.jericho.HTMLElementName;
+import net.htmlparser.jericho.MasonTagTypes;
+import net.htmlparser.jericho.MicrosoftConditionalCommentTagTypes;
+import net.htmlparser.jericho.PHPTagTypes;
+import net.htmlparser.jericho.Segment;
+import net.htmlparser.jericho.Source;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -234,9 +239,12 @@ public class NewsFeedController extends Controller {
 					source = new Source(new URL(link));
 					List<? extends Segment> elementList =source.getAllElements(HTMLElementName.IMG);
 					for (Segment segment : elementList) {
-						System.out.println("-------------------------------------------------------------------------------");
-						System.out.println(segment.getDebugInfo());
-						System.out.println(segment.getFirstStartTag().getAttributes().get("alt"));
+						final Attribute alt = segment.getFirstStartTag().getAttributes().get("alt");
+						if (alt!=null){
+							System.out.println("-------------------------------------------------------------------------------");
+							System.out.println(segment.getDebugInfo());
+							System.out.println(segment);
+						}
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
