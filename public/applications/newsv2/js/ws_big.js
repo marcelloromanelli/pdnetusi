@@ -129,11 +129,11 @@ function createElements(responseArray,name){
 		newsContainerDiv.append(newsDescDiv);
 		
 		// READ MORE
-		var readMoreDiv = $("<a>Read More</a>");
-		readMoreDiv.click(function(){
-			console.log(currentNews.full);
-		});
-		newsContainerDiv.append(readMoreDiv);
+//		var readMoreDiv = $("<a>Read More</a>");
+//		readMoreDiv.click(function(){
+//			console.log(currentNews.full);
+//		});
+//		newsContainerDiv.append(readMoreDiv);
 		
 
 		

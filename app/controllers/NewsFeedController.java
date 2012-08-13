@@ -223,18 +223,10 @@ public class NewsFeedController extends Controller {
 				}
 
 				String link = currentEntry.get("link").asText();
-				String text = null;
-				URL url = new URL(link);
-				try {
-					text = ArticleExtractor.INSTANCE.getText(url);
-				} catch (BoilerpipeProcessingException e) {
-					e.printStackTrace();
-				}
 
 				currentNews.put("link", link);
 				currentNews.put("title", currentEntry.get("title").asText());
 				currentNews.put("content", content);
-				currentNews.put("full", text);
 
 
 				feedsTitles.add(currentNews);
