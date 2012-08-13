@@ -36,6 +36,9 @@ $(function() {
 	websocket.onerror = function(evt) { 
 		console.log(evt.data); 
 	}; 
+	
+	// AVOID IMG DRAG
+	$('img').bind('dragstart', function(event) { event.preventDefault(); });
 
 });
 
