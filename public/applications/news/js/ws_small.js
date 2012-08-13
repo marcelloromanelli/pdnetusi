@@ -26,8 +26,8 @@ $(function() {
 	};
 
 	websocket.onmessage = function(evt) {
-		var response = jQuery.parseJSON(evt.data);
-		partitionSpace(response);
+//		var response = jQuery.parseJSON(evt.data);
+//		partitionSpace(response);
 	};
 
 	websocket.onerror = function(evt) { 
