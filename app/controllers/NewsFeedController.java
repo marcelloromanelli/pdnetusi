@@ -233,7 +233,7 @@ public class NewsFeedController extends Controller {
 						Pattern p = Pattern.compile(imgRegex);
 						Matcher m = p.matcher((String)pageContent);
 						if (m.find()) {
-						  String src = m.group(2);
+						  String src = m.group();
 						  Logger.info(src);
 						}
 						
