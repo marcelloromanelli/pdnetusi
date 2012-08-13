@@ -13,12 +13,14 @@ import java.util.Iterator;
 import java.util.List;
 
 import net.htmlparser.jericho.Attribute;
+import net.htmlparser.jericho.Attributes;
 import net.htmlparser.jericho.HTMLElementName;
 import net.htmlparser.jericho.MasonTagTypes;
 import net.htmlparser.jericho.MicrosoftConditionalCommentTagTypes;
 import net.htmlparser.jericho.PHPTagTypes;
 import net.htmlparser.jericho.Segment;
 import net.htmlparser.jericho.Source;
+import net.htmlparser.jericho.StartTag;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -232,17 +234,22 @@ public class NewsFeedController extends Controller {
 				String link = currentEntry.get("link").asText();
 				MicrosoftConditionalCommentTagTypes.register();
 				PHPTagTypes.register();
-				PHPTagTypes.PHP_SHORT.deregister(); // remove PHP short tags for this example otherwise they override processing instructions
+				PHPTagTypes.PHP_SHORT.deregister();
 				MasonTagTypes.register();
 				Source source;
 				try {
 					source = new Source(new URL(link));
 					List<? extends Segment> elementList =source.getAllElements(HTMLElementName.IMG);
 					for (Segment segment : elementList) {
-						final Attribute alt = segment.getFirstStartTag().getAttributes().get("alt");
+						Attributes tagAttr = segment.getFirstStartTag().getAttributes(); 
+						final Attribute alt = tagAttr.get("alt");
+						final String width = tagAttr.getValue("width");
+						final String height = tagAttr.getValue("height");
+						
 						if (alt!=null){
 							System.out.println("-------------------------------------------------------------------------------");
 							System.out.println(segment.getDebugInfo());
+							System.out.println("W: " + width + " H: " + height);
 							System.out.println(segment);
 						}
 					}
