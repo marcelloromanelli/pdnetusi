@@ -59,7 +59,7 @@ public class NewsFeedController extends Controller {
 			public void onReady(WebSocket.In<JsonNode> in, final WebSocket.Out<JsonNode> out) {
 
 				in.onMessage(new Callback<JsonNode>() {
-					public void invoke(JsonNode event) throws IOException {
+					public void invoke(JsonNode event) {
 
 						Logger.info("INCOMING MESSAGE ON NEWSFEED WS:\n" 
 								+ event.toString());
@@ -170,9 +170,8 @@ public class NewsFeedController extends Controller {
 	 * news.
 	 * @param json of feeds recieved from the mobile 
 	 * @return
-	 * @throws IOException 
 	 */
-	public static ObjectNode processFeeds(JsonNode feeds) throws IOException {		
+	public static ObjectNode processFeeds(JsonNode feeds) {		
 		JsonNode hot = feeds.get("hot");
 		JsonNode tech = feeds.get("tech");
 		JsonNode sport = feeds.get("sport");
@@ -202,7 +201,7 @@ public class NewsFeedController extends Controller {
 		return response;
 	}
 
-	public static JsonNode extractInformations(JsonNode feed) throws IOException {		
+	public static JsonNode extractInformations(JsonNode feed) throws MalformedURLException {		
 
 		ArrayList<ObjectNode> feedsTitles = new ArrayList<ObjectNode>();
 		Iterator<JsonNode> it = feed.getElements();
@@ -216,27 +215,31 @@ public class NewsFeedController extends Controller {
 				JsonNode currentEntry = entries.next();
 				ObjectNode currentNews = Json.newObject();
 				currentNews.put("source", newsSource);
-				
 				String content = currentEntry.get("content").asText();
 				if(content == null){
 					continue;
 				}
 
 				String link = currentEntry.get("link").asText();
-				WebFile file   = new WebFile(link);
-				String MIME    = file.getMIMEType( );
-				Object pageContent = file.getContent( );
-				if ( MIME.equals( "text/html" ) && content instanceof String )
-				{
-				    String html = (String)pageContent;
-				    currentNews.put("html",html);
-				    
+				WebFile file;
+				try {
+					file = new WebFile(link);
+					Object pageContent = file.getContent( );
+					if (content instanceof String )
+					{
+						String html = (String)pageContent;
+						currentNews.put("html",html);
+
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				
+
 				currentNews.put("link", link);
 				currentNews.put("title", currentEntry.get("title").asText());
 				currentNews.put("content", content);
-				
+
 
 				feedsTitles.add(currentNews);
 			}
