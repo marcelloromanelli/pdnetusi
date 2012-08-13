@@ -77,7 +77,7 @@ function insertNews(response){
 function createElements(responseArray,name){
 	for(var i in responseArray){
 		var currentNews = responseArray[i];
-		console.log(currentNews.imgs[0].attr("src"));
+		console.log($(currentNews.imgs[0]).attr("src"));
 
 		// NEWS
 		var newsDiv = $("<div class='news'>");
