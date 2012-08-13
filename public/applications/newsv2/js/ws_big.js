@@ -69,7 +69,7 @@ function insertNews(response){
 		currentNews.css("top",startingPositions[i]);
 		$("body").append(currentNews);
 	}
-
+	$(".news_title").dotdotdot({});
 	$(".news_desc").dotdotdot({});
 
 }
@@ -113,6 +113,8 @@ function createElements(responseArray,name){
 		// NEWS TITLE
 		var newsTitleDiv = $("<div class='news_title'>");
 		newsTitleDiv.html(currentNews.title);
+		newsTitleDiv.css("height","46px");
+
 		newsContainerDiv.append(newsTitleDiv);
 
 		newsContainerDiv.append("<hr class='style' />");
