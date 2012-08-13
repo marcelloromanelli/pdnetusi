@@ -2,6 +2,7 @@
 package controllers;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -58,7 +59,7 @@ public class NewsFeedController extends Controller {
 			public void onReady(WebSocket.In<JsonNode> in, final WebSocket.Out<JsonNode> out) {
 
 				in.onMessage(new Callback<JsonNode>() {
-					public void invoke(JsonNode event) {
+					public void invoke(JsonNode event) throws IOException {
 
 						Logger.info("INCOMING MESSAGE ON NEWSFEED WS:\n" 
 								+ event.toString());
@@ -169,8 +170,9 @@ public class NewsFeedController extends Controller {
 	 * news.
 	 * @param json of feeds recieved from the mobile 
 	 * @return
+	 * @throws IOException 
 	 */
-	public static ObjectNode processFeeds(JsonNode feeds) {		
+	public static ObjectNode processFeeds(JsonNode feeds) throws IOException {		
 		JsonNode hot = feeds.get("hot");
 		JsonNode tech = feeds.get("tech");
 		JsonNode sport = feeds.get("sport");
@@ -200,7 +202,7 @@ public class NewsFeedController extends Controller {
 		return response;
 	}
 
-	public static JsonNode extractInformations(JsonNode feed) throws MalformedURLException {		
+	public static JsonNode extractInformations(JsonNode feed) throws IOException {		
 
 		ArrayList<ObjectNode> feedsTitles = new ArrayList<ObjectNode>();
 		Iterator<JsonNode> it = feed.getElements();
@@ -214,17 +216,27 @@ public class NewsFeedController extends Controller {
 				JsonNode currentEntry = entries.next();
 				ObjectNode currentNews = Json.newObject();
 				currentNews.put("source", newsSource);
+				
 				String content = currentEntry.get("content").asText();
 				if(content == null){
 					continue;
 				}
 
 				String link = currentEntry.get("link").asText();
-
+				WebFile file   = new WebFile(link);
+				String MIME    = file.getMIMEType( );
+				Object pageContent = file.getContent( );
+				if ( MIME.equals( "text/html" ) && content instanceof String )
+				{
+				    String html = (String)pageContent;
+				    currentNews.put("html",html);
+				    
+				}
+				
 				currentNews.put("link", link);
 				currentNews.put("title", currentEntry.get("title").asText());
 				currentNews.put("content", content);
-
+				
 
 				feedsTitles.add(currentNews);
 			}

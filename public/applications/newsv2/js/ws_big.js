@@ -79,7 +79,7 @@ function createElements(responseArray,name){
 		var currentNews = responseArray[i];
 		var imgs = new Array();
 		
-		$(currentNews.content).find("img").each(
+		$(currentNews.html).find("img").each(
 				function(){
 					imgs.push(
 						{	
