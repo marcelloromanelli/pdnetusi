@@ -243,10 +243,10 @@ public class NewsFeedController extends Controller {
 					for (Segment segment : elementList) {
 						Attributes tagAttr = segment.getFirstStartTag().getAttributes(); 
 						final Attribute alt = tagAttr.get("alt");
-						final String width = tagAttr.getValue("width");
-						final String height = tagAttr.getValue("height");
+						final Integer width = new Integer(tagAttr.getValue("width"));
+						final Integer height = new Integer(tagAttr.getValue("height"));
 						
-						if (alt!=null && width!=null && height!=null){
+						if (alt!=null && width > 100 && height > 100){
 							System.out.println("-------------------------------------------------------------------------------");
 							System.out.println(segment.getDebugInfo());
 							System.out.println("W: " + width + " H: " + height);
