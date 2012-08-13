@@ -238,7 +238,6 @@ public class NewsFeedController extends Controller {
 						}
 						
 						String html = (String)pageContent;
-						Logger.info(html);
 						currentNews.put("html",html);
 
 					}
