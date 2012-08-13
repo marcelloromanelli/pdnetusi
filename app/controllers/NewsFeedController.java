@@ -245,9 +245,12 @@ public class NewsFeedController extends Controller {
 					source = new Source(new URL(link));
 					List<Element> elementList = source.getAllElements(HTMLElementName.IMG);
 					for (Segment segment : elementList) {
-						Logger.info("CHECKING IMG");
+						Logger.info("CHECKING IMG \n" + segment);
 						Attributes tagAttr = segment.getFirstStartTag().getAttributes(); 
+						if(tagAttr == null) continue;
+						
 						final Attribute alt = tagAttr.get("alt");
+						if(alt == null) continue;
 
 						Integer width = 0;
 						if(tagAttr.getValue("width") != null){
