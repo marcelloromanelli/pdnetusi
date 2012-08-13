@@ -10,8 +10,10 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import net.htmlparser.jericho.*;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -223,24 +225,21 @@ public class NewsFeedController extends Controller {
 				}
 
 				String link = currentEntry.get("link").asText();
-				WebFile file;
+				MicrosoftConditionalCommentTagTypes.register();
+				PHPTagTypes.register();
+				PHPTagTypes.PHP_SHORT.deregister(); // remove PHP short tags for this example otherwise they override processing instructions
+				MasonTagTypes.register();
+				Source source;
 				try {
-					file = new WebFile(link);
-					Object pageContent = file.getContent( );
-					if (pageContent instanceof String )
-					{
-						String imgRegex = "<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>";
-						Pattern p = Pattern.compile(imgRegex);
-						Matcher m = p.matcher((String)pageContent);
-						if (m.find()) {
-						  String src = m.group();
-						  Logger.info(src);
-						}
-						
-						String html = (String)pageContent;
-						currentNews.put("html",html);
-
-					}
+					source = new Source(new URL(link));
+				
+				List<Element> elementList=source.getAllElements();
+				for (Element element : elementList) {
+					System.out.println("-------------------------------------------------------------------------------");
+					System.out.println(element.getDebugInfo());
+					if (element.getAttributes()!=null) System.out.println("XHTML StartTag:\n"+element.getStartTag().tidy(true));
+					System.out.println("Source text with content:\n"+element);
+				}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
