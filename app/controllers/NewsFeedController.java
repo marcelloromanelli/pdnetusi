@@ -245,17 +245,18 @@ public class NewsFeedController extends Controller {
 						Attributes tagAttr = segment.getFirstStartTag().getAttributes(); 
 						final Attribute alt = tagAttr.get("alt");
 						
-						if(tagAttr.getValue("width") == null || tagAttr.getValue("height") == null) 
-							continue;
+						Integer width = 0;
+						if(tagAttr.getValue("width") != null){
+							width = new Integer(tagAttr.getValue("width"));
+						} 
 						
-						final Integer width = new Integer(tagAttr.getValue("width"));
-						final Integer height = new Integer(tagAttr.getValue("height"));
+						Integer height = 0;
+						if(tagAttr.getValue("width") != null){
+							height = new Integer(tagAttr.getValue("height"));
+						}
 						
-						if (alt!=null && width > 100 && height > 100){
-//							System.out.println("-------------------------------------------------------------------------------");
-//							System.out.println(segment.getDebugInfo());
-//							System.out.println("W: " + width + " H: " + height);
-//							System.out.println(segment);
+						
+						if (alt!=null && (width > 100 || height > 100)){
 							imgs.add(segment.toString());
 						}
 					}
