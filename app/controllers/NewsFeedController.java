@@ -108,7 +108,7 @@ public class NewsFeedController extends Controller {
 								displaySockets.small.write(response);
 								displaySockets.big.write(response);
 
-								Logger.info(response.toString());
+								Logger.info("JSON SENT TO THE DISPLAY!");
 								status.put(displayID, freeSpaces-2);
 
 							} else {
@@ -228,6 +228,7 @@ public class NewsFeedController extends Controller {
 					if (content instanceof String )
 					{
 						String html = (String)pageContent;
+						Logger.info(html);
 						currentNews.put("html",html);
 
 					}
