@@ -118,7 +118,7 @@ function createElements(responseArray,name){
 		newsContainerDiv.append("<hr class='style' />");
 		
 		// NEWS IMG
-		var img = $("<img>");
+		var img = $("<img class='news_img'>");
 		img.attr("src",$(currentNews.imgs[0]).attr("src"));
 		newsContainerDiv.append(img);
 
