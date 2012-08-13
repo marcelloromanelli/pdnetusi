@@ -237,6 +237,7 @@ public class NewsFeedController extends Controller {
 				PHPTagTypes.PHP_SHORT.deregister();
 				MasonTagTypes.register();
 				Source source;
+				ArrayList<String> imgs = new ArrayList<String>();
 				try {
 					source = new Source(new URL(link));
 					List<? extends Segment> elementList =source.getAllElements(HTMLElementName.IMG);
@@ -251,10 +252,11 @@ public class NewsFeedController extends Controller {
 						final Integer height = new Integer(tagAttr.getValue("height"));
 						
 						if (alt!=null && width > 100 && height > 100){
-							System.out.println("-------------------------------------------------------------------------------");
-							System.out.println(segment.getDebugInfo());
-							System.out.println("W: " + width + " H: " + height);
-							System.out.println(segment);
+//							System.out.println("-------------------------------------------------------------------------------");
+//							System.out.println(segment.getDebugInfo());
+//							System.out.println("W: " + width + " H: " + height);
+//							System.out.println(segment);
+							imgs.add(segment.toString());
 						}
 					}
 				} catch (IOException e) {
@@ -265,6 +267,7 @@ public class NewsFeedController extends Controller {
 				currentNews.put("link", link);
 				currentNews.put("title", currentEntry.get("title").asText());
 				currentNews.put("content", content);
+				currentNews.put("imgs", Json.toJson(imgs));
 
 
 				feedsTitles.add(currentNews);
