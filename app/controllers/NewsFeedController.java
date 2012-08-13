@@ -246,7 +246,7 @@ public class NewsFeedController extends Controller {
 						final String width = tagAttr.getValue("width");
 						final String height = tagAttr.getValue("height");
 						
-						if (alt!=null){
+						if (alt!=null && width!=null && height!=null){
 							System.out.println("-------------------------------------------------------------------------------");
 							System.out.println(segment.getDebugInfo());
 							System.out.println("W: " + width + " H: " + height);
