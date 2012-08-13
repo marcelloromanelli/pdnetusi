@@ -2,8 +2,25 @@
   <classpathentry output="target/scala-2.9.1/classes" path="app" kind="src"></classpathentry>
   <classpathentry output="target/scala-2.9.1/test-classes" path="test" kind="src"></classpathentry>
   <classpathentry path="./lib/boilerpipe-1.2.0.jar" kind="lib"></classpathentry>
+  <classpathentry path="./lib/commons-codec-1.6.jar" kind="lib"></classpathentry>
+  <classpathentry path="./lib/commons-collections-3.2.1.jar" kind="lib"></classpathentry>
+  <classpathentry path="./lib/commons-io-2.2.jar" kind="lib"></classpathentry>
+  <classpathentry path="./lib/commons-lang3-3.1.jar" kind="lib"></classpathentry>
+  <classpathentry path="./lib/commons-logging-1.1.1.jar" kind="lib"></classpathentry>
+  <classpathentry path="./lib/cssparser-0.9.7.jar" kind="lib"></classpathentry>
+  <classpathentry path="./lib/htmlunit-2.10.jar" kind="lib"></classpathentry>
+  <classpathentry path="./lib/htmlunit-core-js-2.10.jar" kind="lib"></classpathentry>
+  <classpathentry path="./lib/httpclient-4.2.1.jar" kind="lib"></classpathentry>
+  <classpathentry path="./lib/httpcore-4.2.1.jar" kind="lib"></classpathentry>
+  <classpathentry path="./lib/httpmime-4.2.1.jar" kind="lib"></classpathentry>
   <classpathentry path="./lib/nekohtml-1.9.13.jar" kind="lib"></classpathentry>
+  <classpathentry path="./lib/nekohtml-1.9.16.jar" kind="lib"></classpathentry>
+  <classpathentry path="./lib/sac-1.3.jar" kind="lib"></classpathentry>
+  <classpathentry path="./lib/serializer-2.7.1.jar" kind="lib"></classpathentry>
+  <classpathentry path="./lib/xalan-2.7.1.jar" kind="lib"></classpathentry>
   <classpathentry path="./lib/xerces-2.9.1.jar" kind="lib"></classpathentry>
+  <classpathentry path="./lib/xercesImpl-2.9.1.jar" kind="lib"></classpathentry>
+  <classpathentry path="./lib/xml-apis-1.3.04.jar" kind="lib"></classpathentry>
   <classpathentry path="/Developer/play-2.0/framework/sbt/boot/scala-2.9.1/lib/scala-library.jar" kind="lib"></classpathentry>
   <classpathentry path="/Developer/play-2.0/framework/../repository/local/play/play_2.9.1/2.0/jars/play_2.9.1.jar" kind="lib"></classpathentry>
   <classpathentry path="/Developer/play-2.0/framework/../repository/local/play/templates_2.9.1/2.0/jars/templates_2.9.1.jar" kind="lib"></classpathentry>

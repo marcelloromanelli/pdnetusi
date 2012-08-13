@@ -10,10 +10,14 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
+
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import play.Logger;
 import play.libs.F.Callback;
@@ -221,16 +225,12 @@ public class NewsFeedController extends Controller {
 				}
 
 				String link = currentEntry.get("link").asText();
-				WebFile file;
 				try {
-					file = new WebFile(link);
-					Object pageContent = file.getContent( );
-					if (content instanceof String )
-					{
-						String html = (String)pageContent;
-						currentNews.put("html",html);
-
-					}
+					final WebClient webClient = new WebClient();
+				    final HtmlPage page = webClient.getPage(link);
+				    final List<?> divs = page.getByXPath("//img");
+				    webClient.closeAllWindows();
+				    Logger.info(divs.toString());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
