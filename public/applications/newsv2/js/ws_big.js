@@ -77,11 +77,20 @@ function insertNews(response){
 function createElements(responseArray,name){
 	for(var i in responseArray){
 		var currentNews = responseArray[i];
-		console.log(currentNews.title);
-		console.log(currentNews.content + "\n\n");
-		console.log(
-				$(currentNews.content).find("img")
-				);
+		var imgs = new Array();
+		
+		$(currentNews.content).find("img").each(
+				function(){
+					imgs.push(
+						{	
+						"src":$(this).attr("src"),
+						"alt":$(this).attr("alt")
+						}
+					);
+				}
+		);
+		
+		console.log(imgs);
 
 		// NEWS
 		var newsDiv = $("<div class='news'>");
