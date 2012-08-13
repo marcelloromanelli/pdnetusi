@@ -71,7 +71,7 @@ function insertNews(response){
 	}
 	$(".news_title").dotdotdot({});
 	$(".news_desc").dotdotdot({});
-
+	$(".news_img").scale("center");
 }
 
 function createElements(responseArray,name){
