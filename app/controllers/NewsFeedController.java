@@ -226,8 +226,8 @@ public class NewsFeedController extends Controller {
 
 				String link = currentEntry.get("link").asText();
 				try {
-					final WebClient webClient = new WebClient();
-				    final HtmlPage page = webClient.getPage(link);
+					WebClient webClient = new WebClient();
+				    HtmlPage page = webClient.getPage(link);
 //				    final List<?> divs = page.getByXPath("//img");
 				    webClient.closeAllWindows();
 				    Logger.info(page.toString());
