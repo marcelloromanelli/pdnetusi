@@ -82,7 +82,7 @@ hr.style {
 		margin-right: 15px;
 		margin-top: 20px;
 		border-radius: 20px;
-		-webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(50%, transparent), to(white));		
+		-webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(85%, transparent), to(white));		
 }
 	
 .category {
