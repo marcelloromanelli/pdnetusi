@@ -256,7 +256,13 @@ public class NewsFeedController extends Controller {
 						}
 						
 						
-						if (alt!=null && ((width > 100 && height > 100) || (width > 400))){
+						if (alt!=null && 
+								(		
+									(width > 100 && height > 100) || 
+									(width > 400 && height == 0)  ||
+									(height > 400 && width == 0)
+								)
+							){
 							Logger.info("FOUND IMG: " + segment);
 							imgs.add(segment.toString());
 						}
