@@ -188,14 +188,14 @@ public class NewsFeedController extends Controller {
 		JsonNode sport = feeds.get("sport");
 		JsonNode culture = feeds.get("culture");
 
-//		Logger.info
-//		(
-//				"FEEDS RECIEVED: \n"
-//						+ "\n\n" + hot.toString() 
-//						+ "\n\n" + tech.toString()  
-//						+ "\n\n" + sport.toString()  
-//						+ "\n\n" + culture.toString()
-//				);
+		//		Logger.info
+		//		(
+		//				"FEEDS RECIEVED: \n"
+		//						+ "\n\n" + hot.toString() 
+		//						+ "\n\n" + tech.toString()  
+		//						+ "\n\n" + sport.toString()  
+		//						+ "\n\n" + culture.toString()
+		//				);
 
 
 		// Build the JSON that is going to be sent back
@@ -244,27 +244,30 @@ public class NewsFeedController extends Controller {
 					for (Segment segment : elementList) {
 						Attributes tagAttr = segment.getFirstStartTag().getAttributes(); 
 						final Attribute alt = tagAttr.get("alt");
-						
+
 						Integer width = 0;
 						if(tagAttr.getValue("width") != null){
 							width = new Integer(tagAttr.getValue("width"));
 						} 
-						
+
 						Integer height = 0;
 						if(tagAttr.getValue("width") != null){
 							height = new Integer(tagAttr.getValue("height"));
 						}
-						
-						
+
+
 						if (alt!=null && 
 								(		
-									(width > 100 && height > 100) || 
-									(width > 400 && height == 0)  ||
-									(height > 400 && width == 0)
+										(width > 100 && height > 100) || 
+										(width > 400 && height == 0)  ||
+										(height > 400 && width == 0)
+										)
 								)
-							){
+						{
 							Logger.info("FOUND IMG: " + segment);
 							imgs.add(segment.toString());
+						} else {
+							Logger.info("NOT RELEVANT IMG");
 						}
 					}
 				} catch (IOException e) {
