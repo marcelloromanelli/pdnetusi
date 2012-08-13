@@ -79,7 +79,7 @@ function createElements(responseArray,name){
 		var currentNews = responseArray[i];
 		console.log(currentNews.title);
 		console.log(currentNews.content + "\n\n");
-		console.log($((currentNews.content).find("img")));
+		console.log($(currentNews.content).find("<img>"););
 
 		// NEWS
 		var newsDiv = $("<div class='news'>");
