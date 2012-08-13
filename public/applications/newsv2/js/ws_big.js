@@ -38,8 +38,9 @@ $(function() {
 	}; 
 	
 	// AVOID IMG DRAG
-	$('img').bind('dragstart', function(event) { event.preventDefault(); });
-
+	$("img").mousedown(function(){
+	    return false;
+	});
 });
 
 function insertNews(response){
