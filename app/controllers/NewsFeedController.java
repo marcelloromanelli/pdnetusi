@@ -232,14 +232,12 @@ public class NewsFeedController extends Controller {
 				Source source;
 				try {
 					source = new Source(new URL(link));
-				
-				List<Element> elementList=source.getAllElements();
-				for (Element element : elementList) {
-					System.out.println("-------------------------------------------------------------------------------");
-					System.out.println(element.getDebugInfo());
-					if (element.getAttributes()!=null) System.out.println("XHTML StartTag:\n"+element.getStartTag().tidy(true));
-					System.out.println("Source text with content:\n"+element);
-				}
+					List<? extends Segment> elementList =source.getAllElements(HTMLElementName.IMG);
+					for (Segment segment : elementList) {
+						System.out.println("-------------------------------------------------------------------------------");
+						System.out.println(segment.getDebugInfo());
+						System.out.println(segment);
+					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
