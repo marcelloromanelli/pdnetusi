@@ -223,11 +223,13 @@ public class NewsFeedController extends Controller {
 			Logger.info("PROCESSING: " + newsSource);
 			Iterator<JsonNode> entries = jsonFeed.get("entries").getElements();
 			while(entries.hasNext()){
+				Logger.info("new item of " + newsSource + " is being processed...");
 				JsonNode currentEntry = entries.next();
 				ObjectNode currentNews = Json.newObject();
 				currentNews.put("source", newsSource);
 				String content = currentEntry.get("content").asText();
 				if(content == null){
+					Logger.info("content");
 					continue;
 				}
 
@@ -266,8 +268,6 @@ public class NewsFeedController extends Controller {
 						{
 							Logger.info("FOUND IMG: " + segment);
 							imgs.add(segment.toString());
-						} else {
-							Logger.info("NOT RELEVANT IMG");
 						}
 					}
 				} catch (IOException e) {
