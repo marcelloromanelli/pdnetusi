@@ -14,6 +14,7 @@ import java.util.List;
 
 import net.htmlparser.jericho.Attribute;
 import net.htmlparser.jericho.Attributes;
+import net.htmlparser.jericho.Element;
 import net.htmlparser.jericho.HTMLElementName;
 import net.htmlparser.jericho.MasonTagTypes;
 import net.htmlparser.jericho.MicrosoftConditionalCommentTagTypes;
@@ -242,8 +243,9 @@ public class NewsFeedController extends Controller {
 				ArrayList<String> imgs = new ArrayList<String>();
 				try {
 					source = new Source(new URL(link));
-					List<? extends Segment> elementList =source.getAllElements(HTMLElementName.IMG);
+					List<Element> elementList = source.getAllElements(HTMLElementName.IMG);
 					for (Segment segment : elementList) {
+						Logger.info("CHECKING IMG");
 						Attributes tagAttr = segment.getFirstStartTag().getAttributes(); 
 						final Attribute alt = tagAttr.get("alt");
 
