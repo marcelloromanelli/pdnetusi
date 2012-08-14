@@ -5,8 +5,8 @@ var space = 50;
 var total = space + newsHeight;
 
 var displayID = null;
-
 var currentRequestID = 0;
+var activeRequests = 0;
 
 var startingPositions = [];
 var newsDivs = [];
@@ -25,7 +25,7 @@ function getUrlVars() {
 	return vars;
 }
 
-function lowerWithoutSpaces (input) {
+function lowerWithoutSpaces(input) {
 	return input.toLowerCase().split(' ').join('');
 }
 
@@ -60,10 +60,7 @@ $(function () {
 		console.log(evt.data); 
 	}; 
 
-	// AVOID IMG DRAG
-	$("img").mousedown(function(){
-		return false;
-	});
+
 });
 
 function insertNews(response){
@@ -102,15 +99,29 @@ function insertNews(response){
 		$("body").append(currentNews);
 	}
 
+	var t = setTimeout(
+				function () {
+					var itemsToRemove = $("requestID-" + currentRequestID);
+					if(activeRequests > 1){
+						itemsToRemove.fadeOut();
+						itemsToRemove.remove();
+						activeRequests--;
+					}
+				}
+				,5000
+			);
+
+	activeRequests++;
 	currentRequestID++;
 
 	$(".news_title").dotdotdot({});
 	$(".news_desc").dotdotdot({});
+
+	$("img").mousedown(function(){
+		return false;
+	});
 }
 
-function removeRequestTimer(requestID){
-	setTimeout("javascript function",milliseconds);
-}
 
 function createElements(responseArray,name){
 	for(var i in responseArray){
