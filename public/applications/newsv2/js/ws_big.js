@@ -132,7 +132,7 @@ function createElements(responseArray,name){
 		if(!/^\w+:/.test(src)){
 			src='http://www.cdt.ch' + src;
 		}
-		img.attr("src",);
+		img.attr("src",src);
 		newsContainerDiv.append(img);
 
 		// NEWS DESC
