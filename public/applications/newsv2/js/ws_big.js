@@ -114,7 +114,7 @@ function insertNews(response){
 
 function removeRequestsID(id){
 	console.log("Removing requestID-" + id);
-	var itemsToRemove = $("requestID-" + id);
+	var itemsToRemove = $(".requestID-" + id);
 	itemsToRemove.fadeOut();
 	itemsToRemove.remove();
 	activeRequests--;
