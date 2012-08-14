@@ -210,9 +210,13 @@ function createElements(responseArray,name){
 		socialDiv.append(socialLikeDiv);
 
 		socialLikeDiv.click(function(){
-			var count = parseInt($(this).find("p").html()) + 1;
-
-			$(this).find("p").html(count);
+			var p = $(this).find("p");
+			var count = parseInt(p.html()) + 1;
+			p.html(count);
+			
+			var group = $(this).find("img").add(p);
+			group.fadeOut('slow');
+			
 		});
 
 		// DISLIKE
@@ -240,7 +244,6 @@ function createElements(responseArray,name){
 
 		socialShareDiv.click(
 				{
-					div: socialShareDiv,
 					share: shareImg, 
 					qr: qrImgSrc, 
 					img: newsImg
@@ -254,9 +257,6 @@ function createElements(responseArray,name){
 }
 
 function fadeQR(event){
-
-	
-	
 	var share = event.data.share;
 	share.effect("pulsate", { times:25 }, 1000);
 	var qr = event.data.qr;
