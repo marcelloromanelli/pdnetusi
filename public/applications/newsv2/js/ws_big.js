@@ -215,7 +215,7 @@ function createElements(responseArray,name){
 			p.html(count);
 			
 			var image = $(this).find("img");
-			image.fadeOut('slow',
+			image.add(p).fadeOut('slow',
 					function(){
 				p.fadeOut();
 				image.attr("src","images/oneup.png");
@@ -228,7 +228,7 @@ function createElements(responseArray,name){
 						function(){
 					p.fadeIn();
 					image.attr("src","images/up.png");
-					image.fadeIn('slow');
+					image.add(p).fadeIn('slow');
 				}
 				);
 			},5000);
