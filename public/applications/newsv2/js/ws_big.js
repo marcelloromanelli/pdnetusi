@@ -254,7 +254,13 @@ function createElements(responseArray,name){
 }
 
 function fadeQR(event){
-	event.data.div.animateHighlight("#dd0000", 10000);
+	var shareDIV = event.data.div;
+	var highlightBg = "#FFFF9C";
+    var animateMs = 15000;
+    var originalBg = shareDIV.css("background-color");
+    shareDIV.stop().css("background-color", highlightBg).animate({"background-color": originalBg}, animateMs);
+	
+	
 	var share = event.data.share;
 	var qr = event.data.qr;
 	var img = event.data.img;
@@ -277,13 +283,6 @@ function fadeQR(event){
 		);
 	},25000);
 }
-
-$.fn.animateHighlight = function(highlightColor, duration) {
-    var highlightBg = highlightColor || "#FFFF9C";
-    var animateMs = duration || 1500;
-    var originalBg = this.css("background-color");
-    this.stop().css("background-color", highlightBg).animate({"background-color": originalBg}, animateMs);
-};
 
 function freeSpace(){
 	var free = JSON.stringify
