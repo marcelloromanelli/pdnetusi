@@ -101,11 +101,7 @@ function insertNews(response){
 
 	var t = setTimeout(
 				function () {
-					console.log("Removing requestID-" + currentRequestID);
-					var itemsToRemove = $("requestID-" + currentRequestID);
-					itemsToRemove.fadeOut();
-					itemsToRemove.remove();
-					activeRequests--;
+					removeRequestsID(currentRequestID);
 				}
 				,5000
 			);
@@ -121,7 +117,13 @@ function insertNews(response){
 	});
 }
 
-
+function removeRequestsID(id){
+	console.log("Removing requestID-" + id);
+	var itemsToRemove = $("requestID-" + id);
+	itemsToRemove.fadeOut();
+	itemsToRemove.remove();
+	activeRequests--;
+}
 function createElements(responseArray,name){
 	for(var i in responseArray){
 		var currentNews = responseArray[i];
