@@ -101,12 +101,11 @@ function insertNews(response){
 
 	var t = setTimeout(
 				function () {
+					console.log("Removing requestID-" + currentRequestID);
 					var itemsToRemove = $("requestID-" + currentRequestID);
-					if(activeRequests > 1){
-						itemsToRemove.fadeOut();
-						itemsToRemove.remove();
-						activeRequests--;
-					}
+					itemsToRemove.fadeOut();
+					itemsToRemove.remove();
+					activeRequests--;
 				}
 				,5000
 			);
