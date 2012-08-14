@@ -113,11 +113,12 @@ function insertNews(response){
 }
 
 function removeRequestsID(id){
-	console.log("Removing requestID-" + id);
-	var itemsToRemove = $(".requestID-" + id);
-	itemsToRemove.fadeOut();
-	itemsToRemove.remove();
-	activeRequests--;
+	if(activeRequests > 1){
+		console.log("Removing requestID-" + id);
+		var itemsToRemove = $(".requestID-" + id);
+		itemsToRemove.fadeOut(1500,function(){$(this).remove();});
+		activeRequests--;
+	}
 }
 function createElements(responseArray,name){
 	for(var i in responseArray){
