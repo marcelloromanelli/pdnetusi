@@ -217,6 +217,7 @@ function createElements(responseArray,name){
 			var image = $(this).find("img");
 			image.fadeOut('slow',
 					function(){
+				p.fadeOut();
 				image.attr("src","images/oneup.png");
 				image.fadeIn('slow');
 			}
@@ -225,6 +226,7 @@ function createElements(responseArray,name){
 			setTimeout(function(){
 				image.fadeOut('slow',
 						function(){
+					p.fadeIn();
 					image.attr("src","images/up.png");
 					image.fadeIn('slow');
 				}
