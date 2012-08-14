@@ -258,7 +258,7 @@ function fadeQR(event){
 	
 	
 	var share = event.data.share;
-	share.effect("pulsate", { times:10 }, 2500);
+	share.effect("pulsate", { times:25 }, 1000);
 	var qr = event.data.qr;
 	var img = event.data.img;
 	var oldImgSrc = null;
