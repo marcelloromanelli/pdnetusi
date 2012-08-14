@@ -177,7 +177,7 @@ function createElements(responseArray,name){
 			src='http://www.cdt.ch' + src;
 		}
 		newsImg.attr("src",src);
-		newsContainerDiv.append(img);
+		newsContainerDiv.append(newsImg);
 
 		// NEWS DESC
 		var newsDescDiv = $("<div class='news_desc'>");
