@@ -243,8 +243,28 @@ function createElements(responseArray,name){
 		socialDiv.append(socialDislikeDiv);
 
 		socialDislikeDiv.click(function(){
-			var count = parseInt($(this).find("p").html()) + 1;
-			$(this).find("p").html(count);
+			var p = $(this).find("p");
+			var count = parseInt(p.html()) + 1;
+			p.html(count);
+			
+			var image = $(this).find("img");
+			image.add(p).fadeOut('slow',
+					function(){
+				p.fadeOut();
+				image.attr("src","images/onedown.png");
+				image.fadeIn('slow');
+			}
+			);
+
+			setTimeout(function(){
+				image.fadeOut('slow',
+						function(){
+					p.fadeIn();
+					image.attr("src","images/down.png");
+					image.add(p).fadeIn('slow');
+				}
+				);
+			},5000);
 		});
 
 		// SHARE
