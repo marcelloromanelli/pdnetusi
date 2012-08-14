@@ -252,22 +252,22 @@ function fadeQR(event){
 	var img = event.data.img;
 	var oldImgSrc = null;
 
-	img.fadeOut('fast',
+	img.fadeOut('slow',
 			function(){
 		oldImgSrc = img.attr("src");
 		img.attr("src",qr);
-		img.fadeIn('fast');
+		img.fadeIn('slow');
 	}
 	);
 
 	setTimeout(function(){
-		img.fadeOut('fast',
+		img.fadeOut('slow',
 				function(){
 			img.attr("src",oldImgSrc);
-			img.fadeIn('fast');
+			img.fadeIn('slow');
 		}
 		);
-	},15000);
+	},25000);
 }
 
 function freeSpace(){
