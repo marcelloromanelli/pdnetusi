@@ -255,7 +255,7 @@ function createElements(responseArray,name){
 
 function fadeQR(event){
 	var shareDIV = event.data.div;
-	shareDIV.effect("highlight", {}, 3000);
+	shareDIV.effect("pulsate", { times:3 }, 2000);
 
 	
 	
