@@ -247,6 +247,7 @@ function createElements(responseArray,name){
 }
 
 function fadeQR(event){
+	$(this).animateHighlight("#dd0000", 10000);
 	var share = event.data.share;
 	var qr = event.data.qr;
 	var img = event.data.img;
@@ -269,6 +270,13 @@ function fadeQR(event){
 		);
 	},25000);
 }
+
+$.fn.animateHighlight = function(highlightColor, duration) {
+    var highlightBg = highlightColor || "#FFFF9C";
+    var animateMs = duration || 1500;
+    var originalBg = this.css("backgroundColor");
+    this.stop().css("background-color", highlightBg).animate({backgroundColor: originalBg}, animateMs);
+};
 
 function freeSpace(){
 	var free = JSON.stringify
