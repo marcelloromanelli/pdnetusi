@@ -1,13 +1,36 @@
+//STYLE
 var lastPosition = -260;
 var newsHeight = 360;
 var space = 50;
 var total = space + newsHeight;
 
+var displayID = null;
+
+var currentRequestID = 0;
+
 var startingPositions = [];
 var newsDivs = [];
 
-$(function() {
+function getUrlVars() {
+	"use strict";
+	var vars = [], hash;
+	var i = 0;
+	var hashes = window.parent.location.href.slice(window.parent.location.href.indexOf('?') + 1).split('&');
+	for(i = 0; i < hashes.length; i++)
+	{
+		hash = hashes[i].split('=');
+		vars.push(hash[0]);
+		vars[hash[0]] = hash[1];
+	}
+	return vars;
+}
 
+function lowerWithoutSpaces (input) {
+	return input.toLowerCase().split(' ').join('');
+}
+
+
+$(function () {
 	displayID = getUrlVars()["id"];
 	var WS = WebSocket;
 	var wsUri = "ws://pdnet.inf.unisi.ch:9000/newsfeed/socket";
@@ -36,10 +59,10 @@ $(function() {
 	websocket.onerror = function(evt) { 
 		console.log(evt.data); 
 	}; 
-	
+
 	// AVOID IMG DRAG
 	$("img").mousedown(function(){
-	    return false;
+		return false;
 	});
 });
 
@@ -56,9 +79,13 @@ function insertNews(response){
 	var tech = response.tech;
 	createElements(tech,"tech");
 
-	newsDivs.sort(function() { return 0.5 - Math.random() });
+	newsDivs.sort(
+			function(){ 
+				return 0.5 - Math.random(); 
+			}
+	);
 
-	for(var i in newsDivs){
+	for (var i in newsDivs){
 
 		var currentNews = newsDivs[i];
 
@@ -71,10 +98,18 @@ function insertNews(response){
 		}
 
 		currentNews.css("top",startingPositions[i]);
+		currentNews.addClass("requestID-"+currentRequestID);
 		$("body").append(currentNews);
 	}
+
+	currentRequestID++;
+
 	$(".news_title").dotdotdot({});
 	$(".news_desc").dotdotdot({});
+}
+
+function removeRequestTimer(requestID){
+	setTimeout("javascript function",milliseconds);
 }
 
 function createElements(responseArray,name){
@@ -128,10 +163,13 @@ function createElements(responseArray,name){
 			img.attr("src","http://panhandletickets.com/images/not_available.jpg");
 		}
 		var src = $(currentNews.imgs[0]).attr("src");
-			
+
+
+		// HACK
 		if(!/^\w+:/.test(src)){
 			src='http://www.cdt.ch' + src;
 		}
+
 		img.attr("src",src);
 		newsContainerDiv.append(img);
 
@@ -228,22 +266,5 @@ function freeSpace(){
 		"displayID":  displayID,
 	});
 	websocket.send(free);
-}
-
-function getUrlVars()
-{
-	var vars = [], hash;
-	var hashes = window.parent.location.href.slice(window.parent.location.href.indexOf('?') + 1).split('&');
-	for(var i = 0; i < hashes.length; i++)
-	{
-		hash = hashes[i].split('=');
-		vars.push(hash[0]);
-		vars[hash[0]] = hash[1];
-	}
-	return vars;
-}
-
-function lowerWithoutSpaces(input){
-	return input.toLowerCase().split(' ').join('');
 }
 
