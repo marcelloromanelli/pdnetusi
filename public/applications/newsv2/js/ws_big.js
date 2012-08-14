@@ -214,9 +214,22 @@ function createElements(responseArray,name){
 			var count = parseInt(p.html()) + 1;
 			p.html(count);
 			
-			var group = $(this).find("img").add(p);
-			group.fadeOut('slow');
-			
+			var image = $(this).find("img");
+			image.fadeOut('slow',
+					function(){
+				image.attr("src","images/oneup.png");
+				image.fadeIn('slow');
+			}
+			);
+
+			setTimeout(function(){
+				image.fadeOut('slow',
+						function(){
+					image.attr("src","images/up.png");
+					image.fadeIn('slow');
+				}
+				);
+			},5000);
 		});
 
 		// DISLIKE
