@@ -166,19 +166,17 @@ function createElements(responseArray,name){
 		newsContainerDiv.append("<hr class='style' />");
 
 		// NEWS IMG
-		var img = $("<img class='news_img'>");
+		var newsImg = $("<img class='news_img'>");
 		if(currentNews.imgs.length == 0){
-			img.attr("src","http://panhandletickets.com/images/not_available.jpg");
+			newsImg.attr("src","http://panhandletickets.com/images/not_available.jpg");
 		}
+
 		var src = $(currentNews.imgs[0]).attr("src");
-
-
-		// HACK
+		// HACK FOR CDT
 		if(!/^\w+:/.test(src)){
 			src='http://www.cdt.ch' + src;
 		}
-
-		img.attr("src",src);
+		newsImg.attr("src",src);
 		newsContainerDiv.append(img);
 
 		// NEWS DESC
@@ -189,14 +187,6 @@ function createElements(responseArray,name){
 		"</p>");
 
 		newsContainerDiv.append(newsDescDiv);
-
-		// READ MORE
-//		var readMoreDiv = $("<a>Read More</a>");
-//		readMoreDiv.click(function(){
-//		console.log(currentNews.full);
-//		});
-//		newsContainerDiv.append(readMoreDiv);
-
 
 
 		// CATEGORY
@@ -213,13 +203,15 @@ function createElements(responseArray,name){
 		// LIKE
 		var socialLikeDiv = $("<div class='social_tab first'>");
 		socialLikeDiv.addClass(name);
-		socialLikeDiv.append("<img src='images/up.png' width='50px' " +
+		var likeImg = $("<img src='images/up.png' width='50px' " +
 		"style='clear: both; margin-top: 15px; margin-left: 15px;'></img>");
+		socialLikeDiv.append(likeImg);
 		socialLikeDiv.append("<p class='counter'>0</p>");
 		socialDiv.append(socialLikeDiv);
 
 		socialLikeDiv.click(function(){
 			var count = parseInt($(this).find("p").html()) + 1;
+
 			$(this).find("p").html(count);
 		});
 
@@ -239,13 +231,14 @@ function createElements(responseArray,name){
 		// SHARE
 		var socialShareDiv = $("<div class='social_tab last'>");
 		socialShareDiv.addClass(name);
-		var shareImg = $("<img class='share' src='images/share.png' width='50px'></img>")
-		var qrImg = $("<img src='http://chart.apis.google.com/chart?cht=qr&chs=120x120&chl="+currentNews.link+"&chld=H|0' " +
-		"style='display:none; width:100%;'></img>");
+		var shareImg = $("<img class='share' src='images/share.png' width='50px'></img>");		
 		socialShareDiv.append(shareImg);
-		socialShareDiv.append(qrImg);
 
-		socialShareDiv.click({share: shareImg, qr: qrImg},fadeQR);
+
+
+		var qrImgSrc = "http://chart.apis.google.com/chart?cht=qr&chs=215x215&chl="+currentNews.link+"&chld=H|0";
+
+		socialShareDiv.click({share: shareImg, qr: qrImgSrc, img: newsImg},fadeQR);
 
 		socialDiv.append(socialShareDiv);
 
@@ -256,15 +249,25 @@ function createElements(responseArray,name){
 function fadeQR(event){
 	var share = event.data.share;
 	var qr = event.data.qr;
+	var img = event.data.img;
+	var oldImgSrc = null;
 
-	share.fadeOut(1000,function(){qr.fadeIn();});
-
-	setTimeout(function(){qr.fadeOut(1000,
+	img.fadeOut('fast',
 			function(){
-		share.fadeIn();
+		oldImgSrc = img.attr("src");
+		img.attr("src",qr);
+		img.fadeIn('fast');
 	}
 	);
-	},10000);
+
+	setTimeout(function(){
+		img.fadeOut('fast',
+				function(){
+			img.attr("src",oldImgSrc);
+			img.fadeIn('fast');
+		}
+		);
+	},15000);
 }
 
 function freeSpace(){
