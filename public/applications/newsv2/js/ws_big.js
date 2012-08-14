@@ -255,10 +255,8 @@ function createElements(responseArray,name){
 
 function fadeQR(event){
 	var shareDIV = event.data.div;
-	var highlightBg = "#FFFF9C";
-    var animateMs = 15000;
-    var originalBg = shareDIV.css("background-color");
-    shareDIV.stop().css("background-color", highlightBg).animate({"background-color": originalBg}, animateMs);
+	shareDIV.effect("highlight", {}, 3000);
+
 	
 	
 	var share = event.data.share;
