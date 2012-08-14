@@ -127,7 +127,12 @@ function createElements(responseArray,name){
 		if(currentNews.imgs.length == 0){
 			img.attr("src","http://panhandletickets.com/images/not_available.jpg");
 		}
-		img.attr("src",$(currentNews.imgs[0]).attr("src"));
+		var src = $(currentNews.imgs[0]).attr("src");
+			
+		if(!/^\w+:/.test(src)){
+			src='http://www.cdt.ch' + src;
+		}
+		img.attr("src",);
 		newsContainerDiv.append(img);
 
 		// NEWS DESC
