@@ -254,12 +254,11 @@ function createElements(responseArray,name){
 }
 
 function fadeQR(event){
-	var shareDIV = event.data.div;
-	shareDIV.effect("pulsate", { times:3 }, 2000);
 
 	
 	
 	var share = event.data.share;
+	share.effect("pulsate", { times:10 }, 2500);
 	var qr = event.data.qr;
 	var img = event.data.img;
 	var oldImgSrc = null;
