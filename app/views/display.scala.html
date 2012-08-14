@@ -102,12 +102,14 @@ displayName) {
 				$(this).animate({
 					bottom : "100px"
 				}, 100);
+				$("#arrow_more").css("-webkit-transform", "rotate(90deg)");
 			} else {
 				$("#dock").removeClass("visibleDock", 100);
 				$("#dock").addClass("hiddenDock", 100);
 				$(this).animate({
 					bottom : "0"
 				}, 100);
+				$("#arrow_more").css("-webkit-transform", "rotate(270deg)");
 			}
 			return false;
 		});
@@ -136,7 +138,7 @@ displayName) {
 </div>
 
 <div id="showmore">
-	<div style="-webkit-transform: rotate(270deg); height: 30px; margin: 0 auto; width: 20px;">
+	<div id="arrow_more" style="-webkit-transform: rotate(270deg); height: 30px; margin: 0 auto; width: 20px;">
 	<img src="/assets/stylesheets/images/arrow_news_dx.png"/>
 	</div>
 </div>

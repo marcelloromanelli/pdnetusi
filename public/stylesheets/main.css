@@ -251,11 +251,8 @@ html,body {
 	background-color: rgba(0, 0, 0, 0.8);
 	height: 20px;
 	width: 100%;
-	color: white;
 	position: absolute;
 	bottom: 0;
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
 	padding: 5px 50px 0px 50px;
 	font-size: 30px;
 }
