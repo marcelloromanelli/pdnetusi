@@ -99,12 +99,7 @@ function insertNews(response){
 		$("body").append(currentNews);
 	}
 
-	var t = setTimeout(
-				function () {
-					removeRequestsID(currentRequestID);
-				}
-				,5000
-			);
+	var t = setTimeout(removeRequestsID,5000,currentRequestID);
 
 	activeRequests++;
 	currentRequestID++;
