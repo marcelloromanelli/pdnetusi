@@ -238,7 +238,14 @@ function createElements(responseArray,name){
 
 		var qrImgSrc = "http://chart.apis.google.com/chart?cht=qr&chs=215x215&chl="+currentNews.link+"&chld=H|0";
 
-		socialShareDiv.click({share: shareImg, qr: qrImgSrc, img: newsImg},fadeQR);
+		socialShareDiv.click(
+				{
+					div: socialShareDiv,
+					share: shareImg, 
+					qr: qrImgSrc, 
+					img: newsImg
+				},
+				fadeQR);
 
 		socialDiv.append(socialShareDiv);
 
@@ -247,7 +254,7 @@ function createElements(responseArray,name){
 }
 
 function fadeQR(event){
-	$(this).animateHighlight("#dd0000", 10000);
+	event.data.div.animateHighlight("#dd0000", 10000);
 	var share = event.data.share;
 	var qr = event.data.qr;
 	var img = event.data.img;
