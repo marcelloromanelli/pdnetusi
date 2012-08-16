@@ -44,10 +44,9 @@ import play.mvc.WebSocket.Out;
 public class NewsFeedController extends Controller {
 	
 	public static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-	final Runnable beeper = new Runnable() {
+	final static Runnable beeper = new Runnable() {
 		public void run() { Logger.info("beep"); }
 	};
-	final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 0, 10, SECONDS);
 
 	/**
 	 * Hashmap that given an ID of a Display, returns 
@@ -58,19 +57,19 @@ public class NewsFeedController extends Controller {
 	 */
 	public static HashMap<String, Sockets> sockets = new HashMap<String, Sockets>();
 
-//
-//	public static String[] HOT_SRC = {"http://ansa.feedsportal.com/c/34225/f/621689/index.rss", "http://rss.cnn.com/rss/edition.rss"};
-//	public static ArrayList<ObjectNode> HOT_POOL = new ArrayList<ObjectNode>();
-//
-//	public static String[] TECH_SRC = {"http://www.engadget.com/rss.xml", "http://feeds.feedburner.com/ispazio", "http://feeds.wired.com/wired/index?format=xml"};
-//	public static ArrayList<ObjectNode> TECH_POOL = new ArrayList<ObjectNode>();
-//
-//	public static String[] SPORT_SRC = {"http://www.gazzetta.it/rss/Home.xml", "http://sports.espn.go.com/espn/rss/news"};
-//	public static ArrayList<ObjectNode> SPORT_POOL = new ArrayList<ObjectNode>();
-//
-//	public static String[] CULTURE_SRC = {"http://feeds.feedburner.com/ilblogdeilibri?format=xml", "http://feeds2.feedburner.com/slashfilm"};
-//	public static ArrayList<ObjectNode> CULTURE_POOL = new ArrayList<ObjectNode>();
-//
+
+	public static String[] HOT_SRC = {"http://ansa.feedsportal.com/c/34225/f/621689/index.rss", "http://rss.cnn.com/rss/edition.rss"};
+	public static ArrayList<ObjectNode> HOT_POOL = new ArrayList<ObjectNode>();
+
+	public static String[] TECH_SRC = {"http://www.engadget.com/rss.xml", "http://feeds.feedburner.com/ispazio", "http://feeds.wired.com/wired/index?format=xml"};
+	public static ArrayList<ObjectNode> TECH_POOL = new ArrayList<ObjectNode>();
+
+	public static String[] SPORT_SRC = {"http://www.gazzetta.it/rss/Home.xml", "http://sports.espn.go.com/espn/rss/news"};
+	public static ArrayList<ObjectNode> SPORT_POOL = new ArrayList<ObjectNode>();
+
+	public static String[] CULTURE_SRC = {"http://feeds.feedburner.com/ilblogdeilibri?format=xml", "http://feeds2.feedburner.com/slashfilm"};
+	public static ArrayList<ObjectNode> CULTURE_POOL = new ArrayList<ObjectNode>();
+
 
 	public static WebSocket<JsonNode> webSocket() {
 		return new WebSocket<JsonNode>() {
@@ -101,6 +100,10 @@ public class NewsFeedController extends Controller {
 
 							if(size.equals("small")){
 								sockets.get(displayID).small = out;
+								final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 0, 10, SECONDS);
+								scheduler.schedule(new Runnable() {
+					                public void run() { beeperHandle.cancel(true); }
+					            }, 60, SECONDS);
 							} else if(size.equals("big")) {
 								sockets.get(displayID).big  = out;
 							}
@@ -183,94 +186,94 @@ public class NewsFeedController extends Controller {
 	 * @param json of feeds recieved from the mobile 
 	 * @return
 	 */
-//	public static void updatePools() {		
-//		try {
-//			extractInformations(HOT_SRC, HOT_POOL);
-//			extractInformations(TECH_SRC, TECH_POOL);
-//			extractInformations(SPORT_SRC, SPORT_POOL);
-//			extractInformations(CULTURE_SRC, CULTURE_POOL);
-//		} catch (MalformedURLException e) {
-//			e.printStackTrace();
-//		}
-//	}
-//
-//	public static void extractInformations(String[] feeds, ArrayList<ObjectNode> pool) throws MalformedURLException {		
-//		for (String feed : feeds){
-//			JsonNode jsonFeed = xmlToJSON(feed).get("responseData").get("feed");
-//			String newsSource = jsonFeed.get("title").asText();
-//			Logger.info("PROCESSING: " + newsSource);
-//			Iterator<JsonNode> entries = jsonFeed.get("entries").getElements();
-//			while(entries.hasNext()){
-//				Logger.info("new item of " + newsSource + " is being processed...");
-//				JsonNode currentEntry = entries.next();
-//				ObjectNode currentNews = Json.newObject();
-//				currentNews.put("source", newsSource);
-//				String content = currentEntry.get("content").asText();
-//				if(content == null){
-//					Logger.info("content");
-//					continue;
-//				}
-//
-//				String link = currentEntry.get("link").asText();
-//				MicrosoftConditionalCommentTagTypes.register();
-//				PHPTagTypes.register();
-//				PHPTagTypes.PHP_SHORT.deregister();
-//				MasonTagTypes.register();
-//				Source source;
-//				ArrayList<String> imgs = new ArrayList<String>();
-//				try {
-//					source = new Source(new URL(link));
-//					List<Element> elementList = source.getAllElements(HTMLElementName.IMG);
-//					for (Segment segment : elementList) {
-//						Logger.info("CHECKING IMG \n" + segment);
-//						Attributes tagAttr = segment.getFirstStartTag().getAttributes(); 
-//						if(tagAttr == null) continue;
-//
-//						final Attribute alt = tagAttr.get("alt");
-//						if(alt == null) continue;
-//
-//						Integer width = 0;
-//						if(tagAttr.getValue("width") != null){
-//							width = new Integer(tagAttr.getValue("width"));
-//						} 
-//
-//						Integer height = 0;
-//						if(tagAttr.getValue("height") != null){
-//							height = new Integer(tagAttr.getValue("height"));
-//						}
-//
-//
-//						if (alt!=null && 
-//								(		
-//										(width > 100 && height > 100) || 
-//										(width > 400 && height == 0)  ||
-//										(height > 400 && width == 0)
-//										)
-//								)
-//						{
-//							imgs.add(segment.toString());
-//							Logger.info("IMG ADDED \n" + "------------------------------------------------- \n");
-//						} else {
-//							Logger.info("NOT APPROPRIATE \n" + "------------------------------------------------- \n");
-//						}
-//					}
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//
-//				currentNews.put("link", link);
-//				String title = currentEntry.get("title").asText();
-//				if(title == null) continue;
-//				currentNews.put("title", title);
-//				currentNews.put("content", content);				
-//				currentNews.put("imgs", Json.toJson(imgs));
-//
-//				pool.add(currentNews);
-//
-//			}
-//		}
-//	}
+	public static void updatePools() {		
+		try {
+			extractInformations(HOT_SRC, HOT_POOL);
+			extractInformations(TECH_SRC, TECH_POOL);
+			extractInformations(SPORT_SRC, SPORT_POOL);
+			extractInformations(CULTURE_SRC, CULTURE_POOL);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void extractInformations(String[] feeds, ArrayList<ObjectNode> pool) throws MalformedURLException {		
+		for (String feed : feeds){
+			JsonNode jsonFeed = xmlToJSON(feed).get("responseData").get("feed");
+			String newsSource = jsonFeed.get("title").asText();
+			Logger.info("PROCESSING: " + newsSource);
+			Iterator<JsonNode> entries = jsonFeed.get("entries").getElements();
+			while(entries.hasNext()){
+				Logger.info("new item of " + newsSource + " is being processed...");
+				JsonNode currentEntry = entries.next();
+				ObjectNode currentNews = Json.newObject();
+				currentNews.put("source", newsSource);
+				String content = currentEntry.get("content").asText();
+				if(content == null){
+					Logger.info("content");
+					continue;
+				}
+
+				String link = currentEntry.get("link").asText();
+				MicrosoftConditionalCommentTagTypes.register();
+				PHPTagTypes.register();
+				PHPTagTypes.PHP_SHORT.deregister();
+				MasonTagTypes.register();
+				Source source;
+				ArrayList<String> imgs = new ArrayList<String>();
+				try {
+					source = new Source(new URL(link));
+					List<Element> elementList = source.getAllElements(HTMLElementName.IMG);
+					for (Segment segment : elementList) {
+						Logger.info("CHECKING IMG \n" + segment);
+						Attributes tagAttr = segment.getFirstStartTag().getAttributes(); 
+						if(tagAttr == null) continue;
+
+						final Attribute alt = tagAttr.get("alt");
+						if(alt == null) continue;
+
+						Integer width = 0;
+						if(tagAttr.getValue("width") != null){
+							width = new Integer(tagAttr.getValue("width"));
+						} 
+
+						Integer height = 0;
+						if(tagAttr.getValue("height") != null){
+							height = new Integer(tagAttr.getValue("height"));
+						}
+
+
+						if (alt!=null && 
+								(		
+										(width > 100 && height > 100) || 
+										(width > 400 && height == 0)  ||
+										(height > 400 && width == 0)
+										)
+								)
+						{
+							imgs.add(segment.toString());
+							Logger.info("IMG ADDED \n" + "------------------------------------------------- \n");
+						} else {
+							Logger.info("NOT APPROPRIATE \n" + "------------------------------------------------- \n");
+						}
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				currentNews.put("link", link);
+				String title = currentEntry.get("title").asText();
+				if(title == null) continue;
+				currentNews.put("title", title);
+				currentNews.put("content", content);				
+				currentNews.put("imgs", Json.toJson(imgs));
+
+				pool.add(currentNews);
+
+			}
+		}
+	}
 
 	public static class Sockets {
 		public WebSocket.Out<JsonNode> small;
