@@ -42,7 +42,7 @@ import play.mvc.WebSocket.Out;
  * @author romanelm
  */
 public class NewsFeedController extends Controller {
-	
+
 	public static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	final static Runnable beeper = new Runnable() {
 		public void run() { 
@@ -53,27 +53,34 @@ public class NewsFeedController extends Controller {
 			}
 		}
 	};
-	
+
 
 	/**
 	 * Hashmap that given an ID of a Display, returns 
-	 * an list of 2 websockets: one for the small view
+	 * a Sockets object containing 2 websockets: one for the small view
 	 * and one for the big one.	
-	 * Position 0: small
-	 * Position 1: big
 	 */
 	public static HashMap<String, Sockets> sockets = new HashMap<String, Sockets>();
 
 
+	public static HashMap<String, Status> statuses = new HashMap<String, NewsFeedController.Status>();
+
+	/**
+	 * POOLS: hot, tech, sport, culture
+	 */
+	public static Integer HOT_ID = 0;
 	public static String[] HOT_SRC = {"http://ansa.feedsportal.com/c/34225/f/621689/index.rss", "http://rss.cnn.com/rss/edition.rss"};
 	public static ArrayList<ObjectNode> HOT_POOL = new ArrayList<ObjectNode>();
 
+	public static Integer TECH_ID = 0;
 	public static String[] TECH_SRC = {"http://www.engadget.com/rss.xml", "http://feeds.feedburner.com/ispazio", "http://feeds.wired.com/wired/index?format=xml"};
 	public static ArrayList<ObjectNode> TECH_POOL = new ArrayList<ObjectNode>();
 
+	public static Integer SPORT_ID = 0;
 	public static String[] SPORT_SRC = {"http://www.gazzetta.it/rss/Home.xml", "http://sports.espn.go.com/espn/rss/news"};
 	public static ArrayList<ObjectNode> SPORT_POOL = new ArrayList<ObjectNode>();
 
+	public static Integer CULTURE_ID = 0;
 	public static String[] CULTURE_SRC = {"http://feeds.feedburner.com/ilblogdeilibri?format=xml", "http://feeds2.feedburner.com/slashfilm"};
 	public static ArrayList<ObjectNode> CULTURE_POOL = new ArrayList<ObjectNode>();
 
@@ -106,15 +113,18 @@ public class NewsFeedController extends Controller {
 								final ScheduledFuture<?> beeperHandle = 
 										scheduler.scheduleAtFixedRate(beeper, 10, 120, SECONDS);
 								scheduler.schedule(new Runnable() {
-					                public void run() { beeperHandle.cancel(true); }
-					            }, 60*60, SECONDS);
+									public void run() { beeperHandle.cancel(true); }
+								}, 60*60, SECONDS);
 							}
-							
+
 							// Can be either small or big
 							String size = event.get("size").asText();
 
 							if(size.equals("small")){
+								// Set the socket
 								sockets.get(displayID).small = out;
+								// Initialize the status of the screen
+								statuses.put(displayID, new Status());
 							} else if(size.equals("big")) {
 								sockets.get(displayID).big  = out;
 							}
@@ -130,13 +140,13 @@ public class NewsFeedController extends Controller {
 
 
 							//								String username = event.get("username").asText();
-							JsonNode feeds = event.get("preference");
-
+							JsonNode pref = event.get("preference");
 							Sockets displaySockets = sockets.get(displayID);
-
-							// Send the forecast to the two views of the application
-							//								displaySockets.small.write(response);
-							//								displaySockets.big.write(response);
+							Status displayStatus = statuses.get(displayID);
+							
+							ObjectNode  response = createResponse(displayStatus, pref);
+							displaySockets.small.write(response);
+							displaySockets.big.write(response);
 
 							Logger.info("JSON SENT TO THE DISPLAY!");
 
@@ -165,9 +175,39 @@ public class NewsFeedController extends Controller {
 
 		};
 	}
+	
+
+	public static ObjectNode createResponse(Status status, JsonNode pref){
+		ObjectNode response = Json.newObject();
+
+		if(	!status.hot && pref.get("hot").asBoolean() && (HOT_POOL.size() > status.last_hot) ){
+			response.put("hot",Json.toJson(HOT_POOL.subList(status.last_hot, HOT_POOL.size())));
+			status.last_hot = HOT_POOL.size();
+			status.hot = true;
+		}
+
+		if(!status.tech && pref.get("tech").asBoolean()  && (TECH_POOL.size() > status.last_tech) ){
+			response.put("tech",Json.toJson(TECH_POOL.subList(status.last_tech, TECH_POOL.size())));
+			status.last_tech = TECH_POOL.size();
+			status.tech = true;
+		}
+
+		if(!status.sport && pref.get("sport").asBoolean()  && (SPORT_POOL.size() > status.last_sport) ){
+			response.put("sport",Json.toJson(SPORT_POOL.subList(status.last_sport, SPORT_POOL.size())));
+			status.last_sport = SPORT_POOL.size();
+			status.sport = true;
+		}
+		if(!status.culture && pref.get("culture").asBoolean()  && (CULTURE_POOL.size() > status.last_culture) ){
+			response.put("culture",Json.toJson(CULTURE_POOL.subList(status.last_culture, CULTURE_POOL.size())));
+			status.last_culture = CULTURE_POOL.size();
+			status.culture = true;
+		}
+
+		return response;
+	}
 
 	public static JsonNode xmlToJSON(String feedURL) {
-		String baseURL = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=" + feedURL + "&num=5";
+		String baseURL = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=" + feedURL + "&num=20";
 		try {
 			URL url = new URL(baseURL);
 			URLConnection connection = url.openConnection();
@@ -207,8 +247,24 @@ public class NewsFeedController extends Controller {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Check if the current news in already present
+	 * in the pool
+	 * @param pool
+	 * @param newsContent
+	 * @return
+	 */
+	public static boolean isNew(ArrayList<ObjectNode> pool, String newsContent){
+		for(ObjectNode currentNews: pool){
+			String currentNewsContent = currentNews.get("content").asText();
+			if(newsContent.equals(currentNewsContent)) return false;
+		}
+		return true;
+	}
 
 	public static void extractInformations(String[] feeds, ArrayList<ObjectNode> pool) throws MalformedURLException {		
+
 		for (String feed : feeds){
 			JsonNode jsonFeed = xmlToJSON(feed).get("responseData").get("feed");
 			String newsSource = jsonFeed.get("title").asText();
@@ -219,9 +275,13 @@ public class NewsFeedController extends Controller {
 				JsonNode currentEntry = entries.next();
 				ObjectNode currentNews = Json.newObject();
 				currentNews.put("source", newsSource);
+				
 				String content = currentEntry.get("content").asText();
 				if(content == null){
-					Logger.info("content");
+					continue;
+				}
+				
+				if(!isNew(pool, content)){
 					continue;
 				}
 
@@ -269,7 +329,6 @@ public class NewsFeedController extends Controller {
 						}
 					}
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
@@ -293,6 +352,37 @@ public class NewsFeedController extends Controller {
 		public Sockets(Out<JsonNode> small, Out<JsonNode> big) {
 			this.small = small;
 			this.big = big;
+		}
+	}
+
+	
+	// IF THE POOL IS MODIFIED
+	// REMEMBER TO UPDATATE
+	public static class Status {
+		public boolean hot;
+		public int last_hot;
+		
+		public boolean tech;
+		public int last_tech; 
+		
+		public boolean sport;
+		public int last_sport;
+		
+		public boolean culture;
+		public int last_culture;
+		
+		public Status() {
+			this.hot = false;
+			this.last_hot = 0;
+			
+			this.tech = false;
+			this.last_tech = 0;
+			
+			this.sport = false;
+			this.last_sport = 0;
+			
+			this.culture = false;
+			this.last_culture = 0;
 		}
 	} 
 }
