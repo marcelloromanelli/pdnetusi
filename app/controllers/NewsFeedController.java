@@ -71,15 +71,16 @@ public class NewsFeedController extends Controller {
 	private final static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	final Runnable beeper = new Runnable() {
 		public void run() { 
-			updatePools();
 			System.out.println("\n ---------------------------- \n UPDATING POOLS \n ---------------------------- \n"); 
+			updatePools();
+			System.out.println("\n ---------------------------- \n POOLS UPDATED \n ---------------------------- \n"); 
 			for(ObjectNode news: HOT_POOL){
 				Logger.info(news.toString());
 			}
 		}
 	};
 
-	final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 0, 120, SECONDS);
+	final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 10, 120, SECONDS);
 
 
 
