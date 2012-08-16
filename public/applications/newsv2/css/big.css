@@ -127,6 +127,13 @@ img {
 		color-stop(85%, transparent), to(white) );
 }
 
+.news_source{
+	float: right;
+	margin-top: 30px;
+	opacity: 0.3;
+	font-size: 10px;
+}
+
 .category {
 	font-size: 40px;
 	text-align: center;
