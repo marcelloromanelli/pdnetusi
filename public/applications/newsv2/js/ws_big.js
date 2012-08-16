@@ -159,7 +159,7 @@ function createElements(responseArray,name){
 		// NEWS TITLE
 		var newsTitleDiv = $("<div class='news_title'>");
 		newsTitleDiv.html(currentNews.title);
-		newsTitleDiv.css("height","55px");
+		newsTitleDiv.css("height","50px");
 
 		newsContainerDiv.append(newsTitleDiv);
 
