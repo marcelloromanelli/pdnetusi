@@ -70,16 +70,13 @@ public class NewsFeedController extends Controller {
 
 	private final static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-	public static void beepForAnHour() {
-		final Runnable beeper = new Runnable() {
-			public void run() { System.out.println("\n ---------------------------- \n BEEP \n ---------------------------- \n"); }
-		};
-		final ScheduledFuture<?> beeperHandle =
-				scheduler.scheduleAtFixedRate(beeper, 10, 10, SECONDS);
-		scheduler.schedule(new Runnable() {
-			public void run() { beeperHandle.cancel(true); }
-		}, 60 * 60, SECONDS);
-	}
+	final Runnable beeper = new Runnable() {
+		public void run() { System.out.println("\n ---------------------------- \n BEEP \n ---------------------------- \n"); }
+	};
+	
+	final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 10, 10, SECONDS);
+	
+
 
 	public static WebSocket<JsonNode> webSocket() {
 		return new WebSocket<JsonNode>() {
@@ -113,7 +110,6 @@ public class NewsFeedController extends Controller {
 								sockets.get(displayID).small = out;
 							} else if(size.equals("big")) {
 								sockets.get(displayID).big  = out;
-								beepForAnHour();
 							}
 
 							Logger.info(
