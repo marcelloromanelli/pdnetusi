@@ -54,28 +54,28 @@ public class NewsFeedController extends Controller {
 	public static HashMap<String, Sockets> sockets = new HashMap<String, Sockets>();
 
 
-	public static final String[] HOT_SRC = {"http://ansa.feedsportal.com/c/34225/f/621689/index.rss", "http://rss.cnn.com/rss/edition.rss"};
+	public static String[] HOT_SRC = {"http://ansa.feedsportal.com/c/34225/f/621689/index.rss", "http://rss.cnn.com/rss/edition.rss"};
 	public static ArrayList<ObjectNode> HOT_POOL = new ArrayList<ObjectNode>();
 
-	public static final String[] TECH_SRC = {"http://www.engadget.com/rss.xml", "http://feeds.feedburner.com/ispazio", "http://feeds.wired.com/wired/index?format=xml"};
+	public static String[] TECH_SRC = {"http://www.engadget.com/rss.xml", "http://feeds.feedburner.com/ispazio", "http://feeds.wired.com/wired/index?format=xml"};
 	public static ArrayList<ObjectNode> TECH_POOL = new ArrayList<ObjectNode>();
 
-	public static final String[] SPORT_SRC = {"http://www.gazzetta.it/rss/Home.xml", "http://sports.espn.go.com/espn/rss/news"};
+	public static String[] SPORT_SRC = {"http://www.gazzetta.it/rss/Home.xml", "http://sports.espn.go.com/espn/rss/news"};
 	public static ArrayList<ObjectNode> SPORT_POOL = new ArrayList<ObjectNode>();
 
-	public static final String[] CULTURE_SRC = {"http://feeds.feedburner.com/ilblogdeilibri?format=xml", "http://feeds2.feedburner.com/slashfilm"};
+	public static String[] CULTURE_SRC = {"http://feeds.feedburner.com/ilblogdeilibri?format=xml", "http://feeds2.feedburner.com/slashfilm"};
 	public static ArrayList<ObjectNode> CULTURE_POOL = new ArrayList<ObjectNode>();
 
 
 
-	private final static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-	final Runnable beeper = new Runnable() {
+	public static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+	public Runnable beeper = new Runnable() {
 		public void run() { 
 			System.out.println("\n ---------------------------- \n UPDATING POOLS \n ---------------------------- \n"); 
 		}
 	};
 
-	final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 10, 10, SECONDS);
+	public ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 10, 10, SECONDS);
 
 
 
