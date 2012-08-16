@@ -47,11 +47,11 @@ public class NewsFeedController extends Controller {
 	public static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	final static Runnable beeper = new Runnable() {
 		public void run() { 
-			Logger.info("beep"); 
 			updatePools();
-			for(ObjectNode o: HOT_POOL){
-				Logger.info(o.toString());
-			}
+			Logger.info("HOT: " + HOT_POOL.size() + "\n" + 
+						"TECH: " + TECH_POOL.size() + "\n" +
+						"SPORT: " + SPORT_POOL.size() + "\n" +
+						"CULTURE: " + CULTURE_POOL.size() + "\n ----------------------");
 		}
 	};
 
