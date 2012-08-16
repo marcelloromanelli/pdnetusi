@@ -51,31 +51,36 @@ public class NewsFeedController extends Controller {
 	 * Position 0: small
 	 * Position 1: big
 	 */
-	public static HashMap<String, Sockets> sockets = 
-			new HashMap<String, Sockets>();
+	public static HashMap<String, Sockets> sockets = new HashMap<String, Sockets>();
 
-	/**
-	 * Hashmap that given an ID of a Display, returns 
-	 * how many request the application can still recieve
-	 */
-	public static HashMap<String,Integer> status = 
-			new HashMap<String, Integer>();
 
-	/**
-	 * The number of maximum request must be multiplied
-	 * by two because we have a SMALL and a BIG view 
-	 * TEST VALUE
-	 */
-	public static Integer MAX_REQ = 1000*2;
+	public static final String[] HOT_SRC = {"http://ansa.feedsportal.com/c/34225/f/621689/index.rss", "http://rss.cnn.com/rss/edition.rss"};
+	public static ArrayList<ObjectNode> HOT_POOL = new ArrayList<ObjectNode>();
+
+	public static final String[] TECH_SRC = {"http://www.engadget.com/rss.xml", "http://feeds.feedburner.com/ispazio", "http://feeds.wired.com/wired/index?format=xml"};
+	public static ArrayList<ObjectNode> TECH_POOL = new ArrayList<ObjectNode>();
+
+	public static final String[] SPORT_SRC = {"http://www.gazzetta.it/rss/Home.xml", "http://sports.espn.go.com/espn/rss/news"};
+	public static ArrayList<ObjectNode> SPORT_POOL = new ArrayList<ObjectNode>();
+
+	public static final String[] CULTURE_SRC = {"http://feeds.feedburner.com/ilblogdeilibri?format=xml", "http://feeds2.feedburner.com/slashfilm"};
+	public static ArrayList<ObjectNode> CULTURE_POOL = new ArrayList<ObjectNode>();
+
+
 
 	private final static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-
 	final Runnable beeper = new Runnable() {
-		public void run() { System.out.println("\n ---------------------------- \n BEEP \n ---------------------------- \n"); }
+		public void run() { 
+			updatePools();
+			System.out.println("\n ---------------------------- \n UPDATING POOLS \n ---------------------------- \n"); 
+			for(ObjectNode news: HOT_POOL){
+				Logger.info(news.toString());
+			}
+		}
 	};
-	
-	final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 10, 10, SECONDS);
-	
+
+	final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 0, 120, SECONDS);
+
 
 
 	public static WebSocket<JsonNode> webSocket() {
@@ -95,7 +100,6 @@ public class NewsFeedController extends Controller {
 
 						if(!sockets.containsKey(displayID)){
 							sockets.put(displayID, new Sockets(null, null));
-							status.put(displayID, MAX_REQ);
 							Logger.info("DisplayID " + displayID + " was added to the system.");
 						}
 
@@ -121,25 +125,18 @@ public class NewsFeedController extends Controller {
 
 						} else if(messageKind.equals("mobileRequest")){
 
-							Integer freeSpaces = status.get(displayID);
-							if(freeSpaces>0){								
 
-								String username = event.get("username").asText();
-								JsonNode feeds = event.get("preference");
-								ObjectNode response = processFeeds(feeds);
+							//								String username = event.get("username").asText();
+							JsonNode feeds = event.get("preference");
 
-								Sockets displaySockets = sockets.get(displayID);
+							Sockets displaySockets = sockets.get(displayID);
 
-								// Send the forecast to the two views of the application
-								displaySockets.small.write(response);
-								displaySockets.big.write(response);
+							// Send the forecast to the two views of the application
+							//								displaySockets.small.write(response);
+							//								displaySockets.big.write(response);
 
-								Logger.info("JSON SENT TO THE DISPLAY!");
-								status.put(displayID, freeSpaces-2);
+							Logger.info("JSON SENT TO THE DISPLAY!");
 
-							} else {
-								// TODO: put in queue or notify mobile
-							}
 						} else {
 							Logger.info("WTF: " + event.toString());
 						}
@@ -197,43 +194,20 @@ public class NewsFeedController extends Controller {
 	 * @param json of feeds recieved from the mobile 
 	 * @return
 	 */
-	public static ObjectNode processFeeds(JsonNode feeds) {		
-		JsonNode hot = feeds.get("hot");
-		JsonNode tech = feeds.get("tech");
-		JsonNode sport = feeds.get("sport");
-		JsonNode culture = feeds.get("culture");
-
-		//		Logger.info
-		//		(
-		//				"FEEDS RECIEVED: \n"
-		//						+ "\n\n" + hot.toString() 
-		//						+ "\n\n" + tech.toString()  
-		//						+ "\n\n" + sport.toString()  
-		//						+ "\n\n" + culture.toString()
-		//				);
-
-
-		// Build the JSON that is going to be sent back
-		// to the display.
-		ObjectNode response = Json.newObject();
+	public static void updatePools() {		
 		try {
-			response.put("hot", extractInformations(hot));
-			response.put("tech", extractInformations(tech));
-			response.put("sport", extractInformations(sport));
-			response.put("culture", extractInformations(culture));
+			extractInformations(HOT_SRC, HOT_POOL);
+			extractInformations(TECH_SRC, TECH_POOL);
+			extractInformations(SPORT_SRC, SPORT_POOL);
+			extractInformations(CULTURE_SRC, CULTURE_POOL);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-		return response;
 	}
 
-	public static JsonNode extractInformations(JsonNode feed) throws MalformedURLException {		
-
-		ArrayList<ObjectNode> feedsTitles = new ArrayList<ObjectNode>();
-		Iterator<JsonNode> it = feed.getElements();
-
-		while(it.hasNext()){
-			JsonNode jsonFeed = xmlToJSON(it.next().asText()).get("responseData").get("feed");
+	public static void extractInformations(String[] feeds, ArrayList<ObjectNode> pool) throws MalformedURLException {		
+		for (String feed : feeds){
+			JsonNode jsonFeed = xmlToJSON(feed).get("responseData").get("feed");
 			String newsSource = jsonFeed.get("title").asText();
 			Logger.info("PROCESSING: " + newsSource);
 			Iterator<JsonNode> entries = jsonFeed.get("entries").getElements();
@@ -297,27 +271,16 @@ public class NewsFeedController extends Controller {
 				}
 
 				currentNews.put("link", link);
-				Logger.info("LINK OK");
 				String title = currentEntry.get("title").asText();
 				if(title == null) continue;
 				currentNews.put("title", title);
-				Logger.info("TITLE OK");
-
 				currentNews.put("content", content);				
-				Logger.info("CONTENT OK");
-
 				currentNews.put("imgs", Json.toJson(imgs));
-				Logger.info("IMGS OK");
 
-				feedsTitles.add(currentNews);
-				Logger.info("ADDED \n -------------------------------------------------- \n");
-
+				pool.add(currentNews);
 
 			}
 		}
-
-		JsonNode jsonFeedsTitles = Json.toJson(feedsTitles);
-		return jsonFeedsTitles;
 	}
 
 	public static class Sockets {
