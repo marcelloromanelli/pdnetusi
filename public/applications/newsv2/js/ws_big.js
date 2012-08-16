@@ -188,7 +188,10 @@ function createElements(responseArray,name){
 
 		newsContainerDiv.append(newsDescDiv);
 
-
+		var newsSourceDiv = $("div class='news_source'>");
+		newsSourceDiv.html(currentNews.source);
+		newsContainerDiv.append(newsSourceDiv);
+		
 		// CATEGORY
 		var categoryDiv = $('<div class="category"><p class="vertical_text">'+ name +'</p></div>');
 		categoryDiv.addClass(name);

@@ -97,8 +97,8 @@ img {
 	height: 40px;
 	user-select: none;
 	-webkit-user-select: none;
-	font-weight: bold;
-}
+/* 	font-weight: bold;
+ */}
 
 .news_desc {
 	margin-top: 15px;
