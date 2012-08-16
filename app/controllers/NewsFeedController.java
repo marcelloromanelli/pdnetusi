@@ -69,13 +69,11 @@ public class NewsFeedController extends Controller {
 
 
 	public static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-	public Runnable beeper = new Runnable() {
-		public void run() { 
-			System.out.println("\n ---------------------------- \n UPDATING POOLS \n ---------------------------- \n"); 
-		}
+	final Runnable beeper = new Runnable() {
+		public void run() { System.out.println("beep"); }
 	};
-
-	public ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 10, 10, SECONDS);
+	final ScheduledFuture<?> beeperHandle = 
+			scheduler.scheduleAtFixedRate(beeper, 10, 10, SECONDS);
 
 
 
