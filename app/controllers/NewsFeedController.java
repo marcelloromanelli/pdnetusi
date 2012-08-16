@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 import net.htmlparser.jericho.Attribute;
 import net.htmlparser.jericho.Attributes;
@@ -111,10 +112,10 @@ public class NewsFeedController extends Controller {
 							if(!STARTED){
 								STARTED = true;
 								final ScheduledFuture<?> beeperHandle = 
-										scheduler.scheduleAtFixedRate(beeper, 10, 120, SECONDS);
+										scheduler.scheduleAtFixedRate(beeper, 10, 60, SECONDS);
 								scheduler.schedule(new Runnable() {
 									public void run() { beeperHandle.cancel(true); }
-								}, 60*60, SECONDS);
+								}, 1, TimeUnit.DAYS);
 							}
 
 							// Can be either small or big
@@ -271,7 +272,6 @@ public class NewsFeedController extends Controller {
 			Logger.info("PROCESSING: " + newsSource);
 			Iterator<JsonNode> entries = jsonFeed.get("entries").getElements();
 			while(entries.hasNext()){
-				Logger.info("new item of " + newsSource + " is being processed...");
 				JsonNode currentEntry = entries.next();
 				ObjectNode currentNews = Json.newObject();
 				currentNews.put("source", newsSource);
@@ -282,8 +282,10 @@ public class NewsFeedController extends Controller {
 				}
 				
 				if(!isNew(pool, content)){
+					Logger.info("Duplicate News...");
 					continue;
 				}
+				Logger.info("new item of " + newsSource + " is being processed...");
 
 				String link = currentEntry.get("link").asText();
 				MicrosoftConditionalCommentTagTypes.register();
