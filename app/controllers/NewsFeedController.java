@@ -42,7 +42,12 @@ import play.mvc.WebSocket.Out;
  * @author romanelm
  */
 public class NewsFeedController extends Controller {
-
+	
+	public static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+	final Runnable beeper = new Runnable() {
+		public void run() { System.out.println("beep"); }
+	};
+	final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 10, 10, SECONDS);
 
 	/**
 	 * Hashmap that given an ID of a Display, returns 
@@ -65,16 +70,6 @@ public class NewsFeedController extends Controller {
 
 	public static String[] CULTURE_SRC = {"http://feeds.feedburner.com/ilblogdeilibri?format=xml", "http://feeds2.feedburner.com/slashfilm"};
 	public static ArrayList<ObjectNode> CULTURE_POOL = new ArrayList<ObjectNode>();
-
-
-
-	public static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-	final Runnable beeper = new Runnable() {
-		public void run() { System.out.println("beep"); }
-	};
-	final ScheduledFuture<?> beeperHandle = 
-			scheduler.scheduleAtFixedRate(beeper, 10, 10, SECONDS);
-
 
 
 	public static WebSocket<JsonNode> webSocket() {
