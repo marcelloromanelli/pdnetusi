@@ -170,7 +170,7 @@ img {
 	clear: both;
 	background-color: rgba(255, 255, 255, 0.4);
 	margin-left: -10px;
-	box-shadow: 9px 0px 20px rgba(0,0,0,0.6);
+	box-shadow: 10px -1px 15px rgba(0,0,0,0.6);
 }
 
 .social_tab.first {
