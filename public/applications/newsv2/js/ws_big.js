@@ -174,7 +174,7 @@ function createElements(responseArray,name){
 		var src = $(currentNews.imgs[0]).attr("src");
 		// HACK FOR CDT
 		if(!/^\w+:/.test(src)){
-			src='http://www.cdt.ch' + src;
+			src="http://panhandletickets.com/images/not_available.jpg";
 		}
 		newsImg.attr("src",src);
 		newsContainerDiv.append(newsImg);
