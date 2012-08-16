@@ -103,8 +103,8 @@ img {
 	height: 40px;
 	user-select: none;
 	-webkit-user-select: none;
-/* 	font-weight: bold;
- */}
+	font-weight: bold;
+}
 
 .news_desc {
 	margin-top: 15px;
@@ -131,7 +131,7 @@ img {
 	float: right;
 	margin-top: 30px;
 	opacity: 0.3;
-	font-size: 10px;
+	font-size: 13px;
 }
 
 .category {
