@@ -80,7 +80,7 @@ public class NewsFeedController extends Controller {
 		}
 	};
 
-	final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 10, 120, SECONDS);
+	final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 10, 10, SECONDS);
 
 
 
