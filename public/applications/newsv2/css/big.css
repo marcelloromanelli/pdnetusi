@@ -63,7 +63,7 @@ html,body {
 hr.style {
 	border: 0;
 	height: 1px;
-	background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0) );
+	background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.5, transparent), to(white));
 }
 
 .clear {
