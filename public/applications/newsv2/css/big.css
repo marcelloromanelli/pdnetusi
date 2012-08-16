@@ -107,7 +107,7 @@ img {
 }
 
 .news_desc {
-	margin-top: 15px;
+	margin-top: 0px;
 	font-size: 25px;
 	user-select: none;
 	-webkit-user-select: none;
@@ -130,7 +130,7 @@ img {
 
 .news_source{
 	float: right;
-	margin-top: 20px;
+	margin-top: 10px;
 	opacity: 0.3;
 	font-size: 13px;
 }
