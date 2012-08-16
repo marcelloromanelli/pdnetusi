@@ -116,15 +116,16 @@ img {
 
 .news_img {
 	float: left;
-	background-color: red;
 	height: 215px;
 	width: 215px;
 	margin-right: 15px;
 	margin-top: 20px;
-	border-radius: 20px;
-	-webkit-box-reflect: below 0px
-		-webkit-gradient(linear, left top, left bottom, from(transparent),
-		color-stop(85%, transparent), to(white) );
+	
+	background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #EEEEEE;
+    box-shadow: 1px 1px 1px #CCCCCC;
+    -webkit-box-shadow: 1px 1px 1px #CCCCCC;
+    padding: 5px;
 }
 
 .news_source{
