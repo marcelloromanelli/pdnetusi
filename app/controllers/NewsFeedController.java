@@ -1,6 +1,8 @@
 
 package controllers;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,6 +13,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 
 import net.htmlparser.jericho.Attribute;
 import net.htmlparser.jericho.Attributes;
@@ -21,7 +26,6 @@ import net.htmlparser.jericho.MicrosoftConditionalCommentTagTypes;
 import net.htmlparser.jericho.PHPTagTypes;
 import net.htmlparser.jericho.Segment;
 import net.htmlparser.jericho.Source;
-import net.htmlparser.jericho.StartTag;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -64,6 +68,19 @@ public class NewsFeedController extends Controller {
 	 */
 	public static Integer MAX_REQ = 1000*2;
 
+	private final static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+	public static void beepForAnHour() {
+		final Runnable beeper = new Runnable() {
+			public void run() { System.out.println("\n ---------------------------- \n BEEP \n ---------------------------- \n"); }
+		};
+		final ScheduledFuture<?> beeperHandle =
+				scheduler.scheduleAtFixedRate(beeper, 10, 10, SECONDS);
+		scheduler.schedule(new Runnable() {
+			public void run() { beeperHandle.cancel(true); }
+		}, 60 * 60, SECONDS);
+	}
+
 	public static WebSocket<JsonNode> webSocket() {
 		return new WebSocket<JsonNode>() {
 
@@ -96,6 +113,7 @@ public class NewsFeedController extends Controller {
 								sockets.get(displayID).small = out;
 							} else if(size.equals("big")) {
 								sockets.get(displayID).big  = out;
+								beepForAnHour();
 							}
 
 							Logger.info(
@@ -248,7 +266,7 @@ public class NewsFeedController extends Controller {
 						Logger.info("CHECKING IMG \n" + segment);
 						Attributes tagAttr = segment.getFirstStartTag().getAttributes(); 
 						if(tagAttr == null) continue;
-						
+
 						final Attribute alt = tagAttr.get("alt");
 						if(alt == null) continue;
 
