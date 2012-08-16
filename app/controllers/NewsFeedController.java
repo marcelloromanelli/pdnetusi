@@ -45,8 +45,15 @@ public class NewsFeedController extends Controller {
 	
 	public static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	final static Runnable beeper = new Runnable() {
-		public void run() { Logger.info("beep"); }
+		public void run() { 
+			Logger.info("beep"); 
+			updatePools();
+			for(ObjectNode o: HOT_POOL){
+				Logger.info(o.toString());
+			}
+		}
 	};
+	
 
 	/**
 	 * Hashmap that given an ID of a Display, returns 
@@ -70,6 +77,7 @@ public class NewsFeedController extends Controller {
 	public static String[] CULTURE_SRC = {"http://feeds.feedburner.com/ilblogdeilibri?format=xml", "http://feeds2.feedburner.com/slashfilm"};
 	public static ArrayList<ObjectNode> CULTURE_POOL = new ArrayList<ObjectNode>();
 
+	public static boolean STARTED = false;
 
 	public static WebSocket<JsonNode> webSocket() {
 		return new WebSocket<JsonNode>() {
@@ -93,17 +101,20 @@ public class NewsFeedController extends Controller {
 
 						if(messageKind.equals("appReady")){
 
-							Logger.info("Newsfeed app is ready!");
-
+							if(!STARTED){
+								STARTED = true;
+								final ScheduledFuture<?> beeperHandle = 
+										scheduler.scheduleAtFixedRate(beeper, 10, 120, SECONDS);
+								scheduler.schedule(new Runnable() {
+					                public void run() { beeperHandle.cancel(true); }
+					            }, 60*60, SECONDS);
+							}
+							
 							// Can be either small or big
 							String size = event.get("size").asText();
 
 							if(size.equals("small")){
 								sockets.get(displayID).small = out;
-								final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 0, 10, SECONDS);
-								scheduler.schedule(new Runnable() {
-					                public void run() { beeperHandle.cancel(true); }
-					            }, 60, SECONDS);
 							} else if(size.equals("big")) {
 								sockets.get(displayID).big  = out;
 							}
