@@ -94,6 +94,7 @@ img {
 
 .news_title {
 	font-size: 40px;
+	height: 40px;
 	user-select: none;
 	-webkit-user-select: none;
 	font-weight: bold;

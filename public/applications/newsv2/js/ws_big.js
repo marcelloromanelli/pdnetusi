@@ -123,7 +123,7 @@ function removeRequestsID(id){
 function createElements(responseArray,name){
 	for(var i in responseArray){
 		var currentNews = responseArray[i];
-
+		console.log(currentNews);
 		// NEWS
 		var newsDiv = $("<div class='news'>");
 		//newsDiv.css("top",lastPosition);
