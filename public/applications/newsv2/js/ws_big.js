@@ -206,8 +206,8 @@ function createElements(responseArray,name){
 		// LIKE
 		var socialLikeDiv = $("<div class='social_tab first'>");
 		socialLikeDiv.addClass(name);
-		var likeImg = $("<img src='images/up.png' width='50px' " +
-		"style='clear: both; margin-top: 15px; margin-left: 15px;'></img>");
+		var likeImg = $("<img src='images/up.png' width='70px' " +
+		"style='clear: both; margin-top: 5px; margin-left: 15px;'></img>");
 		socialLikeDiv.append(likeImg);
 		socialLikeDiv.append("<p class='counter'>0</p>");
 		socialDiv.append(socialLikeDiv);
@@ -240,8 +240,8 @@ function createElements(responseArray,name){
 		// DISLIKE
 		var socialDislikeDiv = $("<div class='social_tab center'>");
 		socialDislikeDiv.addClass(name);
-		socialDislikeDiv.append("<img src='images/down.png' width='50px' " +
-		"style='clear: both; margin-top: 15px; margin-left: 15px;'></img>");
+		socialDislikeDiv.append("<img src='images/down.png' width='70px' " +
+		"style='clear: both; margin-top: 5px; margin-left: 15px;'></img>");
 		socialDislikeDiv.append("<p class='counter'>0</p>");
 		socialDiv.append(socialDislikeDiv);
 
@@ -273,7 +273,7 @@ function createElements(responseArray,name){
 		// SHARE
 		var socialShareDiv = $("<div class='social_tab last'>");
 		socialShareDiv.addClass(name);
-		var shareImg = $("<img class='share' src='images/share.png' width='50px'></img>");		
+		var shareImg = $("<img class='share' src='images/share.png' width='70px'></img>");		
 		socialShareDiv.append(shareImg);
 
 
