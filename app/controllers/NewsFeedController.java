@@ -72,11 +72,6 @@ public class NewsFeedController extends Controller {
 	final Runnable beeper = new Runnable() {
 		public void run() { 
 			System.out.println("\n ---------------------------- \n UPDATING POOLS \n ---------------------------- \n"); 
-			updatePools();
-			System.out.println("\n ---------------------------- \n POOLS UPDATED \n ---------------------------- \n"); 
-			for(ObjectNode news: HOT_POOL){
-				Logger.info(news.toString());
-			}
 		}
 	};
 
