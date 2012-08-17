@@ -141,8 +141,6 @@ function insertNews(response){
 		var currentNews = newsDivs[i];
 		
 		if(response.pos == "bottom"){
-			console.log("APPENDED TO BOTTOM");
-			console.log(response.pos);
 			var currentPosition = positionOfLast + total*i; 
 			$("body").append(currentNews);
 			currentNews.css("top",currentPosition);
@@ -150,7 +148,6 @@ function insertNews(response){
 				positionOfLast = currentPosition;
 			}
 		} else if(response.pos == "top"){
-			console.log("APPENDED TO TOP");
 			var currentPosition = positionOfFirst - total*i; 
 			$("body").prepend(currentNews);
 			currentNews.css("top",currentPosition);
