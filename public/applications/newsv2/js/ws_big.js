@@ -137,7 +137,7 @@ function insertNews(response){
 
 	for (var i in newsDivs){
 		var currentNews = newsDivs[i];
-		if(response.top == undefined || response.top == "bottom"){
+		if(response.pos == undefined || response.pos == "bottom"){
 			console.log("APPENDED TO BOTTOM");
 			var currentPosition = positionOfLast + total*i; 
 			$("body").append(currentNews);
