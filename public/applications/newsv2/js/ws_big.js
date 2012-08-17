@@ -124,13 +124,13 @@ function insertNews(response){
 	if (newsDivs.length < 10 && $(".news").length > 5){
 		if(response.pos == "bottom"){
 			console.log("RECYCLING NEWS AT THE TOP");
-			var top5 = $(".news").slice(5);
-			var newsDivs = newsDivs.concat(top5);
+			var top5 = $(".news").slice(10);
+			var newsDivs = top5;
 			top5.remove();
 		} else if(response.pos == "top") {
 			console.log("RECYCLING NEWS AT THE BOTTOM");
-			var last5 = $(".news").slice(-5);
-			var newsDivs = newsDivs.concat(last5);
+			var last5 = $(".news").slice(-10);
+			var newsDivs = last5;
 			last5.remove();
 		}
 	}
