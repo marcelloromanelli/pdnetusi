@@ -139,8 +139,9 @@ function insertNews(response){
 	for (var i in newsDivs){
 		var currentNews = newsDivs[i];
 		
-		if(response.pos == "bottom" || !response.pos == undefined){
+		if(response.pos == "bottom"){
 			console.log("APPENDED TO BOTTOM");
+			console.log(response.pos);
 			var currentPosition = positionOfLast + total*i; 
 			$("body").append(currentNews);
 			currentNews.css("top",currentPosition);
@@ -154,6 +155,14 @@ function insertNews(response){
 			currentNews.css("top",currentPosition);
 			if(i == newsDivs.length-1){
 				positionOfFirst = currentPosition;
+			}
+		} else {
+			console.log("DEFAULT");
+			var currentPosition = positionOfLast + total*i; 
+			$("body").append(currentNews);
+			currentNews.css("top",currentPosition);
+			if(i == newsDivs.length-1){
+				positionOfLast = currentPosition;
 			}
 		}
 		if(i == 0){
