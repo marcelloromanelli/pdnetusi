@@ -70,41 +70,42 @@ function moveNews(){
 
 	if(allNews.length > 4){
 		//GET ALL THE NEWS
-		$(".news").animate({"top":"+="+total}, { duration: 3000, easing: "linear"});
-		// CHECK SAFTEY MARGINS
-		//TOP - 4th element
-
-		positionOfFirst = $(allNews).position().top;
-		positionOfLast = $(allNews[allNews.length-1]).position().top;
-
-		var canaryTop = $(allNews[0]).position().top;
-		if(canaryTop == -1490){
-			console.log("ATTENTION! LOAD NEW NEWS");
-			var more = JSON.stringify
-			({
-				"kind":"more",
-				"displayID":  displayID,
-				"pos": "top"
-			});
-			console.log(more);
-			websocket.send(more);
-		}
-
-		var canaryBottom = $(allNews[allNews.length-1]).position().top;
-		if(canaryTop == 1790){
-			console.log("ATTENTION! LOAD NEW NEWS");
-			var more = JSON.stringify
-			({
-				"kind":"more",
-				"displayID":  displayID,
-				"pos": "top"
-			});
-			console.log(more);
-			websocket.send(more);
-		}
+		allNews.animate({"top":"+="+total}, { duration: 3000, easing: "linear"});
+		checkIfNeedsMore(allNews);
 	}
 }
 
+
+function checkIfNeedsMore(allNews){
+	positionOfFirst = $(allNews).position().top;
+	positionOfLast = $(allNews[allNews.length-1]).position().top;
+
+	var canaryTop = $(allNews[0]).position().top;
+	if(canaryTop == -1490){
+		console.log("ATTENTION! LOAD NEW NEWS");
+		var more = JSON.stringify
+		({
+			"kind":"more",
+			"displayID":  displayID,
+			"pos": "top"
+		});
+		console.log(more);
+		websocket.send(more);
+	}
+
+	var canaryBottom = $(allNews[allNews.length-1]).position().top;
+	if(canaryTop == 1790){
+		console.log("ATTENTION! LOAD NEW NEWS");
+		var more = JSON.stringify
+		({
+			"kind":"more",
+			"displayID":  displayID,
+			"pos": "top"
+		});
+		console.log(more);
+		websocket.send(more);
+	}
+}
 function insertNews(response){
 
 	var culture = createElements(response.culture,"culture");
@@ -193,7 +194,7 @@ function createElements(responseArray,name){
 				function(){
 					var parent = $(this).parent();
 					var pos = parent.position();
-
+					
 					// STOP AUTOMATIC MOVMENT
 					clearInterval(newsScroll);
 					// RESTART IT AFTER 15 seconds
@@ -218,6 +219,8 @@ function createElements(responseArray,name){
 					} else {
 						$(".news").animate({"top":"+="+total});
 					}
+					
+					checkIfNeedsMore($(".news"));
 				}
 		);
 
