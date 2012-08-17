@@ -73,7 +73,7 @@ function moveNews(){
 	//TOP - 4th element
 	var allNews = $(".news"); 
 	if(allNews.length > 5){
-		var canaryTop = $(allNews[3]).position().top;
+		var canaryTop = $(allNews[0]).position().top;
 		if(canaryTop == -1490){
 			console.log("ATTENTION! LOAD NEW NEWS");
 			var more = JSON.stringify
