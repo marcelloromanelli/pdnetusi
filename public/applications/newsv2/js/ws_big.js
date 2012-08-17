@@ -122,7 +122,7 @@ function insertNews(response){
 	);
 
 	if (newsDivs.length < 10 && $(".news").length > 5){
-		if(response.pos == undefined || response.pos == "bottom"){
+		if(response.pos == "bottom"){
 			console.log("RECYCLING NEWS AT THE TOP");
 			var top5 = $(".news").slice(5);
 			var newsDivs = newsDivs.concat(top5);
@@ -134,8 +134,9 @@ function insertNews(response){
 			last5.remove();
 		}
 	}
-
-	console.log(response);
+	
+	console.log(newsDivs);
+	
 	for (var i in newsDivs){
 		var currentNews = newsDivs[i];
 		
