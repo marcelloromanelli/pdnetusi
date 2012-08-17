@@ -166,7 +166,7 @@ public class NewsFeedController extends Controller {
 							temp.put("culture", displayStatus.culture ? true : false);
 							Logger.info(temp.toString());
 							ObjectNode response = createResponse(displayStatus, temp);
-							response.put("top",event.get("pos").asText());
+							response.put("pos",event.get("pos").asText());
 							
 							displaySockets.small.write(response);
 							displaySockets.big.write(response);

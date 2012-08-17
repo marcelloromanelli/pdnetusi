@@ -121,13 +121,22 @@ function insertNews(response){
 			}
 	);
 
-
+	if (newsDivs.length < 10 && $(".news").length > 5){
+		if(response.pos == undefined || response.pos == "bottom"){
+			console.log("RECYCLING NEWS AT THE TOP");
+			var top5 = $(".news").slice(5);
+			var newsDivs = newsDivs.concat(top5);
+			top5.remove();
+		} else if(response.pos == "top") {
+			console.log("RECYCLING NEWS AT THE BOTTOM");
+			var last5 = $(".news").slice(-5);
+			var newsDivs = newsDivs.concat(last5);
+			last5.remove();
+		}
+	}
 
 	for (var i in newsDivs){
-
 		var currentNews = newsDivs[i];
-
-
 		if(response.top == undefined || response.top == "bottom"){
 			console.log("APPENDED TO BOTTOM");
 			var currentPosition = positionOfLast + total*i; 
@@ -145,17 +154,13 @@ function insertNews(response){
 				positionOfFirst = currentPosition;
 			}
 		}
-
 		if(i == 0){
 			currentNews.addClass("first");
 		}
-
 		if(i == newsDivs.length-1){
 			currentNews.addClass("last");
 		}
-
 		currentNews.addClass("requestID-"+currentRequestID);
-
 	}
 
 //	var t = setTimeout(removeRequestsID,5000,currentRequestID);
@@ -230,7 +235,7 @@ function createElements(responseArray,name){
 						$(".news").animate({"top":"+="+total});
 						updateFirstandLastPositions($(".news"));
 					}
-					
+
 					checkIfNeedsMore($(".news"));
 
 				}
