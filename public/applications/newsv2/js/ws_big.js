@@ -100,7 +100,7 @@ function checkIfNeedsMore(allNews){
 		({
 			"kind":"more",
 			"displayID":  displayID,
-			"pos": "top"
+			"pos": "bottom"
 		});
 		console.log(more);
 		websocket.send(more);
