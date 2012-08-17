@@ -1,5 +1,7 @@
 //STYLE
-var lastPosition = -6410;
+var positionOfFirst = -2310;
+var positionOfLast = -2310;
+
 var newsHeight = 360;
 var space = 50;
 var total = space + newsHeight;
@@ -7,9 +9,6 @@ var total = space + newsHeight;
 var displayID = null;
 var currentRequestID = 0;
 var activeRequests = 0;
-
-var startingPositions = [];
-
 
 var newsScroll = null;
 
@@ -108,11 +107,22 @@ function insertNews(response){
 	);
 
 
-
+		
 	for (var i in newsDivs){
 
 		var currentNews = newsDivs[i];
-
+		 
+		
+		if(response.top == undefined || response.top == "bottom"){
+			var currentPosition = positionOfLast + total*i; 
+			$("body").append(currentNews);
+			currentNews.css("top",currentPosition);
+		} else {
+			var currentPosition = positionOfLast - total*i; 
+			$("body").prepend(currentNews);
+			currentNews.css("top",currentPosition);
+		}
+		
 		if(i == 0){
 			currentNews.addClass("first");
 		}
@@ -121,13 +131,8 @@ function insertNews(response){
 			currentNews.addClass("last");
 		}
 
-		currentNews.css("top",startingPositions[i]);
 		currentNews.addClass("requestID-"+currentRequestID);
-		if(response.top == undefined || response.top == "bottom"){
-			$("body").append(currentNews);
-		} else {
-			$("body").prepend(currentNews);
-		}
+		
 	}
 
 //	var t = setTimeout(removeRequestsID,5000,currentRequestID);
@@ -156,12 +161,8 @@ function createElements(responseArray,name){
 	var response = new Array();
 	for(var i in responseArray){
 		var currentNews = responseArray[i];
-		console.log(currentNews);
 		// NEWS
 		var newsDiv = $("<div class='news'>");
-		//newsDiv.css("top",lastPosition);
-		startingPositions.push(lastPosition);
-		lastPosition += (newsHeight + space);
 
 		// NEWS CONTAINER
 		var newsContainerDiv = $("<div class='news_container'>");
