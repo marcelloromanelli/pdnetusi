@@ -1,5 +1,5 @@
 //STYLE
-var lastPosition = -2310;
+var lastPosition = -6410;
 var newsHeight = 360;
 var space = 50;
 var total = space + newsHeight;
@@ -71,6 +71,16 @@ function moveNews(){
 	//GET ALL THE NEWS
 	$(".news").animate({"top":"+="+total}, { duration: 3000, easing: "linear"});
 	// CHECK SAFTEY MARGINS
+	
+	//TOP - 4th element
+	var allNews = $(".news"); 
+	var canaryTop = allNews[3].position().top;
+	if(canaryTop == -1490){
+		console.log("ATTENTION! LOAD NEW NEWS");
+	}
+	
+	var canaryBottom = allNews[allNews.length-4].position().top;
+
 }
 
 function insertNews(response){
