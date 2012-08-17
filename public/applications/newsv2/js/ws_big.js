@@ -54,6 +54,7 @@ $(function () {
 
 	websocket.onmessage = function(evt) {
 		var response = jQuery.parseJSON(evt.data);
+		console.log(response);
 		insertNews(response);
 	};
 

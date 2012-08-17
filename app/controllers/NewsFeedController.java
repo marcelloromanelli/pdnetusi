@@ -166,7 +166,7 @@ public class NewsFeedController extends Controller {
 							temp.put("culture", displayStatus.culture ? true : false);
 							Logger.info(temp.toString());
 							ObjectNode response = createResponse(displayStatus, temp);
-							response.put("top",event.get("top").asText());
+							response.put("top",event.get("pos").asText());
 							
 							displaySockets.small.write(response);
 							displaySockets.big.write(response);
@@ -231,6 +231,7 @@ public class NewsFeedController extends Controller {
 
 	public static ObjectNode createResponse(Status status, JsonNode pref){
 		
+		Logger.info("TAKING NEWS FROM POOLS");
 		ObjectNode response = Json.newObject();
 
 		if(pref.get("hot").asBoolean() && (HOT_POOL.size() > status.last_hot) ){
