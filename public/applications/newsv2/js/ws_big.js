@@ -11,6 +11,9 @@ var activeRequests = 0;
 var startingPositions = [];
 var newsDivs = [];
 
+
+var newsScroll = null;
+
 function getUrlVars() {
 	"use strict";
 	var vars = [], hash;
@@ -60,7 +63,7 @@ $(function () {
 		console.log(evt.data); 
 	}; 
 
-	var newsScroll = setInterval(function(){moveNews()},8000);
+	newsScroll = setInterval(function(){moveNews()},9000);
 
 });
 
@@ -144,7 +147,15 @@ function createElements(responseArray,name){
 				function(){
 					var parent = $(this).parent();
 					var pos = parent.position();
+					
+					// STOP AUTOMATIC MOVMENT
+					clearInterval(intervalVariable);
+					// RESTART IT AFTER 15 seconds
+					setTimeout(function(){
+						newsScroll = setInterval(function(){moveNews()},9000);
+						},15000);
 
+						
 					if(parent.hasClass("first") && pos.top > 559){
 						$(".news").animate({"top":"-="+total});
 						return;
