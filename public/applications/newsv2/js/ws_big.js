@@ -1,6 +1,6 @@
 //STYLE
-var positionOfFirst = -2310;
-var positionOfLast = -2310;
+var positionOfFirst = -3130;
+var positionOfLast = -3130;
 
 var newsHeight = 360;
 var space = 50;
@@ -117,10 +117,16 @@ function insertNews(response){
 			var currentPosition = positionOfLast + total*i; 
 			$("body").append(currentNews);
 			currentNews.css("top",currentPosition);
+			if(i == newsDivs.length-1){
+				positionOfLast = currentPosition;
+			}
 		} else {
-			var currentPosition = positionOfLast - total*i; 
+			var currentPosition = positionOfFirst - total*i; 
 			$("body").prepend(currentNews);
 			currentNews.css("top",currentPosition);
+			if(i == newsDivs.length-1){
+				positionOfFirst = currentPosition;
+			}
 		}
 		
 		if(i == 0){
