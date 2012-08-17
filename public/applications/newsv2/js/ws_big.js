@@ -66,15 +66,17 @@ $(function () {
 });
 
 function moveNews(){
-	//GET ALL THE NEWS
-	$(".news").animate({"top":"+="+total}, { duration: 1000, easing: "linear"});
-	// CHECK SAFTEY MARGINS
-	//TOP - 4th element
 	var allNews = $(".news"); 
-	
-	positionOfFirst = $(allNews).position().top;
-	positionOfLast = $(allNews[allNews.length-1]).position().top;
-	if(allNews.length > 5){
+
+	if(allNews.length > 4){
+		//GET ALL THE NEWS
+		$(".news").animate({"top":"+="+total}, { duration: 1000, easing: "linear"});
+		// CHECK SAFTEY MARGINS
+		//TOP - 4th element
+
+		positionOfFirst = $(allNews).position().top;
+		positionOfLast = $(allNews[allNews.length-1]).position().top;
+
 		var canaryTop = $(allNews[0]).position().top;
 		if(canaryTop == -1490){
 			console.log("ATTENTION! LOAD NEW NEWS");
@@ -109,12 +111,12 @@ function insertNews(response){
 	);
 
 
-		
+
 	for (var i in newsDivs){
 
 		var currentNews = newsDivs[i];
-		 
-		
+
+
 		if(response.top == undefined || response.top == "bottom"){
 			var currentPosition = positionOfLast + total + total*i; 
 			$("body").append(currentNews);
@@ -130,7 +132,7 @@ function insertNews(response){
 				positionOfFirst = currentPosition;
 			}
 		}
-		
+
 		if(i == 0){
 			currentNews.addClass("first");
 		}
@@ -140,7 +142,7 @@ function insertNews(response){
 		}
 
 		currentNews.addClass("requestID-"+currentRequestID);
-		
+
 	}
 
 //	var t = setTimeout(removeRequestsID,5000,currentRequestID);
