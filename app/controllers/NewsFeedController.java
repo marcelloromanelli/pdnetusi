@@ -164,11 +164,15 @@ public class NewsFeedController extends Controller {
 							temp.put("tech", displayStatus.tech ? true : false);
 							temp.put("sport", displayStatus.sport ? true : false);
 							temp.put("culture", displayStatus.culture ? true : false);
+							Logger.info(temp.toString());
 							ObjectNode response = createResponse(displayStatus, temp);
 							response.put("top",event.get("top").asText());
 							
 							displaySockets.small.write(response);
 							displaySockets.big.write(response);
+							
+							Logger.info("JSON SENT TO THE DISPLAY!");
+
 						} else {
 							Logger.info("WTF: " + event.toString());
 						}
@@ -330,7 +334,6 @@ public class NewsFeedController extends Controller {
 				}
 
 				if(!isNew(pool, content)){
-					Logger.info("Duplicate News...");
 					continue;
 				}
 				Logger.info("new item of " + newsSource + " is being processed...");
@@ -346,7 +349,6 @@ public class NewsFeedController extends Controller {
 					source = new Source(new URL(link));
 					List<Element> elementList = source.getAllElements(HTMLElementName.IMG);
 					for (Segment segment : elementList) {
-						Logger.info("CHECKING IMG \n" + segment);
 						Attributes tagAttr = segment.getFirstStartTag().getAttributes(); 
 						if(tagAttr == null) continue;
 
@@ -373,9 +375,8 @@ public class NewsFeedController extends Controller {
 								)
 						{
 							imgs.add(segment.toString());
-							Logger.info("IMG ADDED \n" + "------------------------------------------------- \n");
 						} else {
-							Logger.info("NOT APPROPRIATE \n" + "------------------------------------------------- \n");
+							//Logger.info("NOT APPROPRIATE \n" + "------------------------------------------------- \n");
 						}
 					}
 				} catch (IOException e) {
