@@ -152,6 +152,7 @@ function createElements(responseArray,name){
 					clearInterval(newsScroll);
 					// RESTART IT AFTER 15 seconds
 					setTimeout(function(){
+						clearInterval(newsScroll);
 						newsScroll = setInterval(function(){moveNews()},9000);
 						},15000);
 
