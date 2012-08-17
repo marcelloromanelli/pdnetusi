@@ -49,10 +49,10 @@ public class NewsFeedController extends Controller {
 		public void run() { 
 			updatePools();
 			Logger.info("\n ---------------------- \n"+
-						"HOT: " + HOT_POOL.size() + "\n" + 
-						"TECH: " + TECH_POOL.size() + "\n" +
-						"SPORT: " + SPORT_POOL.size() + "\n" +
-						"CULTURE: " + CULTURE_POOL.size() + "\n ----------------------");
+					"HOT: " + HOT_POOL.size() + "\n" + 
+					"TECH: " + TECH_POOL.size() + "\n" +
+					"SPORT: " + SPORT_POOL.size() + "\n" +
+					"CULTURE: " + CULTURE_POOL.size() + "\n ----------------------");
 		}
 	};
 
@@ -142,21 +142,40 @@ public class NewsFeedController extends Controller {
 
 
 							//								String username = event.get("username").asText();
-							JsonNode pref = event.get("preference");
+							JsonNode pref = Json.toJson(event.get("preference"));
+							
 							Sockets displaySockets = sockets.get(displayID);
 							Status displayStatus = statuses.get(displayID);
-							
-							ObjectNode  response = createResponse(displayStatus, pref);
+
+							updateStatus(displayStatus,pref);
+							ObjectNode response = createResponse(displayStatus, pref);
 							displaySockets.small.write(response);
 							displaySockets.big.write(response);
 
 							Logger.info("JSON SENT TO THE DISPLAY!");
 
+						} else if(messageKind.equals("more")){
+
+							Status displayStatus = statuses.get(displayID);
+							Sockets displaySockets = sockets.get(displayID);
+							
+							ObjectNode temp = Json.newObject();
+							temp.put("hot", displayStatus.hot ? true : false);
+							temp.put("tech", displayStatus.tech ? true : false);
+							temp.put("sport", displayStatus.sport ? true : false);
+							temp.put("culture", displayStatus.culture ? true : false);
+							ObjectNode response = createResponse(displayStatus, temp);
+							response.put("top",event.get("top").asText());
+							
+							displaySockets.small.write(response);
+							displaySockets.big.write(response);
 						} else {
 							Logger.info("WTF: " + event.toString());
 						}
 
 					}
+
+
 
 				});
 
@@ -177,7 +196,25 @@ public class NewsFeedController extends Controller {
 
 		};
 	}
-	
+
+	public static void updateStatus(Status status, JsonNode pref) {
+		if(pref.get("hot").asBoolean() && !status.hot){
+			status.hot = true;
+		}
+
+		if(pref.get("tech").asBoolean() && !status.tech){
+			status.tech = true;
+		}
+
+		if(pref.get("sport").asBoolean() && !status.sport){
+			status.sport = true;
+		}
+
+		if(pref.get("culture").asBoolean() && !status.culture){
+			status.culture = true;
+		}
+	}
+
 	public static int findLastIndex(ArrayList<ObjectNode> pool, int start, int qty){
 		try {
 			int end = start+qty;
@@ -187,8 +224,9 @@ public class NewsFeedController extends Controller {
 			return pool.size();
 		}
 	}
-	
+
 	public static ObjectNode createResponse(Status status, JsonNode pref){
+		
 		ObjectNode response = Json.newObject();
 
 		if(pref.get("hot").asBoolean() && (HOT_POOL.size() > status.last_hot) ){
@@ -258,7 +296,7 @@ public class NewsFeedController extends Controller {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Check if the current news in already present
 	 * in the pool
@@ -285,12 +323,12 @@ public class NewsFeedController extends Controller {
 				JsonNode currentEntry = entries.next();
 				ObjectNode currentNews = Json.newObject();
 				currentNews.put("source", newsSource);
-				
+
 				String content = currentEntry.get("content").asText();
 				if(content == null){
 					continue;
 				}
-				
+
 				if(!isNew(pool, content)){
 					Logger.info("Duplicate News...");
 					continue;
@@ -367,21 +405,17 @@ public class NewsFeedController extends Controller {
 		}
 	}
 
-	
+
 	// IF THE POOL IS MODIFIED
-	// REMEMBER TO UPDATATE
 	public static class Status {
-		
-		public int last_hot;
-		public int last_tech; 
-		public int last_sport;
-		public int last_culture;
-		
+
+		public boolean hot, tech, sport, culture;
+
+		public int last_hot, last_tech,last_sport,last_culture;
+
 		public Status() {
-			this.last_hot = 0;
-			this.last_tech = 0;
-			this.last_sport = 0;
-			this.last_culture = 0;
+			this.hot = this.tech = this.sport = this.culture = false;
+			this.last_hot = this.last_tech = this.last_sport = this.last_culture = 0;
 		}
 	} 
 }

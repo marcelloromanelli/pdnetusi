@@ -9,7 +9,6 @@ var currentRequestID = 0;
 var activeRequests = 0;
 
 var startingPositions = [];
-var newsDivs = [];
 
 
 var newsScroll = null;
@@ -56,7 +55,6 @@ $(function () {
 	websocket.onmessage = function(evt) {
 		var response = jQuery.parseJSON(evt.data);
 		insertNews(response);
-//		shuffleNews();
 	};
 
 	websocket.onerror = function(evt) { 
@@ -78,6 +76,13 @@ function moveNews(){
 		var canaryTop = $(allNews[3]).position().top;
 		if(canaryTop == -1490){
 			console.log("ATTENTION! LOAD NEW NEWS");
+			var more = JSON.stringify
+			({
+				"kind":"more",
+				"displayID":  displayID,
+				"pos": "top"
+			});
+			websocket.send(more);
 		}
 
 		var canaryBottom = $(allNews[allNews.length-4]).position().top;
@@ -86,23 +91,21 @@ function moveNews(){
 }
 
 function insertNews(response){
-	var culture = response.culture;
-	createElements(culture,"culture");
 
-	var hot = response.hot;
-	createElements(hot,"hot");
+	var culture = createElements(response.culture,"culture");
+	var hot = createElements(response.hot,"hot");
+	var sport = createElements(response.sport,"sport");
+	var tech = createElements(response.tech,"tech");
 
-	var sport = response.sport;
-	createElements(sport,"sport");
-
-	var tech = response.tech;
-	createElements(tech,"tech");
+	var newsDivs = culture.concat(hot).concat(sport).concat(tech); 
 
 	newsDivs.sort(
 			function(){ 
 				return 0.5 - Math.random(); 
 			}
 	);
+
+
 
 	for (var i in newsDivs){
 
@@ -118,7 +121,11 @@ function insertNews(response){
 
 		currentNews.css("top",startingPositions[i]);
 		currentNews.addClass("requestID-"+currentRequestID);
-		$("body").append(currentNews);
+		if(response.top == undefined || response.top == "bottom"){
+			$("body").append(currentNews);
+		} else {
+			$("body").prepend(currentNews);
+		}
 	}
 
 //	var t = setTimeout(removeRequestsID,5000,currentRequestID);
@@ -142,7 +149,9 @@ function removeRequestsID(id){
 		activeRequests--;
 	}
 }
+
 function createElements(responseArray,name){
+	var response = new Array();
 	for(var i in responseArray){
 		var currentNews = responseArray[i];
 		console.log(currentNews);
@@ -321,8 +330,10 @@ function createElements(responseArray,name){
 
 		socialDiv.append(socialShareDiv);
 
-		newsDivs.push(newsDiv);
+		response.push(newsDiv);
 	}
+
+	return response;
 }
 
 function fadeQR(event){
