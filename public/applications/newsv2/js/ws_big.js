@@ -180,6 +180,11 @@ function removeRequestsID(id){
 	}
 }
 
+function updateFirstandLastPositions(news){
+	positionOfFirst = $(news[0]).position().top;
+	positionOfLast = $(news[news.length-1]).position().top;
+}
+
 function createElements(responseArray,name){
 	var response = new Array();
 	for(var i in responseArray){
@@ -194,7 +199,6 @@ function createElements(responseArray,name){
 				function(){
 					var parent = $(this).parent();
 					var pos = parent.position();
-					checkIfNeedsMore($(".news"));
 
 					// STOP AUTOMATIC MOVMENT
 					clearInterval(newsScroll);
@@ -207,20 +211,28 @@ function createElements(responseArray,name){
 
 					if(parent.hasClass("first") && pos.top > 559){
 						$(".news").animate({"top":"-="+total});
+						updateFirstandLastPositions($(".news"));
+						checkIfNeedsMore($(".news"));
 						return;
 					}
 
 					if(parent.hasClass("last") && pos.top < 559){
 						$(".news").animate({"top":"+="+total});
+						updateFirstandLastPositions($(".news"));
+						checkIfNeedsMore($(".news"));
 						return;
 					}
 
 					if(pos.top > 559){
 						$(".news").animate({"top":"-="+total});
+						updateFirstandLastPositions($(".news"));
 					} else {
 						$(".news").animate({"top":"+="+total});
+						updateFirstandLastPositions($(".news"));
 					}
 					
+					checkIfNeedsMore($(".news"));
+
 				}
 		);
 
