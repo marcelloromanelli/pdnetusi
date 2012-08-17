@@ -135,8 +135,10 @@ function insertNews(response){
 		}
 	}
 
+	console.log(response);
 	for (var i in newsDivs){
 		var currentNews = newsDivs[i];
+		
 		if(response.pos == undefined || response.pos == "bottom"){
 			console.log("APPENDED TO BOTTOM");
 			var currentPosition = positionOfLast + total*i; 
