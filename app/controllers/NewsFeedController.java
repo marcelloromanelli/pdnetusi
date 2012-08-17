@@ -178,31 +178,40 @@ public class NewsFeedController extends Controller {
 		};
 	}
 	
-
+	public static int findLastIndex(ArrayList<ObjectNode> pool, int start, int qty){
+		try {
+			int end = start+qty;
+			pool.subList(start, end);
+			return end;
+		} catch (IndexOutOfBoundsException e) {
+			return pool.size();
+		}
+	}
+	
 	public static ObjectNode createResponse(Status status, JsonNode pref){
 		ObjectNode response = Json.newObject();
 
-		if(	!status.hot && pref.get("hot").asBoolean() && (HOT_POOL.size() > status.last_hot) ){
-			response.put("hot",Json.toJson(HOT_POOL.subList(status.last_hot, HOT_POOL.size())));
-			status.last_hot = HOT_POOL.size();
-			status.hot = true;
+		if(pref.get("hot").asBoolean() && (HOT_POOL.size() > status.last_hot) ){
+			int lastIndex = findLastIndex(HOT_POOL, status.last_hot, 10);
+			response.put("hot",Json.toJson(HOT_POOL.subList(status.last_hot, lastIndex)));
+			status.last_hot = lastIndex;
 		}
 
-		if(!status.tech && pref.get("tech").asBoolean()  && (TECH_POOL.size() > status.last_tech) ){
-			response.put("tech",Json.toJson(TECH_POOL.subList(status.last_tech, TECH_POOL.size())));
-			status.last_tech = TECH_POOL.size();
-			status.tech = true;
+		if(pref.get("tech").asBoolean()  && (TECH_POOL.size() > status.last_tech) ){
+			int lastIndex = findLastIndex(TECH_POOL, status.last_tech, 10);
+			response.put("tech",Json.toJson(TECH_POOL.subList(status.last_tech, lastIndex)));
+			status.last_tech = lastIndex;
 		}
 
-		if(!status.sport && pref.get("sport").asBoolean()  && (SPORT_POOL.size() > status.last_sport) ){
-			response.put("sport",Json.toJson(SPORT_POOL.subList(status.last_sport, SPORT_POOL.size())));
-			status.last_sport = SPORT_POOL.size();
-			status.sport = true;
+		if(pref.get("sport").asBoolean()  && (SPORT_POOL.size() > status.last_sport) ){
+			int lastIndex = findLastIndex(SPORT_POOL, status.last_sport, 10);
+			response.put("sport",Json.toJson(SPORT_POOL.subList(status.last_sport, lastIndex)));
+			status.last_sport = lastIndex;
 		}
-		if(!status.culture && pref.get("culture").asBoolean()  && (CULTURE_POOL.size() > status.last_culture) ){
-			response.put("culture",Json.toJson(CULTURE_POOL.subList(status.last_culture, CULTURE_POOL.size())));
-			status.last_culture = CULTURE_POOL.size();
-			status.culture = true;
+		if(pref.get("culture").asBoolean()  && (CULTURE_POOL.size() > status.last_culture) ){
+			int lastIndex = findLastIndex(CULTURE_POOL, status.last_culture, 10);
+			response.put("culture",Json.toJson(CULTURE_POOL.subList(status.last_culture, lastIndex)));
+			status.last_culture = lastIndex;
 		}
 
 		return response;
@@ -362,29 +371,16 @@ public class NewsFeedController extends Controller {
 	// IF THE POOL IS MODIFIED
 	// REMEMBER TO UPDATATE
 	public static class Status {
-		public boolean hot;
+		
 		public int last_hot;
-		
-		public boolean tech;
 		public int last_tech; 
-		
-		public boolean sport;
 		public int last_sport;
-		
-		public boolean culture;
 		public int last_culture;
 		
 		public Status() {
-			this.hot = false;
 			this.last_hot = 0;
-			
-			this.tech = false;
 			this.last_tech = 0;
-			
-			this.sport = false;
 			this.last_sport = 0;
-			
-			this.culture = false;
 			this.last_culture = 0;
 		}
 	} 

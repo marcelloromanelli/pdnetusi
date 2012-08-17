@@ -71,16 +71,18 @@ function moveNews(){
 	//GET ALL THE NEWS
 	$(".news").animate({"top":"+="+total}, { duration: 3000, easing: "linear"});
 	// CHECK SAFTEY MARGINS
-	
+
 	//TOP - 4th element
 	var allNews = $(".news"); 
-	var canaryTop = $(allNews[3]).position().top;
-	if(canaryTop == -1490){
-		console.log("ATTENTION! LOAD NEW NEWS");
-	}
-	
-	var canaryBottom = $(allNews[allNews.length-4]).position().top;
+	if(allNews.length > 5){
+		var canaryTop = $(allNews[3]).position().top;
+		if(canaryTop == -1490){
+			console.log("ATTENTION! LOAD NEW NEWS");
+		}
 
+		var canaryBottom = $(allNews[allNews.length-4]).position().top;
+
+	}
 }
 
 function insertNews(response){
@@ -157,16 +159,16 @@ function createElements(responseArray,name){
 				function(){
 					var parent = $(this).parent();
 					var pos = parent.position();
-					
+
 					// STOP AUTOMATIC MOVMENT
 					clearInterval(newsScroll);
 					// RESTART IT AFTER 15 seconds
 					setTimeout(function(){
 						clearInterval(newsScroll);
 						newsScroll = setInterval(function(){moveNews()},9000);
-						},15000);
+					},15000);
 
-						
+
 					if(parent.hasClass("first") && pos.top > 559){
 						$(".news").animate({"top":"-="+total});
 						return;
@@ -220,7 +222,7 @@ function createElements(responseArray,name){
 		var newsSourceDiv = $("<div class='news_source'>");
 		newsSourceDiv.html(currentNews.source);
 		newsContainerDiv.append(newsSourceDiv);
-		
+
 		// CATEGORY
 		var categoryDiv = $('<div class="category"><p class="vertical_text">'+ name +'</p></div>');
 		categoryDiv.addClass(name);
@@ -245,7 +247,7 @@ function createElements(responseArray,name){
 			var p = $(this).find("p");
 			var count = parseInt(p.html()) + 1;
 			p.html(count);
-			
+
 			var image = $(this).find("img");
 			image.add(p).fadeOut('slow',
 					function(){
@@ -278,7 +280,7 @@ function createElements(responseArray,name){
 			var p = $(this).find("p");
 			var count = parseInt(p.html()) + 1;
 			p.html(count);
-			
+
 			var image = $(this).find("img");
 			image.add(p).fadeOut('slow',
 					function(){
