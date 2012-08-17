@@ -90,8 +90,18 @@ function moveNews(){
 			websocket.send(more);
 		}
 
-		var canaryBottom = $(allNews[allNews.length-4]).position().top;
-
+		var canaryBottom = $(allNews[allNews.length-1]).position().top;
+		if(canaryTop == 1790){
+			console.log("ATTENTION! LOAD NEW NEWS");
+			var more = JSON.stringify
+			({
+				"kind":"more",
+				"displayID":  displayID,
+				"pos": "top"
+			});
+			console.log(more);
+			websocket.send(more);
+		}
 	}
 }
 
