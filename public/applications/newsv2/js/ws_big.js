@@ -165,6 +165,7 @@ function insertNews(response){
 				positionOfLast = currentPosition;
 			}
 		}
+		
 		if(i == 0){
 			currentNews.addClass("first");
 		}

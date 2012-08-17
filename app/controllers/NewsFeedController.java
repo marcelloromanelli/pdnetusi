@@ -261,7 +261,7 @@ public class NewsFeedController extends Controller {
 	}
 
 	public static JsonNode xmlToJSON(String feedURL) {
-		String baseURL = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=" + feedURL + "&num=50";
+		String baseURL = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=" + feedURL + "&num=10";
 		try {
 			URL url = new URL(baseURL);
 			URLConnection connection = url.openConnection();
