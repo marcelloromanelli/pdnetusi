@@ -149,7 +149,7 @@ function createElements(responseArray,name){
 					var pos = parent.position();
 					
 					// STOP AUTOMATIC MOVMENT
-					clearInterval(intervalVariable);
+					clearInterval(newsScroll);
 					// RESTART IT AFTER 15 seconds
 					setTimeout(function(){
 						newsScroll = setInterval(function(){moveNews()},9000);
