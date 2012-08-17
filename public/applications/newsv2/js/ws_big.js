@@ -124,13 +124,9 @@ function insertNews(response){
 	if (newsDivs.length < 10 && $(".news").length > 5){
 		if(response.pos == "bottom"){
 			console.log("RECYCLING NEWS AT THE TOP");
-			var top5 = $(".news").slice(0,9);
-			var newsDivs = top5;
-		} else if(response.pos == "top") {
-			console.log("RECYCLING NEWS AT THE BOTTOM");
 			var j = 0;
 			$(".news").each(function(index){
-				if(index > ($(".news").length - 11)){
+				if(index < 10){
 					var currentPosition = positionOfLast + total*j; 
 					$(this).css("top",currentPosition);
 					j++;
@@ -138,6 +134,8 @@ function insertNews(response){
 			});
 			
 			positionOfLast = positionOfLast + total*j; 
+		} else if(response.pos == "top") {
+			console.log("RECYCLING NEWS AT THE BOTTOM");
 		}
 	}
 	
