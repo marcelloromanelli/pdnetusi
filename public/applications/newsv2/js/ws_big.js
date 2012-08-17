@@ -69,9 +69,11 @@ function moveNews(){
 	//GET ALL THE NEWS
 	$(".news").animate({"top":"+="+total}, { duration: 1000, easing: "linear"});
 	// CHECK SAFTEY MARGINS
-	positionOfFirst = $($(".news")[0]).position.top;
 	//TOP - 4th element
 	var allNews = $(".news"); 
+	
+	positionOfFirst = $(allNews).position().top;
+	positionOfLast = $(allNews[allNews.length-1]).position().top;
 	if(allNews.length > 5){
 		var canaryTop = $(allNews[0]).position().top;
 		if(canaryTop == -1490){
