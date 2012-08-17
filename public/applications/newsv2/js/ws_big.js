@@ -136,7 +136,7 @@ function insertNews(response){
 	console.log(newsDivs);
 	
 	for (var i in newsDivs){
-		var currentNews = $(newsDivs[i]);
+		var currentNews = newsDivs[i];
 		
 		if(response.pos == "bottom"){
 			var currentPosition = positionOfLast + total*i; 
