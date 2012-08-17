@@ -173,8 +173,8 @@ img {
 	box-shadow: 10px -1px 15px rgba(0,0,0,0.6);
 }
 
-.social_tab:active {
-	box-shadow: 10px -1px 10px rgba(0,0,0,0.6);
+.social_tab:ACTIVE {
+	box-shadow: 7px 0px 10px rgba(0,0,0,0.7);
 }
 
 .social_tab.first {

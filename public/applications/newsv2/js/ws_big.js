@@ -60,8 +60,15 @@ $(function () {
 		console.log(evt.data); 
 	}; 
 
+	var newsScroll = setInterval(function(){moveNews()},7500);
 
 });
+
+function moveNews(){
+	//GET ALL THE NEWS
+	$(".news").animate({"top":"+="+total});
+	// CHECK SAFTEY MARGINS
+}
 
 function insertNews(response){
 	var culture = response.culture;
