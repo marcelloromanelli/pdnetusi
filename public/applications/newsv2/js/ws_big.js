@@ -128,8 +128,16 @@ function insertNews(response){
 			var newsDivs = top5;
 		} else if(response.pos == "top") {
 			console.log("RECYCLING NEWS AT THE BOTTOM");
-			var last5 = $(".news").slice(-10);
-			var newsDivs = last5;
+			var j = 0;
+			$(".news").each(function(index){
+				if(index > ($(".news").length - 11)){
+					var currentPosition = positionOfLast + total*j; 
+					$(this).css("top",currentPosition);
+					j++;
+				}
+			});
+			
+			positionOfLast = positionOfLast + total*j; 
 		}
 	}
 	
