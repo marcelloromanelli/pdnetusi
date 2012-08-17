@@ -66,7 +66,7 @@ $(function () {
 
 function moveNews(){
 	//GET ALL THE NEWS
-	$(".news").animate({"top":"+="+total});
+	$(".news").animate({"top":"+="+total}, { duration: "slow", easing: "easeInCirc"});
 	// CHECK SAFTEY MARGINS
 }
 
