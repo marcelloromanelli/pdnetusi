@@ -61,7 +61,7 @@ $(function () {
 		console.log(evt.data); 
 	}; 
 
-	newsScroll = setInterval(function(){moveNews()},3000);
+	newsScroll = setInterval(function(){moveNews()},6000);
 
 });
 
@@ -70,7 +70,7 @@ function moveNews(){
 
 	if(allNews.length > 4){
 		//GET ALL THE NEWS
-		$(".news").animate({"top":"+="+total}, { duration: 1000, easing: "linear"});
+		$(".news").animate({"top":"+="+total}, { duration: 3000, easing: "linear"});
 		// CHECK SAFTEY MARGINS
 		//TOP - 4th element
 
