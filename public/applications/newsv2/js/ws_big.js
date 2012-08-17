@@ -1,5 +1,5 @@
 //STYLE
-var lastPosition = -2060;
+var lastPosition = -2310;
 var newsHeight = 360;
 var space = 50;
 var total = space + newsHeight;
