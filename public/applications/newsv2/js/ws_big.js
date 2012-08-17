@@ -114,14 +114,14 @@ function insertNews(response){
 		 
 		
 		if(response.top == undefined || response.top == "bottom"){
-			var currentPosition = positionOfLast + total*i; 
+			var currentPosition = positionOfLast + total + total*i; 
 			$("body").append(currentNews);
 			currentNews.css("top",currentPosition);
 			if(i == newsDivs.length-1){
 				positionOfLast = currentPosition;
 			}
 		} else {
-			var currentPosition = positionOfFirst - total*i; 
+			var currentPosition = positionOfFirst - total - total*i; 
 			$("body").prepend(currentNews);
 			currentNews.css("top",currentPosition);
 			if(i == newsDivs.length-1){
