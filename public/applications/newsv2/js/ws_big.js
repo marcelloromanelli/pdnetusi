@@ -60,13 +60,13 @@ $(function () {
 		console.log(evt.data); 
 	}; 
 
-	var newsScroll = setInterval(function(){moveNews()},7500);
+	var newsScroll = setInterval(function(){moveNews()},8000);
 
 });
 
 function moveNews(){
 	//GET ALL THE NEWS
-	$(".news").animate({"top":"+="+total}, { duration: "slow", easing: "easeInCirc"});
+	$(".news").animate({"top":"+="+total}, { duration: 3000, easing: "linear"});
 	// CHECK SAFTEY MARGINS
 }
 
