@@ -148,10 +148,9 @@ function insertNews(response){
 			var currentPosition = 0;
 			var len = $(".news").length;
 			$(".news").slice(len-10,len).each(function(index){
-				$("body").prepend($(this));
-				$(this).attr("style","");
 				currentPosition = parseInt(positionOfFirst) - total*index; 
-				this.style.top = currentPosition + "px";
+				$(this).style("top", currentPosition + "px");
+				$("body").prepend($(this));
 				console.log($(this));
 			});
 			moveNews(true, $(".news"));
