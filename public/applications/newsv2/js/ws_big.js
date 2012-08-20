@@ -11,7 +11,8 @@ var currentRequestID = 0;
 var activeRequests = 0;
 
 var newsScroll = null;
-var NEWS_TIMEOUT = 2000;
+var NEWS_TIMEOUT = 1000;
+var SLIDE_SPEED = 500;
 
 function getUrlVars() {
 	"use strict";
@@ -73,7 +74,7 @@ function moveNews(goUp){
 	}
 	if(allNews.length > 4){
 		//GET ALL THE NEWS
-		allNews.animate(params, 1000, "swing",updateAndCheck());		
+		allNews.animate(params, SLIDE_SPEED, "swing",updateAndCheck());		
 	}
 }
 
@@ -212,15 +213,6 @@ function insertNews(response){
 	
 	newsScroll = setInterval(function(){moveNews(false)},NEWS_TIMEOUT);
 
-}
-
-function removeRequestsID(id){
-	if(activeRequests > 1){
-		console.log("Removing requestID-" + id);
-		var itemsToRemove = $(".requestID-" + id);
-		itemsToRemove.fadeOut(1500,function(){$(this).remove();});
-		activeRequests--;
-	}
 }
 
 
@@ -430,14 +422,5 @@ function fadeQR(event){
 		}
 		);
 	},25000);
-}
-
-function freeSpace(){
-	var free = JSON.stringify
-	({
-		"kind":"free",
-		"displayID":  displayID,
-	});
-	websocket.send(free);
 }
 
