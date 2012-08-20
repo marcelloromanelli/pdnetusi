@@ -155,7 +155,7 @@ function insertNews(response){
 				$("body").prepend($(this));
 				$(this).attr("style","");
 				currentPosition = parseInt(positionOfFirst) - total*index; 
-				$(this).css("top", currentPosition);
+				this.style.top = currentPosition + "px";
 				console.log($(this));
 			});
 			moveNews(true, $(".news"));
