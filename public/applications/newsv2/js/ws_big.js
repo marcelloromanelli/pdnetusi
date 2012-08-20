@@ -147,6 +147,8 @@ function insertNews(response){
 			console.log("RECYCLING NEWS AT THE BOTTOM");
 			var currentPosition = 0;
 			var len = $(".news").length;
+			$(".news").stop();
+
 			$(".news").slice(len-10,len).each(function(index){
 				currentPosition = parseInt(positionOfFirst) - total*index; 
 				console.log(currentPosition);
