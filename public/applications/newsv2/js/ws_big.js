@@ -141,7 +141,6 @@ function insertNews(response){
 			console.log("POS LAST: " + parseInt(positionOfLast));
 			
 			var j = 1;
-			$(".news").stop();
 			var currentPosition = 0;
 			$(".news").slice(0,10).each(function(index){
 					$(this).removeAttr('style');
@@ -165,7 +164,6 @@ function insertNews(response){
 	
 	console.log(newsDivs.length + " more news are being inserted!");
 	
-	$(".news").stop();
 	for (var i in newsDivs){
 		
 		var currentNews = newsDivs[i];
