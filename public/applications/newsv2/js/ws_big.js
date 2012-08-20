@@ -154,6 +154,7 @@ function insertNews(response){
 				currentPosition = parseInt(positionOfLast) - total*index; 
 				copy.css("top", currentPosition);
 				copy.appendTo("body");
+				console.log(copy);
 			});
 
 			positionOfFirst = currentPosition + "px";
