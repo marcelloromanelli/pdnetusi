@@ -11,8 +11,8 @@ var currentRequestID = 0;
 var activeRequests = 0;
 
 var newsScroll = null;
-var NEWS_TIMEOUT = 6000;
-var SLIDE_SPEED = 800;
+var NEWS_TIMEOUT = 2000;
+var SLIDE_SPEED = 150;
 
 function getUrlVars() {
 	"use strict";
@@ -73,7 +73,7 @@ function moveNews(goUp,allNews){
 	}
 	if(allNews.length > 4){
 		//GET ALL THE NEWS
-		allNews.animate(params, SLIDE_SPEED, "swing",updateAndCheck());		
+		$(".news").animate(params, SLIDE_SPEED, "linear",updateAndCheck());		
 	}
 }
 
@@ -136,7 +136,7 @@ function insertNews(response){
 
 			var currentPosition = 0;
 			$(".news").slice(0,10).each(function(index){
-				var clone = $(this).clone(true,false);
+				var clone = $(this).clone(true,true);
 				clone.attr("style","");
 				currentPosition = parseInt(positionOfLast) + total*index; 
 				clone.css("top", currentPosition);
@@ -152,13 +152,11 @@ function insertNews(response){
 			var currentPosition = 0;
 			var len = $(".news").length;
 			$(".news").slice(len-10,len).each(function(index){
-				var clone = $(this).clone(true,true);
-				clone.attr("style","");
+				$("body").prepend($(this));
+				$(this).attr("style","");
 				currentPosition = parseInt(positionOfFirst) - total*index; 
-				clone.css("top", currentPosition);
-				$("body").prepend(clone);
-				console.log(clone);
-				$(this).remove();
+				$(this).css("top", currentPosition);
+				console.log($(this));
 			});
 			moveNews(true, $(".news"));
 			positionOfFirst = currentPosition + "px";
