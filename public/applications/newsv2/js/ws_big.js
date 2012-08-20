@@ -142,9 +142,6 @@ function insertNews(response){
 				copy.appendTo("body");
 				
 				console.log(copy);
-				clearInterval(newsScroll);
-				newsScroll = setInterval(function(){moveNews(false)},NEWS_TIMEOUT);
-				
 			});
 
 			positionOfLast = currentPosition + "px";
