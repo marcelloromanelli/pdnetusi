@@ -154,16 +154,16 @@ function insertNews(response){
 			var currentPosition = 0;
 			var len = $(".news").length;
 			$(".news").slice(len-10,len).each(function(index){
-				var clone = $(this).clone(true,false);
+				var clone = $(this).clone(true,true);
 				clone.attr("style","");
-				currentPosition = parseInt(positionOfFirst) - total*(index-1); 
+				currentPosition = parseInt(positionOfFirst) - total*index; 
 				clone.css("top", currentPosition);
 				$("body").prepend(clone);
 				console.log(clone);
 				console.log("POS NEW: " + currentPosition + "px");
 				$(this).remove();
 			});
-
+			moveNews(true, $(".news"));
 			positionOfFirst = currentPosition + "px";
 			console.log("LAST POS: " + positionOfLast);
 		}
