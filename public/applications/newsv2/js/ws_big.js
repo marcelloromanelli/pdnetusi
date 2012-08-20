@@ -129,13 +129,14 @@ function insertNews(response){
 			
 			console.log("POS LAST: " + positionOfLast);
 			console.log("STOPPED")
-			
+			var j = 0;
 			$(".news").slice(0,10).each(function(index){
-					var currentPosition = positionOfLast + total*index; 
+					var currentPosition = positionOfLast + total*j; 
 					console.log("POS REC: " + currentPosition + "px");
 					$(this).css("top", '');
 					$(this).css("top", currentPosition + "px");
-					console.log($(this));				
+					console.log($(this));	
+					j++;
 			});
 			
 			positionOfLast = positionOfLast + total*j;
