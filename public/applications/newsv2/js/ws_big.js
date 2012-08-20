@@ -61,16 +61,20 @@ $(function () {
 		console.log(evt.data); 
 	}; 
 
-	newsScroll = setInterval(function(){moveNews()},6000);
+	newsScroll = setInterval(function(){moveNews(false)},6000);
 
 });
 
-function moveNews(){
+function moveNews(goUp){
 	var allNews = $(".news"); 
-
+	if(goUp){
+		var params = {"top":"+="+total};
+	} else {
+		var params = {"top":"-="+total}
+	}
 	if(allNews.length > 4){
 		//GET ALL THE NEWS
-		allNews.animate({"top":"-="+total}, 150,
+		allNews.animate(params, 150,
 				function(){
 						positionOfFirst = $(".news").get(0).style.top;
 						positionOfLast = $(".news").get(-1).style.top;
@@ -209,7 +213,7 @@ function insertNews(response){
 		return false;
 	});
 	
-	newsScroll = setInterval(function(){moveNews()},9000);
+	newsScroll = setInterval(function(){moveNews(false)},9000);
 
 }
 
@@ -222,10 +226,6 @@ function removeRequestsID(id){
 	}
 }
 
-function updateFirstandLastPositions(news){
-	positionOfFirst = $(news[0]).position().top;
-	positionOfLast = $(news[news.length-1]).position().top;
-}
 
 function createElements(responseArray,name){
 	var response = new Array();
@@ -247,34 +247,26 @@ function createElements(responseArray,name){
 					// RESTART IT AFTER 15 seconds
 					setTimeout(function(){
 						clearInterval(newsScroll);
-						newsScroll = setInterval(function(){moveNews()},9000);
+						newsScroll = setInterval(function(){moveNews(false)},9000);
 					},15000);
 					
 					checkIfNeedsMore();
 
 					if(parent.hasClass("first") && pos.top > 559){
-						$(".news").animate({"top":"-="+total});
-						updateFirstandLastPositions($(".news"));
-						checkIfNeedsMore();
+						moveNews(false);
 						return;
 					}
 
 					if(parent.hasClass("last") && pos.top < 559){
-						$(".news").animate({"top":"+="+total});
-						updateFirstandLastPositions($(".news"));
-						checkIfNeedsMore();
+						moveNews(true);
 						return;
 					}
 
 					if(pos.top > 559){
-						$(".news").animate({"top":"-="+total});
-						updateFirstandLastPositions($(".news"));
+						moveNews(true);
 					} else {
-						$(".news").animate({"top":"+="+total});
-						updateFirstandLastPositions($(".news"));
+						moveNews(false);
 					}
-
-
 				}
 		);
 
