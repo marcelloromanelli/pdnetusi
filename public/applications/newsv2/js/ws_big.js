@@ -138,10 +138,12 @@ function insertNews(response){
 
 			var currentPosition = 0;
 			$(".news").slice(0,10).each(function(index){
-				var clone = $(this).clone(true,true);
+				var clone = $(this).clone(true,false);
+				clone.attr("style","");
 				currentPosition = parseInt(positionOfLast) + total*index; 
 				clone.css("top", currentPosition);
 				$("body").append(clone);
+				console.log(clone);
 				console.log("POS NEW: " + currentPosition + "px");
 				$(this).remove();
 			});
