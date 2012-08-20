@@ -154,8 +154,11 @@ function insertNews(response){
 			
 			positionOfLast = currentPosition + "px";
 			
+			return;
+			
 		} else if(response.pos == "top") {
 			console.log("RECYCLING NEWS AT THE BOTTOM");
+			return;
 		}
 	}
 	
@@ -171,25 +174,25 @@ function insertNews(response){
 		}
 		
 		if(response.pos == "bottom"){
-			var currentPosition = positionOfLast + total*i; 
+			var currentPosition = parseInt(positionOfLast) + total*i; 
 			$("body").append(currentNews);
 			currentNews.css("top",currentPosition);
 			if(i == newsDivs.length-1){
-				positionOfLast = currentPosition;
+				positionOfLast = currentPosition + "px";
 			}
 		} else if(response.pos == "top"){
-			var currentPosition = positionOfFirst - total*i; 
+			var currentPosition = parseInt(positionOfFirst) - total*i; 
 			$("body").prepend(currentNews);
 			currentNews.css("top",currentPosition);
 			if(i == newsDivs.length-1){
-				positionOfFirst = currentPosition;
+				positionOfFirst = currentPosition + "px";
 			}
 		} else {
-			var currentPosition = positionOfLast + total*i; 
+			var currentPosition = parseInt(positionOfLast) + total*i; 
 			$("body").append(currentNews);
 			currentNews.css("top",currentPosition);
 			if(i == newsDivs.length-1){
-				positionOfLast = currentPosition;
+				positionOfLast = currentPosition + "px";
 			}
 		}
 		
