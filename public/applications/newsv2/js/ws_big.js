@@ -146,8 +146,7 @@ function insertNews(response){
 					currentPosition = parseInt(positionOfLast) + total*j; 
 					console.log("POS OLD: " + $(this).css("top") + "px");
 					console.log("POS NEW: " + currentPosition + "px");
-					$(this).css("top","");
-					$(this).css("top", currentPosition + "px");
+					this.style.top = currentPosition + "px";
 					console.log($(this));	
 					j++;
 			});
