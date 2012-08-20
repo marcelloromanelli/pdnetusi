@@ -131,6 +131,7 @@ function insertNews(response){
 			console.log("STOPPED")
 			var j = 0;
 			$(".news").slice(0,10).each(function(index){
+					$(this).stop();					
 					var currentPosition = positionOfLast + total*j; 
 					console.log("POS REC: " + currentPosition + "px");
 					$(this).css("top", '');
