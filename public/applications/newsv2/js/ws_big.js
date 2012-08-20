@@ -65,8 +65,7 @@ $(function () {
 
 });
 
-function moveNews(goUp){
-	var allNews = $(".news"); 
+function moveNews(goUp,allNews){ 
 	if(goUp){
 		var params = {"top":"+="+total};
 	} else {
@@ -225,7 +224,7 @@ function insertNews(response){
 		return false;
 	});
 
-	newsScroll = setInterval(function(){moveNews(false)},NEWS_TIMEOUT);
+	newsScroll = setInterval(function(){moveNews(false,$(".news"))},NEWS_TIMEOUT);
 
 }
 
@@ -251,24 +250,24 @@ function createElements(responseArray,name){
 					setTimeout(function(){
 						clearInterval(newsScroll);
 						newsScroll = setInterval(function(){
-							moveNews(false)
+							moveNews(false,$(".news"))
 						},NEWS_TIMEOUT);
 					},15000);
 
 					if(parent.hasClass("first") && pos.top > 559){
-						moveNews(false);
+						moveNews(false,$(".news"));
 						return;
 					}
 
 					if(parent.hasClass("last") && pos.top < 559){
-						moveNews(true);
+						moveNews(true,$(".news"));
 						return;
 					}
 
 					if(pos.top > 559){
-						moveNews(false);
+						moveNews(false,$(".news"));
 					} else {
-						moveNews(true);
+						moveNews(true,$(".news"));
 					}
 				}
 		);
