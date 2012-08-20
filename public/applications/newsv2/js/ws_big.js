@@ -73,9 +73,7 @@ function moveNews(goUp){
 	}
 	if(allNews.length > 4){
 		//GET ALL THE NEWS
-		isMooving = true;
-		allNews.animate(params, 1000, "swing",updateAndCheck());
-		
+		allNews.animate(params, 1000, "swing",updateAndCheck());		
 	}
 }
 
@@ -151,6 +149,8 @@ function insertNews(response){
 					console.log($(this));	
 					j++;
 			});
+			
+			moveNews(false);
 			
 			positionOfLast = currentPosition + "px";
 			
