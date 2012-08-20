@@ -140,17 +140,17 @@ function insertNews(response){
 			console.log("POS LAST: " + parseInt(positionOfLast));
 			console.log("STOPPED")
 			var j = 0;
-			$(".news").stop();					
+			$(".news").stop();
+			var currentPosition = 0;
 			$(".news").slice(0,10).each(function(index){
-					var currentPosition = parseInt(positionOfLast) + total*j; 
+					currentPosition = parseInt(positionOfLast) + total*j; 
 					console.log("POS REC: " + currentPosition + "px");
-					$(this).css("top", '');
 					$(this).css("top", currentPosition + "px");
 					console.log($(this));	
 					j++;
 			});
 			
-			positionOfLast = parseInt(positionOfLast) + total*j + "px";
+			positionOfLast = currentPosition + "px";
 			
 		} else if(response.pos == "top") {
 			console.log("RECYCLING NEWS AT THE BOTTOM");
