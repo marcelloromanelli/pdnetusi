@@ -70,7 +70,7 @@ function moveNews(){
 
 	if(allNews.length > 4){
 		//GET ALL THE NEWS
-		allNews.animate({"top":"-="+total}, 1000,
+		allNews.animate({"top":"-="+total}, 150,
 				function(){
 						positionOfFirst = $(".news").get(0).style.top;
 						positionOfLast = $(".news").get(-1).style.top;
@@ -249,19 +249,20 @@ function createElements(responseArray,name){
 						clearInterval(newsScroll);
 						newsScroll = setInterval(function(){moveNews()},9000);
 					},15000);
-
+					
+					checkIfNeedsMore();
 
 					if(parent.hasClass("first") && pos.top > 559){
 						$(".news").animate({"top":"-="+total});
 						updateFirstandLastPositions($(".news"));
-						checkIfNeedsMore($(".news"));
+						checkIfNeedsMore();
 						return;
 					}
 
 					if(parent.hasClass("last") && pos.top < 559){
 						$(".news").animate({"top":"+="+total});
 						updateFirstandLastPositions($(".news"));
-						checkIfNeedsMore($(".news"));
+						checkIfNeedsMore();
 						return;
 					}
 
@@ -273,7 +274,6 @@ function createElements(responseArray,name){
 						updateFirstandLastPositions($(".news"));
 					}
 
-					checkIfNeedsMore($(".news"));
 
 				}
 		);
