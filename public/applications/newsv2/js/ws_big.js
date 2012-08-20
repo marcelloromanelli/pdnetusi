@@ -133,7 +133,7 @@ function insertNews(response){
 			}
 	);
 
-	if (newsDivs.length < 10 && $(".news").length > 5){
+	if (newsDivs.length == 0 && $(".news").length > 5){
 		if(response.pos == "bottom"){
 			console.log("RECYCLING NEWS AT THE TOP");
 			
