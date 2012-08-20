@@ -153,7 +153,9 @@ function insertNews(response){
 				currentPosition = parseInt(positionOfFirst) - total*index; 
 				console.log(currentPosition);
 				$(this).css("top", currentPosition + "px");
-				console.log($(this));
+				console.log($(this).css("top"));
+				console.log(this.style.top);
+
 				$("body").prepend($(this));
 				console.log($(this));
 			});
