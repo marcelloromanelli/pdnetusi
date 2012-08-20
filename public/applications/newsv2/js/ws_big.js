@@ -83,7 +83,6 @@ function updateAndCheck(){
 	positionOfLast = $(".news").get(-1).style.top;
 	console.log("FIRST: " + positionOfFirst + " LAST: " + positionOfLast);
 	checkIfNeedsMore();
-	isMooving = false;
 }
 
 function checkIfNeedsMore(){
@@ -142,14 +141,16 @@ function insertNews(response){
 			var currentPosition = 0;
 			$(".news").slice(0,10).each(function(index){
 					$(this).removeAttr('style');
-					$(this).stop();
+					var clone = $(this).clone();
 					currentPosition = parseInt(positionOfLast) + total*index; 
+					clone.css("top", currentPosition);
+					$("body").append(clone);
 					console.log("POS NEW: " + currentPosition + "px");
-					this.style.top = currentPosition+"px";
-					console.log($(this));	
+					$(this).remove();
+					console.log(clone);	
 			});
 			
-			positionOfLast = $(".news").get(-1).style.top + "px";
+			positionOfLast = currentPosition + "px";
 			console.log("LAST POS: " + positionOfLast);
 		} else if(response.pos == "top") {
 			console.log("RECYCLING NEWS AT THE BOTTOM");
