@@ -129,8 +129,8 @@ function insertNews(response){
 
 			clearInterval(newsScroll);
 			console.log("STOPPED")
-			$(".news").each(function(index){
-				if(index < 10){
+			
+			$(".news").slice(0,10).each(function(index){
 					var currentPosition = positionOfLast + total*j; 
 					console.log("POS REC: " + currentPosition + "px");
 					$(this).css("top", '');
@@ -139,8 +139,10 @@ function insertNews(response){
 					j++;
 				}
 			});
+			
 			positionOfLast = positionOfLast + total*j;
 			newsScroll = setInterval(function(){moveNews()},9000);
+			
 		} else if(response.pos == "top") {
 			console.log("RECYCLING NEWS AT THE BOTTOM");
 		}
