@@ -151,7 +151,7 @@ function insertNews(response){
 			$(".news").slice(len-10,len).each(function(index){
 				var copy = $(this).clone(true);
 				$(this).detach();
-				currentPosition = parseInt(positionOfLast) - total*index; 
+				currentPosition = parseInt(positionOfFirst) - total*index; 
 				copy.css("top", currentPosition);
 				copy.appendTo("body");
 				console.log(copy);
