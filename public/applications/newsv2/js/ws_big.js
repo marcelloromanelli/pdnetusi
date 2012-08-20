@@ -137,12 +137,12 @@ function insertNews(response){
 		if(response.pos == "bottom"){
 			console.log("RECYCLING NEWS AT THE TOP");
 			
-			console.log("POS LAST: " + positionOfLast);
+			console.log("POS LAST: " + parseInt(positionOfLast));
 			console.log("STOPPED")
 			var j = 0;
 			$(".news").stop();					
 			$(".news").slice(0,10).each(function(index){
-					var currentPosition = positionOfLast + total*j; 
+					var currentPosition = parseInt(positionOfLast) + total*j; 
 					console.log("POS REC: " + currentPosition + "px");
 					$(this).css("top", '');
 					$(this).css("top", currentPosition + "px");
@@ -150,7 +150,7 @@ function insertNews(response){
 					j++;
 			});
 			
-			positionOfLast = positionOfLast + total*j;
+			positionOfLast = parseInt(positionOfLast) + total*j + "px";
 			
 		} else if(response.pos == "top") {
 			console.log("RECYCLING NEWS AT THE BOTTOM");
