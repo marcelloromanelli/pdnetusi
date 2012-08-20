@@ -70,10 +70,11 @@ function moveNews(){
 
 	if(allNews.length > 4){
 		//GET ALL THE NEWS
-		allNews.animate({"top":"-="+total}, { duration: 3000, easing: "linear"},
+		allNews.animate({"top":"-="+total}, { duration: 1500, easing: "swing"},
 				function(){
 						positionOfFirst = $(".news").get(0).style.top;
 						positionOfLast = $(".news").get(-1).style.top;
+						console.log("FIRST: " + positionOfFirst + " LAST: " + positionOfLast);
 						checkIfNeedsMore();
 					}
 			);
