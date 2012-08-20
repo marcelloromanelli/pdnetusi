@@ -11,6 +11,7 @@ var currentRequestID = 0;
 var activeRequests = 0;
 
 var newsScroll = null;
+var NEWS_TIMEOUT = 2000;
 
 function getUrlVars() {
 	"use strict";
@@ -61,8 +62,6 @@ $(function () {
 		console.log(evt.data); 
 	}; 
 
-	newsScroll = setInterval(function(){moveNews(false)},6000);
-
 });
 
 function moveNews(goUp){
@@ -74,6 +73,7 @@ function moveNews(goUp){
 	}
 	if(allNews.length > 4){
 		//GET ALL THE NEWS
+		isMooving = true;
 		allNews.animate(params, 1000, "swing",updateAndCheck());
 		
 	}
@@ -84,10 +84,11 @@ function updateAndCheck(){
 	positionOfLast = $(".news").get(-1).style.top;
 	console.log("FIRST: " + positionOfFirst + " LAST: " + positionOfLast);
 	checkIfNeedsMore();
+	isMooving = false;
 }
 
 function checkIfNeedsMore(){
-
+	
 	var canaryTop = $(".news").get(0).style.top;
 	if(canaryTop == "-1490px"){
 		console.log("ATTENTION! LOAD NEW NEWS");
@@ -218,7 +219,7 @@ function insertNews(response){
 		return false;
 	});
 	
-	newsScroll = setInterval(function(){moveNews(false)},9000);
+	newsScroll = setInterval(function(){moveNews(false)},NEWS_TIMEOUT);
 
 }
 
@@ -252,7 +253,9 @@ function createElements(responseArray,name){
 					// RESTART IT AFTER 15 seconds
 					setTimeout(function(){
 						clearInterval(newsScroll);
-						newsScroll = setInterval(function(){moveNews(false)},9000);
+						newsScroll = setInterval(function(){
+										moveNews(false)
+										},NEWS_TIMEOUT);
 					},15000);
 					
 					checkIfNeedsMore();
