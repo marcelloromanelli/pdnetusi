@@ -71,7 +71,7 @@ function moveNews(goUp){
 	} else {
 		var params = {"top":"-="+total}
 	}
-	if(allNews.length > 4){
+	if($(".news").length > 4){
 		//GET ALL THE NEWS
 		$(".news").animate(params, SLIDE_SPEED, "linear",updateAndCheck());		
 	}
