@@ -11,8 +11,8 @@ var currentRequestID = 0;
 var activeRequests = 0;
 
 var newsScroll = null;
-var NEWS_TIMEOUT = 1000;
-var SLIDE_SPEED = 500;
+var NEWS_TIMEOUT = 6000;
+var SLIDE_SPEED = 2000;
 
 function getUrlVars() {
 	"use strict";
