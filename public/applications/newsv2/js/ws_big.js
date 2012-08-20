@@ -11,8 +11,8 @@ var currentRequestID = 0;
 var activeRequests = 0;
 
 var newsScroll = null;
-var NEWS_TIMEOUT = 2000;
-var SLIDE_SPEED = 150;
+var NEWS_TIMEOUT = 3000;
+var SLIDE_SPEED = 800;
 
 function getUrlVars() {
 	"use strict";
@@ -149,7 +149,8 @@ function insertNews(response){
 			var len = $(".news").length;
 			$(".news").slice(len-10,len).each(function(index){
 				currentPosition = parseInt(positionOfFirst) - total*index; 
-				$(this).css("top", "1490px");
+				console.log(currentPosition);
+				$(this).css("top", "");
 				$(this).css("top", currentPosition + "px");
 				$("body").prepend($(this));
 				console.log($(this));
