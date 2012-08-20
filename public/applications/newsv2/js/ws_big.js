@@ -65,7 +65,7 @@ $(function () {
 
 });
 
-function moveNews(goUp,allNews){ 
+function moveNews(goUp){ 
 	if(goUp){
 		var params = {"top":"+="+total};
 	} else {
@@ -134,15 +134,17 @@ function insertNews(response){
 
 			var currentPosition = 0;
 			$(".news").slice(0,10).each(function(index){
-				var clone = $(this).clone(true, true);
-				$(this).remove();
+				var copy = $(this).clone(true);
+				$(this).detach();
 
 				currentPosition = parseInt(positionOfLast) + total*index; 
-				clone.attr("style","");
-				clone.css("top", currentPosition);
-				$("body").append(clone);
-
-				console.log(clone);
+				copy.css("top", currentPosition);
+				copy.appendTo("body");
+				
+				console.log(copy);
+				clearInterval(newsScroll);
+				newsScroll = setInterval(function(){moveNews(false)},NEWS_TIMEOUT);
+				
 			});
 
 			positionOfLast = currentPosition + "px";
@@ -223,7 +225,7 @@ function insertNews(response){
 		return false;
 	});
 
-	newsScroll = setInterval(function(){moveNews(false,$(".news"))},NEWS_TIMEOUT);
+	newsScroll = setInterval(function(){moveNews(false)},NEWS_TIMEOUT);
 
 }
 
@@ -249,24 +251,24 @@ function createElements(responseArray,name){
 					setTimeout(function(){
 						clearInterval(newsScroll);
 						newsScroll = setInterval(function(){
-							moveNews(false,$(".news"))
+							moveNews(false)
 						},NEWS_TIMEOUT);
 					},15000);
 
 					if(parent.hasClass("first") && pos.top > 559){
-						moveNews(false,$(".news"));
+						moveNews(false);
 						return;
 					}
 
 					if(parent.hasClass("last") && pos.top < 559){
-						moveNews(true,$(".news"));
+						moveNews(true);
 						return;
 					}
 
 					if(pos.top > 559){
-						moveNews(false,$(".news"));
+						moveNews(false);
 					} else {
-						moveNews(true,$(".news"));
+						moveNews(true);
 					}
 				}
 		);
