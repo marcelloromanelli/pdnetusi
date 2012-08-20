@@ -107,6 +107,8 @@ function checkIfNeedsMore(allNews){
 	}
 }
 function insertNews(response){
+	
+	clearInterval(newsScroll);
 
 	var culture = createElements(response.culture,"culture");
 	var hot = createElements(response.hot,"hot");
@@ -124,24 +126,19 @@ function insertNews(response){
 	if (newsDivs.length < 10 && $(".news").length > 5){
 		if(response.pos == "bottom"){
 			console.log("RECYCLING NEWS AT THE TOP");
-			var j = 0;
+			
 			console.log("POS LAST: " + positionOfLast);
-
-			clearInterval(newsScroll);
 			console.log("STOPPED")
 			
 			$(".news").slice(0,10).each(function(index){
-					var currentPosition = positionOfLast + total*j; 
+					var currentPosition = positionOfLast + total*index; 
 					console.log("POS REC: " + currentPosition + "px");
 					$(this).css("top", '');
 					$(this).css("top", currentPosition + "px");
-					console.log($(this));
-					j++;
-				}
+					console.log($(this));				
 			});
 			
 			positionOfLast = positionOfLast + total*j;
-			newsScroll = setInterval(function(){moveNews()},9000);
 			
 		} else if(response.pos == "top") {
 			console.log("RECYCLING NEWS AT THE BOTTOM");
@@ -202,6 +199,9 @@ function insertNews(response){
 	$("img").mousedown(function(){
 		return false;
 	});
+	
+	newsScroll = setInterval(function(){moveNews()},9000);
+
 }
 
 function removeRequestsID(id){
