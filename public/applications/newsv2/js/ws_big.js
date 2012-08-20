@@ -138,7 +138,7 @@ function insertNews(response){
 
 			var currentPosition = 0;
 			$(".news").slice(0,10).each(function(index){
-				var clone = $(this).clone();
+				var clone = $(this).clone(true,true);
 				currentPosition = parseInt(positionOfLast) + total*index; 
 				clone.css("top", currentPosition);
 				$("body").append(clone);
@@ -152,7 +152,7 @@ function insertNews(response){
 			console.log("RECYCLING NEWS AT THE BOTTOM");
 			var currentPosition = 0;			
 			$(".news").slice(-10).each(function(index){
-				var clone = $(this).clone();
+				var clone = $(this).clone(true,true);
 				currentPosition = parseInt(positionOfFirst) - total*index; 
 				clone.css("top", currentPosition);
 				$("body").prepend(clone);
