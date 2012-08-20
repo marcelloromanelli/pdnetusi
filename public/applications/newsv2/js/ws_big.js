@@ -152,8 +152,8 @@ function insertNews(response){
 			$(".news").slice(len-10,len).each(function(index){
 				currentPosition = parseInt(positionOfFirst) - total*index; 
 				console.log(currentPosition);
-				$(this).css("top", "");
 				$(this).css("top", currentPosition + "px");
+				console.log($(this));
 				$("body").prepend($(this));
 				console.log($(this));
 			});
