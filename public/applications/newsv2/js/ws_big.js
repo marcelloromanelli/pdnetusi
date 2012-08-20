@@ -143,10 +143,11 @@ function insertNews(response){
 			$(".news").stop();
 			var currentPosition = 0;
 			$(".news").slice(0,10).each(function(index){
+					$(this).removeAttr('style');
 					currentPosition = parseInt(positionOfLast) + total*j; 
 					console.log("POS OLD: " + $(this).css("top") + "px");
 					console.log("POS NEW: " + currentPosition + "px");
-					this.style.top = currentPosition + "px";
+					$(this).css("top",currentPosition+"px");
 					console.log($(this));	
 					j++;
 			});
