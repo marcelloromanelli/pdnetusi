@@ -124,7 +124,7 @@ function insertNews(response){
 	if (newsDivs.length < 10 && $(".news").length > 5){
 		if(response.pos == "bottom"){
 			console.log("RECYCLING NEWS AT THE TOP");
-			var j = 1;
+			var j = 0;
 			console.log("POS LAST: " + positionOfLast);
 
 			clearInterval(newsScroll);
@@ -135,13 +135,12 @@ function insertNews(response){
 					console.log("POS REC: " + currentPosition + "px");
 					$(this).css("top", '');
 					$(this).css("top", currentPosition + "px");
-					$(this).css("color","yellow");
 					console.log($(this));
 					j++;
 				}
 			});
-			
-			positionOfLast = positionOfLast + total*j; 
+			positionOfLast = positionOfLast + total*j;
+			newsScroll = setInterval(function(){moveNews()},9000);
 		} else if(response.pos == "top") {
 			console.log("RECYCLING NEWS AT THE BOTTOM");
 		}
@@ -173,7 +172,6 @@ function insertNews(response){
 				positionOfFirst = currentPosition;
 			}
 		} else {
-			console.log("DEFAULT");
 			var currentPosition = positionOfLast + total*i; 
 			$("body").append(currentNews);
 			currentNews.css("top",currentPosition);
