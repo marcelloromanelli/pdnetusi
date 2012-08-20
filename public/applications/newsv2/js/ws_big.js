@@ -129,8 +129,8 @@ function insertNews(response){
 			$(".news").each(function(index){
 				if(index < 10){
 					var currentPosition = positionOfLast + total*j; 
-					console.log("POS REC: " + currentPosition);
-					$(this).css("top",currentPosition);
+					console.log("POS REC: " + currentPosition + "px");
+					$(this).css("top",currentPosition + "px");
 					console.log($(this));
 					j++;
 				}
