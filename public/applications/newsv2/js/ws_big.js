@@ -133,6 +133,7 @@ function insertNews(response){
 					console.log("POS REC: " + currentPosition + "px");
 					$(this).css("top", '');
 					$(this).css("top", currentPosition + "px");
+					$(this).css("color","yellow");
 					console.log($(this));
 					j++;
 				}
