@@ -74,7 +74,7 @@ function moveNews(goUp){
 	}
 	if(allNews.length > 4){
 		//GET ALL THE NEWS
-		allNews.animate(params, 150,
+		allNews.animate(params, 1000, "swing",
 				function(){
 						positionOfFirst = $(".news").get(0).style.top;
 						positionOfLast = $(".news").get(-1).style.top;
