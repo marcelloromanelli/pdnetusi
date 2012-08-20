@@ -135,12 +135,14 @@ function insertNews(response){
 			var currentPosition = 0;
 			$(".news").slice(0,10).each(function(index){
 				var clone = $(this).clone(true, true);
-				$("body").append(clone);
+				$(this).remove();
+
 				currentPosition = parseInt(positionOfLast) + total*index; 
 				clone.attr("style","");
 				clone.css("top", currentPosition);
-				$(this).remove();
-				console.log($(clone));
+				$("body").append(clone);
+
+				console.log(clone);
 			});
 
 			positionOfLast = currentPosition + "px";
@@ -150,7 +152,6 @@ function insertNews(response){
 			var currentPosition = 0;
 			var len = $(".news").length;
 			
-			clearInterval(newsScroll);
 			$(".news").slice(len-10,len).each(function(index){
 				currentPosition = parseInt(positionOfFirst) - total*index; 
 				console.log(currentPosition);
@@ -161,7 +162,6 @@ function insertNews(response){
 				$("body").prepend($(this));
 				console.log($(this));
 			});
-			newsScroll = setInterval(function(){moveNews(false,$(".news"))},NEWS_TIMEOUT);
 
 			positionOfFirst = currentPosition + "px";
 			console.log("FIRST POS: " + positionOfFirst);
