@@ -126,19 +126,13 @@ function insertNews(response){
 			console.log("RECYCLING NEWS AT THE TOP");
 			var j = 1;
 			console.log("POS LAST: " + positionOfLast);
-			// STOP AUTOMATIC MOVMENT
-			clearInterval(newsScroll);
-			// RESTART IT AFTER 15 seconds
-			setTimeout(function(){
-				clearInterval(newsScroll);
-				newsScroll = setInterval(function(){moveNews()},9000);
-			},3000);
-			
+
 			$(".news").each(function(index){
 				if(index < 10){
 					var currentPosition = positionOfLast + total*j; 
 					console.log("POS REC: " + currentPosition + "px");
-					$(this).css({top: currentPosition + "px"});
+					$(this).css("top", '');
+					$(this).css("top", currentPosition + "px");
 					console.log($(this));
 					j++;
 				}
