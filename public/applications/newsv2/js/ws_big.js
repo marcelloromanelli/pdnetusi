@@ -125,9 +125,11 @@ function insertNews(response){
 		if(response.pos == "bottom"){
 			console.log("RECYCLING NEWS AT THE TOP");
 			var j = 0;
+			console.log("POS LAST: " + positionOfLast);
 			$(".news").each(function(index){
 				if(index < 10){
 					var currentPosition = positionOfLast + total*j; 
+					console.log("POS REC: " + currentPosition);
 					$(this).css("top",currentPosition);
 					j++;
 				}
