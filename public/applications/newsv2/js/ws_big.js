@@ -149,7 +149,8 @@ function insertNews(response){
 					console.log($(this));	
 					j++;
 			});
-						
+			
+			positionOfLast = currentPosition + "px";
 		} else if(response.pos == "top") {
 			console.log("RECYCLING NEWS AT THE BOTTOM");
 		}
