@@ -86,7 +86,7 @@ function updateAndCheck(){
 }
 
 function checkIfNeedsMore(){
-	
+
 	var canaryTop = $(".news").get(0).style.top;
 	if(canaryTop == "-1490px"){
 		console.log("ATTENTION! LOAD NEW NEWS");
@@ -116,7 +116,7 @@ function checkIfNeedsMore(){
 	}
 }
 function insertNews(response){
-	
+
 	clearInterval(newsScroll);
 
 	var culture = createElements(response.culture,"culture");
@@ -135,39 +135,47 @@ function insertNews(response){
 	if (newsDivs.length == 0 && $(".news").length > 5){
 		if(response.pos == "bottom"){
 			console.log("RECYCLING NEWS AT THE TOP");
-			
-			console.log("POS LAST: " + parseInt(positionOfLast));
-			
+
 			var currentPosition = 0;
 			$(".news").slice(0,10).each(function(index){
-					$(this).removeAttr('style');
-					var clone = $(this).clone();
-					currentPosition = parseInt(positionOfLast) + total*index; 
-					clone.css("top", currentPosition);
-					$("body").append(clone);
-					console.log("POS NEW: " + currentPosition + "px");
-					$(this).remove();
-					console.log(clone);	
+				var clone = $(this).clone();
+				currentPosition = parseInt(positionOfLast) + total*index; 
+				clone.css("top", currentPosition);
+				$("body").append(clone);
+				console.log("POS NEW: " + currentPosition + "px");
+				$(this).remove();
 			});
-			
+
 			positionOfLast = currentPosition + "px";
 			console.log("LAST POS: " + positionOfLast);
 		} else if(response.pos == "top") {
 			console.log("RECYCLING NEWS AT THE BOTTOM");
+			var currentPosition = 0;			
+			$(".news").slice(-10).each(function(index){
+				var clone = $(this).clone();
+				currentPosition = parseInt(positionOfFirst) - total*index; 
+				clone.css("top", currentPosition);
+				$("body").prepend(clone);
+				console.log("POS NEW: " + currentPosition + "px");
+				$(this).remove();
+			});
+
+			positionOfFirst = currentPosition + "px";
+			console.log("LAST POS: " + positionOfLast);
 		}
 	}
-	
+
 	console.log(newsDivs.length + " more news are being inserted!");
-	
+
 	for (var i in newsDivs){
-		
+
 		var currentNews = newsDivs[i];
 		if (currentNews instanceof jQuery){
-			
+
 		} else {
 			currentNews = $(currentNews);
 		}
-		
+
 		if(response.pos == "bottom"){
 			var currentPosition = parseInt(positionOfLast) + total*i; 
 			$("body").append(currentNews);
@@ -190,7 +198,7 @@ function insertNews(response){
 				positionOfLast = currentPosition + "px";
 			}
 		}
-		
+
 		if(i == 0){
 			currentNews.addClass("first");
 		}
@@ -211,7 +219,7 @@ function insertNews(response){
 	$("img").mousedown(function(){
 		return false;
 	});
-	
+
 	newsScroll = setInterval(function(){moveNews(false)},NEWS_TIMEOUT);
 
 }
@@ -238,10 +246,10 @@ function createElements(responseArray,name){
 					setTimeout(function(){
 						clearInterval(newsScroll);
 						newsScroll = setInterval(function(){
-										moveNews(false)
-										},NEWS_TIMEOUT);
+							moveNews(false)
+						},NEWS_TIMEOUT);
 					},15000);
-					
+
 					if(parent.hasClass("first") && pos.top > 559){
 						moveNews(false);
 						return;
