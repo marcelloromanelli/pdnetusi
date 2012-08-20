@@ -74,18 +74,17 @@ function moveNews(goUp){
 	}
 	if(allNews.length > 4){
 		//GET ALL THE NEWS
-		allNews.animate(params, 1000, "swing",
-				function(){
-						positionOfFirst = $(".news").get(0).style.top;
-						positionOfLast = $(".news").get(-1).style.top;
-						console.log("FIRST: " + positionOfFirst + " LAST: " + positionOfLast);
-						checkIfNeedsMore();
-					}
-			);
+		allNews.animate(params, 1000, "swing",updateAndCheck());
 		
 	}
 }
 
+function updateAndCheck(){
+	positionOfFirst = $(".news").get(0).style.top;
+	positionOfLast = $(".news").get(-1).style.top;
+	console.log("FIRST: " + positionOfFirst + " LAST: " + positionOfLast);
+	checkIfNeedsMore();
+}
 
 function checkIfNeedsMore(){
 
