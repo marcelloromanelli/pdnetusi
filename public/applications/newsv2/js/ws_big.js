@@ -153,7 +153,7 @@ function insertNews(response){
 				$(this).detach();
 				currentPosition = parseInt(positionOfFirst) - total*index; 
 				copy.css("top", currentPosition);
-				copy.appendTo("body");
+				copy.prependTo("body");
 				console.log(copy);
 			});
 
