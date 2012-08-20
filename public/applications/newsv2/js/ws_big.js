@@ -263,9 +263,9 @@ function createElements(responseArray,name){
 					}
 
 					if(pos.top > 559){
-						moveNews(true);
-					} else {
 						moveNews(false);
+					} else {
+						moveNews(true);
 					}
 				}
 		);
