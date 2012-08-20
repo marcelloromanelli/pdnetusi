@@ -85,7 +85,7 @@ function moveNews(){
 function checkIfNeedsMore(){
 
 	var canaryTop = $(".news").get(0).style.top;
-	if(canaryTop == -1490){
+	if(canaryTop == "-1490px"){
 		console.log("ATTENTION! LOAD NEW NEWS");
 		var more = JSON.stringify
 		({
@@ -100,7 +100,7 @@ function checkIfNeedsMore(){
 	var canaryBottom = $(".news").get(-1).style.top;
 	console.log(canaryBottom);
 
-	if(canaryBottom == 1790){
+	if(canaryBottom == "1790px"){
 		console.log("ATTENTION! LOAD NEW NEWS");
 		var more = JSON.stringify
 		({
