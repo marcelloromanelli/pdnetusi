@@ -72,8 +72,8 @@ function moveNews(){
 		//GET ALL THE NEWS
 		allNews.animate({"top":"-="+total}, { duration: 3000, easing: "linear"},
 				function(){
-						positionOfFirst = $(".news").get(0).position().top;
-						positionOfLast = $(".news").get(-1).position().top;
+						positionOfFirst = $(".news").get(0).style.top;
+						positionOfLast = $(".news").get(-1).style.top;
 						checkIfNeedsMore();
 					}
 			);
@@ -85,6 +85,7 @@ function moveNews(){
 function checkIfNeedsMore(){
 
 	var canaryTop = $(".news").get(0).style.top;
+	console.log(canaryTop;)
 	if(canaryTop == -1490){
 		console.log("ATTENTION! LOAD NEW NEWS");
 		var more = JSON.stringify
