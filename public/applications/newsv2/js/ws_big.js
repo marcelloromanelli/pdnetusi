@@ -127,6 +127,8 @@ function insertNews(response){
 			var j = 1;
 			console.log("POS LAST: " + positionOfLast);
 
+			clearInterval(newsScroll);
+			console.log("STOPPED")
 			$(".news").each(function(index){
 				if(index < 10){
 					var currentPosition = positionOfLast + total*j; 
@@ -145,7 +147,7 @@ function insertNews(response){
 		}
 	}
 	
-	console.log(newsDivs);
+	console.log(newsDivs.length + " more news are being inserted!");
 	
 	for (var i in newsDivs){
 		
