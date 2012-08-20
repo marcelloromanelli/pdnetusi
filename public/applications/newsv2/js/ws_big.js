@@ -152,13 +152,15 @@ function insertNews(response){
 			console.log("LAST POS: " + positionOfLast);
 		} else if(response.pos == "top") {
 			console.log("RECYCLING NEWS AT THE BOTTOM");
-			var currentPosition = 0;			
-			$(".news").slice(-10).each(function(index){
+			var currentPosition = 0;
+			var len = $(".news").length;
+			$(".news").slice(len-10,len).each(function(index){
 				var clone = $(this).clone(true,false);
 				clone.attr("style","");
 				currentPosition = parseInt(positionOfFirst) - total*index; 
 				clone.css("top", currentPosition);
 				$("body").prepend(clone);
+				console.log(clone);
 				console.log("POS NEW: " + currentPosition + "px");
 				$(this).remove();
 			});
