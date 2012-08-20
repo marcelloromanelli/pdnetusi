@@ -147,8 +147,8 @@ function insertNews(response){
 			console.log("RECYCLING NEWS AT THE BOTTOM");
 			var currentPosition = 0;
 			var len = $(".news").length;
-			$(".news").stop();
-
+			
+			clearInterval(newsScroll);
 			$(".news").slice(len-10,len).each(function(index){
 				currentPosition = parseInt(positionOfFirst) - total*index; 
 				console.log(currentPosition);
@@ -159,7 +159,8 @@ function insertNews(response){
 				$("body").prepend($(this));
 				console.log($(this));
 			});
-			moveNews(true, $(".news"));
+			newsScroll = setInterval(function(){moveNews(false,$(".news"))},NEWS_TIMEOUT);
+
 			positionOfFirst = currentPosition + "px";
 			console.log("FIRST POS: " + positionOfFirst);
 		}
