@@ -134,11 +134,13 @@ function insertNews(response){
 
 			var currentPosition = 0;
 			$(".news").slice(0,10).each(function(index){
-				$("body").append($(this));
-				$(this).attr("style","");
+				var clone = $(this).clone(true, true);
+				$("body").append(clone);
 				currentPosition = parseInt(positionOfLast) + total*index; 
-				$(this).css("top", currentPosition);
-				console.log($(this));
+				clone.attr("style","");
+				clone.css("top", currentPosition);
+				$(this).remove();
+				console.log($(clone));
 			});
 
 			positionOfLast = currentPosition + "px";
