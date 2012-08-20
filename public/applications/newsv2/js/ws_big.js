@@ -99,8 +99,6 @@ function checkIfNeedsMore(){
 	}
 
 	var canaryBottom = $(".news").get(-1).style.top;
-	console.log(canaryBottom);
-
 	if(canaryBottom == "1790px"){
 		console.log("ATTENTION! LOAD NEW NEWS");
 		var more = JSON.stringify
@@ -136,13 +134,11 @@ function insertNews(response){
 
 			var currentPosition = 0;
 			$(".news").slice(0,10).each(function(index){
-				var clone = $(this).clone(true,true);
-				clone.attr("style","");
+				$("body").append($(this));
+				$(this).attr("style","");
 				currentPosition = parseInt(positionOfLast) + total*index; 
-				clone.css("top", currentPosition);
-				$("body").append(clone);
-				console.log(clone);
-				$(this).remove();
+				$(this).css("top", currentPosition);
+				console.log($(this));
 			});
 
 			positionOfLast = currentPosition + "px";
@@ -160,6 +156,7 @@ function insertNews(response){
 			});
 			moveNews(true, $(".news"));
 			positionOfFirst = currentPosition + "px";
+			console.log("FIRST POS: " + positionOfFirst);
 		}
 	}
 
