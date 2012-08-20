@@ -258,8 +258,6 @@ function createElements(responseArray,name){
 										},NEWS_TIMEOUT);
 					},15000);
 					
-					checkIfNeedsMore();
-
 					if(parent.hasClass("first") && pos.top > 559){
 						moveNews(false);
 						return;
