@@ -144,7 +144,9 @@ function insertNews(response){
 			var currentPosition = 0;
 			$(".news").slice(0,10).each(function(index){
 					currentPosition = parseInt(positionOfLast) + total*j; 
-					console.log("POS REC: " + currentPosition + "px");
+					console.log("POS OLD: " + $(this).css("top") + "px");
+					console.log("POS NEW: " + currentPosition + "px");
+					$(this).css("top","");
 					$(this).css("top", currentPosition + "px");
 					console.log($(this));	
 					j++;
