@@ -149,7 +149,8 @@ function insertNews(response){
 			var len = $(".news").length;
 			$(".news").slice(len-10,len).each(function(index){
 				currentPosition = parseInt(positionOfFirst) - total*index; 
-				$(this).style("top", currentPosition + "px");
+				$(this).css("top", "1490px");
+				$(this).css("top", currentPosition + "px");
 				$("body").prepend($(this));
 				console.log($(this));
 			});
