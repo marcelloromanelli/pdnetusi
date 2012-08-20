@@ -154,7 +154,8 @@ function insertNews(response){
 			console.log("RECYCLING NEWS AT THE BOTTOM");
 			var currentPosition = 0;			
 			$(".news").slice(-10).each(function(index){
-				var clone = $(this).clone(true,true);
+				var clone = $(this).clone(true,false);
+				clone.attr("style","");
 				currentPosition = parseInt(positionOfFirst) - total*index; 
 				clone.css("top", currentPosition);
 				$("body").prepend(clone);
