@@ -130,8 +130,8 @@ function insertNews(response){
 				if(index < 10){
 					var currentPosition = positionOfLast + total*j; 
 					console.log("POS REC: " + currentPosition);
-					console.log($(this));
 					$(this).css("top",currentPosition);
+					console.log($(this));
 					j++;
 				}
 			});
