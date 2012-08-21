@@ -406,10 +406,12 @@ function createElements(responseArray,name){
 
 		socialShareDiv.click(
 				function(event){
-					console.log("CLICK CLICK CLICK!!!!!")
 					stopMovmentAndRestart(25000);
 
+					
+					console.log("CLICK CLICK CLICK!!!!!")
 
+					shareImg.attr("src","");
 					shareImg.effect("pulsate", { times:25 }, 1000);
 					$.getJSON('http://json-tinyurl.appspot.com/?url=' + currentNews.link + '&callback=?', function(data){ 
 						var oldImgSrc = null;
