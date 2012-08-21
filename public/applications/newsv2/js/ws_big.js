@@ -440,7 +440,7 @@ function createElements(responseArray,name){
 		
 		socialDiv.append(socialShareDiv);
 		
-		newsDiv.data("timestamp",)
+		newsDiv.data("timestamp", new Date().getTime());
 		response.push(newsDiv);
 	}
 
