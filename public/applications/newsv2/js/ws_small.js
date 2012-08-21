@@ -266,20 +266,20 @@ function createElements(responseArray,name){
 		);
 
 		// NEWS TITLE
-		var newsTitleDiv = $("<div class='news_title'>");
-		newsTitleDiv.html(currentNews.title);
-		newsTitleDiv.css("height","50px");
+//		var newsTitleDiv = $("<div class='news_title'>");
+//		newsTitleDiv.html(currentNews.title);
+//		newsTitleDiv.css("height","50px");
+//
+//		newsContainerDiv.append(newsTitleDiv);
 
-		newsContainerDiv.append(newsTitleDiv);
-
-		newsContainerDiv.append("<hr class='style' />");
+//		newsContainerDiv.append("<hr class='style' />");
 
 		// NEWS DESC
 		var newsDescDiv = $("<div class='news_desc'>");
 		newsDescDiv.css("height","230px");
-		newsDescDiv.html("<p>" +
-				(currentNews.content).replace(/(<([^>]+)>)/ig,"") +
-		"</p>");
+		newsDescDiv.html("<div class='news_title'>" +
+				(currentNews.title).replace(/(<([^>]+)>)/ig,"") +
+		"</div>");
 
 		newsContainerDiv.append(newsDescDiv);
 
