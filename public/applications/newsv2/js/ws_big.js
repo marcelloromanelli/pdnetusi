@@ -147,7 +147,7 @@ function insertNews(response){
 			console.log("RECYCLING NEWS AT THE BOTTOM");
 			var currentPosition = 0;
 			var len = $(".news").length;
-			
+
 			$(".news").slice(len-10,len).each(function(index){
 				var copy = $(this).clone(true);
 				$(this).detach();
@@ -221,6 +221,17 @@ function insertNews(response){
 
 }
 
+function stopMovmentAndRestart(seconds){
+	// STOP AUTOMATIC MOVMENT
+	clearInterval(newsScroll);
+	// RESTART IT AFTER x seconds
+	setTimeout(function(){
+		clearInterval(newsScroll);
+		newsScroll = setInterval(function(){
+			moveNews(false)
+		},NEWS_TIMEOUT);
+	},seconds);
+}
 
 function createElements(responseArray,name){
 	var response = new Array();
@@ -237,15 +248,7 @@ function createElements(responseArray,name){
 					var parent = $(this).parent();
 					var pos = parent.position();
 
-					// STOP AUTOMATIC MOVMENT
-					clearInterval(newsScroll);
-					// RESTART IT AFTER 15 seconds
-					setTimeout(function(){
-						clearInterval(newsScroll);
-						newsScroll = setInterval(function(){
-							moveNews(false)
-						},NEWS_TIMEOUT);
-					},15000);
+					stopMovmentAndRestart(15000);
 
 					if(parent.hasClass("first") && pos.top > 559){
 						moveNews(false);
@@ -281,7 +284,6 @@ function createElements(responseArray,name){
 		}
 
 		var src = $(currentNews.imgs[0]).attr("src");
-		// HACK FOR CDT
 		if(!/^\w+:/.test(src)){
 			src="http://panhandletickets.com/images/not_available.jpg";
 		}
@@ -322,28 +324,35 @@ function createElements(responseArray,name){
 		socialDiv.append(socialLikeDiv);
 
 		socialLikeDiv.click(function(){
-			var p = $(this).find("p");
-			var count = parseInt(p.html()) + 1;
-			p.html(count);
+
+			stopMovmentAndRestart(5000);
 
 			var image = $(this).find("img");
-			image.add(p).fadeOut('slow',
-					function(){
-				p.fadeOut();
-				image.attr("src","images/oneup.png");
-				image.fadeIn('slow');
-			}
-			);
+			if(!image.is(':animated')){
+				var p = $(this).find("p");
+				var count = parseInt(p.html()) + 1;
+				p.html(count);
 
-			setTimeout(function(){
-				image.fadeOut('slow',
+				image.add(p).fadeOut('slow',
 						function(){
-					p.fadeIn();
-					image.attr("src","images/up.png");
-					image.add(p).fadeIn('slow');
+					p.fadeOut();
+					image.attr("src","images/oneup.png");
+					image.fadeIn('slow');
 				}
 				);
-			},5000);
+
+				setTimeout(function(){
+					image.fadeOut('slow',
+							function(){
+						p.fadeIn();
+						image.attr("src","images/up.png");
+						image.add(p).fadeIn('slow');
+					}
+					);
+				},5000);
+			}
+
+
 		});
 
 		// DISLIKE
@@ -355,28 +364,34 @@ function createElements(responseArray,name){
 		socialDiv.append(socialDislikeDiv);
 
 		socialDislikeDiv.click(function(){
-			var p = $(this).find("p");
-			var count = parseInt(p.html()) + 1;
-			p.html(count);
-
+			stopMovmentAndRestart(5000);
 			var image = $(this).find("img");
-			image.add(p).fadeOut('slow',
-					function(){
-				p.fadeOut();
-				image.attr("src","images/onedown.png");
-				image.fadeIn('slow');
-			}
-			);
-
-			setTimeout(function(){
-				image.fadeOut('slow',
+			if(!image.is(':animated')){
+				var p = $(this).find("p");
+				var count = parseInt(p.html()) + 1;
+				p.html(count);
+				
+				image.add(p).fadeOut('slow',
 						function(){
-					p.fadeIn();
-					image.attr("src","images/down.png");
-					image.add(p).fadeIn('slow');
+					p.fadeOut();
+					image.attr("src","images/onedown.png");
+					image.fadeIn('slow');
 				}
 				);
-			},5000);
+
+				setTimeout(function(){
+					image.fadeOut('slow',
+							function(){
+						p.fadeIn();
+						image.attr("src","images/down.png");
+						image.add(p).fadeIn('slow');
+					}
+					);
+				},5000);
+			}
+
+
+			
 		});
 
 		// SHARE
@@ -406,6 +421,8 @@ function createElements(responseArray,name){
 }
 
 function fadeQR(event){
+	stopMovmentAndRestart(25000);
+
 	var share = event.data.share;
 	share.effect("pulsate", { times:25 }, 1000);
 	var qr = event.data.qr;
