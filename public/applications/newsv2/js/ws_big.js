@@ -134,7 +134,7 @@ function insertNews(response){
 
 			var currentPosition = 0;
 			$(".news").slice(0,10).each(function(index){
-				var copy = $(this).clone(true);
+				var copy = $(this).clone(true,true);
 				$(this).detach();
 				currentPosition = parseInt(positionOfLast) + total*index; 
 				copy.css("top", currentPosition);
@@ -149,7 +149,7 @@ function insertNews(response){
 			var len = $(".news").length;
 
 			$(".news").slice(len-10,len).each(function(index){
-				var copy = $(this).clone(true);
+				var copy = $(this).clone(true,true);
 				$(this).detach();
 				currentPosition = parseInt(positionOfFirst) - total*index; 
 				copy.css("top", currentPosition);
