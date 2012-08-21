@@ -308,28 +308,7 @@ function createElements(responseArray,name){
 		socialDiv.append(socialLikeDiv);
 
 		socialLikeDiv.click(function(){
-			var p = $(this).find("p");
-			var count = parseInt(p.html()) + 1;
-			p.html(count);
-
-			var image = $(this).find("img");
-			image.add(p).fadeOut('slow',
-					function(){
-				p.fadeOut();
-				image.attr("src","images/oneup.png");
-				image.fadeIn('slow');
-			}
-			);
-
-			setTimeout(function(){
-				image.fadeOut('slow',
-						function(){
-					p.fadeIn();
-					image.attr("src","images/up.png");
-					image.add(p).fadeIn('slow');
-				}
-				);
-			},5000);
+			 // TODO
 		});
 
 		// DISLIKE
@@ -392,27 +371,6 @@ function createElements(responseArray,name){
 }
 
 function fadeQR(event){
-	var share = event.data.share;
-	share.effect("pulsate", { times:25 }, 1000);
-	var qr = event.data.qr;
-	var img = event.data.img;
-	var oldImgSrc = null;
-
-	img.fadeOut('slow',
-			function(){
-		oldImgSrc = img.attr("src");
-		img.attr("src",qr);
-		img.fadeIn('slow');
-	}
-	);
-
-	setTimeout(function(){
-		img.fadeOut('slow',
-				function(){
-			img.attr("src",oldImgSrc);
-			img.fadeIn('slow');
-		}
-		);
-	},25000);
+	// TODO
 }
 
