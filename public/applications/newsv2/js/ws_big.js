@@ -373,7 +373,7 @@ function createElements(responseArray,name){
 				var p = $(this).find("p");
 				var count = parseInt(p.html()) + 1;
 				p.html(count);
-				
+
 				image.add(p).fadeOut('slow',
 						function(){
 					p.fadeOut();
@@ -395,7 +395,7 @@ function createElements(responseArray,name){
 			}
 
 
-			
+
 		});
 
 		// SHARE
@@ -404,9 +404,14 @@ function createElements(responseArray,name){
 		var shareImg = $("<img class='share' src='images/share.png' width='70px'></img>");		
 		socialShareDiv.append(shareImg);
 
+		var shorturl = null;
+		$.getJSON('http://json-tinyurl.appspot.com/?url=' + currentNews.link + '&callback=?', 
+				function(data){ 
+					shorturl = data.tinyurl; 
+				}
+		);
 
-
-		var qrImgSrc = "http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+currentNews.link+"&chld=H|0";
+		var qrImgSrc = "http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+shorturl+"&chld=H|0";
 
 		socialShareDiv.click(
 				{
