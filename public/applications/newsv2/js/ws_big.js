@@ -371,7 +371,7 @@ function createElements(responseArray,name){
 			if(!image.data("active")){
 				image.data("active", true);
 				var p = $(this).find("p");
-				var count = parseInt(p.html()) + 1;
+				var count = parseInt(p.html()) - 1;
 				p.html(count);
 
 				image.add(p).fadeOut('slow',
@@ -439,7 +439,8 @@ function createElements(responseArray,name){
 				});
 		
 		socialDiv.append(socialShareDiv);
-
+		
+		newsDiv.data("timestamp",)
 		response.push(newsDiv);
 	}
 
