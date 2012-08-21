@@ -106,7 +106,7 @@ img {
 }
 
 .news_desc {
-	margin-top: 0px;
+	margin-top: -30px;
 	font-size: 35px;
 	user-select: none;
 	-webkit-user-select: none;
@@ -114,25 +114,12 @@ img {
 	font-weight: bold;
 }
 
-.news_img {
-	float: left;
-	height: 210px;
-	width: 210px;
-	margin-right: 15px;
-	margin-top: 20px;
-	
-	background: none repeat scroll 0 0 #FFFFFF;
-    border: 1px solid #EEEEEE;
-    box-shadow: 1px 1px 1px #CCCCCC;
-    -webkit-box-shadow: 1px 1px 1px #CCCCCC;
-    padding: 5px;
-}
-
 .news_source{
 	float: right;
 	margin-top: 10px;
 	opacity: 0.3;
 	font-size: 13px;
+	text-overflow: ellipsis;
 }
 
 .category {
