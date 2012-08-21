@@ -328,7 +328,8 @@ function createElements(responseArray,name){
 			stopMovmentAndRestart(5000);
 
 			var image = $(this).find("img");
-			if(!image.is(':animated')){
+			if(!image.data("active")){
+				image.data("active", true);
 				var p = $(this).find("p");
 				var count = parseInt(p.html()) + 1;
 				p.html(count);
@@ -347,6 +348,7 @@ function createElements(responseArray,name){
 						p.fadeIn();
 						image.attr("src","images/up.png");
 						image.add(p).fadeIn('slow');
+						image.data("active", false);
 					}
 					);
 				},5000);
@@ -367,9 +369,7 @@ function createElements(responseArray,name){
 			stopMovmentAndRestart(5000);
 			var image = $(this).find("img");
 			if(!image.data("active")){
-				
 				image.data("active", true);
-				
 				var p = $(this).find("p");
 				var count = parseInt(p.html()) + 1;
 				p.html(count);
