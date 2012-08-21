@@ -413,23 +413,25 @@ function createElements(responseArray,name){
 					console.log("CLICK CLICK CLICK!!!!!")
 
 					$(this).find("img").effect("pulsate", { times:25 }, 1000);
+					var img = $(this).parent().parent().find(".news_container").find("img");
 					
 					$.getJSON('http://json-tinyurl.appspot.com/?url=' + currentNews.link + '&callback=?', function(data){ 
 						var oldImgSrc = null;
-						 $(this).parent().parent().find(".news_container").find("img").fadeOut('slow',
+						console.log(img);
+						img.fadeOut('slow',
 								function(){
 							console.log($(this));
 							oldImgSrc = img.attr("src");
-							$(this).attr("src","http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+data.tinyurl+"&chld=H|0");
-							$(this).fadeIn('slow');
+							img.attr("src","http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+data.tinyurl+"&chld=H|0");
+							img.fadeIn('slow');
 						}
 						);
 
 						setTimeout(function(){
-							$(this).parent().parent().find(".news_container").find("img").fadeOut('slow',
+							img.parent().parent().find(".news_container").find("img").fadeOut('slow',
 									function(){
-								$(this).attr("src",oldImgSrc);
-								$(this).fadeIn('slow');
+								img.attr("src",oldImgSrc);
+								img.fadeIn('slow');
 							}
 							);
 						},25000);
