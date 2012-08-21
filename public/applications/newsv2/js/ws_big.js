@@ -404,19 +404,10 @@ function createElements(responseArray,name){
 		var shareImg = $("<img class='share' src='images/share.png' width='70px'></img>");		
 		socialShareDiv.append(shareImg);
 
-		var shorturl = null;
-		$.getJSON('http://json-tinyurl.appspot.com/?url=' + currentNews.link + '&callback=?', 
-				function(data){ 
-					shorturl = data.tinyurl; 
-				}
-		);
-
-		var qrImgSrc = "http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+shorturl+"&chld=H|0";
-
 		socialShareDiv.click(
 				{
 					share: shareImg, 
-					qr: qrImgSrc, 
+					link: currentNews.link, 
 					img: newsImg
 				},
 				fadeQR);
@@ -432,27 +423,34 @@ function createElements(responseArray,name){
 function fadeQR(event){
 	stopMovmentAndRestart(25000);
 
+	
 	var share = event.data.share;
 	share.effect("pulsate", { times:25 }, 1000);
-	var qr = event.data.qr;
-	var img = event.data.img;
-	var oldImgSrc = null;
+	var link = event.data.link;
+	$.getJSON('http://json-tinyurl.appspot.com/?url=' + link + '&callback=?', 
+			function(data){ 
+				var img = event.data.img;
+				var oldImgSrc = null;
 
-	img.fadeOut('slow',
-			function(){
-		oldImgSrc = img.attr("src");
-		img.attr("src",qr);
-		img.fadeIn('slow');
-	}
+				img.fadeOut('slow',
+						function(){
+					oldImgSrc = img.attr("src");
+					img.attr("src","http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+data.tinyurl+"&chld=H|0";);
+					img.fadeIn('slow');
+				}
+				);
+
+				setTimeout(function(){
+					img.fadeOut('slow',
+							function(){
+						img.attr("src",oldImgSrc);
+						img.fadeIn('slow');
+					}
+					);
+				},25000);
+			}
 	);
-
-	setTimeout(function(){
-		img.fadeOut('slow',
-				function(){
-			img.attr("src",oldImgSrc);
-			img.fadeIn('slow');
-		}
-		);
-	},25000);
+	
+	
 }
 
