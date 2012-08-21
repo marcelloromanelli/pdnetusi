@@ -354,13 +354,13 @@ function createElements(responseArray,name){
 
 		var qrImgSrc = "http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+currentNews.link+"&chld=H|0";
 
-		socialShareDiv.click(
-				{
-					share: shareImg, 
-					qr: qrImgSrc, 
-					img: newsImg
-				},
-				fadeQR);
+//		socialShareDiv.click(
+//				{
+//					share: shareImg, 
+//					qr: qrImgSrc, 
+//					img: newsImg
+//				},
+//				fadeQR);
 
 		socialDiv.append(socialShareDiv);
 
