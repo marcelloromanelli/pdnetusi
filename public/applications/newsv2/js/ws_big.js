@@ -435,7 +435,7 @@ function fadeQR(event){
 				img.fadeOut('slow',
 						function(){
 					oldImgSrc = img.attr("src");
-					img.attr("src","http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+data.tinyurl+"&chld=H|0";);
+					img.attr("src","http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+data.tinyurl+"&chld=H|0");
 					img.fadeIn('slow');
 				}
 				);
