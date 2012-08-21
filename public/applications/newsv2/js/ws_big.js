@@ -403,8 +403,7 @@ function createElements(responseArray,name){
 		socialShareDiv.addClass(name);
 		var shareImg = $("<img class='share' src='images/share.png' width='70px'></img>");		
 		socialShareDiv.append(shareImg);
-
-		var link =  currentNews.link;
+		socialShareDiv.data("tiny",'http://json-tinyurl.appspot.com/?url=' + currentNews.link + '&callback=?')
 		socialShareDiv.click(
 				function(event){
 					stopMovmentAndRestart(25000);
@@ -415,7 +414,7 @@ function createElements(responseArray,name){
 					$(this).find("img").effect("pulsate", { times:25 }, 1000);
 					var img = $(this).parent().parent().find(".news_container").find("img");
 					
-					$.getJSON('http://json-tinyurl.appspot.com/?url=' + link + '&callback=?', function(data){ 
+					$.getJSON($(this).data("tiny"), function(data){ 
 						var oldImgSrc = null;
 						console.log(img);
 						img.fadeOut('slow',
