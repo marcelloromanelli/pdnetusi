@@ -366,8 +366,10 @@ function createElements(responseArray,name){
 		socialDislikeDiv.click(function(){
 			stopMovmentAndRestart(5000);
 			var image = $(this).find("img");
-			if(!image.is(':animated')){
-				var p = $(this).find("p");
+			image.data("active", true);
+			
+			var p = $(this).find("p");
+			if(!image.data("active")){
 				var count = parseInt(p.html()) + 1;
 				p.html(count);
 				
@@ -385,6 +387,7 @@ function createElements(responseArray,name){
 						p.fadeIn();
 						image.attr("src","images/down.png");
 						image.add(p).fadeIn('slow');
+						image.data("active", false);
 					}
 					);
 				},5000);
