@@ -402,7 +402,7 @@ function createElements(responseArray,name){
 		var socialShareDiv = $("<div class='social_tab last'>");
 		socialShareDiv.addClass(name);
 		var shareImg = $("<img class='share' src='images/share.png' width='70px'></img>");		
-		socialShareDiv.append(shareImg);
+		
 
 		socialShareDiv.click(
 				function(event){
@@ -433,7 +433,8 @@ function createElements(responseArray,name){
 					}
 					);
 				});
-
+		
+		socialShareDiv.append(shareImg);
 		socialDiv.append(socialShareDiv);
 
 		response.push(newsDiv);
