@@ -416,20 +416,20 @@ function createElements(responseArray,name){
 					
 					$.getJSON('http://json-tinyurl.appspot.com/?url=' + currentNews.link + '&callback=?', function(data){ 
 						var oldImgSrc = null;
-						var img = $(this).parent().parent().find(".news_container").find("img");
-						img.fadeOut('slow',
+						 $(this).parent().parent().find(".news_container").find("img").fadeOut('slow',
 								function(){
+							console.log($(this));
 							oldImgSrc = img.attr("src");
-							img.attr("src","http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+data.tinyurl+"&chld=H|0");
-							img.fadeIn('slow');
+							$(this).attr("src","http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+data.tinyurl+"&chld=H|0");
+							$(this).fadeIn('slow');
 						}
 						);
 
 						setTimeout(function(){
-							img.fadeOut('slow',
+							$(this).parent().parent().find(".news_container").find("img").fadeOut('slow',
 									function(){
-								img.attr("src",oldImgSrc);
-								img.fadeIn('slow');
+								$(this).attr("src",oldImgSrc);
+								$(this).fadeIn('slow');
 							}
 							);
 						},25000);
