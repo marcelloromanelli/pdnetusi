@@ -366,10 +366,11 @@ function createElements(responseArray,name){
 		socialDislikeDiv.click(function(){
 			stopMovmentAndRestart(5000);
 			var image = $(this).find("img");
-			image.data("active", true);
-			
-			var p = $(this).find("p");
 			if(!image.data("active")){
+				
+				image.data("active", true);
+				
+				var p = $(this).find("p");
 				var count = parseInt(p.html()) + 1;
 				p.html(count);
 				
