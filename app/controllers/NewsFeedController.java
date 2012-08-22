@@ -143,7 +143,7 @@ public class NewsFeedController extends Controller {
 
 							//								String username = event.get("username").asText();
 							JsonNode pref = Json.toJson(event.get("preference"));
-							
+
 							Sockets displaySockets = sockets.get(displayID);
 							Status displayStatus = statuses.get(displayID);
 
@@ -158,7 +158,7 @@ public class NewsFeedController extends Controller {
 
 							Status displayStatus = statuses.get(displayID);
 							Sockets displaySockets = sockets.get(displayID);
-							
+
 							ObjectNode temp = Json.newObject();
 							temp.put("hot", displayStatus.hot ? true : false);
 							temp.put("tech", displayStatus.tech ? true : false);
@@ -167,10 +167,13 @@ public class NewsFeedController extends Controller {
 							Logger.info(temp.toString());
 							ObjectNode response = createResponse(displayStatus, temp);
 							response.put("pos",event.get("pos").asText());
-							
-							displaySockets.small.write(response);
-							displaySockets.big.write(response);
-							
+
+							String from = event.get("from").asText();
+							if(from.equals("small")){
+								displaySockets.small.write(response);
+							} else if (from.equals("big")){
+								displaySockets.big.write(response);
+							}
 							Logger.info("JSON SENT TO THE DISPLAY!");
 
 						} else {
@@ -230,7 +233,7 @@ public class NewsFeedController extends Controller {
 	}
 
 	public static ObjectNode createResponse(Status status, JsonNode pref){
-		
+
 		Logger.info("TAKING NEWS FROM POOLS");
 		ObjectNode response = Json.newObject();
 
@@ -337,7 +340,7 @@ public class NewsFeedController extends Controller {
 				if(!isNew(pool, content)){
 					continue;
 				}
-//				Logger.info("new item of " + newsSource + " is being processed...");
+				//				Logger.info("new item of " + newsSource + " is being processed...");
 
 				String link = currentEntry.get("link").asText();
 				MicrosoftConditionalCommentTagTypes.register();
