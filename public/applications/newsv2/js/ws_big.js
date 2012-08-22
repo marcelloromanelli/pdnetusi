@@ -224,13 +224,10 @@ function insertNews(response){
 
 	if($(".news").length > 50){
 		$(".news").each(function(){
-			if($(".news").length < 50){
-				return false;
-			}
-
 			var eta =  new Date().getTime() - $(this).data("timestamp");
 			// Check if the news is older than 2min
-			if (eta > 1000*60*2){
+			var len = $(".news").length;
+			if (eta > 1000*60*2 && len > 50){
 				$(this).fadeOut(2000, function(){$(this).remove();})
 				console.log($(".news").length + " news remaining");
 			}
