@@ -231,11 +231,9 @@ function insertNews(response){
 			var eta =  new Date().getTime() - $(this).data("timestamp");
 			// Check if the news is older than 2min
 			if (eta > 1000*60*2){
-				console.log("REMOVING AN OLD NEWS")
 				$(this).fadeOut(2000, function(){$(this).remove();})
+				console.log($(".news").length + " news remaining");
 			}
-
-			console.log($(".news").length + " news remaining");
 		});
 	}
 
