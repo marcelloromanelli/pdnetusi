@@ -210,7 +210,6 @@ function insertNews(response){
 	activeRequests++;
 	currentRequestID++;
 
-	$(".news_title").dotdotdot({});
 	$(".news_desc").dotdotdot({});
 
 	$("img").mousedown(function(){

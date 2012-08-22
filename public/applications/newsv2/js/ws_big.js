@@ -113,22 +113,6 @@ function checkIfNeedsMore(){
 }
 function insertNews(response){
 
-	if($(".news").length > 50){
-		$(".news").each(function(){
-			var eta =  new Date().getTime() - $(this).data("timestamp");
-			// Check if the news is older than 2min
-			if (eta > 1000*60*2){
-				console.log("REMOVING AN OLD NEWS")
-				console.log($(this));
-				$(this).fadeOut(2000, function(){$(this).remove();})
-			}
-			
-			if($(".news").length < 50){
-				return;
-			}
-		});
-	}
-	
 	
 	clearInterval(newsScroll);
 
@@ -235,7 +219,22 @@ function insertNews(response){
 	});
 
 	newsScroll = setInterval(function(){moveNews(false)},NEWS_TIMEOUT);
-
+	
+	if($(".news").length > 50){
+		$(".news").each(function(){
+			var eta =  new Date().getTime() - $(this).data("timestamp");
+			// Check if the news is older than 2min
+			if (eta > 1000*60*2){
+				console.log("REMOVING AN OLD NEWS")
+				$(this).fadeOut(2000, function(){$(this).remove();})
+			}
+			
+			if($(".news").length < 50){
+				return;
+			}
+		});
+	}
+	
 }
 
 function stopMovmentAndRestart(seconds){
