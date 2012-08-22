@@ -92,7 +92,8 @@ function checkIfNeedsMore(){
 		({
 			"kind":"more",
 			"displayID":  displayID,
-			"pos": "top"
+			"pos": "top",
+			"from": "small"
 		});
 		console.log(more);
 		websocket.send(more);
