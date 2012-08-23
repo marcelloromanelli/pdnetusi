@@ -396,17 +396,17 @@ function createElements(responseArray,name){
 				var p = $(this).find("p");
 				var count = parseInt(p.html()) - 1;
 				p.html(count);
-				var countDiv = $("<div class='countBig'>" + count + "</div>");
 				
 				image.add(p).fadeOut('slow',
 						function(){
-							socialDiv.append(countDiv).hide().fadeIn(1000);
+							socialDiv.append("<div class='countBig'>" + count + "</div>");
 						}
 				);
 
 				setTimeout(function(){
-					countDiv.fadeOut('slow',
+					$(this).find(".countBig").fadeOut('slow',
 							function(){
+
 						image.add(p).fadeIn('slow');
 						image.data("active", false);
 					}
