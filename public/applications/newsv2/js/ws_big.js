@@ -396,20 +396,17 @@ function createElements(responseArray,name){
 				var p = $(this).find("p");
 				var count = parseInt(p.html()) - 1;
 				p.html(count);
-
+				var countDiv = $("<div class='countBig'>" + count + "</div>");
+				
 				image.add(p).fadeOut('slow',
 						function(){
-					p.fadeOut();
-					image.attr("src","images/onedown.png");
-					image.fadeIn('slow');
-				}
+							socialDiv.append(countDiv).hide().fadeIn(1000);
+						}
 				);
 
 				setTimeout(function(){
-					image.fadeOut('slow',
+					countDiv.fadeOut('slow',
 							function(){
-						p.fadeIn();
-						image.attr("src","images/down.png");
 						image.add(p).fadeIn('slow');
 						image.data("active", false);
 					}
