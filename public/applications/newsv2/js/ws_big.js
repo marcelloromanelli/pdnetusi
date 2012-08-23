@@ -297,7 +297,6 @@ function createElements(responseArray,name){
 
 		// NEWS IMG
 		var newsImg = $("<img class='news_img'>");
-		var src = null;
 		if(currentNews.imgs.length == 0){
 			var tiny = 'http://json-tinyurl.appspot.com/?url=' + currentNews.link + '&callback=?'
 
@@ -309,12 +308,11 @@ function createElements(responseArray,name){
 					src = "http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+
 					data.tinyurl+
 					"&chld=H|0"; 
-					console.log(src);
-					newsImg.attr("src",src);
 				},
 				async: false	
 			});
-
+			console.log(src);
+			newsImg.attr("src",src);
 		} else {
 
 			src = $(currentNews.imgs[0]).attr("src");
