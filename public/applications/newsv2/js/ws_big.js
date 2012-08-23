@@ -310,6 +310,9 @@ function createElements(responseArray,name){
 					data.tinyurl+
 					"&chld=H|0"; 
 				},
+				error: function(){
+					console.log("error");
+				},
 				async: false	
 			});
 			console.log(src);
