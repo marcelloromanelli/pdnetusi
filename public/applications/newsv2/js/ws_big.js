@@ -400,19 +400,18 @@ function createElements(responseArray,name){
 				p.fadeOut('fast');
 				image.fadeOut('slow',
 						function(){
-							$(this).parent().append("<div class='countBig'>" + count + "</div>");
-						}
+					$(this).parent().append("<div class='countBig'>" + count + "</div>");
+				}
 				);
 
 
 				var div = $(this);
 				setTimeout(function(){
 					console.log($(this));
-					div.find(".countBig").fadeOut('fast',
-							function(){
-								image.add(p).fadeIn('slow');
-								image.data("active", false);
-							}
+					div.find(".countBig").remove(function(){
+						image.add(p).fadeIn('slow');
+						image.data("active", false);
+					}
 					);
 				},2500);
 			}
