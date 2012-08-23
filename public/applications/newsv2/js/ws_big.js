@@ -301,7 +301,7 @@ function createElements(responseArray,name){
 		if(currentNews.imgs.length == 1){
 			src = currentNews.imgs[0];
 		} else {
-			src = $(currentNews.imgs[0]).attr("src");
+			src = $(currentNews.imgs[1]).attr("src");
 		}
 		
 		if(!/^\w+:/.test(src)){
