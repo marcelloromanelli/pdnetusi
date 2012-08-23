@@ -387,7 +387,7 @@ public class NewsFeedController extends Controller {
 						{
 							imgs.add(segment.toString());
 						} else {
-							//Logger.info("NOT APPROPRIATE \n" + "------------------------------------------------- \n");
+							Logger.info("NOT APPROPRIATE \n" + "------------------------------------------------- \n");
 						}
 					}
 				} catch (IOException e) {
