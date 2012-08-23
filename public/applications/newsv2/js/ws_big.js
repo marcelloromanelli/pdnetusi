@@ -404,7 +404,7 @@ function createElements(responseArray,name){
 				);
 
 				setTimeout(function(){
-					$(this).find(".countBig").fadeOut('slow',
+					$(this).parent().find(".countBig").fadeOut('slow',
 							function(){
 
 						image.add(p).fadeIn('slow');

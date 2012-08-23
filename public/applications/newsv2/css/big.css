@@ -205,6 +205,13 @@ img {
 	-webkit-user-select: none;
 }
 
+
+.countBig{
+	color: white;
+	font-size: 30px;
+	font-weight: bold;
+}
+
 .share {
 	clear: both;
 	margin-top: 15px;
