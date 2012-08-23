@@ -300,16 +300,18 @@ function createElements(responseArray,name){
 		var src = null;
 		if(currentNews.imgs.length == 0){
 			var tiny = 'http://json-tinyurl.appspot.com/?url=' + currentNews.link + '&callback=?'
-			
-			$.getJSON(tiny, 
-					function(data){ 
-				src = "http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+
-				data.tinyurl+
-				"&chld=H|0";
-			}
-			
-			
-			);
+
+			$.ajax({
+				type: 'GET',
+				url: tiny,
+				dataType: 'json',
+				success: function(data) { 
+					src = "http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+
+					data.tinyurl+
+					"&chld=H|0"; 
+				},
+				async: false	
+			});
 
 		}
 
