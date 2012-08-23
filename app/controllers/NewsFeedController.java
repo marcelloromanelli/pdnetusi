@@ -78,7 +78,7 @@ public class NewsFeedController extends Controller {
 
 	public static Integer TECH_ID = 0;
 	public static String[] TECH_SRC = {"http://www.engadget.com/rss.xml", "http://feeds.feedburner.com/ispazio", "http://feeds.wired.com/wired/index?format=xml"};
-	public static String[] TECH_SRC_IMGS = {"http://img.engadget.com/common/images/2768755886686308.JPG?0.6202710638260707", "http://userserve-ak.last.fm/serve/_/13831463/Wiredcom+wired_logo.gif"};
+	public static String[] TECH_SRC_IMGS = {"http://img.engadget.com/common/images/2768755886686308.JPG?0.6202710638260707","http://edibleapple.com/wp-content/uploads/2009/04/apple_rainbow_logo.jpeg", "http://userserve-ak.last.fm/serve/_/13831463/Wiredcom+wired_logo.gif"};
 	public static ArrayList<ObjectNode> TECH_POOL = new ArrayList<ObjectNode>();
 
 	public static Integer SPORT_ID = 0;
@@ -387,7 +387,7 @@ public class NewsFeedController extends Controller {
 						{
 							imgs.add(segment.toString());
 						} else {
-							Logger.info("NOT APPROPRIATE \n" + "------------------------------------------------- \n");
+
 						}
 					}
 				} catch (IOException e) {
