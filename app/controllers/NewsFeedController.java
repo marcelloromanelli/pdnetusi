@@ -118,7 +118,7 @@ public class NewsFeedController extends Controller {
 							if(!STARTED){
 								STARTED = true;
 								final ScheduledFuture<?> beeperHandle = 
-										scheduler.scheduleAtFixedRate(beeper, 10, 5, TimeUnit.MINUTES);
+										scheduler.scheduleAtFixedRate(beeper, 5, 300, SECONDS);
 								scheduler.schedule(new Runnable() {
 									public void run() { beeperHandle.cancel(true); }
 								}, 1, TimeUnit.DAYS);
