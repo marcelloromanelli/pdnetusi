@@ -232,7 +232,7 @@ function insertNews(response){
 			if (eta > 1000*60*2 && diff > 50){
 				rem += 1;
 				$(this).fadeOut(2000, function(){$(this).remove();})
-				console.log($(removed + " news have been removed"));
+				console.log(rem + " news have been removed");
 			}
 		});
 	}
