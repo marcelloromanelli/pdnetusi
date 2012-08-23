@@ -71,7 +71,7 @@ public class NewsFeedController extends Controller {
 	 * POOLS: hot, tech, sport, culture
 	 */
 	public static Integer HOT_ID = 0;
-	public static String[] HOT_SRC = {"http://ansa.feedsportal.com/c/34225/f/621689/index.rss", "http://rss.cnn.com/rss/edition.rss"};
+	public static String[] HOT_SRC = {"http://ansa.feedsportal.com/c/34225/f/621689/index.rss", "http://feeds.reuters.com/Reuters/worldNews?format=xml"};
 	public static ArrayList<ObjectNode> HOT_POOL = new ArrayList<ObjectNode>();
 
 	public static Integer TECH_ID = 0;
