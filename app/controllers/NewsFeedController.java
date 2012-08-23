@@ -71,19 +71,25 @@ public class NewsFeedController extends Controller {
 	 * POOLS: hot, tech, sport, culture
 	 */
 	public static Integer HOT_ID = 0;
+	
+	// ONE TO ONE CORRESPONDANCE WITH IMGS ARRAY
 	public static String[] HOT_SRC = {"http://ansa.feedsportal.com/c/34225/f/621689/index.rss"};
+	public static String[] HOT_SRC_IMGS = {"http://www.siamotuttialdopecora.org/wp-content/uploads/2012/03/ANSA_logo-618x618.png"};
 	public static ArrayList<ObjectNode> HOT_POOL = new ArrayList<ObjectNode>();
 
 	public static Integer TECH_ID = 0;
 	public static String[] TECH_SRC = {"http://www.engadget.com/rss.xml", "http://feeds.feedburner.com/ispazio", "http://feeds.wired.com/wired/index?format=xml"};
+	public static String[] TECH_SRC_IMGS = {"http://img.engadget.com/common/images/2768755886686308.JPG?0.6202710638260707", "http://userserve-ak.last.fm/serve/_/13831463/Wiredcom+wired_logo.gif"};
 	public static ArrayList<ObjectNode> TECH_POOL = new ArrayList<ObjectNode>();
 
 	public static Integer SPORT_ID = 0;
 	public static String[] SPORT_SRC = {"http://www.gazzetta.it/rss/Home.xml", "http://sports.espn.go.com/espn/rss/news"};
+	public static String[] SPORT_SRC_IMGS = {"http://forzaitalianfootball.com/wp-content/uploads/2011/07/gazzetta-dello-sport-logo.png", "http://960kgkl.com/files/2012/05/espn_logo11.jpg"};
 	public static ArrayList<ObjectNode> SPORT_POOL = new ArrayList<ObjectNode>();
 
 	public static Integer CULTURE_ID = 0;
 	public static String[] CULTURE_SRC = {"http://feeds.feedburner.com/ilblogdeilibri?format=xml", "http://feeds2.feedburner.com/slashfilm"};
+	public static String[] CULTURE_SRC_IMGS = {"http://www.ilblogdeilibri.com/wp-content/uploads/libri-da-gustare.jpg", "http://kaispace.files.wordpress.com/2010/09/slashfilm.jpg"};
 	public static ArrayList<ObjectNode> CULTURE_POOL = new ArrayList<ObjectNode>();
 
 	public static boolean STARTED = false;
@@ -296,10 +302,10 @@ public class NewsFeedController extends Controller {
 	 */
 	public static void updatePools() {		
 		try {
-			extractInformations(HOT_SRC, HOT_POOL);
-			extractInformations(TECH_SRC, TECH_POOL);
-			extractInformations(SPORT_SRC, SPORT_POOL);
-			extractInformations(CULTURE_SRC, CULTURE_POOL);
+			extractInformations(HOT_SRC, HOT_POOL, HOT_SRC_IMGS);
+			extractInformations(TECH_SRC, TECH_POOL, TECH_SRC_IMGS);
+			extractInformations(SPORT_SRC, SPORT_POOL, SPORT_SRC_IMGS);
+			extractInformations(CULTURE_SRC, CULTURE_POOL, CULTURE_SRC_IMGS);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
@@ -320,8 +326,8 @@ public class NewsFeedController extends Controller {
 		return true;
 	}
 
-	public static void extractInformations(String[] feeds, ArrayList<ObjectNode> pool) throws MalformedURLException {		
-
+	public static void extractInformations(String[] feeds, ArrayList<ObjectNode> pool, String[] imgSrc) throws MalformedURLException {		
+		int index = 0;
 		for (String feed : feeds){
 			JsonNode jsonFeed = xmlToJSON(feed).get("responseData").get("feed");
 			String newsSource = jsonFeed.get("title").asText();
@@ -349,6 +355,7 @@ public class NewsFeedController extends Controller {
 				MasonTagTypes.register();
 				Source source;
 				ArrayList<String> imgs = new ArrayList<String>();
+				imgs.add(imgSrc[index]);
 				try {
 					source = new Source(new URL(link));
 					List<Element> elementList = source.getAllElements(HTMLElementName.IMG);
@@ -395,7 +402,7 @@ public class NewsFeedController extends Controller {
 				currentNews.put("imgs", Json.toJson(imgs));
 
 				pool.add(currentNews);
-
+				index++;
 			}
 		}
 	}
