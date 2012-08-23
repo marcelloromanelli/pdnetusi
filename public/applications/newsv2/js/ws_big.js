@@ -399,7 +399,7 @@ function createElements(responseArray,name){
 				
 				image.add(p).fadeOut('slow',
 						function(){
-							socialDiv.append("<div class='countBig'>" + count + "</div>");
+							$(this).parent().append("<div class='countBig'>" + count + "</div>");
 						}
 				);
 
