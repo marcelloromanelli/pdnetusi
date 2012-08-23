@@ -71,7 +71,7 @@ function moveNews(goUp){
 	} else {
 		var params = {"top":"-="+total}
 	}
-	if($(".news").length > 4){
+	if($(".news").length > 10){
 		//GET ALL THE NEWS
 		$(".news").animate(params, SLIDE_SPEED, "linear",updateAndCheck());		
 	}
@@ -223,13 +223,15 @@ function insertNews(response){
 	newsScroll = setInterval(function(){moveNews(false)},NEWS_TIMEOUT);
 
 	if($(".news").length > 50){
+		var removed = 0;
+		var len = $(".news").length;
 		$(".news").each(function(){
 			var eta =  new Date().getTime() - $(this).data("timestamp");
 			// Check if the news is older than 2min
-			var len = $(".news").length;
-			if (eta > 1000*60*2 && len > 50){
+			if (eta > 1000*60*2 && (len-removed) > 50){
 				$(this).fadeOut(2000, function(){$(this).remove();})
-				console.log($(".news").length + " news remaining");
+				console.log($(removed + " news have been removed");
+				removed++;
 			}
 		});
 	}
