@@ -297,6 +297,7 @@ function createElements(responseArray,name){
 
 		// NEWS IMG
 		var newsImg = $("<img class='news_img'>");
+		var src = 'NOT SET';
 		if(currentNews.imgs.length == 0){
 			var tiny = 'http://json-tinyurl.appspot.com/?url=' + currentNews.link + '&callback=?'
 
