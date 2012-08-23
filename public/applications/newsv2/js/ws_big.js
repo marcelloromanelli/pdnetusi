@@ -309,14 +309,15 @@ function createElements(responseArray,name){
 					src = "http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+
 					data.tinyurl+
 					"&chld=H|0"; 
+					console.log(src);
+					newsImg.attr("src",src);
 				},
 				error: function(){
 					console.log("error");
 				},
 				async: false	
 			});
-			console.log(src);
-			newsImg.attr("src",src);
+			
 		} else {
 
 			src = $(currentNews.imgs[0]).attr("src");
