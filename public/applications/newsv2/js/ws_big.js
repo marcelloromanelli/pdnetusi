@@ -11,8 +11,8 @@ var currentRequestID = 0;
 var activeRequests = 0;
 
 var newsScroll = null;
-var NEWS_TIMEOUT = 7000;
-var SLIDE_SPEED = 3500;
+var NEWS_TIMEOUT = 6000;
+var SLIDE_SPEED = 2500;
 
 function getUrlVars() {
 	"use strict";
@@ -246,7 +246,7 @@ function stopMovmentAndRestart(seconds){
 	setTimeout(function(){
 		clearInterval(newsScroll);
 		newsScroll = setInterval(function(){
-			moveNews(false)
+			moveNews(false,SLIDE_SPEED);
 		},NEWS_TIMEOUT);
 	},seconds);
 }
