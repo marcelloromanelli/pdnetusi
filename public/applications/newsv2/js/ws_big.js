@@ -408,11 +408,9 @@ function createElements(responseArray,name){
 				var div = $(this);
 				setTimeout(function(){
 					console.log($(this));
-					div.find(".countBig").remove(function(){
-						image.add(p).fadeIn('slow');
-						image.data("active", false);
-					}
-					);
+					div.find(".countBig").remove();
+					image.add(p).fadeIn('slow');
+					image.data("active", false);
 				},2500);
 			}
 
