@@ -345,7 +345,8 @@ public class NewsFeedController extends Controller {
 				if(!isNew(pool, content)){
 					continue;
 				}
-				//				Logger.info("new item of " + newsSource + " is being processed...");
+				
+				Logger.info("new item of " + newsSource + " is being processed...");
 
 				String link = currentEntry.get("link").asText();
 				MicrosoftConditionalCommentTagTypes.register();
@@ -401,8 +402,9 @@ public class NewsFeedController extends Controller {
 				currentNews.put("imgs", Json.toJson(imgs));
 
 				pool.add(currentNews);
-				index++;
+				
 			}
+			index++;
 		}
 	}
 
