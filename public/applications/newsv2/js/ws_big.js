@@ -231,7 +231,7 @@ function insertNews(response){
 			if (eta > 1000*60*2 && (len-removed) > 50){
 				$(this).fadeOut(2000, function(){$(this).remove();})
 				console.log($(removed + " news have been removed");
-				removed++;
+				removed += 1;
 			}
 		});
 	}
