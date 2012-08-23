@@ -303,7 +303,14 @@ function createElements(responseArray,name){
 
 		var src = $(currentNews.imgs[0]).attr("src");
 		if(!/^\w+:/.test(src)){
-			src="http://panhandletickets.com/images/not_available.jpg";
+			var tiny = 'http://json-tinyurl.appspot.com/?url=' + currentNews.link + '&callback=?'
+			$.getJSON(tiny, 
+					function(data){ 
+						src = "http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+
+							  data.tinyurl+
+							  "&chld=H|0";
+					}
+			);
 		}
 		newsImg.attr("src",src);
 		newsContainerDiv.append(newsImg);
