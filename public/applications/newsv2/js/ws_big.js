@@ -299,24 +299,9 @@ function createElements(responseArray,name){
 		var newsImg = $("<img class='news_img'>");
 		var src = 'NOT SET';
 		if(currentNews.imgs.length == 0){
-			var tiny = 'http://json-tinyurl.appspot.com/?url=' + currentNews.link + '&callback=?'
-
-			$.ajax({
-				type: 'GET',
-				url: tiny,
-				dataType: 'json',
-				success: function(data) { 
-					src = "http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+
-					data.tinyurl+
-					"&chld=H|0"; 
-					console.log(src);
-					newsImg.attr("src",src);
-				},
-				error: function(){
-					console.log("error");
-				},
-				async: false	
-			});
+			src = "http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+
+			currentNews.linkl+
+			"&chld=H|0"; 
 			
 		} else {
 
@@ -331,8 +316,10 @@ function createElements(responseArray,name){
 				}
 				);
 			}
-			newsImg.attr("src",src);
 		}
+		
+		newsImg.attr("src",src);
+
 		newsContainerDiv.append(newsImg);
 
 		// NEWS DESC
