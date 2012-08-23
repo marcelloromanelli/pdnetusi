@@ -303,7 +303,7 @@ function createElements(responseArray,name){
 		} else {
 			src = $(currentNews.imgs[1]).attr("src");
 		}
-		
+
 		if(!/^\w+:/.test(src)){
 			src = currentNews.imgs[0];
 		}
@@ -396,12 +396,15 @@ function createElements(responseArray,name){
 				var p = $(this).find("p");
 				var count = parseInt(p.html()) - 1;
 				p.html(count);
-				
-				image.add(p).fadeOut('slow',
+
+				p.fadeOut('fast');
+				image.fadeOut('slow',
 						function(){
 							$(this).parent().append("<div class='countBig'>" + count + "</div>");
 						}
 				);
+
+
 
 				setTimeout(function(){
 					$(this).parent().find(".countBig").fadeOut('slow',
