@@ -69,10 +69,9 @@ public class NewsFeedController extends Controller {
 
 	/**
 	 * POOLS: hot, tech, sport, culture
+	 * ONE TO ONE CORRESPONDANCE WITH IMGS ARRAY
 	 */
 	public static Integer HOT_ID = 0;
-	
-	// ONE TO ONE CORRESPONDANCE WITH IMGS ARRAY
 	public static String[] HOT_SRC = {"http://ansa.feedsportal.com/c/34225/f/621689/index.rss"};
 	public static String[] HOT_SRC_IMGS = {"http://www.siamotuttialdopecora.org/wp-content/uploads/2012/03/ANSA_logo-618x618.png"};
 	public static ArrayList<ObjectNode> HOT_POOL = new ArrayList<ObjectNode>();
@@ -119,7 +118,7 @@ public class NewsFeedController extends Controller {
 							if(!STARTED){
 								STARTED = true;
 								final ScheduledFuture<?> beeperHandle = 
-										scheduler.scheduleAtFixedRate(beeper, 10, 60, SECONDS);
+										scheduler.scheduleAtFixedRate(beeper, 10, 5, TimeUnit.MINUTES);
 								scheduler.schedule(new Runnable() {
 									public void run() { beeperHandle.cancel(true); }
 								}, 1, TimeUnit.DAYS);
