@@ -298,7 +298,16 @@ function createElements(responseArray,name){
 		// NEWS IMG
 		var newsImg = $("<img class='news_img'>");
 		if(currentNews.imgs.length == 0){
-			newsImg.attr("src","http://panhandletickets.com/images/not_available.jpg");
+			var tiny = 'http://json-tinyurl.appspot.com/?url=' + currentNews.link + '&callback=?'
+			$.getJSON(tiny, 
+					function(data){ 
+				src = "http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+
+				data.tinyurl+
+				"&chld=H|0";
+				newsImg.attr("src",	src);
+			}
+			);
+
 		}
 
 		var src = $(currentNews.imgs[0]).attr("src");
@@ -306,10 +315,10 @@ function createElements(responseArray,name){
 			var tiny = 'http://json-tinyurl.appspot.com/?url=' + currentNews.link + '&callback=?'
 			$.getJSON(tiny, 
 					function(data){ 
-						src = "http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+
-							  data.tinyurl+
-							  "&chld=H|0";
-					}
+				src = "http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+
+				data.tinyurl+
+				"&chld=H|0";
+			}
 			);
 		}
 		newsImg.attr("src",src);
