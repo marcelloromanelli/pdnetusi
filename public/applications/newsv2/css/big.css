@@ -208,8 +208,9 @@ img {
 
 .countBig{
 	color: white;
-	font-size: 45px;
+	font-size: 55px;
 	font-weight: bold;
+	text-align: center;
 }
 
 .share {
