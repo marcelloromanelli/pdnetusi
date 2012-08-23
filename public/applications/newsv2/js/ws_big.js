@@ -223,15 +223,16 @@ function insertNews(response){
 	newsScroll = setInterval(function(){moveNews(false)},NEWS_TIMEOUT);
 
 	if($(".news").length > 50){
-		var removed = 0;
+		var rem = 0;
 		var len = $(".news").length;
 		$(".news").each(function(){
 			var eta =  new Date().getTime() - $(this).data("timestamp");
 			// Check if the news is older than 2min
-			if (eta > 1000*60*2 && (len-removed) > 50){
+			var diff = len - rem;
+			if (eta > 1000*60*2 && diff > 50){
+				rem += 1;
 				$(this).fadeOut(2000, function(){$(this).remove();})
 				console.log($(removed + " news have been removed");
-				removed += 1;
 			}
 		});
 	}
