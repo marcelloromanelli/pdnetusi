@@ -405,16 +405,17 @@ function createElements(responseArray,name){
 				);
 
 
-
+				var div = $(this);
 				setTimeout(function(){
-					$(this).parent().find(".countBig").fadeOut('slow',
+					console.log($(this));
+					div.find(".countBig").fadeOut('slow',
 							function(){
-
+					
 						image.add(p).fadeIn('slow');
 						image.data("active", false);
 					}
 					);
-				},5000);
+				},2500);
 			}
 
 
