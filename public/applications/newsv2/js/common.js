@@ -259,9 +259,9 @@ function swapImgWithQR(event){
 						function(){
 					img.attr("src",oldImgSrc);
 					img.fadeIn('slow');
-				}
-				img.parent().parent().find(".news_container").data("active",false);
+					}
 				);
+				img.parent().parent().find(".news_container").data("active",false);
 			},25000);
 
 		} else {
