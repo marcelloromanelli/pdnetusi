@@ -141,7 +141,7 @@ function createElements(responseArray,name){
 		var shareImg = $("<img class='share' src='images/share.png' width='70px'></img>");		
 		socialShareDiv.append(shareImg);
 		socialShareDiv.data("tiny",'http://json-tinyurl.appspot.com/?url=' + currentNews.link + '&callback=?')
-		socialShareDiv.click(swapImgWithQR);
+		socialShareDiv.click({isBig: false},swapImgWithQR);
 		socialDiv.append(socialShareDiv);
 		newsDiv.data("timestamp", new Date().getTime());
 		response.push(newsDiv);
