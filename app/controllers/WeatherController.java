@@ -47,6 +47,9 @@ public class WeatherController extends Controller {
 	public static HashMap<String,ArrayList<String>> activeCities = new HashMap<String, ArrayList<String>>();
 
 	public static HashMap<WebSocket.Out<JsonNode>,String> out2ID = new HashMap<WebSocket.Out<JsonNode>, String>();
+
+	public static String[] defaultCities = {"Lugano","Novi Sad", "Siena"};
+
 	/**
 	 * The number of maximum request must be multiplied
 	 * by two because we have a SMALL and a BIG view 
@@ -83,6 +86,11 @@ public class WeatherController extends Controller {
 							if(size.equals("small")){
 								sockets.get(displayID).small = out;
 								out2ID.put(out, displayID);
+								for(String city : defaultCities){
+									ObjectNode def = Json.newObject();
+									def.put("preference", city);
+									processRequest(def, displayID,true);
+								}
 							} else if(size.equals("big")) {
 								sockets.get(displayID).big  = out;
 								out2ID.put(out, displayID);
@@ -96,36 +104,9 @@ public class WeatherController extends Controller {
 											"\n*********************************"
 									);
 
-							// TODO: look for defaults values
 
 						} else if(messageKind.equals("mobileRequest")){
-
-							Integer freeSpaces = status.get(displayID);
-							String location = event.get("preference").asText();
-							Logger.info("W FOR " + location);
-							if(freeSpaces>0 && !activeCities.get(displayID).contains(location)){								
-
-								JsonNode forecast = findForecast(location);
-								ObjectNode result = Json.newObject();
-								result.put("original_request",location);
-								result.put("forecast",forecast);
-								Logger.info(result.toString());
-								
-								Sockets displaySockets = sockets.get(displayID);
-
-								// Send the forecast to the two views of the application
-								displaySockets.small.write(result);
-								displaySockets.big.write(result);
-								Logger.info("SENT");
-								
-								Logger.info(forecast.toString());
-								status.put(displayID, freeSpaces-2);
-								activeCities.get(displayID).add(location);
-							} else {
-								Logger.info("FULL OR DUPLICATE");
-							}
-
-
+							processRequest(event, displayID,false);
 						} else if(messageKind.equals("free")){
 							Integer freeSpaces = status.get(displayID);
 							status.put(displayID, freeSpaces+1);
@@ -133,6 +114,35 @@ public class WeatherController extends Controller {
 							activeCities.get(displayID).remove(event.get("location").asText());
 						} else {
 							Logger.info("WTF: " + event.toString());
+						}
+					}
+
+					private void processRequest(JsonNode event, String displayID, Boolean def) {
+						Integer freeSpaces = status.get(displayID);
+						String location = event.get("preference").asText();
+						Logger.info("W FOR " + location);
+						if(freeSpaces>0 && !activeCities.get(displayID).contains(location)){								
+
+							JsonNode forecast = findForecast(location);
+							ObjectNode result = Json.newObject();
+							result.put("original_request",location);
+							result.put("forecast",forecast);
+							Logger.info(result.toString());
+
+							Sockets displaySockets = sockets.get(displayID);
+
+							// Send the forecast to the two views of the application
+							displaySockets.small.write(result);
+							displaySockets.big.write(result);
+							Logger.info("SENT");
+
+							Logger.info(forecast.toString());
+							if(!def){
+								status.put(displayID, freeSpaces-2);
+							}
+							activeCities.get(displayID).add(location);
+						} else {
+							Logger.info("FULL OR DUPLICATE");
 						}
 					}
 				});
