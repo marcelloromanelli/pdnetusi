@@ -89,30 +89,7 @@ function createElements(responseArray,name){
 		// NEWS CONTAINER
 		var newsContainerDiv = $("<div class='news_container'>");
 		newsDiv.append(newsContainerDiv);
-		newsContainerDiv.click(
-				function(){
-					var parent = $(this).parent();
-					var pos = parent.position();
-
-					stopMovmentAndRestart(15000);
-
-					if(parent.hasClass("first") && pos.top > 559){
-						moveNews(false,500);
-						return;
-					}
-
-					if(parent.hasClass("last") && pos.top < 559){
-						moveNews(true,500);
-						return;
-					}
-
-					if(pos.top > 559){
-						moveNews(false,500);
-					} else {
-						moveNews(true,500);
-					}
-				}
-		);
+		newsContainerDiv.click(newsClick);
 
 		// NEWS TITLE
 		var newsTitleDiv = $("<div class='news_title'>");
@@ -193,36 +170,7 @@ function createElements(responseArray,name){
 		var shareImg = $("<img class='share' src='images/share.png' width='70px'></img>");		
 		socialShareDiv.append(shareImg);
 		socialShareDiv.data("tiny",'http://json-tinyurl.appspot.com/?url=' + currentNews.link + '&callback=?')
-		socialShareDiv.click(
-				function(event){
-					stopMovmentAndRestart(25000);
-
-					$(this).find("img").effect("pulsate", { times:25 }, 1000);
-					var img = $(this).parent().parent().find(".news_container").find("img");
-
-					$.getJSON($(this).data("tiny"), function(data){ 
-						var oldImgSrc = null;
-						console.log(img);
-						img.fadeOut('slow',
-								function(){
-							console.log($(this));
-							oldImgSrc = img.attr("src");
-							img.attr("src","http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+data.tinyurl+"&chld=H|0");
-							img.fadeIn('slow');
-						}
-						);
-
-						setTimeout(function(){
-							img.parent().parent().find(".news_container").find("img").fadeOut('slow',
-									function(){
-								img.attr("src",oldImgSrc);
-								img.fadeIn('slow');
-							}
-							);
-						},25000);
-					}
-					);
-				});
+		socialShareDiv.click(swapImgWithQR);
 
 		socialDiv.append(socialShareDiv);
 

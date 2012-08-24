@@ -89,35 +89,12 @@ function createElements(responseArray,name){
 		// NEWS CONTAINER
 		var newsContainerDiv = $("<div class='news_container'>");
 		newsDiv.append(newsContainerDiv);
-		newsContainerDiv.click(
-				function(){
-					var parent = $(this).parent();
-					var pos = parent.position();
-
-					stopMovmentAndRestart(15000);
-
-					if(parent.hasClass("first") && pos.top > 559){
-						moveNews(false,500);
-						return;
-					}
-
-					if(parent.hasClass("last") && pos.top < 559){
-						moveNews(true,500);
-						return;
-					}
-
-					if(pos.top > 559){
-						moveNews(false,500);
-					} else {
-						moveNews(true,500);
-					}
-				}
-		);
+		newsContainerDiv.click(newsClick);
 
 
 		// NEWS DESC
 		var newsDescDiv = $("<div class='news_desc'>");
-		newsDescDiv.css("height","330px");
+		newsDescDiv.css("height","280px");
 		newsDescDiv.html("<p>" + (currentNews.content).replace(/(<([^>]+)>)/ig,"") +"</p>");
 		newsContainerDiv.append(newsDescDiv);
 
@@ -145,39 +122,8 @@ function createElements(responseArray,name){
 		socialLikeDiv.append("<p class='counter'>0</p>");
 		socialDiv.append(socialLikeDiv);
 
-		socialLikeDiv.click(function(){
+		socialLikeDiv.click({isLike: true},showCounter);
 
-			stopMovmentAndRestart(5000);
-
-			var image = $(this).find("img");
-			if(!image.data("active")){
-				image.data("active", true);
-				var p = $(this).find("p");
-				var count = parseInt(p.html()) + 1;
-				p.html(count);
-
-				image.add(p).fadeOut('slow',
-						function(){
-					p.fadeOut();
-					image.attr("src","images/oneup.png");
-					image.fadeIn('slow');
-				}
-				);
-
-				setTimeout(function(){
-					image.fadeOut('slow',
-							function(){
-						p.fadeIn();
-						image.attr("src","images/up.png");
-						image.add(p).fadeIn('slow');
-						image.data("active", false);
-					}
-					);
-				},5000);
-			}
-
-
-		});
 
 		// DISLIKE
 		var socialDislikeDiv = $("<div class='social_tab center'>");
@@ -186,36 +132,8 @@ function createElements(responseArray,name){
 		"style='clear: both; margin-top: 5px; margin-left: 15px;'></img>");
 		socialDislikeDiv.append("<p class='counter'>0</p>");
 		socialDiv.append(socialDislikeDiv);
+		socialDislikeDiv.click({isLike: false},showCounter);
 
-		socialDislikeDiv.click(function(){
-			stopMovmentAndRestart(5000);
-			var image = $(this).find("img");
-			if(!image.data("active")){
-				image.data("active", true);
-				var p = $(this).find("p");
-				var count = parseInt(p.html()) - 1;
-				p.html(count);
-
-				p.fadeOut('fast');
-				image.fadeOut('slow',
-						function(){
-					$(this).parent().append("<div class='countBig'>" + count + "</div>");
-				}
-				);
-
-
-				var div = $(this);
-				setTimeout(function(){
-					console.log($(this));
-					div.find(".countBig").remove();
-					image.add(p).fadeIn('slow');
-					image.data("active", false);
-				},2500);
-			}
-
-
-
-		});
 
 		// SHARE
 		var socialShareDiv = $("<div class='social_tab last'>");
@@ -223,39 +141,8 @@ function createElements(responseArray,name){
 		var shareImg = $("<img class='share' src='images/share.png' width='70px'></img>");		
 		socialShareDiv.append(shareImg);
 		socialShareDiv.data("tiny",'http://json-tinyurl.appspot.com/?url=' + currentNews.link + '&callback=?')
-		socialShareDiv.click(
-				function(event){
-					stopMovmentAndRestart(25000);
-
-					$(this).find("img").effect("pulsate", { times:25 }, 1000);
-					var img = $(this).parent().parent().find(".news_container").find("img");
-
-					$.getJSON($(this).data("tiny"), function(data){ 
-						var oldImgSrc = null;
-						console.log(img);
-						img.fadeOut('slow',
-								function(){
-							console.log($(this));
-							oldImgSrc = img.attr("src");
-							img.attr("src","http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+data.tinyurl+"&chld=H|0");
-							img.fadeIn('slow');
-						}
-						);
-
-						setTimeout(function(){
-							img.parent().parent().find(".news_container").find("img").fadeOut('slow',
-									function(){
-								img.attr("src",oldImgSrc);
-								img.fadeIn('slow');
-							}
-							);
-						},25000);
-					}
-					);
-				});
-
+		socialShareDiv.click(swapImgWithQR);
 		socialDiv.append(socialShareDiv);
-
 		newsDiv.data("timestamp", new Date().getTime());
 		response.push(newsDiv);
 	}

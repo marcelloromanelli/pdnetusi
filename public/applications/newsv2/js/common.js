@@ -198,3 +198,56 @@ function showCounter(event){
 		},2500);
 	}
 }
+
+function newsClick(){
+	var parent = $(this).parent();
+	var pos = parent.position();
+
+	stopMovmentAndRestart(15000);
+
+	if(parent.hasClass("first") && pos.top > 559){
+		moveNews(false,500);
+		return;
+	}
+
+	if(parent.hasClass("last") && pos.top < 559){
+		moveNews(true,500);
+		return;
+	}
+
+	if(pos.top > 559){
+		moveNews(false,500);
+	} else {
+		moveNews(true,500);
+	}
+}
+
+function swapImgWithQR(event){
+	stopMovmentAndRestart(25000);
+
+	$(this).find("img").effect("pulsate", { times:25 }, 1000);
+	var img = $(this).parent().parent().find(".news_container").find("img");
+
+	$.getJSON($(this).data("tiny"), function(data){ 
+		var oldImgSrc = null;
+		console.log(img);
+		img.fadeOut('slow',
+				function(){
+			console.log($(this));
+			oldImgSrc = img.attr("src");
+			img.attr("src","http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+data.tinyurl+"&chld=H|0");
+			img.fadeIn('slow');
+		}
+		);
+
+		setTimeout(function(){
+			img.parent().parent().find(".news_container").find("img").fadeOut('slow',
+					function(){
+				img.attr("src",oldImgSrc);
+				img.fadeIn('slow');
+			}
+			);
+		},25000);
+	}
+	);
+}
