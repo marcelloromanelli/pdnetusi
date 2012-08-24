@@ -223,6 +223,12 @@ function newsClick(){
 }
 
 function swapImgWithQR(event){
+	if($(this).data("active") == true){
+		return false;
+	} else if ($(this).data("active") == false) {
+		$(this).data("active", true);
+	}
+	
 	stopMovmentAndRestart(25000);
 
 	$(this).find("img").effect("pulsate", { times:25 }, 1000);
@@ -269,6 +275,7 @@ function swapImgWithQR(event){
 				newsContainer.append(bigImg);
 				setTimeout(function(){
 					bigImg.fadeOut('slow',function(){newsDesc.add(newsSrc).fadeIn('slow');});
+					$(this).data("active",false);
 				},25000);
 			});
 		}
