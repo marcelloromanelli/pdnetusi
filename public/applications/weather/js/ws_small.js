@@ -44,16 +44,24 @@ $(function() {
 });
 
 function updateFirst(response,cityname){
-	$("#first_img").attr("src","css/icons/"+response.condition.code +".png");
-	freeCity($("#first_location").html());
-	$("#first_location").html(cityname);
-	$("#first_current_temp").html(response.condition.temperature + "º");
-	$("#first_humidity").html(response.atmosphere.humidity);
-	$("#first_wind_speed").html(response.wind.speed);
-	$("#first_wind_direction").html(response.wind.direction);
-	$("#first_maxtemp").html(response.forecast[0].high_temperature + "º");
-	$("#first_mintemp").html(response.forecast[0].low_temperature + "º");
+	var city = $("#first");
+	var original = city.css("margin-left");
+	city.animate({"margin-left": "-530px"},'slow',function(){
+
+
+		$("#first_img").attr("src","css/icons/"+response.condition.code +".png");
+		freeCity($("#first_location").html());
+		$("#first_location").html(cityname);
+		$("#first_current_temp").html(response.condition.temperature + "º");
+		$("#first_humidity").html(response.atmosphere.humidity);
+		$("#first_wind_speed").html(response.wind.speed);
+		$("#first_wind_direction").html(response.wind.direction);
+		$("#first_maxtemp").html(response.forecast[0].high_temperature + "º");
+		$("#first_mintemp").html(response.forecast[0].low_temperature + "º");
+	}
 	
+	city.animate({"margin-left": original},'fast');
+	city.effect("bounce", {direction:'left', times:3 }, 300);
 }
 
 function updateSecond(response,cityname){
