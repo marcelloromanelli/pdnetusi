@@ -126,8 +126,9 @@ public class WeatherController extends Controller {
 
 						} else if(messageKind.equals("free")){
 							Integer freeSpaces = status.get(displayID);
-							activeCities.get(displayID).remove(event.get("location").asText());
 							status.put(displayID, freeSpaces+1);
+						} else if (messageKind.equals("freeCity")){
+							activeCities.get(displayID).remove(event.get("location").asText());
 						} else {
 							Logger.info("WTF: " + event.toString());
 						}
