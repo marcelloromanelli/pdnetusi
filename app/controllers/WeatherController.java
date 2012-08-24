@@ -115,7 +115,7 @@ public class WeatherController extends Controller {
 								cities.add(location);
 
 							} else {
-								// TODO: put in queue or notify mobile
+								Logger.info("FULL OR DUPLICATE");
 							}
 
 
