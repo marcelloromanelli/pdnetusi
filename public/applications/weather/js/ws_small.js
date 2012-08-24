@@ -47,38 +47,6 @@ $(function() {
 
 });
 
-
-function findFree(response){
-	if(first){
-		updateFirst(response.forecast);
-		first = false;
-		firstLocation = response.original_request; 
-		firstInterval=setTimeout(function(){freeSpace(firstLocation); clearTimeout(firstInterval); first=true;},timeout);
-	} else if (second){
-		updateSecond(response.forecast);
-		second = false;
-		secondLocation = response.original_request; 
-		secondInterval=setTimeout(function(){freeSpace(secondLocation);clearTimeout(secondInterval);second=true;},timeout);
-	} else if (third) {
-		updateThird(response.forecast);
-		third = false;
-		thirdLocation = response.original_request; 
-		thirdInterval=setTimeout(function(){freeSpace(thirdLocation);clearTimeout(thirdInterval);third=true;},timeout);
-	} else {
-		console.log("error");
-	}
-}
-
-function freeSpace(location){
-	var free = JSON.stringify
-	({
-		"kind":"free",
-		"displayID":  displayID,
-		"location": location
-	});
-	websocket.send(free);
-}
-
 function updateFirst(response){
 	$("#first_img").attr("src","css/icons/"+response.condition.code +".png")
 	$("#first_location").html(response.location.city);
@@ -105,21 +73,4 @@ function updateThird(response){
 	$("#third_current_temp").html(response.condition.temperature + "º");
 	$("#third_maxtemp").html(response.forecast[0].high_temperature + "º");
 	$("#third_mintemp").html(response.forecast[0].low_temperature + "º");
-}
-
-function getUrlVars()
-{
-	var vars = [], hash;
-	var hashes = window.parent.location.href.slice(window.parent.location.href.indexOf('?') + 1).split('&');
-	for(var i = 0; i < hashes.length; i++)
-	{
-		hash = hashes[i].split('=');
-		vars.push(hash[0]);
-		vars[hash[0]] = hash[1];
-	}
-	return vars;
-}
-
-function lowerWithoutSpaces(input){
-	return input.toLowerCase().split(' ').join('');
 }

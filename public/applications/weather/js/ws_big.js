@@ -42,33 +42,6 @@ $(function() {
 });
 
 
-function findFree(response){
-	if(first){
-		updateFirst(response);
-		first = false;
-		firstInterval=setTimeout(function(){freeSpace(); clearTimeout(firstInterval); first=true;},timeout);
-	} else if (second){
-		updateSecond(response);
-		second = false;
-		secondInterval=setTimeout(function(){freeSpace();clearTimeout(secondInterval);second=true;},timeout);
-	} else if (third) {
-		updateThird(response);
-		third = false;
-		thirdInterval=setTimeout(function(){freeSpace();clearTimeout(thirdInterval);third=true;},timeout);
-	} else {
-		console.log("error");
-	}
-}
-
-function freeSpace(){
-	var free = JSON.stringify
-	({
-		"kind":"free",
-		"displayID":  displayID,
-	});
-	websocket.send(free);
-}
-
 function updateFirst(response){
 
 	$("#first_city").html(response.location.city);
@@ -126,21 +99,4 @@ function updateThird(response){
 		$("#third_d" + i + "_maxtemp").html(response.forecast[i-1].high_temperature + "º");
 		$("#third_d" + i + "_mintemp").html(response.forecast[i-1].low_temperature + "º");
 	}
-}
-
-function getUrlVars()
-{
-	var vars = [], hash;
-	var hashes = window.parent.location.href.slice(window.parent.location.href.indexOf('?') + 1).split('&');
-	for(var i = 0; i < hashes.length; i++)
-	{
-		hash = hashes[i].split('=');
-		vars.push(hash[0]);
-		vars[hash[0]] = hash[1];
-	}
-	return vars;
-}
-
-function lowerWithoutSpaces(input){
-	return input.toLowerCase().split(' ').join('');
 }
