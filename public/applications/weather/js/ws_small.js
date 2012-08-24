@@ -38,7 +38,7 @@ $(function() {
 		findFree(response);
 		
 //		console.log("SERVER APP ANSWER: ");
-//		console.log(response) ;
+		console.log(response) ;
 	};
 
 	websocket.onerror = function(evt) { 
