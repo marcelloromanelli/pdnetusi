@@ -8,6 +8,9 @@ html,body {
 	color: white;
 	width: 1289px;
 	overflow: hidden;
+	cursor: none;
+	user-select: none;
+	-webkit-user-select: none;
 }
 
 .city {
@@ -27,7 +30,6 @@ html,body {
 	text-shadow: 1px 1px #2C2C2C;
 }
 
-
 .maxmin {
 	font-size: 25px;
 }
@@ -41,19 +43,18 @@ html,body {
 	opacity: 0.5;
 }
 
-.forecast{
-	width:90%; 
-	border-spacing:25px;
+.forecast {
+	width: 90%;
+	border-spacing: 25px;
 	margin: 0 auto;
 	font-size: 20px;
 }
 
-.bold{
+.bold {
 	font-weight: bold;
 }
 
-.tempbig{
+.tempbig {
 	width: 115px;
 	font-size: 60px;
-	
 }

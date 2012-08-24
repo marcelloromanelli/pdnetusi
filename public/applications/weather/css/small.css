@@ -8,6 +8,10 @@ html,body {
 	border: 0;
 	font-family: 'Ubuntu', sans-serif;
 	color: white;
+	overflow: hidden;
+	cursor: none;
+	user-select: none;
+	-webkit-user-select: none;
 }
 
 img {
