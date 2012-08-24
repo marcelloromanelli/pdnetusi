@@ -44,9 +44,9 @@ $(function() {
 
 function updateFirst(response,cityname){
 	
-	var city = $(".city").get(0);
+	var city = $($(".city").get(0));
 	var original = city.css("margin-top");
-	$(city).animate({"margin-top": "-600px"});
+	city.animate({"margin-top": "-600px"});
 	
 	$("#first_city").html(cityname);
 	
@@ -65,7 +65,7 @@ function updateFirst(response,cityname){
 		$("#first_d" + i + "_mintemp").html(response.forecast[i-1].low_temperature + "º");
 	}
 	
-	$(city).animate({"margin-top": original});
+	city.animate({"margin-top": original});
 
 }
 
