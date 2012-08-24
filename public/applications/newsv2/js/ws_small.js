@@ -11,27 +11,8 @@ var currentRequestID = 0;
 var activeRequests = 0;
 
 var newsScroll = null;
-var NEWS_TIMEOUT = 3000;
-var SLIDE_SPEED = 800;
-
-function getUrlVars() {
-	"use strict";
-	var vars = [], hash;
-	var i = 0;
-	var hashes = window.parent.location.href.slice(window.parent.location.href.indexOf('?') + 1).split('&');
-	for(i = 0; i < hashes.length; i++)
-	{
-		hash = hashes[i].split('=');
-		vars.push(hash[0]);
-		vars[hash[0]] = hash[1];
-	}
-	return vars;
-}
-
-function lowerWithoutSpaces(input) {
-	return input.toLowerCase().split(' ').join('');
-}
-
+var NEWS_TIMEOUT = 6000;
+var SLIDE_SPEED = 2500;
 
 $(function () {
 	displayID = getUrlVars()["id"];
@@ -50,7 +31,8 @@ $(function () {
 	}; 
 
 	websocket.onclose = function(evt) { 
-		console.log("DISCONNECTED"); 
+		console.log("DISCONNECTED");
+		clearInterval(newsScroll);
 	};
 
 	websocket.onmessage = function(evt) {
@@ -64,24 +46,6 @@ $(function () {
 	}; 
 
 });
-
-function moveNews(goUp){ 
-	if(goUp){
-		var params = {"top":"+="+total};
-	} else {
-		var params = {"top":"-="+total}
-	}
-	if($(".news").length > 4){
-		//GET ALL THE NEWS
-		$(".news").animate(params, SLIDE_SPEED, "linear",updateAndCheck());		
-	}
-}
-
-function updateAndCheck(){
-	positionOfFirst = $(".news").get(0).style.top;
-	positionOfLast = $(".news").get(-1).style.top;
-	checkIfNeedsMore();
-}
 
 function checkIfNeedsMore(){
 
@@ -113,114 +77,6 @@ function checkIfNeedsMore(){
 		websocket.send(more);
 	}
 }
-function insertNews(response){
-
-	clearInterval(newsScroll);
-
-	var culture = createElements(response.culture,"culture");
-	var hot = createElements(response.hot,"hot");
-	var sport = createElements(response.sport,"sport");
-	var tech = createElements(response.tech,"tech");
-
-	var newsDivs = culture.concat(hot).concat(sport).concat(tech); 
-
-	newsDivs.sort(
-			function(){ 
-				return 0.5 - Math.random(); 
-			}
-	);
-
-	if (newsDivs.length == 0 && $(".news").length > 5){
-		if(response.pos == "bottom"){
-			console.log("RECYCLING NEWS AT THE TOP");
-
-			var currentPosition = 0;
-			$(".news").slice(0,10).each(function(index){
-				var copy = $(this).clone(true);
-				$(this).detach();
-				currentPosition = parseInt(positionOfLast) + total*index; 
-				copy.css("top", currentPosition);
-				copy.appendTo("body");				
-			});
-
-			positionOfLast = currentPosition + "px";
-			console.log("LAST POS: " + positionOfLast);
-		} else if(response.pos == "top") {
-			console.log("RECYCLING NEWS AT THE BOTTOM");
-			var currentPosition = 0;
-			var len = $(".news").length;
-			
-			$(".news").slice(len-10,len).each(function(index){
-				var copy = $(this).clone(true);
-				$(this).detach();
-				currentPosition = parseInt(positionOfFirst) - total*index; 
-				copy.css("top", currentPosition);
-				copy.prependTo("body");
-				console.log(copy);
-			});
-
-			positionOfFirst = currentPosition + "px";
-			console.log("FIRST POS: " + positionOfFirst);
-		}
-	}
-
-	console.log(newsDivs.length + " more news are being inserted!");
-
-	for (var i in newsDivs){
-
-		var currentNews = newsDivs[i];
-		if (currentNews instanceof jQuery){
-
-		} else {
-			currentNews = $(currentNews);
-		}
-
-		if(response.pos == "bottom"){
-			var currentPosition = parseInt(positionOfLast) + total*i; 
-			$("body").append(currentNews);
-			currentNews.css("top",currentPosition);
-			if(i == newsDivs.length-1){
-				positionOfLast = currentPosition + "px";
-			}
-		} else if(response.pos == "top"){
-			var currentPosition = parseInt(positionOfFirst) - total*i; 
-			$("body").prepend(currentNews);
-			currentNews.css("top",currentPosition);
-			if(i == newsDivs.length-1){
-				positionOfFirst = currentPosition + "px";
-			}
-		} else {
-			var currentPosition = parseInt(positionOfLast) + total*i; 
-			$("body").append(currentNews);
-			currentNews.css("top",currentPosition);
-			if(i == newsDivs.length-1){
-				positionOfLast = currentPosition + "px";
-			}
-		}
-
-		if(i == 0){
-			currentNews.addClass("first");
-		}
-		if(i == newsDivs.length-1){
-			currentNews.addClass("last");
-		}
-		currentNews.addClass("requestID-"+currentRequestID);
-	}
-
-//	var t = setTimeout(removeRequestsID,5000,currentRequestID);
-
-	activeRequests++;
-	currentRequestID++;
-
-	$(".news_desc").dotdotdot({});
-
-	$("img").mousedown(function(){
-		return false;
-	});
-
-	newsScroll = setInterval(function(){moveNews(false)},NEWS_TIMEOUT);
-
-}
 
 
 function createElements(responseArray,name){
@@ -238,50 +94,31 @@ function createElements(responseArray,name){
 					var parent = $(this).parent();
 					var pos = parent.position();
 
-					// STOP AUTOMATIC MOVMENT
-					clearInterval(newsScroll);
-					// RESTART IT AFTER 15 seconds
-					setTimeout(function(){
-						clearInterval(newsScroll);
-						newsScroll = setInterval(function(){
-							moveNews(false)
-						},NEWS_TIMEOUT);
-					},15000);
+					stopMovmentAndRestart(15000);
 
 					if(parent.hasClass("first") && pos.top > 559){
-						moveNews(false);
+						moveNews(false,500);
 						return;
 					}
 
 					if(parent.hasClass("last") && pos.top < 559){
-						moveNews(true);
+						moveNews(true,500);
 						return;
 					}
 
 					if(pos.top > 559){
-						moveNews(false);
+						moveNews(false,500);
 					} else {
-						moveNews(true);
+						moveNews(true,500);
 					}
 				}
 		);
 
-		// NEWS TITLE
-//		var newsTitleDiv = $("<div class='news_title'>");
-//		newsTitleDiv.html(currentNews.title);
-//		newsTitleDiv.css("height","50px");
-//
-//		newsContainerDiv.append(newsTitleDiv);
-
-//		newsContainerDiv.append("<hr class='style' />");
 
 		// NEWS DESC
 		var newsDescDiv = $("<div class='news_desc'>");
-		newsDescDiv.css("height","280px");
-		newsDescDiv.html("<p>" +
-				(currentNews.title).replace(/(<([^>]+)>)/ig,"") +
-		"</div>");
-
+		newsDescDiv.css("height","230px");
+		newsDescDiv.html("<p>" + (currentNews.content).replace(/(<([^>]+)>)/ig,"") +"</p>");
 		newsContainerDiv.append(newsDescDiv);
 
 		var newsSourceDiv = $("<div class='news_source'>");
@@ -309,7 +146,37 @@ function createElements(responseArray,name){
 		socialDiv.append(socialLikeDiv);
 
 		socialLikeDiv.click(function(){
-			 // TODO
+
+			stopMovmentAndRestart(5000);
+
+			var image = $(this).find("img");
+			if(!image.data("active")){
+				image.data("active", true);
+				var p = $(this).find("p");
+				var count = parseInt(p.html()) + 1;
+				p.html(count);
+
+				image.add(p).fadeOut('slow',
+						function(){
+					p.fadeOut();
+					image.attr("src","images/oneup.png");
+					image.fadeIn('slow');
+				}
+				);
+
+				setTimeout(function(){
+					image.fadeOut('slow',
+							function(){
+						p.fadeIn();
+						image.attr("src","images/up.png");
+						image.add(p).fadeIn('slow');
+						image.data("active", false);
+					}
+					);
+				},5000);
+			}
+
+
 		});
 
 		// DISLIKE
@@ -321,28 +188,33 @@ function createElements(responseArray,name){
 		socialDiv.append(socialDislikeDiv);
 
 		socialDislikeDiv.click(function(){
-			var p = $(this).find("p");
-			var count = parseInt(p.html()) + 1;
-			p.html(count);
-
+			stopMovmentAndRestart(5000);
 			var image = $(this).find("img");
-			image.add(p).fadeOut('slow',
-					function(){
-				p.fadeOut();
-				image.attr("src","images/onedown.png");
-				image.fadeIn('slow');
-			}
-			);
+			if(!image.data("active")){
+				image.data("active", true);
+				var p = $(this).find("p");
+				var count = parseInt(p.html()) - 1;
+				p.html(count);
 
-			setTimeout(function(){
+				p.fadeOut('fast');
 				image.fadeOut('slow',
 						function(){
-					p.fadeIn();
-					image.attr("src","images/down.png");
-					image.add(p).fadeIn('slow');
+					$(this).parent().append("<div class='countBig'>" + count + "</div>");
 				}
 				);
-			},5000);
+
+
+				var div = $(this);
+				setTimeout(function(){
+					console.log($(this));
+					div.find(".countBig").remove();
+					image.add(p).fadeIn('slow');
+					image.data("active", false);
+				},2500);
+			}
+
+
+
 		});
 
 		// SHARE
@@ -350,28 +222,45 @@ function createElements(responseArray,name){
 		socialShareDiv.addClass(name);
 		var shareImg = $("<img class='share' src='images/share.png' width='70px'></img>");		
 		socialShareDiv.append(shareImg);
+		socialShareDiv.data("tiny",'http://json-tinyurl.appspot.com/?url=' + currentNews.link + '&callback=?')
+		socialShareDiv.click(
+				function(event){
+					stopMovmentAndRestart(25000);
 
+					$(this).find("img").effect("pulsate", { times:25 }, 1000);
+					var img = $(this).parent().parent().find(".news_container").find("img");
 
+					$.getJSON($(this).data("tiny"), function(data){ 
+						var oldImgSrc = null;
+						console.log(img);
+						img.fadeOut('slow',
+								function(){
+							console.log($(this));
+							oldImgSrc = img.attr("src");
+							img.attr("src","http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+data.tinyurl+"&chld=H|0");
+							img.fadeIn('slow');
+						}
+						);
 
-		var qrImgSrc = "http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+currentNews.link+"&chld=H|0";
-
-//		socialShareDiv.click(
-//				{
-//					share: shareImg, 
-//					qr: qrImgSrc, 
-//					img: newsImg
-//				},
-//				fadeQR);
+						setTimeout(function(){
+							img.parent().parent().find(".news_container").find("img").fadeOut('slow',
+									function(){
+								img.attr("src",oldImgSrc);
+								img.fadeIn('slow');
+							}
+							);
+						},25000);
+					}
+					);
+				});
 
 		socialDiv.append(socialShareDiv);
 
+		newsDiv.data("timestamp", new Date().getTime());
 		response.push(newsDiv);
 	}
 
 	return response;
 }
 
-function fadeQR(event){
-	// TODO
-}
 
