@@ -174,39 +174,8 @@ function createElements(responseArray,name){
 		socialLikeDiv.append("<p class='counter'>0</p>");
 		socialDiv.append(socialLikeDiv);
 
-		socialLikeDiv.click(function(){
+		socialLikeDiv.click({isLike: true},showCounter);
 
-			stopMovmentAndRestart(5000);
-
-			var image = $(this).find("img");
-			if(!image.data("active")){
-				image.data("active", true);
-				var p = $(this).find("p");
-				var count = parseInt(p.html()) + 1;
-				p.html(count);
-
-				image.add(p).fadeOut('slow',
-						function(){
-					p.fadeOut();
-					image.attr("src","images/oneup.png");
-					image.fadeIn('slow');
-				}
-				);
-
-				setTimeout(function(){
-					image.fadeOut('slow',
-							function(){
-						p.fadeIn();
-						image.attr("src","images/up.png");
-						image.add(p).fadeIn('slow');
-						image.data("active", false);
-					}
-					);
-				},5000);
-			}
-
-
-		});
 
 		// DISLIKE
 		var socialDislikeDiv = $("<div class='social_tab center'>");
@@ -216,35 +185,7 @@ function createElements(responseArray,name){
 		socialDislikeDiv.append("<p class='counter'>0</p>");
 		socialDiv.append(socialDislikeDiv);
 
-		socialDislikeDiv.click(function(){
-			stopMovmentAndRestart(5000);
-			var image = $(this).find("img");
-			if(!image.data("active")){
-				image.data("active", true);
-				var p = $(this).find("p");
-				var count = parseInt(p.html()) - 1;
-				p.html(count);
-
-				p.fadeOut('fast');
-				image.fadeOut('slow',
-						function(){
-					$(this).parent().append("<div class='countBig'>" + count + "</div>");
-				}
-				);
-
-
-				var div = $(this);
-				setTimeout(function(){
-					console.log($(this));
-					div.find(".countBig").remove();
-					image.add(p).fadeIn('slow');
-					image.data("active", false);
-				},2500);
-			}
-
-
-
-		});
+		socialDislikeDiv.click({isLike: false},showCounter);
 
 		// SHARE
 		var socialShareDiv = $("<div class='social_tab last'>");

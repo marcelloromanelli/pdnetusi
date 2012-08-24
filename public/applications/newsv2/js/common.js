@@ -167,3 +167,34 @@ function stopMovmentAndRestart(seconds){
 		},NEWS_TIMEOUT);
 	},seconds);
 }
+
+function showCounter(){
+	stopMovmentAndRestart(5000);
+	var image = $(this).find("img");
+	if(!image.data("active")){
+		image.data("active", true);
+		var p = $(this).find("p");
+		if(event.data.isLike){
+			var count = parseInt(p.html()) + 1;
+		} else {
+			var count = parseInt(p.html()) - 1;
+		}
+		p.html(count);
+
+		p.fadeOut('fast');
+		image.fadeOut('slow',
+				function(){
+			$(this).parent().append("<div class='countBig'>" + count + "</div>");
+		}
+		);
+
+
+		var div = $(this);
+		setTimeout(function(){
+			console.log($(this));
+			div.find(".countBig").remove();
+			image.add(p).fadeIn('slow');
+			image.data("active", false);
+		},2500);
+	}
+}
