@@ -249,11 +249,12 @@ function swapImgWithQR(event){
 					}
 			);
 		} else {
-			var newsDesc = newsContainer.find(".news_container");
+			var newsDesc = newsContainer.find(".news_desc");
 			var newsSrc = newsContainer.find(".news_source");
-			newsDesc.fadeOut('slow');
-			newsSrc.fadeOut('slow');
-			console.log(newsDesc);
+			newsDesc.add(newsSrc).fadeOut('slow');
+			var bigImg = $("<img>");
+			bigImg.attr("src",qr);
+			newsContainer.append(bigImg);
 		}
 
 		setTimeout(function(){
