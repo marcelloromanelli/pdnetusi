@@ -43,6 +43,11 @@ $(function() {
 
 
 function updateFirst(response,cityname){
+	
+	var city = $(".city").get(0);
+	var original = city.css("margin-top");
+	$(city).animate({"margin-top": "-600px"});
+	
 	$("#first_city").html(cityname);
 	
 	$("#first_img").attr("src","css/icons/"+response.condition.code +".png");
@@ -59,6 +64,8 @@ function updateFirst(response,cityname){
 		$("#first_d" + i + "_maxtemp").html(response.forecast[i-1].high_temperature + "º");
 		$("#first_d" + i + "_mintemp").html(response.forecast[i-1].low_temperature + "º");
 	}
+	
+	$(city).animate({"margin-top": original});
 
 }
 
