@@ -235,9 +235,10 @@ html,body {
 #bar {
 	background-color: red;
 	position: absolute;
-	left: 575px;
-	width: 48px
+	left: 550px;
+	width: 48px;
 	height: 100%;
+	z-index: 10;
 }
 
 .bgBar{
@@ -245,6 +246,7 @@ html,body {
 	width: 28px;
 	margin-left: auto;
 	margin-right: auto;
+	height: 100%;
 }
 
 #dock {
