@@ -98,22 +98,26 @@ public class WeatherController extends Controller {
 						} else if(messageKind.equals("mobileRequest")){
 
 							Integer freeSpaces = status.get(displayID);
-							ArrayList<String> cities = activeCities.get(displayID);
 							String location = event.get("preference").asText();
+							Logger.info("W FOR " + location);
+							if(freeSpaces>0 && !activeCities.get(displayID).contains(location)){								
 
-							if(freeSpaces>0 && !cities.contains(location)){								
-
-								ObjectNode forecast = findForecast(location);
+								JsonNode forecast = findForecast(location);
+								ObjectNode result = Json.newObject();
+								result.put("original_request",location);
+								result.put("forecast",forecast);
+								Logger.info(result.toString());
+								
 								Sockets displaySockets = sockets.get(displayID);
 
 								// Send the forecast to the two views of the application
-								displaySockets.small.write(forecast);
-								displaySockets.big.write(forecast);
-
+								displaySockets.small.write(result);
+								displaySockets.big.write(result);
+								Logger.info("SENT");
+								
 								Logger.info(forecast.toString());
 								status.put(displayID, freeSpaces-2);
-								cities.add(location);
-
+								activeCities.get(displayID).add(location);
 							} else {
 								Logger.info("FULL OR DUPLICATE");
 							}
@@ -147,7 +151,7 @@ public class WeatherController extends Controller {
 		};
 	}
 
-	public static ObjectNode findForecast(String location){
+	public static JsonNode findForecast(String location){
 
 		// Language
 		String lang = "it";
@@ -189,10 +193,7 @@ public class WeatherController extends Controller {
 						+ "u=" + unit 
 						+ "&d=4";
 				jp = factory.createJsonParser(readUrl(request2));
-				ObjectNode result = Json.newObject();
-				result.put("original_request",location);
-				result.put("forecast",mapper.readTree(jp));
-				return result;
+				return mapper.readTree(jp);
 			}
 
 		} catch (Exception e) {
