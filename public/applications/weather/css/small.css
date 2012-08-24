@@ -40,6 +40,10 @@ h2 {
 	height: 450px;
 	padding: 30px;
 	margin: 80px auto 10px auto;
+	margin-top: 80px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-bottom: 10px;
 	background-color: rgba(0, 0, 0, 0.6);
 }
 

@@ -45,7 +45,6 @@ $(function() {
 
 function updateFirst(response,cityname){
 	var city = $("#first");
-	var original = city.css("margin");
 	city.animate({"margin-left": "-530px"},'slow',function(){
 
 
@@ -59,25 +58,41 @@ function updateFirst(response,cityname){
 		$("#first_maxtemp").html(response.forecast[0].high_temperature + "º");
 		$("#first_mintemp").html(response.forecast[0].low_temperature + "º");
 	});
-	
-	city.animate({"margin": original},'fast');
+
+	city.animate({"margin-left": "auto"},'fast');
 	city.effect("bounce", {direction:'left', times:3 }, 300);
 }
 
 function updateSecond(response,cityname){
-	$("#second_img").attr("src","css/small_icons/"+response.condition.code +".png")
-	freeCity($("#second_location").html());
-	$("#second_location").html(cityname);
-	$("#second_current_temp").html(response.condition.temperature + "º");
-	$("#second_maxtemp").html(response.forecast[0].high_temperature + "º");
-	$("#second_mintemp").html(response.forecast[0].low_temperature + "º");
+	var city = $($(".other").get(0));
+	var original = city.css("margin-top");
+	city.animate({"margin-left": "-530px"},'slow',function(){
+
+
+		$("#second_img").attr("src","css/small_icons/"+response.condition.code +".png")
+		freeCity($("#second_location").html());
+		$("#second_location").html(cityname);
+		$("#second_current_temp").html(response.condition.temperature + "º");
+		$("#second_maxtemp").html(response.forecast[0].high_temperature + "º");
+		$("#second_mintemp").html(response.forecast[0].low_temperature + "º");
+	});
+
+	city.animate({"margin-left": "auto"},'fast');
+	city.effect("bounce", {direction:'left', times:3 }, 300);
 }
 
+
 function updateThird(response,cityname){
-	$("#third_img").attr("src","css/small_icons/"+response.condition.code +".png")
-	freeCity($("#third_location").html());
-	$("#third_location").html(cityname);
-	$("#third_current_temp").html(response.condition.temperature + "º");
-	$("#third_maxtemp").html(response.forecast[0].high_temperature + "º");
-	$("#third_mintemp").html(response.forecast[0].low_temperature + "º");
+	var city = $($(".other").get(1));
+	var original = city.css("margin-top");
+	city.animate({"margin-left": "-530px"},'slow',function(){
+		$("#third_img").attr("src","css/small_icons/"+response.condition.code +".png")
+		freeCity($("#third_location").html());
+		$("#third_location").html(cityname);
+		$("#third_current_temp").html(response.condition.temperature + "º");
+		$("#third_maxtemp").html(response.forecast[0].high_temperature + "º");
+		$("#third_mintemp").html(response.forecast[0].low_temperature + "º");
+	});
+	city.animate({"margin-left": "auto"},'fast');
+	city.effect("bounce", {direction:'left', times:3 }, 300);
 }
