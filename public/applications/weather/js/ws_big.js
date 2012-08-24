@@ -77,7 +77,6 @@ function updateSecond(response,cityname){
 	$("#second_city").html(cityname);
 	
 	$("#second_img").attr("src","css/icons/"+response.condition.code +".png");
-	$("#second_location").html(cityname);
 	$("#second_current_temp").html(response.condition.temperature + "º");
 	$("#second_humidity").html(response.atmosphere.humidity);
 	$("#second_wind_speed").html(response.wind.speed);
@@ -101,10 +100,9 @@ function updateThird(response,cityname){
 	var original = city.css("margin-top");
 	city.animate({"margin-top": "-749px"});
 	
-	$("#third_location").html(cityname);
+	$("#third_city").html(cityname);
 	
 	$("#third_img").attr("src","css/icons/"+response.condition.code +".png")
-	$("#third_location").html(cityname);
 	$("#third_current_temp").html(response.condition.temperature + "º");
 	$("#third_humidity").html(response.atmosphere.humidity);
 	$("#third_wind_speed").html(response.wind.speed);
