@@ -46,7 +46,7 @@ function updateFirst(response,cityname){
 	
 	var city = $($(".city").get(0));
 	var original = city.css("margin-top");
-	city.animate({"margin-top": "-600px"});
+	city.animate({"margin-top": "-749px"});
 	
 	$("#first_city").html(cityname);
 	
@@ -70,6 +70,10 @@ function updateFirst(response,cityname){
 }
 
 function updateSecond(response,cityname){
+	var city = $($(".city").get(1));
+	var original = city.css("margin-top");
+	city.animate({"margin-top": "-749px"});
+	
 	$("#second_city").html(cityname);
 	
 	$("#second_img").attr("src","css/icons/"+response.condition.code +".png");
@@ -87,9 +91,16 @@ function updateSecond(response,cityname){
 		$("#second_d" + i + "_maxtemp").html(response.forecast[i-1].high_temperature + "º");
 		$("#second_d" + i + "_mintemp").html(response.forecast[i-1].low_temperature + "º");
 	}
+	
+	city.animate({"margin-top": original});
+
 }
 
 function updateThird(response,cityname){
+	var city = $($(".city").get(2));
+	var original = city.css("margin-top");
+	city.animate({"margin-top": "-749px"});
+	
 	$("#third_location").html(cityname);
 	
 	$("#third_img").attr("src","css/icons/"+response.condition.code +".png")
@@ -107,4 +118,6 @@ function updateThird(response,cityname){
 		$("#third_d" + i + "_maxtemp").html(response.forecast[i-1].high_temperature + "º");
 		$("#third_d" + i + "_mintemp").html(response.forecast[i-1].low_temperature + "º");
 	}
+	
+	city.animate({"margin-top": original});
 }
