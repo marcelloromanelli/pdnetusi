@@ -38,11 +38,14 @@ h2 {
 #first {
 	width: 464px;
 	height: 450px;
+	
 	padding: 30px;
+	
 	margin-top: 80px;
 	margin-right: 25px;
 	margin-left: 25px;
 	margin-bottom: 10px;
+	
 	background-color: rgba(0, 0, 0, 0.6);
 }
 
@@ -55,9 +58,12 @@ h2 {
 	margin-top: 0px;
 	margin-right: 25px;
 	margin-left: 25px;
+	
 	width: 464px;
 	height: 140px;
+	
 	padding: 30px;
+	
 	background-color: rgba(0, 0, 0, 0.6);
 }
 
