@@ -233,10 +233,10 @@ html,body {
 }
 
 #bar {
-	background-color: red;
+/* 	background-color: red; */
 	position: absolute;
 	left: 550px;
-	width: 48px;
+	width: 78px;
 	height: 100%;
 	z-index: 10;
 }
