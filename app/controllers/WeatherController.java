@@ -89,7 +89,7 @@ public class WeatherController extends Controller {
 								for(String city : defaultCities){
 									ObjectNode def = Json.newObject();
 									def.put("preference", city);
-									processRequest(def, displayID,true);
+									processRequest(def, displayID);
 								}
 							} else if(size.equals("big")) {
 								sockets.get(displayID).big  = out;
@@ -106,7 +106,7 @@ public class WeatherController extends Controller {
 
 
 						} else if(messageKind.equals("mobileRequest")){
-							processRequest(event, displayID,false);
+							processRequest(event, displayID);
 						} else if(messageKind.equals("free")){
 							Integer freeSpaces = status.get(displayID);
 							status.put(displayID, freeSpaces+1);
@@ -117,7 +117,7 @@ public class WeatherController extends Controller {
 						}
 					}
 
-					private void processRequest(JsonNode event, String displayID, Boolean def) {
+					private void processRequest(JsonNode event, String displayID) {
 						Integer freeSpaces = status.get(displayID);
 						String location = event.get("preference").asText();
 						Logger.info("W FOR " + location);
@@ -137,9 +137,9 @@ public class WeatherController extends Controller {
 							Logger.info("SENT");
 
 							Logger.info(forecast.toString());
-							if(!def){
-								status.put(displayID, freeSpaces-2);
-							}
+							
+							status.put(displayID, freeSpaces-2);
+							
 							activeCities.get(displayID).add(location);
 						} else {
 							Logger.info("FULL OR DUPLICATE");
