@@ -46,7 +46,7 @@ public class WeatherController extends Controller {
 
 	public static HashMap<String,ArrayList<String>> activeCities = new HashMap<String, ArrayList<String>>();
 
-
+	public static HashMap<WebSocket.Out<JsonNode>,String> out2ID = new HashMap<WebSocket.Out<JsonNode>, String>();
 	/**
 	 * The number of maximum request must be multiplied
 	 * by two because we have a SMALL and a BIG view 
@@ -82,8 +82,10 @@ public class WeatherController extends Controller {
 
 							if(size.equals("small")){
 								sockets.get(displayID).small = out;
+								out2ID.put(out, displayID);
 							} else if(size.equals("big")) {
 								sockets.get(displayID).big  = out;
+								out2ID.put(out, displayID);
 							}
 
 
@@ -138,6 +140,11 @@ public class WeatherController extends Controller {
 				// When the socket is closed.
 				in.onClose(new Callback0() {
 					public void invoke() {
+						String id = out2ID.get(out);
+						activeCities.get(id).clear();
+						sockets.remove(id);
+						status.remove(id);
+						out2ID.remove(out);
 						Logger.info("\n ******* MESSAGE RECIEVED *******" +
 								"\n A weather tile on " + "FILL" +
 								"\n is now disconnected." +

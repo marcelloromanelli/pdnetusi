@@ -29,7 +29,7 @@ $(function() {
 	}; 
 
 	websocket.onclose = function(evt) { 
-		console.log("DISCONNECTED"); 
+		console.log("DISCONNECTED");
 	};
 
 	websocket.onmessage = function(evt) {
