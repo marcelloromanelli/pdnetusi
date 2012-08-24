@@ -14,10 +14,10 @@ import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.ObjectMapper;
-
-import controllers.NewsFeedController.Sockets;
+import org.codehaus.jackson.node.ObjectNode;
 
 import play.Logger;
+import play.libs.Json;
 import play.libs.F.Callback;
 import play.libs.F.Callback0;
 import play.mvc.Controller;
@@ -36,15 +36,17 @@ public class WeatherController extends Controller {
 	 * Position 0: small
 	 * Position 1: big
 	 */
-	public static HashMap<String, Sockets> sockets = 
-			new HashMap<String, Sockets>();
+	public static HashMap<String, Sockets> sockets = new HashMap<String, Sockets>();
 
 	/**
 	 * Hashmap that given an ID of a Display, returns 
 	 * how many request the application can still recieve
 	 */
-	public static HashMap<String,Integer> status = 
-			new HashMap<String, Integer>();
+	public static HashMap<String,Integer> status = new HashMap<String, Integer>();
+
+	public static HashMap<String,ArrayList<String>> activeCities = new HashMap<String, ArrayList<String>>();
+
+
 	/**
 	 * The number of maximum request must be multiplied
 	 * by two because we have a SMALL and a BIG view 
@@ -96,11 +98,12 @@ public class WeatherController extends Controller {
 						} else if(messageKind.equals("mobileRequest")){
 
 							Integer freeSpaces = status.get(displayID);
-							if(freeSpaces>0){								
+							ArrayList<String> cities = activeCities.get(displayID);
+							String location = event.get("preference").asText();
 
-								String location = event.get("preference").asText();
-								JsonNode forecast = findForecast(location);
+							if(freeSpaces>0 && !cities.contains(location)){								
 
+								ObjectNode forecast = findForecast(location);
 								Sockets displaySockets = sockets.get(displayID);
 
 								// Send the forecast to the two views of the application
@@ -109,6 +112,7 @@ public class WeatherController extends Controller {
 
 								Logger.info(forecast.toString());
 								status.put(displayID, freeSpaces-2);
+								cities.add(location);
 
 							} else {
 								// TODO: put in queue or notify mobile
@@ -117,14 +121,12 @@ public class WeatherController extends Controller {
 
 						} else if(messageKind.equals("free")){
 							Integer freeSpaces = status.get(displayID);
+							activeCities.get(displayID).remove(event.get("location").asText());
 							status.put(displayID, freeSpaces+1);
 						} else {
 							Logger.info("WTF: " + event.toString());
 						}
-
 					}
-
-
 				});
 
 				// When the socket is closed.
@@ -145,7 +147,7 @@ public class WeatherController extends Controller {
 		};
 	}
 
-	public static JsonNode findForecast(String location){
+	public static ObjectNode findForecast(String location){
 
 		// Language
 		String lang = "it";
@@ -187,7 +189,10 @@ public class WeatherController extends Controller {
 						+ "u=" + unit 
 						+ "&d=4";
 				jp = factory.createJsonParser(readUrl(request2));
-				return mapper.readTree(jp);
+				ObjectNode result = Json.newObject();
+				result.put("original_request",location);
+				result.put("forecast",mapper.readTree(jp));
+				return result;
 			}
 
 		} catch (Exception e) {

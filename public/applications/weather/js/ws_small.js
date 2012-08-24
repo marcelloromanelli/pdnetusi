@@ -1,10 +1,13 @@
 var first=true;
+var firstLocation;
 var firstInterval;
 
 var second=true;
+var secondLocation;
 var secondInterval;
 
 var third=true;
+var thirdLocation;
 var thirdIterval;
 
 var timeout = 30000;
@@ -47,27 +50,31 @@ $(function() {
 
 function findFree(response){
 	if(first){
-		updateFirst(response);
+		updateFirst(response.forecast);
 		first = false;
-		firstInterval=setTimeout(function(){freeSpace(); clearTimeout(firstInterval); first=true;},timeout);
+		firstLocation = response.original_request; 
+		firstInterval=setTimeout(function(){freeSpace(firstLocation); clearTimeout(firstInterval); first=true;},timeout);
 	} else if (second){
-		updateSecond(response);
+		updateSecond(response.forecast);
 		second = false;
-		secondInterval=setTimeout(function(){freeSpace();clearTimeout(secondInterval);second=true;},timeout);
+		secondLocation = response.original_request; 
+		secondInterval=setTimeout(function(){freeSpace(secondLocation);clearTimeout(secondInterval);second=true;},timeout);
 	} else if (third) {
-		updateThird(response);
+		updateThird(response.forecast);
 		third = false;
-		thirdInterval=setTimeout(function(){freeSpace();clearTimeout(thirdInterval);third=true;},timeout);
+		thirdLocation = response.original_request; 
+		thirdInterval=setTimeout(function(){freeSpace(thirdLocation);clearTimeout(thirdInterval);third=true;},timeout);
 	} else {
 		console.log("error");
 	}
 }
 
-function freeSpace(){
+function freeSpace(location){
 	var free = JSON.stringify
 	({
 		"kind":"free",
 		"displayID":  displayID,
+		"location": location
 	});
 	websocket.send(free);
 }
