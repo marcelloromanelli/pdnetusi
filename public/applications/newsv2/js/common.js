@@ -260,7 +260,7 @@ function swapImgWithQR(event){
 					img.attr("src",oldImgSrc);
 					img.fadeIn('slow');
 				}
-				$(this).data("active",false);
+				img.parent().parent().find(".news_container").data("active",false);
 				);
 			},25000);
 
@@ -276,7 +276,7 @@ function swapImgWithQR(event){
 				newsContainer.append(bigImg);
 				setTimeout(function(){
 					bigImg.fadeOut('slow',function(){newsDesc.add(newsSrc).fadeIn('slow');});
-					$(this).data("active",false);
+					bigImg.parent().data("active",false);
 				},25000);
 			});
 		}
