@@ -254,6 +254,8 @@ function swapImgWithQR(event){
 			newsDesc.add(newsSrc).fadeOut('slow');
 			var bigImg = $("<img>");
 			bigImg.attr("src",qr);
+			bigImg.css("margin-left","-10px");
+			bigImg.css("margin-top","-10px");
 			newsContainer.append(bigImg);
 		}
 
