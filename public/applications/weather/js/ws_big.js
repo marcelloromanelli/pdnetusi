@@ -68,7 +68,7 @@ function updateFirst(response,cityname){
 	});
 	
 	city.animate({"margin-top": original},'fast');
-	city.animate({"margin-top": 200 }, {duration: 'slow',easing: 'easeOutBounce'});
+	city.animate({"margin-top": "400px" }, {duration: 'slow',easing: 'easeInBounce'});
 }
 
 function updateSecond(response,cityname){
