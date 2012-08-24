@@ -68,7 +68,7 @@ function updateFirst(response,cityname){
 	});
 	
 	city.animate({"margin-top": original},'fast');
-	city.effect("bounce", { times:3 }, 300);
+	city..animate({ margin-top: 200 }, {duration: 'slow',easing: 'easeOutBounce'});
 }
 
 function updateSecond(response,cityname){
