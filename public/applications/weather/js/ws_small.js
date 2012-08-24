@@ -59,7 +59,7 @@ function updateFirst(response,cityname){
 		$("#first_mintemp").html(response.forecast[0].low_temperature + "º");
 	});
 
-	city.animate({"margin-left": auto},'fast');
+	city.animate({"margin-left": 25},'fast');
 	city.effect("bounce", {direction:'left', times:3 }, 300);
 }
 
@@ -74,7 +74,7 @@ function updateSecond(response,cityname){
 		$("#second_mintemp").html(response.forecast[0].low_temperature + "º");
 	});
 
-	city.animate({"margin-left": auto},'fast');
+	city.animate({"margin-left": 25},'fast');
 	city.effect("bounce", {direction:'left', times:3 }, 300);
 }
 
@@ -89,6 +89,6 @@ function updateThird(response,cityname){
 		$("#third_maxtemp").html(response.forecast[0].high_temperature + "º");
 		$("#third_mintemp").html(response.forecast[0].low_temperature + "º");
 	});
-	city.animate({"margin-left": auto},'fast');
+	city.animate({"margin-left": 25},'fast');
 	city.effect("bounce", {direction:'left', times:3 }, 300);
 }
