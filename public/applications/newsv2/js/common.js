@@ -168,7 +168,7 @@ function stopMovmentAndRestart(seconds){
 	},seconds);
 }
 
-function showCounter(){
+function showCounter(event){
 	stopMovmentAndRestart(5000);
 	var image = $(this).find("img");
 	if(!image.data("active")){
