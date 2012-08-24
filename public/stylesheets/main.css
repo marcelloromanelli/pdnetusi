@@ -1,3 +1,10 @@
+html,body {
+	overflow: hidden;
+	cursor: none;
+	user-select: none;
+	-webkit-user-select: none;
+}
+
 .container h1 {
 	margin: 0;
 	margin-bottom: 20px;
