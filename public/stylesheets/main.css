@@ -216,7 +216,8 @@ html,body {
 	background-color: #787878;
 	width: 575px;
 	height: 100%;
-	float: left;
+	position: absolute;
+	left: 0;
 	user-select: none;
 	border: 0;
 }
@@ -225,7 +226,8 @@ html,body {
 	background-color: gray;
 	width: 1317px;
 	height: 100%;
-	float: left;
+	position: absolute;
+	left: 575px;
 	user-select: none;
 	border: 0;
 }
