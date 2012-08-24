@@ -251,7 +251,9 @@ function swapImgWithQR(event){
 		} else {
 			var newsDesc = newsContainer.find("news_container");
 			var newsSrc = newsContainer.find("news_source");
-			newsDesc.add(newsSrc).fadeOut('slow');
+			newsDesc.fadeOut('slow');
+			newsSrc.fadeOut('slow');
+			console.log(newsDesc);
 		}
 
 		setTimeout(function(){
