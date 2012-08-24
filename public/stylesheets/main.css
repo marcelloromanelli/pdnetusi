@@ -227,7 +227,7 @@ html,body {
 	width: 1317px;
 	height: 100%;
 	position: absolute;
-	left: 575px;
+	left: 603px;
 	user-select: none;
 	border: 0;
 }
@@ -235,8 +235,9 @@ html,body {
 #bar {
 	background-color: rgba(0, 0, 0, 0.8);
 	width: 28px;
+	position: absolute;
+	left: 575px;
 	height: 100%;
-	float: left;
 }
 
 #dock {
