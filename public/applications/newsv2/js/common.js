@@ -224,8 +224,9 @@ function newsClick(){
 
 function swapImgWithQR(event){
 	if($(this).data("active") == true){
+		console.log("ALREADY ACTIVE");
 		return false;
-	} else if ($(this).data("active") == false) {
+	} else if ($(this).data("active") == false || $(this).data("active") == undefined) {
 		$(this).data("active", true);
 	}
 	
