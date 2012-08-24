@@ -233,11 +233,18 @@ html,body {
 }
 
 #bar {
-	background-color: rgba(0, 0, 0, 0.8);
-	width: 28px;
+	background-color: red;
 	position: absolute;
 	left: 575px;
+	width: 48px
 	height: 100%;
+}
+
+.bgBar{
+	background-color: rgba(0, 0, 0, 0.8);
+	width: 28px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #dock {

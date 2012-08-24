@@ -38,51 +38,49 @@ displayName) {
 	var t;
 
 	$(function() {
-		
-		$("img").mousedown(function(){
+
+		$("img").mousedown(function() {
 			return false;
 		});
 
-		$("#bar")
-				.click(
-						function() {
-							if (isLeftCollapsed) {
-								$("#left").animate({
-									width : '1317px'
-								});
-								$("#right").animate({
-									width : '575px'
-								});
+		$("#bar").click(function() {
+			if (isLeftCollapsed) {
+				$("#left").animate({
+					width : '1317px'
+				});
+				$("#right").animate({
+					width : '575px'
+				});
 
-								$("#leftsmall").fadeOut();
-								$("#leftbig").fadeIn();
+				$("#leftsmall").fadeOut();
+				$("#leftbig").fadeIn();
 
-								$("#rightbig").fadeOut();
-								$("#rightsmall").fadeIn();
+				$("#rightbig").fadeOut();
+				$("#rightsmall").fadeIn();
 
-								isLeftCollapsed = false;
-								
-								$("#arrow").css("-webkit-transform", "rotate(180deg)");
-								
-							} else {
-								$("#right").animate({
-									width : '1317px'
-								});
-								$("#left").animate({
-									width : '575px'
-								});
+				isLeftCollapsed = false;
 
-								$("#leftbig").fadeOut();
-								$("#leftsmall").fadeIn();
+				$("#arrow").css("-webkit-transform", "rotate(180deg)");
 
-								$("#rightbig").fadeIn();
-								$("#rightsmall").fadeOut();
+			} else {
+				$("#right").animate({
+					width : '1317px'
+				});
+				$("#left").animate({
+					width : '575px'
+				});
 
-								$("#arrow").css("-webkit-transform", "rotate(0deg)");
+				$("#leftbig").fadeOut();
+				$("#leftsmall").fadeIn();
 
-								isLeftCollapsed = true;
-							}
-						});
+				$("#rightbig").fadeIn();
+				$("#rightsmall").fadeOut();
+
+				$("#arrow").css("-webkit-transform", "rotate(0deg)");
+
+				isLeftCollapsed = true;
+			}
+		});
 
 		$(".icon").click(function() {
 			if ($(this).hasClass("hidden")) {
@@ -130,8 +128,10 @@ displayName) {
 </div>
 
 <div id="bar">
-	<div style="position: relative; top: 50%;">
-		<img id="arrow" src="/assets/stylesheets/images/arrow_news_dx.png"/>
+	<div class="bgBar">
+		<div style="position: relative; top: 50%;">
+			<img id="arrow" src="/assets/stylesheets/images/arrow_news_dx.png" />
+		</div>
 	</div>
 </div>
 
@@ -142,8 +142,9 @@ displayName) {
 </div>
 
 <div id="showmore">
-	<div id="arrow_more" style="-webkit-transform: rotate(270deg); height: 30px; margin: 0 auto; width: 20px;">
-	<img src="/assets/stylesheets/images/arrow_news_dx.png"/>
+	<div id="arrow_more"
+		style="-webkit-transform: rotate(270deg); height: 30px; margin: 0 auto; width: 20px;">
+		<img src="/assets/stylesheets/images/arrow_news_dx.png" />
 	</div>
 </div>
 
