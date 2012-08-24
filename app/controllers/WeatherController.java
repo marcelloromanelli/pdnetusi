@@ -71,6 +71,7 @@ public class WeatherController extends Controller {
 						if(!sockets.containsKey(displayID)){
 							sockets.put(displayID, new Sockets(null, null));
 							status.put(displayID, MAX_REQ);
+							activeCities.put(displayID, new ArrayList<String>());
 							Logger.info("DisplayID " + displayID + " was added to the system.");
 						}
 
