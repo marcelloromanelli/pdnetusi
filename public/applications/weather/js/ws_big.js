@@ -68,7 +68,7 @@ function updateFirst(response,cityname){
 	});
 
 	city.animate({"margin-top": original},'fast');
-	city.effect("bounce", { times:5 }, 300);
+	city.effect("bounce", { times:3 }, 300);
 }
 
 function updateSecond(response,cityname){
@@ -95,7 +95,7 @@ function updateSecond(response,cityname){
 	});
 
 	city.animate({"margin-top": original},'fast');
-	city.effect("bounce", { times:5 }, 300);
+	city.effect("bounce", { times:3 }, 300);
 
 }
 
@@ -124,6 +124,6 @@ function updateThird(response,cityname){
 	});
 
 	city.animate({"margin-top": original},'fast');
-	city.effect("bounce", { times:5 }, 300);
+	city.effect("bounce", { times:3 }, 300);
 
 }
