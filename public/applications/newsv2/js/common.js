@@ -226,19 +226,33 @@ function swapImgWithQR(event){
 	stopMovmentAndRestart(25000);
 
 	$(this).find("img").effect("pulsate", { times:25 }, 1000);
-	var img = $(this).parent().parent().find(".news_container").find("img");
+	var newsContainer = $(this).parent().parent().find(".news_container"); 
+	var img = newsContainer.find("img");
+
+	if(event.data.isBig){
+		var size = "205x205";
+	} else {
+		var size = "360x350";
+	}
 
 	$.getJSON($(this).data("tiny"), function(data){ 
-		var oldImgSrc = null;
-		console.log(img);
-		img.fadeOut('slow',
-				function(){
-			console.log($(this));
-			oldImgSrc = img.attr("src");
-			img.attr("src","http://chart.apis.google.com/chart?cht=qr&chs=205x205&chl="+data.tinyurl+"&chld=H|0");
-			img.fadeIn('slow');
+
+		var qr = "http://chart.apis.google.com/chart?cht=qr&chs=" + size + "&chl=" + data.tinyurl + "&chld=H|0"
+
+		if(event.data.isBig){
+			var oldImgSrc;
+			img.fadeOut('slow',
+					function(){
+						oldImgSrc = img.attr("src");
+						img.attr("src",qr);
+						img.fadeIn('slow');
+					}
+			);
+		} else {
+			var newsDesc = newsContainer.find("news_container");
+			var newsSrc = newsContainer.find("news_source");
+			newsDesc.add(newsSrc).fadeOut('slow');
 		}
-		);
 
 		setTimeout(function(){
 			img.parent().parent().find(".news_container").find("img").fadeOut('slow',
