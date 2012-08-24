@@ -45,7 +45,7 @@ $(function() {
 
 function updateFirst(response,cityname){
 	var city = $("#first");
-	city.animate({"margin-left": "-525px"},'slow',function(){
+	city.animate({"margin-left": "-525px"},5000,function(){
 		$("#first_img").attr("src","css/icons/"+response.condition.code +".png");
 		freeCity($("#first_location").html());
 		$("#first_location").html(cityname);
@@ -57,7 +57,7 @@ function updateFirst(response,cityname){
 		$("#first_mintemp").html(response.forecast[0].low_temperature + "º");
 	});
 	city.css({"margin-bottom": 10});
-	city.animate({"margin-left": 25},'fast');
+	city.animate({"margin-left": "25px"},'fast');
 	
 	city.effect("bounce", {direction:'left', times:3 }, 300);
 }
