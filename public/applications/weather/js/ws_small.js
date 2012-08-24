@@ -56,7 +56,7 @@ function updateFirst(response,cityname){
 		$("#first_maxtemp").html(response.forecast[0].high_temperature + "º");
 		$("#first_mintemp").html(response.forecast[0].low_temperature + "º");
 	});
-	city.css{"margin-bottom": 10;}
+	city.css({"margin-bottom": 10});
 	city.animate({"margin-left": 25},'fast');
 	
 	city.effect("bounce", {direction:'left', times:3 }, 300);
