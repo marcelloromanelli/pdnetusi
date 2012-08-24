@@ -42,11 +42,11 @@ $(function() {
 });
 
 
-function updateFirst(response){
+function updateFirst(response,cityname){
 
 	$("#first_city").html(response.location.city);
 	$("#first_img").attr("src","css/icons/"+response.condition.code +".png")
-	$("#first_location").html(response.location.city);
+	$("#first_location").html(cityname);
 	$("#first_current_temp").html(response.condition.temperature + "º");
 	$("#first_humidity").html(response.atmosphere.humidity);
 	$("#first_wind_speed").html(response.wind.speed);
@@ -63,10 +63,10 @@ function updateFirst(response){
 
 }
 
-function updateSecond(response){
+function updateSecond(response,cityname){
 	$("#second_city").html(response.location.city);
 	$("#second_img").attr("src","css/icons/"+response.condition.code +".png")
-	$("#second_location").html(response.location.city);
+	$("#second_location").html(cityname);
 	$("#second_current_temp").html(response.condition.temperature + "º");
 	$("#second_humidity").html(response.atmosphere.humidity);
 	$("#second_wind_speed").html(response.wind.speed);
@@ -82,10 +82,10 @@ function updateSecond(response){
 	}
 }
 
-function updateThird(response){
+function updateThird(response,cityname){
 	$("#third_city").html(response.location.city);
 	$("#third_img").attr("src","css/icons/"+response.condition.code +".png")
-	$("#third_location").html(response.location.city);
+	$("#third_location").html(cityname);
 	$("#third_current_temp").html(response.condition.temperature + "º");
 	$("#third_humidity").html(response.atmosphere.humidity);
 	$("#third_wind_speed").html(response.wind.speed);
