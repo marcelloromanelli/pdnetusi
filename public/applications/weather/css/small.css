@@ -39,7 +39,6 @@ h2 {
 	width: 464px;
 	height: 450px;
 	padding: 30px;
-	margin: 80px auto 10px auto;
 	margin-top: 80px;
 	margin-right: 25px;
 	margin-left: 25px;
@@ -52,8 +51,10 @@ h2 {
 }
 
 .other {
-	margin: 0 25px;
 	margin-bottom: 10px;
+	margin-top: 0px;
+	margin-right: 25px;
+	margin-left: 25px;
 	width: 464px;
 	height: 140px;
 	padding: 30px;
