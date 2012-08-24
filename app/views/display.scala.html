@@ -69,12 +69,17 @@ displayName) {
 
 			} else {
 				$("#right").animate({
-					width : '1317px'
+					width : '1317px',
+					left: '602px'
 				});
 				$("#left").animate({
 					width : '575px'
 				});
 
+				$(this).animate({
+					left: '550px'
+				});
+				
 				$("#leftbig").fadeOut();
 				$("#leftsmall").fadeIn();
 
