@@ -45,7 +45,7 @@ $(function() {
 
 function updateFirst(response,cityname){
 	var city = $("#first");
-	city.animate({"margin-left": "-525px"},'slow',function(){
+	city.animate({"margin-left": "-320px"},'slow',function(){
 		$("#first_img").attr("src","css/icons/"+response.condition.code +".png");
 		freeCity($("#first_location").html());
 		$("#first_location").html(cityname);
