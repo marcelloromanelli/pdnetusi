@@ -260,6 +260,7 @@ function swapImgWithQR(event){
 					img.attr("src",oldImgSrc);
 					img.fadeIn('slow');
 				}
+				$(this).data("active",false);
 				);
 			},25000);
 
