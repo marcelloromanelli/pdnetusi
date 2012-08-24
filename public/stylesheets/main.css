@@ -214,7 +214,7 @@ html,body {
 
 #left {
 	background-color: #787878;
-	width: 575px;
+	width: 576px;
 	height: 100%;
 	position: absolute;
 	left: 0;
@@ -224,7 +224,7 @@ html,body {
 
 #right {
 	background-color: gray;
-	width: 1317px;
+	width: 1344px;
 	height: 100%;
 	position: absolute;
 	left: 602px;
