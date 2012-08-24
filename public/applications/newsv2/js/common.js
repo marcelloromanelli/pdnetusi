@@ -260,7 +260,8 @@ function swapImgWithQR(event){
 		} else {
 			var newsDesc = newsContainer.find(".news_desc");
 			var newsSrc = newsContainer.find(".news_source");
-			newsDesc.add(newsSrc).fadeOut('slow',function(){
+			newsSrc.fadeOut('fast');
+			newsDesc.fadeOut('slow',function(){
 				var bigImg = $("<img>");
 				bigImg.attr("src",qr);
 				bigImg.css("margin-left","-10px");
