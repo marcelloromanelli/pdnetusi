@@ -46,7 +46,7 @@ function updateFirst(response,cityname){
 	
 	var city = $($(".city").get(0));
 	var original = city.css("margin-top");
-	city.animate({"margin-top": "-749px"});
+	city.animate({"margin-top": "-749px"},'fast');
 	
 	$("#first_city").html(cityname);
 	
@@ -65,14 +65,14 @@ function updateFirst(response,cityname){
 		$("#first_d" + i + "_mintemp").html(response.forecast[i-1].low_temperature + "º");
 	}
 	
-	city.animate({"margin-top": original});
+	city.animate({"margin-top": original},'slow');
 
 }
 
 function updateSecond(response,cityname){
 	var city = $($(".city").get(1));
 	var original = city.css("margin-top");
-	city.animate({"margin-top": "-749px"});
+	city.animate({"margin-top": "-749px"},'fast');
 	
 	$("#second_city").html(cityname);
 	
@@ -91,14 +91,14 @@ function updateSecond(response,cityname){
 		$("#second_d" + i + "_mintemp").html(response.forecast[i-1].low_temperature + "º");
 	}
 	
-	city.animate({"margin-top": original});
+	city.animate({"margin-top": original},'slow');
 
 }
 
 function updateThird(response,cityname){
 	var city = $($(".city").get(2));
 	var original = city.css("margin-top");
-	city.animate({"margin-top": "-749px"});
+	city.animate({"margin-top": "-749px"},'fast');
 	
 	$("#third_city").html(cityname);
 	
@@ -117,5 +117,5 @@ function updateThird(response,cityname){
 		$("#third_d" + i + "_mintemp").html(response.forecast[i-1].low_temperature + "º");
 	}
 	
-	city.animate({"margin-top": original});
+	city.animate({"margin-top": original},'slow');
 }
