@@ -65,10 +65,10 @@ function updateFirst(response,cityname){
 			$("#first_d" + i + "_mintemp").html(response.forecast[i-1].low_temperature + "º");
 		}
 
-		city.animate({"margin-top": original},'slow');
-		city.effect("bounce", { times:3 }, 300);
 	});
-
+	
+	city.animate({"margin-top": original},'fast');
+	city.effect("bounce", { times:3 }, 300);
 }
 
 function updateSecond(response,cityname){
