@@ -56,9 +56,9 @@ function updateFirst(response,cityname){
 		$("#first_maxtemp").html(response.forecast[0].high_temperature + "º");
 		$("#first_mintemp").html(response.forecast[0].low_temperature + "º");
 	});
-	city.animate({"margin-left": "25px","margin-bottom": "10px"},'fast');
-	
-//	city.effect("bounce", {direction:'left', times:3 }, 300);
+	city.animate({"margin-left": "25px"},'fast',function(){
+		city.effect("bounce", {direction:'left', times:3 }, 300);
+	});	
 }
 
 function updateSecond(response,cityname){
