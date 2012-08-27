@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+	<head>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="http://timeago.yarp.com/jquery.timeago.js" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+		$(function(){
+			$.ajax({
+			   url: 'http://search.twitter.com/search.json?q=%23WaysToIrritateMe',
+			   type: 'GET',
+			   dataType: 'jsonp',
+			   success: function(data, textStatus, xhr) {
+				   console.log(data);
+			        // append tweets into page
+			        for (var i = 0; i < data.results.length; i++){	
+						var currentTweet = data.results[i];
+						
+						var tweetDiv = $("<div class='tweet'></div>");
+						
+						var usernameDiv = $("<div class='username'>" + currentTweet.from_user_name + "</div>");
+						var tweetText = $("<div class='tweet_text'>" + currentTweet.text + "</div>");
+						var tweetTime = $("<abbr class='timeago'></abbr>");
+						tweetTime.attr("title",currentTweet.created_at);
+						tweetTime.html(currentTweet.created_at);
+						
+						
+						tweetDiv.append(usernameDiv);
+						tweetDiv.append(tweetText);
+						tweetDiv.append(tweetTime);
+						
+						if(i == 0){
+							tweetDiv.addClass("first");
+						}
+						
+						
+						var profileImg = $("<img class='profilepic'>");
+						profileImg.attr("src","https://api.twitter.com/1/users/profile_image?screen_name=" + currentTweet.from_user + "&size=original");
+						
+						tweetDiv.append(profileImg);
+			           $("body").append(tweetDiv);
+					   
+			        }  
+					jQuery("abbr.timeago").timeago();                
+			   }   
+ 
+			});
+		});
+		</script>
+		<style type="text/css" media="screen">
+		@import url(http://fonts.googleapis.com/css?family=Press+Start+2P);
+		@import url(http://fonts.googleapis.com/css?family=Advent+Pro);
+		
+		body {
+				width: 576px;
+				height: 1080px;
+				background-color: red;
+			}
+			.tweet{
+				font-family: 'Advent Pro', sans-serif;
+				background-color: black;
+				color: white;
+				width: 536px;
+				height: 200px;
+				margin: 20px 8px;
+				border-radius: 10px;
+			}
+						
+			.tweet_text{
+				font-size: 25px;	
+				float: right;
+				width: 306px;
+				height: 140px;
+				margin-top: 10px;
+				margin-right: 10px;
+			}
+			
+			.username{
+				float: right;
+				width: 306px;
+				height: 20px;
+				margin-top: 10px;
+				margin-right: 10px;
+				font-size: 18px;
+			}
+			
+			.timeago{
+				float: right;
+				width: 306px;
+				height: 20px;
+				font-size: 14px;
+				text-align: right;
+				margin-right: 10px;
+			}
+			
+			.profilepic{
+				position: relative;
+				top: 0;
+				left: 0;
+				width: 200px;
+				height: 200px;
+				margin-right: 10px;
+				border-top-left-radius: 10px;
+				border-bottom-left-radius: 10px;
+			}
+		</style>
+		<title>TWITTER SMALL</title>
+	</head>
+	<body>
+		
+	</body>
+</html>
