@@ -8,6 +8,7 @@
 <script type="text/javascript" charset="utf-8">
 var queue = new Array();
 var lastid = null;
+var tag = "";
 		$(function(){
 			$.ajax({
 			   url: 'http://search.twitter.com/search.json?q=%23WaysToIrritateMe' + '&rpp=4',
@@ -25,7 +26,7 @@ var lastid = null;
  
 			});
 			
-			setInterval(function(){console.log("timer"); findNewTweets();},5000);
+			setInterval(function(){console.log("timer"); findNewTweets();},15000);
 			
 		});
 		
