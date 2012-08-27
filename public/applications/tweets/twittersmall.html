@@ -25,7 +25,7 @@ var lastid = null;
  
 			});
 			
-			setInterval(function(){console.log("timer"); findNewTweets();},10000);
+			setInterval(function(){console.log("timer"); findNewTweets();},5000);
 			
 		});
 		
@@ -39,19 +39,23 @@ var lastid = null;
 				        for (var i = 0; i < data.results.length; i++){	
 							var currentTweet = data.results[i];
 							var tweetDiv = createTweetDiv(currentTweet,i);					
-				          	// Take n-th replace and put current in queue
-				          	var ithTweet = $(".tweet").get(i);
-				          	queue.push(ithTweet);
-				          	$(ithTweet).animate({"margin-left": "-560px"},1500, function(){
-				          		$(ithTweet).replaceWith(tweetDiv);
-	 				          	$(ithTweet).animate({"margin-left": "8px"}, 1000);
-								lastid = currentTweet.id;
-				          	});  
+
+							var ithTweet = $(".tweet").get(i);
+				          	$(ithTweet).animate({"margin-left": "-560px"},1500, newStuff(i, tweetDiv));
+							lastid = currentTweet.id;
 				        }  
-						jQuery("abbr.timeago").timeago();                
 				   }   
 	 
 				});
+		}
+		
+		var newStuff = function(i, tweetDiv){
+			return function(){
+				tweetDiv.css("margin-left","-560px");
+				var ith = $(".tweet").get(i);
+				$(ith).replaceWith(tweetDiv);
+				tweetDiv.animate({"margin-left": "8px"}, 1000);
+			}
 		}
 		
 		function createTweetDiv(currentTweet,i){
@@ -61,7 +65,7 @@ var lastid = null;
 			var tweetText = $("<div class='tweet_text'>" + currentTweet.text + "</div>");
 			var tweetTime = $("<abbr class='timeago'></abbr>");
 			tweetTime.attr("title",currentTweet.created_at);
-			tweetTime.html(currentTweet.created_at);
+			tweetTime.html(jQuery.timeago(currentTweet.created_at));
 			
 			
 			tweetDiv.append(usernameDiv);
