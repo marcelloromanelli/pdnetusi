@@ -6,54 +6,81 @@
 <script type="text/javascript"
 	src="http://timeago.yarp.com/jquery.timeago.js" charset="utf-8"></script>
 <script type="text/javascript" charset="utf-8">
+var queue = new Array();
+var lastid = null;
 		$(function(){
-			var queue = new Array();
 			$.ajax({
-			   url: 'http://search.twitter.com/search.json?q=%23WaysToIrritateMe',
+			   url: 'http://search.twitter.com/search.json?q=%23WaysToIrritateMe' + '&rpp=4',
 			   type: 'GET',
 			   dataType: 'jsonp',
 			   success: function(data, textStatus, xhr) {
-				   console.log(data);
-			        // append tweets into page
 			        for (var i = 0; i < data.results.length; i++){	
 						var currentTweet = data.results[i];
-						
-						var tweetDiv = $("<div class='tweet'></div>");
-						
-						var usernameDiv = $("<div class='username'>" + currentTweet.from_user_name + "</div>");
-						var tweetText = $("<div class='tweet_text'>" + currentTweet.text + "</div>");
-						var tweetTime = $("<abbr class='timeago'></abbr>");
-						tweetTime.attr("title",currentTweet.created_at);
-						tweetTime.html(currentTweet.created_at);
-						
-						
-						tweetDiv.append(usernameDiv);
-						tweetDiv.append(tweetText);
-						tweetDiv.append(tweetTime);
-						
-						if(i == 0){
-							tweetDiv.addClass("first");
-						}
-						
-						
-						var profileImg = $("<img class='profilepic'>");
-						profileImg.attr("src","https://api.twitter.com/1/users/profile_image?screen_name=" + currentTweet.from_user + "&size=original");
-						
-						tweetDiv.append(profileImg);
-						
-						if(i < 4){
-			           		$("body").append(tweetDiv);
-						} else {
-							queue.push(tweetDiv);
-						}
-					   
+						var tweetDiv = createTweetDiv(currentTweet,i);					
+			           	$("body").append(tweetDiv);			
+						lastid = currentTweet.id;			   
 			        }  
-			        console.log(queue);
 					jQuery("abbr.timeago").timeago();                
 			   }   
  
 			});
+			
+			setInterval(function(){console.log("timer"); findNewTweets();},10000);
+			
 		});
+		
+		
+		function findNewTweets(){
+			$.ajax({
+				   url: 'http://search.twitter.com/search.json?q=%23WaysToIrritateMe' + '&rpp=4&since_id=' + lastid,
+				   type: 'GET',
+				   dataType: 'jsonp',
+				   success: function(data, textStatus, xhr) {
+				        for (var i = 0; i < data.results.length; i++){	
+							var currentTweet = data.results[i];
+							var tweetDiv = createTweetDiv(currentTweet,i);					
+				          	// Take n-th replace and put current in queue
+				          	var ithTweet = $(".tweet").get(i);
+				          	queue.push(ithTweet);
+				          	$(ithTweet).animate({"margin-left": "-560px"},1500, function(){
+				          		$(ithTweet).replaceWith(tweetDiv);
+	 				          	$(ithTweet).animate({"margin-left": "8px"}, 1000);
+								lastid = currentTweet.id;
+				          	});  
+				        }  
+						jQuery("abbr.timeago").timeago();                
+				   }   
+	 
+				});
+		}
+		
+		function createTweetDiv(currentTweet,i){
+			var tweetDiv = $("<div class='tweet'></div>");
+			
+			var usernameDiv = $("<div class='username'>" + currentTweet.from_user_name + "</div>");
+			var tweetText = $("<div class='tweet_text'>" + currentTweet.text + "</div>");
+			var tweetTime = $("<abbr class='timeago'></abbr>");
+			tweetTime.attr("title",currentTweet.created_at);
+			tweetTime.html(currentTweet.created_at);
+			
+			
+			tweetDiv.append(usernameDiv);
+			tweetDiv.append(tweetText);
+			tweetDiv.append(tweetTime);
+			
+			if(i == 0){
+				tweetDiv.addClass("first");
+			}
+			
+			
+			var profileImg = $("<img class='profilepic'>");
+			profileImg.attr("src","https://api.twitter.com/1/users/profile_image?screen_name=" + currentTweet.from_user + "&size=original");
+			
+			tweetDiv.append(profileImg);
+			
+			return tweetDiv;
+		}
+		
 		</script>
 <style type="text/css" media="screen">
 @import url(http://fonts.googleapis.com/css?family=Press+Start+2P);
@@ -79,7 +106,7 @@ body {
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, .8);
 }
 
-.tweet.first{
+.tweet.first {
 	margin-top: 100px;
 }
 
@@ -120,8 +147,6 @@ body {
 	border-top-left-radius: 10px;
 	border-bottom-left-radius: 10px;
 }
-
-
 </style>
 <title>TWITTER SMALL</title>
 </head>
