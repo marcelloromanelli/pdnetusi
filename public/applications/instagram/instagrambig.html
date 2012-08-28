@@ -30,7 +30,7 @@
 		
 		
 		function insertNewPhoto(newItem){
-			$('#container').isotope( 'insert', newItem);
+			$('#container').prepend(newItem).isotope( 'reloadItems' ).isotope({ sortBy: 'original-order' });
 		}
 		
 		function findPhotosNearCoordinates(lat, lng){
