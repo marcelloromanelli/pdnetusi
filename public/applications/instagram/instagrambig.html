@@ -70,16 +70,19 @@
 					
 						
 						var newItem = $("<div class='item' />");
+						newItem.data("std",img_std);
+
 						var img = $("<img />");
 						img.attr("src",img_low);
-						img.css("width","255px");
-						img.css("height","255px");
+						img.css("width","248px");
+						img.css("height","248px");
 						
 						newItem.append(img);
 						
 						if(jQuery.inArray(current.id, ids) == -1){
 							newItem.click(function(){
-								 $(this).toggleClass('large');
+								 $(this).find("img").toggleClass('large');
+								 $(this).find("img").attr("src",$(this).data("std"));
 							     $("#container").isotope('reLayout');
 							});
 							insertNewPhoto(newItem);
@@ -123,6 +126,8 @@
 					
 						
 						var newItem = $("<div class='item' />");
+						newItem.data("std",img_std);
+
 						var img = $("<img />");
 						img.attr("src",img_low);
 						img.css("width","248px");
@@ -132,7 +137,8 @@
 						
 						if(jQuery.inArray(current.id, ids) == -1){
 							newItem.click(function(){
-								 $(this).toggleClass('large');
+								 $(this).find("img").toggleClass('large');
+								 $(this).find("img").attr("src",$(this).data("std"));
 							     $("#container").isotope('reLayout');
 							});
 							insertNewPhoto(newItem);
