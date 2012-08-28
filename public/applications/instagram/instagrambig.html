@@ -30,7 +30,7 @@
 		
 		
 		function insertNewPhoto(newItem){
-			$('#container').prepend(newItem).isotope( 'reloadItems' ).isotope({ sortBy: 'original-order' });
+			$('#container').prepend(newItem);
 		}
 		
 		function findPhotosNearCoordinates(lat, lng){
@@ -48,7 +48,14 @@
 						console.log("API ERROR");
 						return;
 					}
-					for (var i = 0; i < response.data.length; i++){
+					
+					var max = 0;
+					if(response.data.length > 4){
+						max = 4;
+					} else {
+						max = response.data.length
+					}
+					for (var i = 0; i < max; i++){
 						var current = response.data[i];
 						 
 						var img_thumb = current.images.thumbnail.url;
@@ -71,6 +78,9 @@
 						} 
 						
 					}
+					
+					$("#container").isotope( 'reloadItems' ).isotope({ sortBy: 'original-order' });
+
 				}   
 	 
 			});
@@ -79,7 +89,7 @@
 		function findPhotosWithTag(tag){
 			console.log("checking photos with tag: " + tag);
 			$.ajax({				
-				url: 'https://api.instagram.com/v1/tags/'+ tag +'/media/recent?client_id=554c751130494dbbba66cb0a27602b07',
+				url: 'https://api.instagram.com/v1/tags/'+ tag +'/media/recent?client_id=554c751130494dbbba66cb0a27602b07' +'&count=100',
 				type: 'GET',
 				dataType: 'jsonp',
 				success: function(response, textStatus, xhr) {
@@ -88,7 +98,13 @@
 						console.log("API ERROR");
 						return;
 					}
-					for (var i = 0; i < response.data.length; i++){
+					var max = 0;
+					if(response.data.length > 4){
+						max = 4;
+					} else {
+						max = response.data.length
+					}
+					for (var i = 0; i < max; i++){
 						var current = response.data[i];
 						 
 						var img_thumb = current.images.thumbnail.url;
@@ -111,6 +127,8 @@
 						} 
 						
 					}
+					
+					$("#container").isotope( 'reloadItems' ).isotope({ sortBy: 'original-order' });
 				}   
 	 
 			});
