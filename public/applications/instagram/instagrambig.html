@@ -17,11 +17,12 @@
 				layoutMode : 'fitRows'
 			});
 			
-			findPhotosNearCoordinates(46.010868,8.958235);
+			findPhotosWithTag("usi");
 			
 			setInterval(
 				function(){
-					findPhotosNearCoordinates(46.010868,8.958235)
+					findPhotosNearCoordinates(46.010868,8.958235);
+					findPhotosWithTag("usi");
 				}
 			, 30000);
 
@@ -43,6 +44,10 @@
 				dataType: 'jsonp',
 				success: function(response, textStatus, xhr) {
 					console.log(response);
+					if(response.meta.code == 400){
+						console.log("API ERROR");
+						return;
+					}
 					for (var i = 0; i < response.data.length; i++){
 						var current = response.data[i];
 						 
@@ -71,8 +76,44 @@
 			});
 		}
 		
-		function findPhotosWithTag(tag, min_timestamp){
-			
+		function findPhotosWithTag(tag){
+			console.log("checking photos with tag: " + tag);
+			$.ajax({				
+				url: 'https://api.instagram.com/v1/tags/'+ tag +'/media/recent?client_id=554c751130494dbbba66cb0a27602b07',
+				type: 'GET',
+				dataType: 'jsonp',
+				success: function(response, textStatus, xhr) {
+					console.log(response);
+					if(response.meta.code == 400){
+						console.log("API ERROR");
+						return;
+					}
+					for (var i = 0; i < response.data.length; i++){
+						var current = response.data[i];
+						 
+						var img_thumb = current.images.thumbnail.url;
+						var img_low = current.images.low_resolution.url;
+						var img_std = current.images.standard_resolution.url;
+					
+						
+						var newItem = $("<div class='item' />");
+						var img = $("<img />");
+						img.attr("src",img_low);
+						img.css("width","276px");
+						img.css("height","276px");
+						
+						newItem.append(img);
+						
+						if(jQuery.inArray(current.id, ids) == -1){
+							insertNewPhoto(newItem);
+							ids.push(current.id);
+							
+						} 
+						
+					}
+				}   
+	 
+			});
 		}
 		
 		
