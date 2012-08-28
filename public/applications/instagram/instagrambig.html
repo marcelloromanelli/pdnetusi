@@ -135,8 +135,8 @@
 						
 						if(jQuery.inArray(current.id, ids) == -1){
 							newItem.click(function(){
-								 $(this).find("img").toggleClass('small');
-								 $(this).find("img").toggleClass('large');
+								 $(this).toggleClass('small');
+								 $(this).toggleClass('large');
 								 $(this).find("img").attr("src",$(this).data("std"));
 							     $("#container").isotope('reLayout');
 							});
@@ -226,6 +226,11 @@ body,html {
 .item.small{
 	width: 248px;
 	height: 248px;
+}
+
+.item img{
+	width: 100%;
+	height: 100%;
 }
 
 #container{
