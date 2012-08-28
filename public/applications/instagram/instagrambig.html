@@ -31,6 +31,10 @@
 					}
 				, 60000);
 			
+			$("#container").delegate( '.element', 'click', function(){
+		        $(this).toggleClass('large');
+		        $("#container").isotope('reLayout');
+		      });
 
 
 		});
@@ -203,6 +207,11 @@ body,html {
 	width: 248px;
 	height: 248px;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, .8);
+}
+
+.item .large {
+	width: 496px;
+	height: 496px;
 }
 
 #container{
