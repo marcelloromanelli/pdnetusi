@@ -21,16 +21,26 @@
 			
 			setInterval(
 				function(){
-					findPhotosNearCoordinates(46.010868,8.958235);
 					findPhotosWithTag("usilugano");
 				}
-			, 30000);
+			, 10000);
+			
+			setInterval(
+					function(){
+						findPhotosNearCoordinates(46.010868,8.958235);
+					}
+				, 60000);
+			
+
 
 		});
 		
 		
 		function insertNewPhoto(newItem){
 			$('#container').prepend(newItem);
+			$("img").mousedown(function(){
+				return false;
+			});
 		}
 		
 		function findPhotosNearCoordinates(lat, lng){
