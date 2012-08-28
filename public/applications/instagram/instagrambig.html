@@ -56,7 +56,7 @@
 					} else {
 						max = response.data.length
 					}
-					for (var i = 0; i < max; i++){
+					for (var i = 0; i < max || i < response.data.length; i++){
 						var current = response.data[i];
 						 
 						var img_thumb = current.images.thumbnail.url;
@@ -76,6 +76,7 @@
 							insertNewPhoto(newItem);
 							ids.push(current.id);
 						} else {
+							max++;
 							console.log("already in");
 						}
 						
@@ -106,7 +107,7 @@
 					} else {
 						max = response.data.length
 					}
-					for (var i = 0; i < max; i++){
+					for (var i = 0; i < max || i < response.data.length; i++){
 						var current = response.data[i];
 						 
 						var img_thumb = current.images.thumbnail.url;
@@ -126,6 +127,7 @@
 							insertNewPhoto(newItem);
 							ids.push(current.id);
 						} else {
+							max++;
 							console.log("already in");
 						}
 						
