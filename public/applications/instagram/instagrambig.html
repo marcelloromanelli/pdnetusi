@@ -78,10 +78,10 @@
 						newItem.append(img);
 						
 						if(jQuery.inArray(current.id, ids) == -1){
-							newItem.click(function({
+							newItem.click(function(){
 								 $(this).toggleClass('large');
 							     $("#container").isotope('reLayout');
-							}));
+							});
 							insertNewPhoto(newItem);
 							ids.push(current.id);
 							inserted++;
@@ -131,10 +131,10 @@
 						newItem.append(img);
 						
 						if(jQuery.inArray(current.id, ids) == -1){
-							newItem.click(function({
+							newItem.click(function(){
 								 $(this).toggleClass('large');
 							     $("#container").isotope('reLayout');
-							}));
+							});
 							insertNewPhoto(newItem);
 							ids.push(current.id);
 							inserted++;
