@@ -70,6 +70,12 @@
 					
 						
 						var newItem = $("<div class='item' />");
+						newItem.click(function(){
+							 $(this).toggleClass('small');
+							 $(this).toggleClass('large');
+							 $(this).find("img").attr("src",$(this).data("std"));
+						     $("#container").isotope('reLayout');
+						});
 						newItem.addClass("small");
 						newItem.data("std",img_std);
 
@@ -79,12 +85,6 @@
 						newItem.append(img);
 						
 						if(jQuery.inArray(current.id, ids) == -1){
-							newItem.click(function(){
-								 $(this).find("img").toggleClass('small');
-								 $(this).find("img").toggleClass('large');
-								 $(this).find("img").attr("src",$(this).data("std"));
-							     $("#container").isotope('reLayout');
-							});
 							insertNewPhoto(newItem);
 							ids.push(current.id);
 							inserted++;
@@ -125,6 +125,13 @@
 					
 						
 						var newItem = $("<div class='item' />");
+						newItem.click(function(){
+							 $(this).toggleClass('small');
+							 $(this).toggleClass('large');
+							 $(this).find("img").attr("src",$(this).data("std"));
+						     $("#container").isotope('reLayout');
+						});
+						
 						newItem.addClass("small");
 						newItem.data("std",img_std);
 
@@ -134,12 +141,7 @@
 						newItem.append(img);
 						
 						if(jQuery.inArray(current.id, ids) == -1){
-							newItem.click(function(){
-								 $(this).toggleClass('small');
-								 $(this).toggleClass('large');
-								 $(this).find("img").attr("src",$(this).data("std"));
-							     $("#container").isotope('reLayout');
-							});
+							
 							insertNewPhoto(newItem);
 							ids.push(current.id);
 							inserted++;
@@ -219,8 +221,8 @@ body,html {
 }
 
 .item.large {
-	width: 502px;
-	height: 502px;
+	width: 503px;
+	height: 503px;
 }
 
 .item.small{
