@@ -31,11 +31,6 @@
 					}
 				, 60000);
 			
-			$("#container").delegate( '.element', 'click', function(){
-		        $(this).toggleClass('large');
-		        $("#container").isotope('reLayout');
-		      });
-
 
 		});
 		
@@ -83,11 +78,16 @@
 						newItem.append(img);
 						
 						if(jQuery.inArray(current.id, ids) == -1){
+							newItem.click(function({
+								 $(this).toggleClass('large');
+							     $("#container").isotope('reLayout');
+							}));
 							insertNewPhoto(newItem);
 							ids.push(current.id);
 							inserted++;
 							console.log(inserted);
 						} 
+						
 						
 					}
 					
@@ -131,6 +131,10 @@
 						newItem.append(img);
 						
 						if(jQuery.inArray(current.id, ids) == -1){
+							newItem.click(function({
+								 $(this).toggleClass('large');
+							     $("#container").isotope('reLayout');
+							}));
 							insertNewPhoto(newItem);
 							ids.push(current.id);
 							inserted++;
