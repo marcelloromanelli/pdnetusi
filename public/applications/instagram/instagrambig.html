@@ -54,6 +54,9 @@
 						var newItem = $("<div class='item' />");
 						var img = $("<img />");
 						img.attr("src",img_low);
+						img.css("width","276px");
+						img.css("height","276px");
+						
 						newItem.append(img);
 						
 						if(jQuery.inArray(current.id, ids) == -1){
@@ -132,8 +135,8 @@ body,html {
 
 .item {
 	margin: 15px;
-	width: 306px;
-	height: 306px;
+	width: 276px;
+	height: 276px;
 	background-color: red;
 }
 </style>
