@@ -34,7 +34,7 @@ function findPhotos(address){
 			}
 			var inserted = 0;
 			for (var i = 0; i < response.data.length; i++){
-				if(inserted == 4){
+				if(inserted == 5){
 					break;
 				}
 				var current = response.data[i];
