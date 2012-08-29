@@ -53,11 +53,10 @@ function findPhotos(address){
 					$(this).toggleClass('small');
 					$(this).toggleClass('large');
 					$(this).find("img").attr("src",$(this).data("std"));
-					if($(this).hasClass("small")){
+					if($(this).hasClass("large")){
 						$("#container").prepend($(this));
 					}
 					$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
-					
 				});
 				newItem.addClass("small");
 				newItem.data("std",img_std);
