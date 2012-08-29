@@ -154,6 +154,9 @@ public class DisplayController extends Controller {
 										"\n Display " + displayID + "is now active." +
 										"\n*********************************"
 								);
+						ObjectNode res = play.libs.Json.newObject();
+						res.put("displayID", displayID);
+						out.write(res);
 					}
 				});
 
