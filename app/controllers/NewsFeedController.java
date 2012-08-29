@@ -265,6 +265,7 @@ public class NewsFeedController extends Controller {
 			status.last_culture = lastIndex;
 		}
 
+		Logger.info(response.toString());
 		return response;
 	}
 
