@@ -36,7 +36,7 @@ var tag = "";
 		
 		function findNewTweets(){
 			$.ajax({
-				   url: 'http://search.twitter.com/search.json?q=%23WaysToIrritateMe' + '&rpp=4&since_id=' + lastid,
+				   url: 'http://search.twitter.com/search.json?q=%23KingOfPop' + '&rpp=4&since_id=' + lastid,
 				   type: 'GET',
 				   dataType: 'jsonp',
 				   success: function(data, textStatus, xhr) {
@@ -47,6 +47,7 @@ var tag = "";
 							var ithTweet = $(".tweet").get(i);
 				          	$(ithTweet).animate({"margin-left": "-560px"},1500, newStuff(i, tweetDiv));
 							lastid = currentTweet.id;
+							$(".tweet_text").dotdotdot({});
 				        }  
 				   }   
 	 
