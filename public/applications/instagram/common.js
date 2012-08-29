@@ -15,9 +15,9 @@ $(function(){
 
 
 function insertNewPhoto(newItem){
-	if($(".item").length > 25){
-		$(".item").splice(-5).each(function(){$(this).remove()});
-	}
+//	if($(".item").length > 25){
+//		$(".item").splice(-5).each(function(){$(this).remove()});
+//	}
 	
 	$('#container').prepend(newItem);
 	$("img").mousedown(function(){
