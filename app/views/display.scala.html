@@ -125,12 +125,12 @@ displayName) {
 		var rs = $("#rightsmall").clone();
 		$("#leftsmall").replaceWith(rs);
 		rs.attr("id","leftsmall");
-		rs.attr("style","");
+		rs.css("display","block");
 		
 		var rb = $("#rightbig").clone();
 		$("#leftbig").replaceWith(rs);
 		rs.attr("id","leftbig");
-		rs.css("display","block");
+		rs.css("display","none");
 		
 		$("#rightsmall").attr("src",srcsmall);
 		$("#rightbig").attr("src",srcbig);
