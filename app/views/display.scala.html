@@ -93,7 +93,7 @@ displayName) {
 		});
 
 		$(".icon").click(function() {
-			swapApps("assets/applications/weather/small.html","assets/applications/weather/big.html");
+			swapApps($(this).data("small"),$(this).data("big"));
 		});
 
 		$("#showmore").click(function() {
@@ -154,18 +154,35 @@ displayName) {
 
 <div id="dock" class="hiddenDock">
 	<div class="icons">
-		<div class="icon active">
+	
+		<div 	class="icon active" 
+				data-small="assets/applications/newsv2/small.html"
+				data-big="assets/applications/newsv2/big.html"
+		>
 			<img src="/assets/prova/news.png" />
 		</div>
-		<div class="icon hidden">
-			<img src="/assets/prova/pictures.png" />
-		</div>
-		<div class="icon hidden">
-			<img src="/assets/prova/usinews.png" />
-		</div>
-		<div class="icon active">
+		
+		<div 	class="icon active" 
+				data-small="assets/applications/weather/small.html"
+				data-big="assets/applications/weather/big.html"
+		>
 			<img src="/assets/prova/weather.png" />
 		</div>
+		
+		<div 	class="icon active" 
+				data-small="assets/applications/instagram/instagramsmall.html"
+				data-big="assets/applications/instagram/instagrambig.html"
+		>
+			<img src="/assets/prova/pictures.png" />
+		</div>
+		
+		<div 	class="icon active" 
+				data-small="assets/applications/tweets/twittersmall.html"
+				data-big="assets/applications/tweets/twittersmall.html"
+		>			
+			<img src="/assets/prova/usinews.png" />
+		</div>
+		
 	</div>
 </div>
 }
