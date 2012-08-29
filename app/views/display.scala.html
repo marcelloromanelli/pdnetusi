@@ -123,15 +123,14 @@ displayName) {
 	
 	function swapApps(srcsmall,srcbig){
 		var rs = $("#rightsmall").clone();
-		rs.attr("id","leftsmall");
-		rs.css("display","block");
 		$("#leftsmall").replaceWith(rs);
+		rs.attr("id","leftsmall");
+		rs.attr("style","");
 		
 		var rb = $("#rightbig").clone();
+		$("#leftbig").replaceWith(rs);
 		rs.attr("id","leftbig");
 		rs.css("display","block");
-		$("#leftbig").replaceWith(rs);
-		
 		
 		$("#rightsmall").attr("src",srcsmall);
 		$("#rightbig").attr("src",srcbig);
