@@ -49,6 +49,7 @@ function findPhotos(address){
 					$(this).toggleClass('small');
 					$(this).toggleClass('large');
 					$(this).find("img").attr("src",$(this).data("std"));
+					body.prepend($(this));
 					$("#container").isotope('reLayout');
 				});
 				newItem.addClass("small");
