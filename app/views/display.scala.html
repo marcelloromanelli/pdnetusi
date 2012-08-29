@@ -93,10 +93,20 @@ displayName) {
 		});
 
 		$(".icon").click(function() {
+			
+			// HIDES ICON
 			$(this).toggleClass("hidden");
-			var active = $("#right").data("app");
-			$("#" + active).toggleClass("hidden");
+			
+			// ACTIVES
+			var activeleft = $("#left").data("app");
+			var activeright = $("#right").data("app");
+			
+			// SHOW ACTIVE ICON
+			$("#left").data("app",activeright);
 			$("#right").data("app",$(this).attr("id"));
+			
+			$("#" + activeleft).toggleClass("hidden");
+			
 			swapApps($(this).data("small"),$(this).data("big"));
 		});
 
@@ -138,7 +148,7 @@ displayName) {
 </script>
 
 
-<div id="left">
+<div id="left" data-app="twitter">
 	<iframe id="leftsmall" src="assets/applications/tweets/twittersmall.html"></iframe>
 	<iframe id="leftbig" src="assets/applications/tweets/twittersmall.html" style="display: none;"></iframe>
 </div>
