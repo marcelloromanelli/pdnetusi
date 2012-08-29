@@ -30,7 +30,7 @@ var tag = "";
  
 			});
 			
-			setInterval(function(){console.log("timer"); findNewTweets();},15000);
+			setInterval(function(){findNewTweets();},15000);
 		});
 		
 		
@@ -47,7 +47,7 @@ var tag = "";
 							var ithTweet = $(".tweet").get(i);
 				          	$(ithTweet).animate({"margin-left": "-560px"},1500, newStuff(i, tweetDiv));
 							lastid = currentTweet.id;
-							$(".tweet_text").dotdotdot({});
+							tweetDiv.dotdotdot({});
 				        }  
 				   }   
 	 
