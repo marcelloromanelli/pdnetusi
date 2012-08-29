@@ -80,12 +80,12 @@ function findPhotosNearCoordinates(lat, lng){
 	+ '&lng=' + lng 
 	+'&distance=100&client_id=554c751130494dbbba66cb0a27602b07' +
 	'&count=100';
-	findPhoto(address);
+	findPhotos(address);
 }
 
 function findPhotosWithTag(tag){
 	console.log("checking photos with tag: " + tag);
 	var address = 'https://api.instagram.com/v1/tags/'+ tag +'/media/recent?client_id=554c751130494dbbba66cb0a27602b07';
-	findPhoto(address);
+	findPhotos(address);
 }
 
