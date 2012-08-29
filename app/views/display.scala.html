@@ -93,18 +93,7 @@ displayName) {
 		});
 
 		$(".icon").click(function() {
-			if ($(this).hasClass("hidden")) {
-				$(this).removeClass("hidden", 100);
-				$(this).addClass("active", 100);
-				$(this).effect("bounce", {
-					times : 3,
-					distance : 10
-				}, 300);
-			} else {
-				$(this).addClass("hidden", 100);
-				$(this).removeClass("active", 100);
-			}
-			return false;
+			swapApps("assets/applications/weather/small.html","assets/applications/weather/big.html");
 		});
 
 		$("#showmore").click(function() {
@@ -127,14 +116,19 @@ displayName) {
 		});
 
 	});
+	
+	function swapApps(srcsmall,srcbig){
+		$("#leftsmall").attr("src",$("#rightsmall").attr("src"));
+		$("#leftbig").attr("src",$("#rightbig").attr("src"));
+		$("#rightsmall").attr("src",srcsmall);
+		$("#rightbig").attr("src",srcbig);
+	}
 </script>
 
 
 <div id="left">
-	<iframe id="leftsmall"
-		src="assets/applications/tweets/twittersmall.html"></iframe>
-	<iframe id="leftbig" src="assets/applications/tweets/twittersmall.html"
-		style="display: none;"></iframe>
+	<iframe id="leftsmall" src="assets/applications/tweets/twittersmall.html"></iframe>
+	<iframe id="leftbig" src="assets/applications/tweets/twittersmall.html" style="display: none;"></iframe>
 </div>
 
 <div id="bar">
@@ -160,9 +154,6 @@ displayName) {
 
 <div id="dock" class="hiddenDock">
 	<div class="icons">
-		<div class="icon hidden">
-			<img src="/assets/prova/class.png" />
-		</div>
 		<div class="icon active">
 			<img src="/assets/prova/news.png" />
 		</div>
