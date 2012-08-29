@@ -290,6 +290,6 @@ html,body {
 	margin: 0 auto;
 }
 
-.hidden {
-	margin-top: 40px;
+.icon.hidden {
+	display: none;
 }

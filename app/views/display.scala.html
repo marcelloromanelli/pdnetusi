@@ -93,6 +93,10 @@ displayName) {
 		});
 
 		$(".icon").click(function() {
+			$(this).toggleClass("hidden");
+			var active = $("#right").data("active");
+			$("#" + active).toggleClass("hidden");
+			$("#right").data("active",$(this).attr("id"));
 			swapApps($(this).data("small"),$(this).data("big"));
 		});
 
@@ -139,7 +143,7 @@ displayName) {
 	</div>
 </div>
 
-<div id="right">
+<div id="right" data-active="instagram">
 	<iframe id="rightsmall" src="assets/applications/instagram/instagrambig.html"
 		style="display: none;"></iframe>
 	<iframe id="rightbig" src="assets/applications/instagram/instagrambig.html"></iframe>
@@ -155,28 +159,28 @@ displayName) {
 <div id="dock" class="hiddenDock">
 	<div class="icons">
 	
-		<div 	class="icon active" 
+		<div id="news" class="icon active" 
 				data-small="assets/applications/newsv2/small.html"
 				data-big="assets/applications/newsv2/big.html"
 		>
 			<img src="/assets/prova/news.png" />
 		</div>
 		
-		<div 	class="icon active" 
+		<div id="weather" class="icon active" 
 				data-small="assets/applications/weather/small.html"
 				data-big="assets/applications/weather/big.html"
 		>
 			<img src="/assets/prova/weather.png" />
 		</div>
 		
-		<div 	class="icon active" 
+		<div  id="instagram"	class="icon hidden" 
 				data-small="assets/applications/instagram/instagramsmall.html"
 				data-big="assets/applications/instagram/instagrambig.html"
 		>
 			<img src="/assets/prova/pictures.png" />
 		</div>
 		
-		<div 	class="icon active" 
+		<div id="twitter" class="icon hidden" 
 				data-small="assets/applications/tweets/twittersmall.html"
 				data-big="assets/applications/tweets/twittersmall.html"
 		>			
