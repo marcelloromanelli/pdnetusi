@@ -94,9 +94,9 @@ displayName) {
 
 		$(".icon").click(function() {
 			$(this).toggleClass("hidden");
-			var active = $("#right").data("active");
+			var active = $("#right").data("app");
 			$("#" + active).toggleClass("hidden");
-			$("#right").data("active",$(this).attr("id"));
+			$("#right").data("app",$(this).attr("id"));
 			swapApps($(this).data("small"),$(this).data("big"));
 		});
 
@@ -151,7 +151,7 @@ displayName) {
 	</div>
 </div>
 
-<div id="right" data-active="instagram">
+<div id="right" data-app="instagram">
 	<iframe id="rightsmall" src="assets/applications/instagram/instagrambig.html"
 		style="display: none;"></iframe>
 	<iframe id="rightbig" src="assets/applications/instagram/instagrambig.html"></iframe>
