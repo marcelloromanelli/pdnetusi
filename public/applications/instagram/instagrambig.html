@@ -1,162 +1,10 @@
 <html>
 <head>
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-1.8.0.min.js" charset="utf-8"></script>
-<script type="text/javascript"
-	src="http://timeago.yarp.com/jquery.timeago.js" charset="utf-8"></script>
-<script type="text/javascript"
-	src="http://isotope.metafizzy.co/jquery.isotope.min.js" charset="utf-8"></script>
-<script type="text/javascript" charset="utf-8">
-	
-		var ids = new Array();
-		
-		$(function(){
-			
-			$('#container').isotope({
-				itemSelector : '.item',
-				layoutMode : 'fitRows'
-			});
-			
-			findPhotosWithTag("usilugano");
-			
-			setInterval(
-				function(){
-					findPhotosWithTag("usilugano");
-				}
-			, 10000);
-			
-			setInterval(
-					function(){
-						findPhotosNearCoordinates(46.010868,8.958235);
-					}
-				, 60000);
-			
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://timeago.yarp.com/jquery.timeago.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://isotope.metafizzy.co/jquery.isotope.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="common.js" charset="utf-8"></script>
 
-		});
-		
-		
-		function insertNewPhoto(newItem){
-			$('#container').prepend(newItem);
-			$("img").mousedown(function(){
-				return false;
-			});
-		}
-		
-		function findPhotosNearCoordinates(lat, lng){
-			console.log("checking photos near usi");
-			$.ajax({				
-				url: 'https://api.instagram.com/v1/media/search?lat=' 
-				+ lat + '&lng=' + lng 
-				+'&distance=100&client_id=554c751130494dbbba66cb0a27602b07'
-				+'&count=100',
-				type: 'GET',
-				dataType: 'jsonp',
-				success: function(response, textStatus, xhr) {
-					console.log(response);
-					if(response.meta.code == 400){
-						console.log("API ERROR");
-						return;
-					}
-					var inserted = 0;
-					for (var i = 0; i < response.data.length; i++){
-						if(inserted == 4){
-							break;
-						}
-						var current = response.data[i];
-						 
-						var img_thumb = current.images.thumbnail.url;
-						var img_low = current.images.low_resolution.url;
-						var img_std = current.images.standard_resolution.url;
-					
-						
-						var newItem = $("<div class='item' />");
-						newItem.click(function(){
-							 $(this).toggleClass('small');
-							 $(this).toggleClass('large');
-							 $(this).find("img").attr("src",$(this).data("std"));
-						     $("#container").isotope('reLayout');
-						});
-						newItem.addClass("small");
-						newItem.data("std",img_std);
-
-						var img = $("<img />");
-						img.attr("src",img_low);
-	
-						newItem.append(img);
-						
-						if(jQuery.inArray(current.id, ids) == -1){
-							insertNewPhoto(newItem);
-							ids.push(current.id);
-							inserted++;
-						} 
-						
-						
-					}
-					
-					$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
-
-				}   
-	 
-			});
-		}
-		
-		function findPhotosWithTag(tag){
-			console.log("checking photos with tag: " + tag);
-			$.ajax({				
-				url: 'https://api.instagram.com/v1/tags/'+ tag +'/media/recent?client_id=554c751130494dbbba66cb0a27602b07',
-				type: 'GET',
-				dataType: 'jsonp',
-				success: function(response, textStatus, xhr) {
-					console.log(response);
-					if(response.meta.code == 400){
-						console.log("API ERROR");
-						return;
-					}
-					var inserted;
-					for (var i = 0; i < response.data.length; i++){
-						if(inserted == 4){
-							break;
-						}
-						var current = response.data[i];
-						 
-						var img_thumb = current.images.thumbnail.url;
-						var img_low = current.images.low_resolution.url;
-						var img_std = current.images.standard_resolution.url;
-					
-						
-						var newItem = $("<div class='item' />");
-						newItem.click(function(){
-							 $(this).toggleClass('small');
-							 $(this).toggleClass('large');
-							 $(this).find("img").attr("src",$(this).data("std"));
-						     $("#container").isotope('reLayout');
-						});
-						
-						newItem.addClass("small");
-						newItem.data("std",img_std);
-
-						var img = $("<img />");
-						img.attr("src",img_low);
-						
-						newItem.append(img);
-						
-						if(jQuery.inArray(current.id, ids) == -1){
-							
-							insertNewPhoto(newItem);
-							ids.push(current.id);
-							inserted++;
-						} 
-						
-					}
-					
-					$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
-				}   
-	 
-			});
-		}
-		
-		
-	</script>
 
 <style type="text/css" media="screen">
 body,html {
@@ -225,32 +73,32 @@ body,html {
 	height: 502px;
 }
 
-.item.small{
+.item.small {
 	width: 248px;
 	height: 248px;
 }
 
-.item img{
+.item img {
 	width: 100%;
 	height: 100%;
 }
 
-#container{
- margin-left: 25px;
- margin-right: 25px;
- margin-top: -3px;
+#container {
+	margin-left: 25px;
+	margin-right: 25px;
+	margin-top: -3px;
 }
 
-#logo{
-width: 146px;
-margin: 10px auto;
+#logo {
+	width: 146px;
+	margin: 10px auto;
 }
 </style>
 </head>
 
 <body>
 	<div id="logo">
-		<img src="instagram-logo.png" height="50px" /> 
+		<img src="instagram-logo.png" height="50px" />
 	</div>
 	<div id="container"></div>
 </body>
