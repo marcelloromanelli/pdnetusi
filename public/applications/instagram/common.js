@@ -15,6 +15,10 @@ $(function(){
 
 
 function insertNewPhoto(newItem){
+	if($(".item").length > 25){
+		$(".item").splice(-5).each(function(){$(this).remove()});
+	}
+	
 	$('#container').prepend(newItem);
 	$("img").mousedown(function(){
 		return false;
@@ -49,7 +53,7 @@ function findPhotos(address){
 					$(this).toggleClass('small');
 					$(this).toggleClass('large');
 					$(this).find("img").attr("src",$(this).data("std"));
-					body.prepend($(this));
+					$("#container").prepend($(this));
 					$("#container").isotope('reLayout');
 				});
 				newItem.addClass("small");
