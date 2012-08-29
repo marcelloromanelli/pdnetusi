@@ -122,8 +122,12 @@ displayName) {
 	});
 	
 	function swapApps(srcsmall,srcbig){
-		$("#leftsmall").attr("src",$("#rightsmall").attr("src"));
+		var rs = $("#rightsmall").clone();
+		rs.attr("id","leftsmall");
+		
+		$("#leftsmall").replaceWith(rs);
 		$("#leftbig").attr("src",$("#rightbig").attr("src"));
+		
 		$("#rightsmall").attr("src",srcsmall);
 		$("#rightbig").attr("src",srcbig);
 	}
