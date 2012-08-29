@@ -146,6 +146,7 @@ public class DisplayController extends Controller {
 			public void onReady(WebSocket.In<JsonNode> in, final WebSocket.Out<JsonNode> out) {
 				in.onMessage(new Callback<JsonNode>() {
 					public void invoke(JsonNode event) {
+						Logger.info(event.toString());
 						String displayID = event.get("displayID").asText();
 						activeDisplays.put(displayID, out);
 						outToID.put(out, displayID);
@@ -156,6 +157,7 @@ public class DisplayController extends Controller {
 								);
 						ObjectNode res = play.libs.Json.newObject();
 						res.put("displayID", displayID);
+						Logger.info(res.toString());
 						out.write(res);
 					}
 				});
