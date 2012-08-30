@@ -56,8 +56,8 @@ public class InstagramController extends Controller {
 							} else if(size.equals("big")) {
 								sockets.get(displayID).big  = out;
 							}
-
-
+						} else if (messageKind.equals("getItems")){
+							Logger.info("MATTIA CULO!");
 						}
 					}
 				});

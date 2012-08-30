@@ -4,7 +4,7 @@
 		<name>Instagram</name>
 		<namespace>instagram</namespace>
 		<view>photostream/view.html</view>
-		<websocket_address>http://pdnet.inf.unisi.ch:9000/photostream/socket</websocket_address>
+		<websocket_address>http://pdnet.inf.unisi.ch:9000/instagram/socket</websocket_address>
 		<description>Shows galleries taken from Flickr when you pass by public displays</description>
 		<icon>images/photostream-icon.png</icon>
 		<preview-image>images/photostream.png</preview-image>
