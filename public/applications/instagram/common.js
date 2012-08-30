@@ -56,8 +56,7 @@ function findPhotos(address){
 					$(this).find("img").attr("src",$(this).data("std"));
 					if($(this).hasClass("large")){
 						if($(".item:first")[0] === this){
-							console.log("HERE");
-							$($(".item").get(2)).after($(this));
+							$($(".item").get(1)).after($(this));
 						} else {
 							$(".item:first").after($(this));
 						}
