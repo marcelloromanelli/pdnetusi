@@ -4,6 +4,7 @@
 
 body {
 	height: 1080px;
+	width: 576px;
 	background: url(twitterbg.png);
 	overflow: hidden;
 }
@@ -63,10 +64,10 @@ body {
 }
 
 #hashtag{
+	font-family: 'Advent Pro', sans-serif;
 	position: absolute;
-	bottom: 10px;
-	left: 50%;
-	font-size: 30px;
+	bottom: 30px;
+	font-size: 40px;
 	color: white;
 	text-shadow: 0px 0px 10px rgba(0, 0, 0, .8);
 	font-weight: bold;
