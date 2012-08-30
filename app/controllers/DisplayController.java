@@ -162,6 +162,7 @@ public class DisplayController extends Controller {
 							ObjectNode request = play.libs.Json.newObject();
 							request.put("kind", "actives");
 							displayOut.write(request);
+							out.write(request);
 						} else if (kind.equals("actives")){
 							Logger.info("ACTIVES!!!!!");
 						}
