@@ -7,9 +7,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.node.ObjectNode;
 
 
 import play.Logger;
+import play.libs.Json;
 import play.libs.F.Callback;
 import play.libs.F.Callback0;
 import play.mvc.Controller;
@@ -65,7 +67,17 @@ public class TwitterController extends Controller {
 								reverter.put(out, displayID);
 								mobilesConnected.get(displayID).add(out);
 							}
-							Logger.info(mobilesConnected.get(displayID).size() + " mobiles connected");
+							int numberOfMobiles = mobilesConnected.get(displayID).size() ;
+							Sockets dsock = sockets.get(displayID);
+							
+							
+							ObjectNode stats = Json.newObject();
+							stats.put("kind", "stats");
+							stats.put("mobiles", numberOfMobiles);
+							dsock.big.write(stats);
+							dsock.small.write(stats);
+
+							Logger.info(numberOfMobiles + " mobiles connected");
 						}
 					}
 				});
