@@ -103,6 +103,7 @@ function findPhotos(address, limit){
 }
 
 function findPhotosNearCoordinates(lat, lng, limit){
+	console.log("looking for photos near USI");
 	var address = 'https://api.instagram.com/v1/media/search?lat=' + lat 
 	+ '&lng=' + lng 
 	+'&distance=100&client_id=554c751130494dbbba66cb0a27602b07' +
