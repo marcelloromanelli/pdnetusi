@@ -66,9 +66,10 @@ body {
 #hashtag{
 	font-family: 'Advent Pro', sans-serif;
 	position: absolute;
-	bottom: 30px;
-	font-size: 40px;
+	bottom: 40px;
+	font-size: 50px;
 	color: white;
 	text-shadow: 0px 0px 10px rgba(0, 0, 0, .8);
 	font-weight: bold;
+	margin: 0px auto;
 }
