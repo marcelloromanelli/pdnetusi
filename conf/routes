@@ -20,7 +20,7 @@ GET			/display/socket										controllers.DisplayController.webSocket
 #  Sockets
 GET		/weather/socket											controllers.WeatherController.webSocket
 GET		/newsfeed/socket										controllers.NewsFeedController.webSocket
-GET		/photostream/socket										controllers.PhotostreamController.webSocket
+GET		/instagram/socket										controllers.InstagramController.webSocket
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

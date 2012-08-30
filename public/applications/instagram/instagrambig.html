@@ -5,7 +5,36 @@
 <script type="text/javascript" src="http://isotope.metafizzy.co/jquery.isotope.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="common.js" charset="utf-8"></script>
 
+<script type="text/javascript">
+	displayID = getUrlVars()["id"];
+	var WS = WebSocket;
+	var wsUri = "ws://pdnet.inf.unisi.ch:9000/instagram/socket";
+	websocket = new WS(wsUri); 
+	websocket.onopen = function(evt) { 
+		console.log("CONNECTED"); 
+		var hi = JSON.stringify
+		({
+			"kind":"appReady",
+			"displayID":  displayID,
+			"size": "big"
+		});
+		websocket.send(hi);
+	}; 
 
+	websocket.onclose = function(evt) { 
+		console.log("DISCONNECTED");
+	};
+
+	websocket.onmessage = function(evt) {
+		var response = jQuery.parseJSON(evt.data);
+		console.log(response);
+	};
+
+	websocket.onerror = function(evt) { 
+		console.log(evt.data); 
+	}; 
+
+</script>
 <style type="text/css" media="screen">
 body,html {
 	margin: 0;

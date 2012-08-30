@@ -1,38 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <apps>
 	<app>
-		<name>Photostream</name>
-		<namespace>photostream</namespace>
+		<name>Instagram</name>
+		<namespace>instagram</namespace>
 		<view>photostream/view.html</view>
 		<websocket_address>http://pdnet.inf.unisi.ch:9000/photostream/socket</websocket_address>
 		<description>Shows galleries taken from Flickr when you pass by public displays</description>
 		<icon>images/photostream-icon.png</icon>
 		<preview-image>images/photostream.png</preview-image>
-		<sizes>
-			<size>
-				<width>2</width>
-				<height>2</height>
-				<tile_source>http://pdnet.inf.unisi.ch:9000/assets/applications/photostream/tiles/2_2.html</tile_source>
-				<preview_image>PATH</preview_image>
-				<setting>Default Image</setting>
-			</size>
-
-			<size>
-				<width>4</width>
-				<height>4</height>
-				<tile_source>http://pdnet.inf.unisi.ch:9000/assets/applications/photostream/tiles/4_4.html</tile_source>
-				<preview_image>PATH</preview_image>
-				<setting>Default Image</setting>
-			</size>
-
-			<size>
-				<width>8</width>
-				<height>5</height>
-				<tile_source>http://pdnet.inf.unisi.ch:9000/assets/applications/photostream/tiles/8_5.html</tile_source>
-				<preview_image>PATH</preview_image>
-				<setting>Default Image</setting>
-			</size>
-		</sizes>
 	</app>
 
 	<app>
@@ -43,24 +18,6 @@
 		<description>Shows latest news of favorite your favorite topics when you pass by public displays</description>
 		<icon>images/feed-icon.png</icon>
 		<preview-image>images/newsfeed.png</preview-image>
-		<sizes>
-			<size>
-				<width>2</width>
-				<height>2</height>
-				<tile_source>http://pdnet.inf.unisi.ch:9000/assets/applications/newsfeed/tiles/2_2.html</tile_source>
-				<preview_image>PATH</preview_image>
-				<setting>RSS Feed Source</setting>
-			</size>
-
-			<size>
-				<width>4</width>
-				<height>4</height>
-				<tile_source>http://pdnet.inf.unisi.ch:9000/assets/applications/newsfeed/tiles/4_4.html</tile_source>
-				<preview_image>images/newsfeed.png</preview_image>
-				<setting>Source 1</setting>
-				<setting>Source 2</setting>
-			</size>
-		</sizes>
 	</app>
 
 	<app>
@@ -71,62 +28,7 @@
 		<view>weather/view.html</view>
 		<icon>images/weather-icon.png</icon>
 		<preview-image>images/weather.png</preview-image>
-		<sizes>
-			<size>
-				<width>2</width>
-				<height>2</height>
-				<tile_source>http://pdnet.inf.unisi.ch:9000/assets/applications/weather/tiles/2_2.html</tile_source>
-				<preview_image>PATH</preview_image>
-				<setting>Location</setting>
-			</size>
-
-			<size>
-				<width>4</width>
-				<height>4</height>
-				<tile_source>http://pdnet.inf.unisi.ch:9000/assets/applications/weather/tiles/4_4.html</tile_source>
-				<preview_image>images/weather.png</preview_image>
-				<setting>Location</setting>
-			</size>
-		</sizes>
 	</app>
 
-	<app>
-		<name>Live scores</name>
-		<namespace>livescores</namespace>
-		<link>http://pdnet.inf.unisi.ch:9000/mobile/livescores</link>
-		<websocket_address> WS ADDRESS 4 </websocket_address>
 
-		<description>Lorem ipsum</description>
-
-		<size>
-			<width>2</width>
-			<height>2</height>
-			<tile_source>http://pdnet.inf.unisi.ch:9000/assets/applications/livescores/tiles/4_4.html</tile_source>
-
-			<preview_image>PATH</preview_image>
-		</size>
-
-		<size>
-			<width>4</width>
-			<height>1</height>
-			<tile_source>http://pdnet.inf.unisi.ch:9000/assets/applications/livescores/tiles/4_1.html</tile_source>
-
-			<preview_image>PATH</preview_image>
-		</size>
-	</app>
-
-	<app>
-		<name>Slideshow</name>
-		<namespace>slideshow</namespace>
-		<link>http://pdnet.inf.unisi.ch:9000/mobile/slideshow</link>
-		<websocket_address> WS ADDRESS 4 </websocket_address>
-		<description>Slideshow for tomorrow presentation</description>
-
-		<size>
-			<width>8</width>
-			<height>9</height>
-			<tile_source>http://pdnet.inf.unisi.ch:9000/assets/applications/slideshow/tiles/index.html</tile_source>
-			<preview_image>PATH</preview_image>
-		</size>
-	</app>
 </apps>
