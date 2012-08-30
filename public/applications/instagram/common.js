@@ -1,5 +1,5 @@
 var ids = new Array();
-var enlarged = new Array();
+var enlarged = 0;
 
 $(function(){
 
@@ -51,6 +51,13 @@ function findPhotos(address){
 
 				var newItem = $("<div class='item' />");
 				newItem.click(function(){
+					if(enlarged > 2){
+						var last = $($(".item.large").get(-1));
+						last.toggleClass('small');
+						last.toggleClass('large');
+						enlarged--;
+					}
+					
 					$(this).toggleClass('small');
 					$(this).toggleClass('large');
 					$(this).find("img").attr("src",$(this).data("std"));
@@ -60,6 +67,7 @@ function findPhotos(address){
 						} else {
 							$(".item:first").after($(this));
 						}
+						enlarged++;
 					}
 					$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 				});
