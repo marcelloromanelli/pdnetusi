@@ -57,6 +57,7 @@ function findPhotos(address, limit){
 						last.toggleClass('small');
 						last.toggleClass('large');
 						enlarged--;
+						$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 						return false;
 					}
 					
