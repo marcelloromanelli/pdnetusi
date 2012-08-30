@@ -51,6 +51,7 @@ function findPhotos(address){
 
 				var newItem = $("<div class='item' />");
 				newItem.click(function(){
+					
 					if(enlarged > 2){
 						var last = $($(".item.large").get(-1));
 						last.toggleClass('small');
@@ -61,6 +62,7 @@ function findPhotos(address){
 					$(this).toggleClass('small');
 					$(this).toggleClass('large');
 					$(this).find("img").attr("src",$(this).data("std"));
+					
 					if($(this).hasClass("large")){
 						if($(".item:first")[0] === this){
 							$($(".item").get(1)).after($(this));
@@ -68,9 +70,14 @@ function findPhotos(address){
 							$(".item:first").after($(this));
 						}
 						enlarged++;
+					} else {
+						enlarged--;
 					}
+					
 					$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
+					
 				});
+				
 				newItem.addClass("small");
 				newItem.data("std",img_std);
 
