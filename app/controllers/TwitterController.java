@@ -3,6 +3,7 @@
  */
 package controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.codehaus.jackson.JsonNode;
@@ -26,7 +27,7 @@ public class TwitterController extends Controller {
 	 */
 	public static HashMap<String, Sockets> sockets = new HashMap<String, Sockets>();
 
-
+	public static HashMap<String,ArrayList<WebSocket.Out<JsonNode>>> mobilesConnected = new HashMap<String, ArrayList<Out<JsonNode>>>(); 
 
 	public static WebSocket<JsonNode> webSocket() {
 		return new WebSocket<JsonNode>() {
@@ -45,6 +46,7 @@ public class TwitterController extends Controller {
 
 							if(!sockets.containsKey(displayID)){
 								sockets.put(displayID, new Sockets(null, null));
+								mobilesConnected.put(displayID,new ArrayList<WebSocket.Out<JsonNode>>());
 								Logger.info("DisplayID " + displayID + " was added to the instagram app.");
 							}
 
@@ -57,7 +59,12 @@ public class TwitterController extends Controller {
 								sockets.get(displayID).big  = out;
 							}
 
-
+						} else if (messageKind.equals("mobileRequest")){
+							ArrayList<WebSocket.Out<JsonNode>> mob = mobilesConnected.get(displayID);
+							if(!mob.contains(out)){
+								mob.add(out);
+							}
+							Logger.info(mob.size() + "mobiles connected");
 						}
 					}
 				});
