@@ -67,15 +67,8 @@ public class TwitterController extends Controller {
 								reverter.put(out, displayID);
 								mobilesConnected.get(displayID).add(out);
 							}
-							int numberOfMobiles = mobilesConnected.get(displayID).size() ;
-							Sockets dsock = sockets.get(displayID);
 							
-							
-							ObjectNode stats = Json.newObject();
-							stats.put("kind", "stats");
-							stats.put("mobiles", numberOfMobiles);
-							dsock.big.write(stats);
-							dsock.small.write(stats);
+							int numberOfMobiles = numberOfMobiles(displayID);
 
 							Logger.info(numberOfMobiles + " mobiles connected");
 						}
@@ -90,6 +83,7 @@ public class TwitterController extends Controller {
 						mobilesConnected.get(displayID).remove(out);
 						reverter.remove(out);
 						Logger.info("MOBILE REMOVED!");
+						numberOfMobiles(displayID);
 						Logger.info(mobilesConnected.get(displayID).size() + " mobiles connected");
 					}
 
@@ -99,6 +93,17 @@ public class TwitterController extends Controller {
 			}
 
 		};
+	}
+
+	private static int numberOfMobiles(String displayID) {
+		int numberOfMobiles = mobilesConnected.get(displayID).size() ;
+		Sockets dsock = sockets.get(displayID);	
+		ObjectNode stats = Json.newObject();
+		stats.put("kind", "stats");
+		stats.put("mobiles", numberOfMobiles);
+		dsock.big.write(stats);
+		dsock.small.write(stats);
+		return numberOfMobiles;
 	}
 
 	public static class Sockets {
