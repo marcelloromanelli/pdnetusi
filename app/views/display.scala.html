@@ -117,14 +117,25 @@ displayName) {
 				$(this).animate({
 					bottom : "100px"
 				}, 100);
-				$("#arrow_more").css("-webkit-transform", "rotate(90deg)");
+				$("#arrow_more").css(
+					{
+						"-webkit-transform": "rotate(90deg)",
+						"margin": "0 auto";
+					}
+					);
 			} else {
 				$("#dock").removeClass("visibleDock", 100);
 				$("#dock").addClass("hiddenDock", 100);
 				$(this).animate({
 					bottom : "0"
 				}, 100);
-				$("#arrow_more").css("-webkit-transform", "rotate(270deg)");
+				$("#arrow_more").css(
+					{
+						"-webkit-transform": "rotate(270deg)",
+						"margin": "-13px auto 0 auto";
+					}
+					);
+				
 			}
 			return false;
 		});
