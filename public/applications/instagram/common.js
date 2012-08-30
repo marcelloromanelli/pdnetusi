@@ -1,4 +1,5 @@
 var ids = new Array();
+var enlarged = new Array();
 
 $(function(){
 
@@ -54,7 +55,11 @@ function findPhotos(address){
 					$(this).toggleClass('large');
 					$(this).find("img").attr("src",$(this).data("std"));
 					if($(this).hasClass("large")){
-						$(".item:first").after($(this));
+						if($(".item:first") === $(this)){
+							$($(".item").get(1)).after($(this));
+						} else {
+							$(".item:first").after($(this));
+						}
 					}
 					$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 				});
