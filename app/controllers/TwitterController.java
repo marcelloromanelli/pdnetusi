@@ -28,6 +28,7 @@ public class TwitterController extends Controller {
 	public static HashMap<String, Sockets> sockets = new HashMap<String, Sockets>();
 
 	public static HashMap<String,ArrayList<WebSocket.Out<JsonNode>>> mobilesConnected = new HashMap<String, ArrayList<Out<JsonNode>>>(); 
+	public static HashMap<WebSocket.Out<JsonNode>,String> reverter = new HashMap<WebSocket.Out<JsonNode>, String>();
 
 	public static WebSocket<JsonNode> webSocket() {
 		return new WebSocket<JsonNode>() {
@@ -60,11 +61,11 @@ public class TwitterController extends Controller {
 							}
 
 						} else if (messageKind.equals("mobileRequest")){
-							ArrayList<WebSocket.Out<JsonNode>> mob = mobilesConnected.get(displayID);
-							if(!mob.contains(out)){
-								mob.add(out);
+							if(! mobilesConnected.get(displayID).contains(out)){
+								reverter.put(out, displayID);
+								mobilesConnected.get(displayID).add(out);
 							}
-							Logger.info(mob.size() + "mobiles connected");
+							Logger.info(mobilesConnected.get(displayID).size() + " mobiles connected");
 						}
 					}
 				});
@@ -73,7 +74,11 @@ public class TwitterController extends Controller {
 				// When the socket is closed.
 				in.onClose(new Callback0() {
 					public void invoke() {
-
+						String displayID = reverter.get(out);
+						mobilesConnected.get(displayID).remove(out);
+						reverter.remove(out);
+						Logger.info("MOBILE REMOVED!");
+						Logger.info(mobilesConnected.get(displayID).size() + " mobiles connected");
 					}
 
 
