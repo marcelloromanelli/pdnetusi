@@ -57,6 +57,7 @@ function findPhotos(address, limit){
 						last.toggleClass('small');
 						last.toggleClass('large');
 						enlarged--;
+						return false;
 					}
 					
 					$(this).toggleClass('small');
