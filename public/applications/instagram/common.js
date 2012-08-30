@@ -8,10 +8,10 @@ $(function(){
 		layoutMode : 'fitRows'
 	});
 
-	findPhotosWithTag("usilugano");
+	findPhotosWithTag("usilugano",false);
 
-	setInterval(function(){findPhotosWithTag("usilugano");}, 10000);
-	setInterval(function(){findPhotosNearCoordinates(46.010868,8.958235);}, 60000);
+	setInterval(function(){findPhotosWithTag("usilugano", true);}, 10000);
+	setInterval(function(){findPhotosNearCoordinates(46.010868,8.958235,true);}, 60000);
 });
 
 
@@ -26,7 +26,7 @@ function insertNewPhoto(newItem){
 	});
 }
 
-function findPhotos(address){
+function findPhotos(address, limit){
 	$.ajax({				
 		url: address,
 		type: 'GET',
@@ -39,7 +39,7 @@ function findPhotos(address){
 			}
 			var inserted = 0;
 			for (var i = 0; i < response.data.length; i++){
-				if(inserted == 5){
+				if(inserted == 5 && limit){
 					break;
 				}
 				var current = response.data[i];
@@ -102,17 +102,17 @@ function findPhotos(address){
 	});
 }
 
-function findPhotosNearCoordinates(lat, lng){
+function findPhotosNearCoordinates(lat, lng, limit){
 	var address = 'https://api.instagram.com/v1/media/search?lat=' + lat 
 	+ '&lng=' + lng 
 	+'&distance=100&client_id=554c751130494dbbba66cb0a27602b07' +
 	'&count=100';
-	findPhotos(address);
+	findPhotos(address, limit);
 }
 
-function findPhotosWithTag(tag){
+function findPhotosWithTag(tag, limit){
 	console.log("checking photos with tag: " + tag);
 	var address = 'https://api.instagram.com/v1/tags/'+ tag +'/media/recent?client_id=554c751130494dbbba66cb0a27602b07';
-	findPhotos(address);
+	findPhotos(address, limit);
 }
 
