@@ -30,14 +30,14 @@ public class DisplayController extends Controller {
 	 * @return
 	 */
 	public static Result setupDisplay(String displayID) {
-//		if(!activeDisplays.containsKey(displayID)){
-			Display display = Display.get(new Long(displayID));
-			String name = display.name;
-			activeDisplays.put(displayID, null);
-			return ok(views.html.display.render(displayID,name));
-//		} else {
-//			return ok("SORRY, DISPLAY ID " + displayID + " IS ALREADY ACTIVE");
-//		}
+		//		if(!activeDisplays.containsKey(displayID)){
+		Display display = Display.get(new Long(displayID));
+		String name = display.name;
+		activeDisplays.put(displayID, null);
+		return ok(views.html.display.render(displayID,name));
+		//		} else {
+		//			return ok("SORRY, DISPLAY ID " + displayID + " IS ALREADY ACTIVE");
+		//		}
 	}
 
 
@@ -58,25 +58,25 @@ public class DisplayController extends Controller {
 				Long currentSelected =new Long(json.get("currentSelected").asText());
 
 				Display.updateLayout(layoutid, currentSelected);
-				
+
 				result.put("layoutid", layoutid);
 				result.put("currentSelected", currentSelected);
 				return ok(result);
 			} else if(kind.equals("update")){
-				
+
 				Long displayid = json.get("displayid").asLong();
 				String name = json.get("name").asText();
 				Float latitude = new Float(json.get("latitude").asText());
 				Float longitude = new Float(json.get("longitude").asText());
-				
+
 				Display clone = (Display) Display.find.byId(displayid)._ebean_createCopy();
 				clone.name = name;
 				clone.latitude = latitude;
 				clone.longitude = longitude;
-				
+
 				Display.delete(displayid);
 				Display.addNew(clone);
-				
+
 				result.put("id", clone.id);
 				result.put("name", clone.name);
 				result.put("latitude", clone.latitude);
@@ -85,7 +85,7 @@ public class DisplayController extends Controller {
 				return ok(result);
 			} 
 		}
-		
+
 		return badRequest();
 	}
 
@@ -105,7 +105,7 @@ public class DisplayController extends Controller {
 			return ok(result);
 		}
 	}
-	
+
 	@BodyParser.Of(Json.class)
 	public static Result newDisplay(){
 		JsonNode json = request().body().asJson();
@@ -118,19 +118,19 @@ public class DisplayController extends Controller {
 			String name = json.get("name").asText();
 			String latitude = json.get("latitude").asText();
 			String longitude = json.get("longitude").asText();
-			
+
 			Form<Display> filledForm = form(Display.class);
 			Map<String,String> anyData = new HashMap<String, String>();
 			anyData.put("name", name);
 			anyData.put("latitude", latitude);
 			anyData.put("longitude", longitude);
-			
+
 			Logger.info(anyData.toString());
-			
-			
+
+
 			Display display = filledForm.bind(anyData).get();
 			Display res = Display.addNew(display);
-			
+
 			ObjectNode result = play.libs.Json.newObject();
 			result.put("id", res.id);
 			result.put("name", name);
@@ -147,18 +147,23 @@ public class DisplayController extends Controller {
 				in.onMessage(new Callback<JsonNode>() {
 					public void invoke(JsonNode event) {
 						Logger.info(event.toString());
+
+						String kind = event.get("kind").asText();
 						String displayID = event.get("displayID").asText();
-						activeDisplays.put(displayID, out);
-						outToID.put(out, displayID);
-						Logger.info(
-								"\n ******* MESSAGE RECIEVED *******" +
-										"\n Display " + displayID + "is now active." +
-										"\n*********************************"
-								);
-						ObjectNode res = play.libs.Json.newObject();
-						res.put("displayID", displayID);
-						Logger.info(res.toString());
-						out.write(res);
+
+						if(kind.equals("newScreen")){
+							activeDisplays.put(displayID, out);
+							outToID.put(out, displayID);
+							Logger.info("Display " + displayID + " is now active.");
+						} 
+						// Mobile wants to get what's on the screen
+						else if(kind.equals("getRequest")){
+							Out<JsonNode> displayOut = activeDisplays.get(displayID);
+							ObjectNode request = play.libs.Json.newObject();
+							request.put("kind", "actives");
+							displayOut.write(request);
+						}
+
 					}
 				});
 

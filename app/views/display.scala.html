@@ -9,6 +9,7 @@ displayName) {
 		websocket.onopen = function(evt) {
 			console.log("DISPLAY ID " + "@displayID" + " CONNECTED");
 			var hi = JSON.stringify({
+				"kind":"newScreen",
 				"displayID" : "@displayID"
 			});
 			websocket.send(hi);
@@ -22,7 +23,20 @@ displayName) {
 		};
 
 		websocket.onmessage = function(evt) {
-			console.log(evt.data);
+			var response = jQuery.parseJSON(evt.data);
+			var kind = response.kind;
+			if(kind == "actives"){
+				
+				// Fetches currently active applications
+				// from the data tag of the iframe
+				// ATTENTION: NAMESPACE SHOULD BE CORRECT
+				var answer = JSON.stringify({
+					"left": $("#left").data("app"),
+					"right": $("#right").data("app"),
+					"displayID" : "@displayID"
+				});
+				websocket.send(answer);
+			}
 		};
 
 		websocket.onerror = function(evt) {
