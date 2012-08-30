@@ -1,4 +1,4 @@
-	package controllers;
+package controllers;
 
 import models.Display;
 import play.mvc.Controller;
