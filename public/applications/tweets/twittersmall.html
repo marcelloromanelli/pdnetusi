@@ -6,14 +6,16 @@
 <script type="text/javascript"
 	src="http://timeago.yarp.com/jquery.timeago.js" charset="utf-8"></script>
 	<script type="text/javascript" src="jquery.dotdotdot-1.5.1.js"></script>
+		<link rel="stylesheet" media="screen" href="small.css" type="text/css"></link>
 	
 <script type="text/javascript" charset="utf-8">
 var queue = new Array();
 var lastid = null;
-var tag = "";
+var tag = "MeanGirlsTaughtMe";
+
 		$(function(){
 			$.ajax({
-			   url: 'http://search.twitter.com/search.json?q=%23KingOfPop' + '&rpp=4',
+			   url: 'http://search.twitter.com/search.json?q=%23' + tag + '&rpp=4',
 			   type: 'GET',
 			   dataType: 'jsonp',
 			   success: function(data, textStatus, xhr) {
@@ -31,12 +33,13 @@ var tag = "";
 			});
 			
 			setInterval(function(){findNewTweets();},15000);
+			$("#hashtag").html("#"+tag);
 		});
 		
 		
 		function findNewTweets(){
 			$.ajax({
-				   url: 'http://search.twitter.com/search.json?q=%23KingOfPop' + '&rpp=4&since_id=' + lastid,
+				   url: 'http://search.twitter.com/search.json?q=%23' + tag + '&rpp=4&since_id=' + lastid,
 				   type: 'GET',
 				   dataType: 'jsonp',
 				   success: function(data, textStatus, xhr) {
@@ -95,76 +98,11 @@ var tag = "";
 		}
 		
 		</script>
-<style type="text/css" media="screen">
-@import url(http://fonts.googleapis.com/css?family=Press+Start+2P);
 
-@import url(http://fonts.googleapis.com/css?family=Advent+Pro);
-
-body {
-	height: 1080px;
-	background:url(twitterbg.png);
-	overflow: hidden;
-}
-
-.tweet {
-	font-family: 'Advent Pro', sans-serif;
-	background-color: black;
-	color: white;
-	width: 536px;
-	height: 200px;
-	margin: 20px 8px;
-	border-radius: 10px;
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, .8);
-}
-
-.tweet_text {
-	font-size: 25px;
-	float: right;
-	width: 306px;
-	height: 140px;
-	margin-top: 10px;
-	margin-right: 10px;
-}
-
-.username {
-	float: right;
-	width: 306px;
-	height: 20px;
-	margin-top: 10px;
-	margin-right: 10px;
-	font-size: 18px;
-}
-
-.timeago {
-	float: right;
-	width: 306px;
-	height: 20px;
-	font-size: 14px;
-	text-align: right;
-	margin-right: 10px;
-}
-
-.profilepic {
-	position: relative;
-	top: 0;
-	left: 0;
-	width: 200px;
-	height: 200px;
-	margin-right: 10px;
-	border-top-left-radius: 10px;
-	border-bottom-left-radius: 10px;
-}
-
-#logo{
-width: 188px;
-margin: 10px auto;
-}
-
-</style>
 <div id="logo"><img src="twitterlogo.png" height="35px"/></div>
 <title>TWITTER SMALL</title>
 </head>
 <body>
-
+<div id="hashtag"></div>
 </body>
 </html>

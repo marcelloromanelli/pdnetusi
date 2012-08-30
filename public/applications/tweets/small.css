@@ -1,0 +1,73 @@
+@import url(http://fonts.googleapis.com/css?family=Press+Start+2P);
+
+@import url(http://fonts.googleapis.com/css?family=Advent+Pro);
+
+body {
+	height: 1080px;
+	background: url(twitterbg.png);
+	overflow: hidden;
+}
+
+.tweet {
+	font-family: 'Advent Pro', sans-serif;
+	background-color: black;
+	color: white;
+	width: 536px;
+	height: 200px;
+	margin: 20px 8px;
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, .8);
+}
+
+.tweet_text {
+	font-size: 25px;
+	float: right;
+	width: 306px;
+	height: 140px;
+	margin-top: 10px;
+	margin-right: 10px;
+}
+
+.username {
+	float: right;
+	width: 306px;
+	height: 20px;
+	margin-top: 10px;
+	margin-right: 10px;
+	font-size: 18px;
+}
+
+.timeago {
+	float: right;
+	width: 306px;
+	height: 20px;
+	font-size: 14px;
+	text-align: right;
+	margin-right: 10px;
+}
+
+.profilepic {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 200px;
+	height: 200px;
+	margin-right: 10px;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+#logo {
+	width: 188px;
+	margin: 10px auto;
+}
+
+#hashtag{
+	position: absolute;
+	bottom: 10px;
+	left: 50%;
+	font-size: 30px;
+	color: white;
+	text-shadow: 0px 0px 10px rgba(0, 0, 0, .8);
+	font-weight: bold;
+}
