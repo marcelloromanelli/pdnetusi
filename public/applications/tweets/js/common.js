@@ -38,11 +38,6 @@ $.ajax({
 
 });
 
-setInterval(function(){findNewTweets();},15000);
-$("#hashtag").html("#"+tag);
-});
-
-
 function findNewTweets(){
 	$.ajax({
 		url: 'http://search.twitter.com/search.json?q=%23' + tag + '&rpp=4&since_id=' + lastid,

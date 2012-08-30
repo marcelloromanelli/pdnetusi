@@ -27,6 +27,9 @@ $(function(){
 	websocket.onerror = function(evt) { 
 		console.log(evt.data); 
 	}; 
+	
+	setInterval(function(){findNewTweets();},15000);
+	$("#hashtag").html("#"+tag);
 		
 });	
 		
