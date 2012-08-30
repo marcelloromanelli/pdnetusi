@@ -1,0 +1,400 @@
+2012-06-03 10:39:13,226 - [INFO] - from play in main 
+Listening for HTTP on port 9000...
+
+2012-06-03 10:39:18,932 - [INFO] - from play in play-akka.actor.default-dispatcher-1 
+database [default] connected at jdbc:mysql://localhost/pdnet?user=root&password=root
+
+2012-06-03 10:39:21,590 - [INFO] - from play in play-akka.actor.default-dispatcher-1 
+Application started (Dev)
+
+2012-06-03 10:52:06,318 - [INFO] - from application in play-akka.actor.actions-dispatcher-4 
+2
+
+2012-06-03 10:52:06,657 - [INFO] - from application in play-akka.actor.actions-dispatcher-4 
+Tiles inserted correctly
+
+2012-06-03 10:52:06,689 - [INFO] - from application in play-akka.actor.actions-dispatcher-4 
+Tiles inserted correctly
+
+2012-06-03 10:52:06,689 - [INFO] - from application in play-akka.actor.actions-dispatcher-4 
+DISPLAY: generating XML files for layoutID: 6
+
+2012-06-03 11:01:39,963 - [INFO] - from play in play-akka.actor.default-dispatcher-3 
+database [default] connected at jdbc:mysql://localhost/pdnet?user=root&password=root
+
+2012-06-03 11:01:40,995 - [INFO] - from play in play-akka.actor.default-dispatcher-3 
+Application started (Dev)
+
+2012-06-03 11:01:50,992 - [INFO] - from application in play-akka.actor.actions-dispatcher-4 
+1
+
+2012-06-03 11:01:51,023 - [INFO] - from application in play-akka.actor.actions-dispatcher-4 
+Tiles inserted correctly
+
+2012-06-03 11:01:51,024 - [INFO] - from application in play-akka.actor.actions-dispatcher-4 
+DISPLAY: generating XML files for layoutID: 6
+
+2012-06-03 11:01:51,052 - [INFO] - from application in play-akka.actor.actions-dispatcher-4 
+DISPLAY - Generated XML:
+
+<root>
+  <tile>
+    <id>5</id>
+    <appname>weather</appname>
+    <width>4</width>
+    <height>4</height>
+    <startX>0</startX>
+    <startY>0</startY>
+    <htmlSource>http://pdnet.inf.unisi.ch:9000/assets/applications/weather/tiles/4_4.html</htmlSource>
+    <settings/>
+  </tile>
+</root>
+
+
+2012-06-03 11:03:02,972 - [INFO] - from play in play-akka.actor.default-dispatcher-7 
+database [default] connected at jdbc:mysql://localhost/pdnet?user=root&password=root
+
+2012-06-03 11:03:04,541 - [INFO] - from play in play-akka.actor.default-dispatcher-7 
+Application started (Dev)
+
+2012-06-03 11:03:11,216 - [INFO] - from application in play-akka.actor.actions-dispatcher-4 
+1
+
+2012-06-03 11:03:11,236 - [INFO] - from application in play-akka.actor.actions-dispatcher-4 
+Tiles inserted correctly
+
+2012-06-03 11:03:11,237 - [INFO] - from application in play-akka.actor.actions-dispatcher-4 
+DISPLAY: generating XML files for layoutID: 6
+
+2012-06-03 11:03:11,243 - [INFO] - from application in play-akka.actor.actions-dispatcher-4 
+DISPLAY - Generated XML:
+
+<root>
+  <tile>
+    <id>6</id>
+    <appname>weather</appname>
+    <width>4</width>
+    <height>4</height>
+    <startX>0</startX>
+    <startY>0</startY>
+    <htmlSource>http://pdnet.inf.unisi.ch:9000/assets/applications/weather/tiles/4_4.html</htmlSource>
+    <settings/>
+  </tile>
+</root>
+
+
+2012-06-03 11:03:47,473 - [INFO] - from play in play-akka.actor.default-dispatcher-8 
+database [default] connected at jdbc:mysql://localhost/pdnet?user=root&password=root
+
+2012-06-03 11:03:48,320 - [INFO] - from play in play-akka.actor.default-dispatcher-8 
+Application started (Dev)
+
+2012-06-03 11:03:55,715 - [INFO] - from application in play-akka.actor.actions-dispatcher-11 
+1
+
+2012-06-03 11:03:55,732 - [INFO] - from application in play-akka.actor.actions-dispatcher-11 
+Tiles inserted correctly
+
+2012-06-03 11:03:55,732 - [INFO] - from application in play-akka.actor.actions-dispatcher-11 
+DISPLAY: generating XML files for layoutID: 6
+
+2012-06-03 11:03:55,735 - [INFO] - from application in play-akka.actor.actions-dispatcher-11 
+[null]
+
+2012-06-03 11:03:55,737 - [INFO] - from application in play-akka.actor.actions-dispatcher-11 
+DISPLAY - Generated XML:
+
+<root>
+  <tile>
+    <id>7</id>
+    <appname>weather</appname>
+    <width>4</width>
+    <height>4</height>
+    <startX>0</startX>
+    <startY>0</startY>
+    <htmlSource>http://pdnet.inf.unisi.ch:9000/assets/applications/weather/tiles/4_4.html</htmlSource>
+    <settings/>
+  </tile>
+</root>
+
+
+2012-06-03 11:04:50,080 - [INFO] - from play in play-akka.actor.default-dispatcher-11 
+database [default] connected at jdbc:mysql://localhost/pdnet?user=root&password=root
+
+2012-06-03 11:04:50,894 - [INFO] - from play in play-akka.actor.default-dispatcher-11 
+Application started (Dev)
+
+2012-06-03 11:04:55,507 - [INFO] - from application in play-akka.actor.actions-dispatcher-11 
+1
+
+2012-06-03 11:04:55,523 - [INFO] - from application in play-akka.actor.actions-dispatcher-11 
+Tiles inserted correctly
+
+2012-06-03 11:04:55,523 - [INFO] - from application in play-akka.actor.actions-dispatcher-11 
+DISPLAY: generating XML files for layoutID: 6
+
+2012-06-03 11:04:55,527 - [INFO] - from application in play-akka.actor.actions-dispatcher-11 
+1
+
+2012-06-03 11:04:55,528 - [INFO] - from application in play-akka.actor.actions-dispatcher-11 
+DISPLAY - Generated XML:
+
+<root>
+  <tile>
+    <id>8</id>
+    <appname>weather</appname>
+    <width>4</width>
+    <height>4</height>
+    <startX>1</startX>
+    <startY>2</startY>
+    <htmlSource>http://pdnet.inf.unisi.ch:9000/assets/applications/weather/tiles/4_4.html</htmlSource>
+    <settings/>
+  </tile>
+</root>
+
+
+2012-06-03 11:05:42,229 - [INFO] - from play in play-akka.actor.default-dispatcher-13 
+database [default] connected at jdbc:mysql://localhost/pdnet?user=root&password=root
+
+2012-06-03 11:05:43,012 - [INFO] - from play in play-akka.actor.default-dispatcher-13 
+Application started (Dev)
+
+2012-06-03 11:05:43,054 - [INFO] - from application in play-akka.actor.actions-dispatcher-12 
+1
+
+2012-06-03 11:05:43,066 - [INFO] - from application in play-akka.actor.actions-dispatcher-13 
+1
+
+2012-06-03 11:05:43,093 - [INFO] - from application in play-akka.actor.actions-dispatcher-13 
+Tiles inserted correctly
+
+2012-06-03 11:05:43,094 - [INFO] - from application in play-akka.actor.actions-dispatcher-13 
+DISPLAY: generating XML files for layoutID: 6
+
+2012-06-03 11:05:43,094 - [INFO] - from application in play-akka.actor.actions-dispatcher-12 
+Tiles inserted correctly
+
+2012-06-03 11:05:43,095 - [INFO] - from application in play-akka.actor.actions-dispatcher-12 
+DISPLAY: generating XML files for layoutID: 6
+
+2012-06-03 11:06:01,854 - [INFO] - from application in play-akka.actor.actions-dispatcher-13 
+1
+
+2012-06-03 11:06:01,860 - [INFO] - from application in play-akka.actor.actions-dispatcher-13 
+Tiles inserted correctly
+
+2012-06-03 11:06:01,860 - [INFO] - from application in play-akka.actor.actions-dispatcher-13 
+DISPLAY: generating XML files for layoutID: 6
+
+2012-06-03 11:06:01,864 - [INFO] - from application in play-akka.actor.actions-dispatcher-13 
+DISPLAY - Generated XML:
+
+<root>
+  <tile>
+    <id>11</id>
+    <appname>weather</appname>
+    <width>4</width>
+    <height>4</height>
+    <startX>0</startX>
+    <startY>0</startY>
+    <htmlSource>http://pdnet.inf.unisi.ch:9000/assets/applications/weather/tiles/4_4.html</htmlSource>
+    <settings/>
+  </tile>
+</root>
+
+
+2012-06-03 11:10:50,081 - [INFO] - from play in play-akka.actor.default-dispatcher-18 
+database [default] connected at jdbc:mysql://localhost/pdnet?user=root&password=root
+
+2012-06-03 11:10:51,411 - [INFO] - from play in play-akka.actor.default-dispatcher-18 
+Application started (Dev)
+
+2012-06-03 11:12:00,786 - [INFO] - from play in play-akka.actor.default-dispatcher-25 
+database [default] connected at jdbc:mysql://localhost/pdnet?user=root&password=root
+
+2012-06-03 11:12:01,577 - [INFO] - from play in play-akka.actor.default-dispatcher-25 
+Application started (Dev)
+
+2012-06-03 11:15:45,581 - [INFO] - from play in play-akka.actor.default-dispatcher-28 
+database [default] connected at jdbc:mysql://localhost/pdnet?user=root&password=root
+
+2012-06-03 11:15:46,587 - [INFO] - from play in play-akka.actor.default-dispatcher-28 
+Application started (Dev)
+
+2012-06-03 11:15:55,033 - [INFO] - from application in play-akka.actor.actions-dispatcher-22 
+1
+
+2012-06-03 11:15:55,049 - [INFO] - from application in play-akka.actor.actions-dispatcher-22 
+Tiles inserted correctly
+
+2012-06-03 11:15:55,049 - [INFO] - from application in play-akka.actor.actions-dispatcher-22 
+DISPLAY: generating XML files for layoutID: 6
+
+2012-06-03 11:15:55,054 - [INFO] - from application in play-akka.actor.actions-dispatcher-22 
+DISPLAY - Generated XML:
+
+<root>
+  <tile>
+    <id>12</id>
+    <appname>weather</appname>
+    <width>4</width>
+    <height>4</height>
+    <startX>0</startX>
+    <startY>0</startY>
+    <htmlSource>http://pdnet.inf.unisi.ch:9000/assets/applications/weather/tiles/4_4.html</htmlSource>
+    <settings/>
+  </tile>
+</root>
+
+
+2012-06-03 11:22:09,109 - [INFO] - from play in play-akka.actor.default-dispatcher-32 
+database [default] connected at jdbc:mysql://localhost/pdnet?user=root&password=root
+
+2012-06-03 11:22:09,869 - [INFO] - from play in play-akka.actor.default-dispatcher-32 
+Application started (Dev)
+
+2012-06-03 11:22:09,890 - [INFO] - from application in play-akka.actor.actions-dispatcher-20 
+1
+
+2012-06-03 11:22:09,914 - [INFO] - from application in play-akka.actor.actions-dispatcher-20 
+Tiles inserted correctly
+
+2012-06-03 11:22:09,914 - [INFO] - from application in play-akka.actor.actions-dispatcher-20 
+DISPLAY: generating XML files for layoutID: 6
+
+2012-06-03 11:22:09,920 - [INFO] - from application in play-akka.actor.actions-dispatcher-20 
+DISPLAY - Generated XML:
+
+<root>
+  <tile>
+    <id>13</id>
+    <appname>weather</appname>
+    <width>4</width>
+    <height>4</height>
+    <startX>2</startX>
+    <startY>0</startY>
+    <htmlSource>http://pdnet.inf.unisi.ch:9000/assets/applications/weather/tiles/4_4.html</htmlSource>
+    <settings>
+      <parameter value="lol">Location</parameter>
+    </settings>
+  </tile>
+</root>
+
+
+2012-06-03 11:36:52,353 - [INFO] - from play in play-akka.actor.default-dispatcher-32 
+database [default] connected at jdbc:mysql://localhost/pdnet?user=root&password=root
+
+2012-06-03 11:36:53,156 - [INFO] - from play in play-akka.actor.default-dispatcher-32 
+Application started (Dev)
+
+2012-06-03 11:40:14,023 - [INFO] - from play in play-akka.actor.default-dispatcher-32 
+database [default] connected at jdbc:mysql://localhost/pdnet?user=root&password=root
+
+2012-06-03 11:40:14,868 - [INFO] - from play in play-akka.actor.default-dispatcher-32 
+Application started (Dev)
+
+2012-06-03 11:41:20,760 - [INFO] - from play in play-akka.actor.default-dispatcher-38 
+database [default] connected at jdbc:mysql://localhost/pdnet?user=root&password=root
+
+2012-06-03 11:41:21,583 - [INFO] - from play in play-akka.actor.default-dispatcher-38 
+Application started (Dev)
+
+2012-06-03 11:44:24,328 - [INFO] - from play in play-akka.actor.default-dispatcher-38 
+database [default] connected at jdbc:mysql://localhost/pdnet?user=root&password=root
+
+2012-06-03 11:44:25,203 - [INFO] - from play in play-akka.actor.default-dispatcher-38 
+Application started (Dev)
+
+2012-06-03 11:52:08,846 - [INFO] - from application in play-akka.actor.actions-dispatcher-32 
+1
+
+2012-06-03 11:52:08,862 - [INFO] - from application in play-akka.actor.actions-dispatcher-32 
+Tiles inserted correctly
+
+2012-06-03 11:52:08,862 - [INFO] - from application in play-akka.actor.actions-dispatcher-32 
+DISPLAY: generating XML files for layoutID: 6
+
+2012-06-03 11:52:08,866 - [INFO] - from application in play-akka.actor.actions-dispatcher-32 
+DISPLAY - Generated XML:
+
+<root>
+  <tile>
+    <id>14</id>
+    <appname>weather</appname>
+    <width>4</width>
+    <height>4</height>
+    <startX>3</startX>
+    <startY>0</startY>
+    <htmlSource>http://pdnet.inf.unisi.ch:9000/assets/applications/weather/tiles/4_4.html</htmlSource>
+    <settings>
+      <parameter value="lugano">Location</parameter>
+    </settings>
+  </tile>
+</root>
+
+
+2012-06-03 11:55:01,259 - [INFO] - from play in play-akka.actor.default-dispatcher-50 
+database [default] connected at jdbc:mysql://localhost/pdnet?user=root&password=root
+
+2012-06-03 11:55:02,073 - [INFO] - from play in play-akka.actor.default-dispatcher-50 
+Application started (Dev)
+
+2012-06-03 11:55:23,264 - [INFO] - from play in play-akka.actor.default-dispatcher-51 
+database [default] connected at jdbc:mysql://localhost/pdnet?user=root&password=root
+
+2012-06-03 11:55:24,189 - [INFO] - from play in play-akka.actor.default-dispatcher-51 
+Application started (Dev)
+
+2012-06-03 11:56:11,383 - [INFO] - from play in play-akka.actor.default-dispatcher-51 
+database [default] connected at jdbc:mysql://localhost/pdnet?user=root&password=root
+
+2012-06-03 11:56:12,215 - [INFO] - from play in play-akka.actor.default-dispatcher-51 
+Application started (Dev)
+
+2012-06-03 12:04:29,590 - [INFO] - from application in play-akka.actor.actions-dispatcher-33 
+DISPLAY: generating XML files for displays...
+
+2012-06-03 12:04:29,597 - [INFO] - from application in play-akka.actor.actions-dispatcher-33 
+DISPLAY - Generated XML:
+
+<root>
+  <display>
+    <id>38</id>
+    <layoutID>7</layoutID>
+    <name>usi</name>
+    <width>123</width>
+    <height>123</height>
+    <latitude>123.0</latitude>
+    <longitude>123.0</longitude>
+  </display>
+</root>
+
+
+2012-06-03 12:04:29,622 - [INFO] - from application in play-akka.actor.actions-dispatcher-33 
+DISPLAY: generating XML files for displays...
+
+2012-06-03 12:04:29,626 - [INFO] - from application in play-akka.actor.actions-dispatcher-33 
+DISPLAY - Generated XML:
+
+<root>
+  <display>
+    <id>36</id>
+    <layoutID>6</layoutID>
+    <name>USI</name>
+    <width>1600</width>
+    <height>900</height>
+    <latitude>9.0</latitude>
+    <longitude>8.0</longitude>
+  </display>
+  <display>
+    <id>38</id>
+    <layoutID>7</layoutID>
+    <name>usi</name>
+    <width>123</width>
+    <height>123</height>
+    <latitude>123.0</latitude>
+    <longitude>123.0</longitude>
+  </display>
+</root>
+
+
