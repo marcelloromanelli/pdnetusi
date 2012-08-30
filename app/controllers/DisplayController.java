@@ -23,7 +23,12 @@ public class DisplayController extends Controller {
 	public static HashMap<String, WebSocket.Out<JsonNode>> activeDisplays = new HashMap<String, WebSocket.Out<JsonNode>>();
 	public static HashMap<WebSocket.Out<JsonNode>, String> outToID = new HashMap<WebSocket.Out<JsonNode>, String>();
 
-	/**
+	
+	// Keeps track of mobile requests
+	public static int counter = 0;
+	public static HashMap<Integer, WebSocket.Out<JsonNode>> requestsFromMobiles = new HashMap<Integer, WebSocket.Out<JsonNode>>();
+	
+	/*		
 	 * Prepare the display with the tiles selected during
 	 * the layout creation
 	 * @param displayID
@@ -158,12 +163,18 @@ public class DisplayController extends Controller {
 						} 
 						// Mobile wants to get what's on the screen
 						else if(kind.equals("getRequest")){
+							requestsFromMobiles.put(counter, out);
+
 							Out<JsonNode> displayOut = activeDisplays.get(displayID);
 							ObjectNode request = play.libs.Json.newObject();
 							request.put("kind", "actives");
+							request.put("reqID",counter);
 							displayOut.write(request);
-							out.write(request);
-						} else if (kind.equals("actives")){
+							counter++;
+						} else if (kind.equals("actives")){		
+							WebSocket.Out<JsonNode> mobilesocket = requestsFromMobiles.get(event.get("reqID").asInt());
+							mobilesocket.write(event);
+							requestsFromMobiles.remove(counter);
 							Logger.info("ACTIVES!!!!!");
 						}
 
