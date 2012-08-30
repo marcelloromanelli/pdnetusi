@@ -1,10 +1,5 @@
-var queue = new Array();
-var lastid = null;
-var tag = "MeanGirlsTaughtMe";
 
-
-$(function(){
-		
+$(function(){		
 		displayID = getUrlVars()["id"];
 		var WS = WebSocket;
 		var wsUri = "ws://pdnet.inf.unisi.ch:9000/twitter/socket";
@@ -33,5 +28,5 @@ $(function(){
 		console.log(evt.data); 
 	}; 
 		
-		
+});	
 		

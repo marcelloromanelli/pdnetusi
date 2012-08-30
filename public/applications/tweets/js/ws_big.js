@@ -1,16 +1,11 @@
-var queue = new Array();
-var lastid = null;
-var tag = "MeanGirlsTaughtMe";
-
-
 $(function(){
-		
-		displayID = getUrlVars()["id"];
-		var WS = WebSocket;
-		var wsUri = "ws://pdnet.inf.unisi.ch:9000/twitter/socket";
-		websocket = new WS(wsUri); 
-		websocket.onopen = function(evt) { 
-			console.log("CONNECTED"); 
+
+	displayID = getUrlVars()["id"];
+	var WS = WebSocket;
+	var wsUri = "ws://pdnet.inf.unisi.ch:9000/twitter/socket";
+	websocket = new WS(wsUri); 
+	websocket.onopen = function(evt) { 
+		console.log("CONNECTED"); 
 		var hi = JSON.stringify
 		({
 			"kind":"appReady",
@@ -32,6 +27,5 @@ $(function(){
 	websocket.onerror = function(evt) { 
 		console.log(evt.data); 
 	}; 
-		
-		
-		
+
+});
