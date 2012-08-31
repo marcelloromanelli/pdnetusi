@@ -28,10 +28,14 @@ public class TwitterController extends Controller {
 	 * and one for the big one.	
 	 */
 	public static HashMap<String, Sockets> sockets = new HashMap<String, Sockets>();
-
+	
+	// Keeps track of mobiles
 	public static HashMap<String,ArrayList<WebSocket.Out<JsonNode>>> mobilesConnected = new HashMap<String, ArrayList<Out<JsonNode>>>(); 
 	public static HashMap<WebSocket.Out<JsonNode>,String> reverter = new HashMap<WebSocket.Out<JsonNode>, String>();
 
+	// Store the hashtags for each display
+	public static HashMap<String,ArrayList<String>> hashtags = new HashMap<String, ArrayList<String>>();
+	
 	public static WebSocket<JsonNode> webSocket() {
 		return new WebSocket<JsonNode>() {
 
@@ -50,6 +54,7 @@ public class TwitterController extends Controller {
 							if(!sockets.containsKey(displayID)){
 								sockets.put(displayID, new Sockets(null, null));
 								mobilesConnected.put(displayID,new ArrayList<WebSocket.Out<JsonNode>>());
+								hashtags.put(displayID, new ArrayList<String>());
 								Logger.info("DisplayID " + displayID + " was added to the instagram app.");
 							}
 
@@ -80,11 +85,13 @@ public class TwitterController extends Controller {
 				in.onClose(new Callback0() {
 					public void invoke() {
 						String displayID = reverter.get(out);
+						if (displayID != null){
 						mobilesConnected.get(displayID).remove(out);
 						reverter.remove(out);
 						Logger.info("MOBILE REMOVED!");
 						numberOfMobiles(displayID);
 						Logger.info(mobilesConnected.get(displayID).size() + " mobiles connected");
+						}
 					}
 
 

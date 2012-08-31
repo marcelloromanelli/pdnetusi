@@ -75,3 +75,14 @@ body {
 	text-align: center;
 	margin: 0px auto;
 }
+
+#mobile_count{
+	font-family: 'Advent Pro', sans-serif;
+	position: absolute;
+	top:0;
+	left:0;
+	font-size: 40px;
+	background-color: orange;
+	width: 100px;
+	height: 100px;
+}

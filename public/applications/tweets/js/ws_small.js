@@ -23,7 +23,7 @@ $(function(){
 		var response = jQuery.parseJSON(evt.data);
 		console.log(response);
 		if(response.kind == "stats"){
-			$("#hashtag").append("<h1>" + response.mobiles + "</h1>");
+			$("#mobile_count").html(response.mobiles);
 		}
 	};
 
