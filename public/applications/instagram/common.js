@@ -36,7 +36,6 @@ function findPhotos(address, limit){
 		type: 'GET',
 		dataType: 'jsonp',
 		success: function(response, textStatus, xhr) {
-			console.log(response);
 			if(response.meta.code == 400){
 				console.log("API ERROR");
 				return;
@@ -98,7 +97,8 @@ function findPhotos(address, limit){
 					inserted++;
 				} 
 				
-				last.push(createObject(current.user.username, current.caption.text, current.link, img_thumb));
+				var stored = createObject(current.user.username, current.caption.text, current.link, img_thumb);
+				last.push(stored);
 
 			}
 			console.log(last);
@@ -115,6 +115,7 @@ function createObject(tile,desc,link,img){
 	obj.desc = desc;
 	obj.link = link;
 	obj.img = img;
+	console.log(obj);
 	return obj;
 }
 
