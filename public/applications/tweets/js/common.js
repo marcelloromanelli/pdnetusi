@@ -3,7 +3,6 @@ var nextpage = null;
 
 $.ajax({
 	url: 'http://search.twitter.com/search.json?q=%23' + tag + '&rpp=4',
-	type: 'GET',
 	dataType: 'jsonp',
 	success: function(data, textStatus, xhr) {
 		nextpage = data.next_page;
@@ -22,7 +21,6 @@ $.ajax({
 function findNewTweets(){
 	$.ajax({
 		url: 'http://search.twitter.com/search.json' + nextpage,
-		type: 'GET',
 		dataType: 'jsonp',
 		success: function(data, textStatus, xhr) {
 			nextpage = data.next_page;
@@ -67,12 +65,9 @@ function createTweetDiv(currentTweet,i){
 	}
 
 
-	var profileImg = $("<img class='profilepic'>");
+	var profileImg = $("<img class='profilepic' onerror='$(this).attr('src','http://a0.twimg.com/sticky/default_profile_images/default_profile_2.png')'>");
 	profileImg.attr("src","https://api.twitter.com/1/users/profile_image?screen_name=" + currentTweet.from_user + "&size=original");
-	if (profileImg[0].clientWidth > 18){
-		console.log('Image not found. Using default.');
-		profileImg.attr("src","http://a0.twimg.com/sticky/default_profile_images/default_profile_2.png");
-	}
+
 
 	tweetDiv.append(profileImg);
 
