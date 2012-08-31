@@ -152,15 +152,17 @@ public class DisplayController extends Controller {
 				in.onMessage(new Callback<JsonNode>() {
 					public void invoke(JsonNode event) {
 						String kind = event.get("kind").asText();
-						String displayID = event.get("displayID").asText();
-
-						if(kind.equals("newScreen")){
+						if(kind.equals("keepalive")){
+							Logger.info("are you alive?");
+						} else if(kind.equals("newScreen")){
+							String displayID = event.get("displayID").asText();
 							activeDisplays.put(displayID, out);
 							outToID.put(out, displayID);
 							Logger.info("Display " + displayID + " is now active.");
 						} 
 						// Mobile wants to get what's on the screen
-						else if(kind.equals("getRequest")){							
+						else if(kind.equals("getRequest")){	
+							String displayID = event.get("displayID").asText();
 							requestsFromMobiles.put(counter, out);
 							reverter.put(out, counter);
 							

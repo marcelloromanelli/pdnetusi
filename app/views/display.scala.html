@@ -46,6 +46,13 @@ displayName) {
 		websocket.onerror = function(evt) {
 			console.log(evt.data);
 		};
+		
+		setInterval(function(){
+			var alive = JSON.stringify({
+				"kind": "keepalive"
+			});
+			websocket.send(alive);
+		},5000);
 	});
 </script>
 
