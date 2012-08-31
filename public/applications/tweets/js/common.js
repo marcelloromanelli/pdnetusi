@@ -6,6 +6,7 @@ $.ajax({
 	type: 'GET',
 	dataType: 'jsonp',
 	success: function(data, textStatus, xhr) {
+		nextpage = data.next_page;
 		for (var i = 0; i < data.results.length; i++){	
 			var currentTweet = data.results[i];
 			var tweetDiv = createTweetDiv(currentTweet,i);					
@@ -24,7 +25,7 @@ function findNewTweets(){
 		type: 'GET',
 		dataType: 'jsonp',
 		success: function(data, textStatus, xhr) {
-			var nextpage = data.next_page;
+			nextpage = data.next_page;
 			for (var i = 0; i < data.results.length; i++){	
 				var currentTweet = data.results[i];
 				var tweetDiv = createTweetDiv(currentTweet,i);					
