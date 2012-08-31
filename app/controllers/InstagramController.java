@@ -72,6 +72,10 @@ public class InstagramController extends Controller {
 							Logger.info("MATTIA CULO!");
 							Sockets sckts = sockets.get(displayID);
 							sckts.big.write(msgForScreen);
+						} else if(messageKind.equals("itemsOnScreen")){
+							Integer reqId = event.get("reqID").asInt();
+							WebSocket.Out<JsonNode> mobile = requests.get(reqId);
+							mobile.write(event);
 						}
 					}
 				});

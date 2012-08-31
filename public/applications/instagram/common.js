@@ -99,9 +99,7 @@ function findPhotos(address, limit){
 				
 				var stored = createObject(current.user.username, current.caption.text, current.link, img_thumb);
 				last.push(stored);
-
 			}
-			console.log(last);
 			$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 
 		}   
@@ -115,7 +113,6 @@ function createObject(title,desc,link,img){
 	obj.desc = desc;
 	obj.link = link;
 	obj.img = img;
-	console.log(obj);
 	return obj;
 }
 
