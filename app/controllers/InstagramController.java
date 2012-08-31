@@ -28,7 +28,6 @@ public class InstagramController extends Controller {
 	 */
 	public static HashMap<String, Sockets> sockets = new HashMap<String, Sockets>();
 
-	public static int reqID = 0;
 	public static HashMap<Integer,  WebSocket.Out<JsonNode>> requests = new HashMap<Integer, WebSocket.Out<JsonNode>>();
 	
 	public static WebSocket<JsonNode> webSocket() {
@@ -63,19 +62,18 @@ public class InstagramController extends Controller {
 						// mobile wants to know what's on the screen
 						else if (messageKind.equals("getItems")){
 							Logger.info("GET ITEMS");
+							int reqID = event.get("reqID").asInt();
 							ObjectNode msgForScreen = Json.newObject();
 							msgForScreen.put("kind", "getItems");
 							msgForScreen.put("reqID",reqID);
 							requests.put(reqID, out);	
-							reqID++;
 							Sockets sckts = sockets.get(displayID);
 							sckts.big.write(msgForScreen);
 						} else if(messageKind.equals("itemsOnScreen")){
 							Logger.info("ITEMS ON SCREEN");
-							int reqId = event.get("reqID").asInt();
-							Logger.info("Sending req " + reqID);
-							requests.get(reqId).write(event);
-							requests.remove(reqId);
+							int reqID = event.get("reqID").asInt();
+							requests.get(reqID).write(event);
+							requests.remove(reqID);
 						}
 					}
 				});
