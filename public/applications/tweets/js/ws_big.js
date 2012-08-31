@@ -1,11 +1,11 @@
-$(function(){
 
-	displayID = getUrlVars()["id"];
-	var WS = WebSocket;
-	var wsUri = "ws://pdnet.inf.unisi.ch:9000/twitter/socket";
-	websocket = new WS(wsUri); 
-	websocket.onopen = function(evt) { 
-		console.log("CONNECTED"); 
+$(function(){		
+		displayID = getUrlVars()["id"];
+		var WS = WebSocket;
+		var wsUri = "ws://pdnet.inf.unisi.ch:9000/twitter/socket";
+		websocket = new WS(wsUri); 
+		websocket.onopen = function(evt) { 
+			console.log("CONNECTED"); 
 		var hi = JSON.stringify
 		({
 			"kind":"appReady",
@@ -23,7 +23,7 @@ $(function(){
 		var response = jQuery.parseJSON(evt.data);
 		console.log(response);
 		if(response.kind == "stats"){
-			$("#hashtag").append("<h1>" + response.mobiles + "</h1>");
+			$("#mobile_count").html(response.mobiles);
 		}
 	};
 
