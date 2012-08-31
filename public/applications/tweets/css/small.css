@@ -87,5 +87,6 @@ body {
 	height: 50px;
 	color: white;
 	font-weight: bold;
-	border-bottom-right-radius: 100px;
+	border-bottom-right-radius: 20px;
+	text-align: center;
 }
