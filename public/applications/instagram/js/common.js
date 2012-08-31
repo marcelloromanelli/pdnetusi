@@ -95,7 +95,11 @@ function findPhotos(address, limit){
 				if(jQuery.inArray(current.id, ids) == -1){
 					insertNewPhoto(newItem);
 					ids.push(current.id);
-					var caption = current.caption.text || "no caption available";
+					if(current.caption == null){
+						var caption = "no caption available";
+					} else {
+						var caption = current.caption.text;
+					}
 					var stored = createObject(current.user.username, caption, current.link, img_thumb);
 					last.push(stored);
 					inserted++;
