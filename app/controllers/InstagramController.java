@@ -39,7 +39,7 @@ public class InstagramController extends Controller {
 
 				in.onMessage(new Callback<JsonNode>() {
 					public void invoke(JsonNode event) {
-//						Logger.info("INCOMING MESSAGE ON INSTAGRAM WS:\n" + event.toString());
+						Logger.info("INCOMING MESSAGE ON INSTAGRAM WS:\n" + event.toString());
 						String messageKind = event.get("kind").asText();						
 						String displayID = event.get("displayID").asText();
 
@@ -68,7 +68,6 @@ public class InstagramController extends Controller {
 							msgForScreen.put("reqID",reqID);
 							requests.put(reqID, out);	
 							reqID++;
-							
 							Sockets sckts = sockets.get(displayID);
 							sckts.big.write(msgForScreen);
 						} else if(messageKind.equals("itemsOnScreen")){
