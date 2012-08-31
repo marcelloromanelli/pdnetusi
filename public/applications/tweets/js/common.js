@@ -1,5 +1,3 @@
-var queue = new Array();
-var lastid = null;
 var tag = "100ThingsILike";
 var nextpage = null;
 
@@ -12,7 +10,6 @@ $.ajax({
 			var currentTweet = data.results[i];
 			var tweetDiv = createTweetDiv(currentTweet,i);					
 			$("body").append(tweetDiv);			
-			lastid = currentTweet.id;
 			$(".tweet_text").dotdotdot({});
 
 		}  
@@ -34,7 +31,6 @@ function findNewTweets(){
 				
 				var ithTweet = $(".tweet").get(i);
 				$(ithTweet).animate({"margin-left": "-560px"},1500, newStuff(i, tweetDiv));
-				lastid = currentTweet.id;
 				$(".tweet_text").dotdotdot({});
 			}  
 		}   
