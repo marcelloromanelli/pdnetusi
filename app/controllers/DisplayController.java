@@ -151,8 +151,6 @@ public class DisplayController extends Controller {
 			public void onReady(WebSocket.In<JsonNode> in, final WebSocket.Out<JsonNode> out) {
 				in.onMessage(new Callback<JsonNode>() {
 					public void invoke(JsonNode event) {
-						Logger.info(event.toString());
-
 						String kind = event.get("kind").asText();
 						String displayID = event.get("displayID").asText();
 
@@ -162,9 +160,7 @@ public class DisplayController extends Controller {
 							Logger.info("Display " + displayID + " is now active.");
 						} 
 						// Mobile wants to get what's on the screen
-						else if(kind.equals("getRequest")){
-							Logger.info("MObILE WANTS ITEMS");
-							
+						else if(kind.equals("getRequest")){							
 							requestsFromMobiles.put(counter, out);
 							reverter.put(out, counter);
 							
@@ -176,16 +172,14 @@ public class DisplayController extends Controller {
 							
 							displayOut.write(request);
 							counter++;
-							Logger.info("SENT REQ TO DISP");
-							
+							Logger.info("Request forwarded to display");
 						} else if (kind.equals("actives")){		
+							Logger.info("Answer recieved from display");
 							WebSocket.Out<JsonNode> mobilesocket = requestsFromMobiles.get(event.get("reqID").asInt());
 							mobilesocket.write(event);
-							
 							requestsFromMobiles.remove(counter);
-							reverter.remove(out);
-							
-							Logger.info("ACTIVES!!!!!");
+							reverter.remove(out);							
+							Logger.info("Answer forwarded to mobile");
 						}
 
 					}
@@ -198,9 +192,9 @@ public class DisplayController extends Controller {
 						if(displayID != null){
 							outToID.remove(out);
 							activeDisplays.remove(displayID);
-							Logger.info("\n Display " + displayID + " is now disconnected.");
+							Logger.info("Display " + displayID + " is now disconnected.");
 						} else if (requestsFromMobiles.containsValue(out)){
-							Logger.info("\n Mobile is now disconnected.");
+							Logger.info("Mobile is now disconnected.");
 							Integer reqID = reverter.get(out);
 							requestsFromMobiles.remove(reqID);
 							reverter.remove(out);
