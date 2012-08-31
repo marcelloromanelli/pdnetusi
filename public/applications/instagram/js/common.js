@@ -118,7 +118,6 @@ function createObject(title,desc,link,img){
 }
 
 function findPhotosNearCoordinates(lat, lng, limit){
-	console.log("looking for photos near USI");
 	var address = 'https://api.instagram.com/v1/media/search?lat=' + lat 
 	+ '&lng=' + lng 
 	+'&distance=100&client_id=554c751130494dbbba66cb0a27602b07' +
@@ -127,7 +126,6 @@ function findPhotosNearCoordinates(lat, lng, limit){
 }
 
 function findPhotosWithTag(tag, limit){
-	console.log("checking photos with tag: " + tag);
 	var address = 'https://api.instagram.com/v1/tags/'+ tag +'/media/recent?client_id=554c751130494dbbba66cb0a27602b07';
 	findPhotos(address, limit);
 }
