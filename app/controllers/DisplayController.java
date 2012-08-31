@@ -163,14 +163,15 @@ public class DisplayController extends Controller {
 						} 
 						// Mobile wants to get what's on the screen
 						else if(kind.equals("getRequest")){
+							Logger.info("MObILE WANTS ITEMS");
 							requestsFromMobiles.put(counter, out);
-
 							Out<JsonNode> displayOut = activeDisplays.get(displayID);
 							ObjectNode request = play.libs.Json.newObject();
 							request.put("kind", "actives");
 							request.put("reqID",counter);
 							displayOut.write(request);
 							counter++;
+							Logger.info("SENT REQ TO DISP");
 						} else if (kind.equals("actives")){		
 							WebSocket.Out<JsonNode> mobilesocket = requestsFromMobiles.get(event.get("reqID").asInt());
 							mobilesocket.write(event);
