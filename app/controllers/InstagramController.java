@@ -73,7 +73,7 @@ public class InstagramController extends Controller {
 						} else if(messageKind.equals("itemsOnScreen")){
 							Logger.info("ITEMS ON SCREEN");
 							int reqId = event.get("reqID").asInt();
-							Logger.info("Sending req" + reqID);
+							Logger.info("Sending req " + reqID);
 							requests.get(reqId).write(event);
 							requests.remove(reqId);
 						}
