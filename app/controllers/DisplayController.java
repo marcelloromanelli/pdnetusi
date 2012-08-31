@@ -23,11 +23,11 @@ public class DisplayController extends Controller {
 	public static HashMap<String, WebSocket.Out<JsonNode>> activeDisplays = new HashMap<String, WebSocket.Out<JsonNode>>();
 	public static HashMap<WebSocket.Out<JsonNode>, String> outToID = new HashMap<WebSocket.Out<JsonNode>, String>();
 
-	
+
 	// Keeps track of mobile requests
 	public static int counter = 0;
 	public static HashMap<Integer, WebSocket.Out<JsonNode>> requestsFromMobiles = new HashMap<Integer, WebSocket.Out<JsonNode>>();
-	
+	public static HashMap<WebSocket.Out<JsonNode>, Integer> reverter = new HashMap<WebSocket.Out<JsonNode>, Integer>();
 	/*		
 	 * Prepare the display with the tiles selected during
 	 * the layout creation
@@ -164,18 +164,27 @@ public class DisplayController extends Controller {
 						// Mobile wants to get what's on the screen
 						else if(kind.equals("getRequest")){
 							Logger.info("MObILE WANTS ITEMS");
+							
 							requestsFromMobiles.put(counter, out);
+							reverter.put(out, counter);
+							
 							Out<JsonNode> displayOut = activeDisplays.get(displayID);
+							
 							ObjectNode request = play.libs.Json.newObject();
 							request.put("kind", "actives");
 							request.put("reqID",counter);
+							
 							displayOut.write(request);
 							counter++;
 							Logger.info("SENT REQ TO DISP");
+							
 						} else if (kind.equals("actives")){		
 							WebSocket.Out<JsonNode> mobilesocket = requestsFromMobiles.get(event.get("reqID").asInt());
 							mobilesocket.write(event);
+							
 							requestsFromMobiles.remove(counter);
+							reverter.remove(out);
+							
 							Logger.info("ACTIVES!!!!!");
 						}
 
@@ -186,13 +195,16 @@ public class DisplayController extends Controller {
 				in.onClose(new Callback0() {
 					public void invoke() {
 						String displayID = outToID.get(out);
-						outToID.remove(out);
-						activeDisplays.remove(displayID);
-						Logger.info(
-								"\n ******* MESSAGE RECIEVED *******" +
-										"\n Display " + displayID + "is now disconnected." +
-										"\n*********************************"
-								);
+						if(displayID != null){
+							outToID.remove(out);
+							activeDisplays.remove(displayID);
+							Logger.info("\n Display " + displayID + " is now disconnected.");
+						} else if (requestsFromMobiles.containsValue(out)){
+							Logger.info("\n Mobile " + displayID + " is now disconnected.");
+							Integer reqID = reverter.get(out);
+							requestsFromMobiles.remove(reqID);
+							reverter.remove(out);
+						}
 					}
 
 
