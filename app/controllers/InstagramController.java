@@ -68,8 +68,6 @@ public class InstagramController extends Controller {
 							requests.put(reqID, out);	
 							reqID++;
 							
-							out.write(event);
-							Logger.info("MATTIA CULO!");
 							Sockets sckts = sockets.get(displayID);
 							sckts.big.write(msgForScreen);
 						} else if(messageKind.equals("itemsOnScreen")){
