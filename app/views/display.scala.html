@@ -24,6 +24,8 @@ displayName) {
 
 		websocket.onmessage = function(evt) {
 			var response = jQuery.parseJSON(evt.data);
+			console.log("MSG ON DISPLAY SOCKET:");
+			console.log(response);
 			var kind = response.kind;
 			if(kind == "actives"){
 				
