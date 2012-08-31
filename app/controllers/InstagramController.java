@@ -39,10 +39,10 @@ public class InstagramController extends Controller {
 				in.onMessage(new Callback<JsonNode>() {
 					public void invoke(JsonNode event) {
 						String messageKind = event.get("kind").asText();						
-						String displayID = event.get("displayID").asText();
 
 
 						if(messageKind.equals("appReady")){
+							String displayID = event.get("displayID").asText();
 
 							if(!sockets.containsKey(displayID)){
 								sockets.put(displayID, new Sockets(null, null));
@@ -60,6 +60,8 @@ public class InstagramController extends Controller {
 						} 
 						// mobile wants to know what's on the screen
 						else if (messageKind.equals("getItems")){
+							String displayID = event.get("displayID").asText();
+
 							Logger.info("GET ITEMS");
 							int reqID = event.get("reqID").asInt();
 							ObjectNode msgForScreen = Json.newObject();
@@ -68,11 +70,13 @@ public class InstagramController extends Controller {
 							requests.put(reqID, out);	
 							Sockets sckts = sockets.get(displayID);
 							sckts.big.write(msgForScreen);
+							Logger.info("INSTAGRAM: SENT BACK TO THE IFRAME SOCKET");
 						} else if(messageKind.equals("itemsOnScreen")){
 							Logger.info("ITEMS ON SCREEN");
 							int reqID = event.get("reqID").asInt();
 							requests.get(reqID).write(event);
 							requests.remove(reqID);
+							Logger.info("SENT TO MOB");
 						}
 					}
 				});

@@ -153,7 +153,7 @@ public class DisplayController extends Controller {
 					public void invoke(JsonNode event) {
 						String kind = event.get("kind").asText();
 						if(kind.equals("keepalive")){
-							Logger.info("are you alive?");
+//							Logger.info("are you alive?");
 						} else if(kind.equals("newScreen")){
 							String displayID = event.get("displayID").asText();
 							activeDisplays.put(displayID, out);
