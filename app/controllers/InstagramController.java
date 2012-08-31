@@ -38,7 +38,6 @@ public class InstagramController extends Controller {
 
 				in.onMessage(new Callback<JsonNode>() {
 					public void invoke(JsonNode event) {
-						Logger.info("INCOMING MESSAGE ON INSTAGRAM WS:\n" + event.toString());
 						String messageKind = event.get("kind").asText();						
 						String displayID = event.get("displayID").asText();
 
