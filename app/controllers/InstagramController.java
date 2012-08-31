@@ -6,9 +6,11 @@ package controllers;
 import java.util.HashMap;
 
 import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.node.ObjectNode;
 
 
 import play.Logger;
+import play.libs.Json;
 import play.libs.F.Callback;
 import play.libs.F.Callback0;
 import play.mvc.Controller;
@@ -26,8 +28,9 @@ public class InstagramController extends Controller {
 	 */
 	public static HashMap<String, Sockets> sockets = new HashMap<String, Sockets>();
 
-
-
+	public static int reqID = 0;
+	public static HashMap<Integer,  WebSocket.Out<JsonNode>> requests = new HashMap<Integer, WebSocket.Out<JsonNode>>();
+	
 	public static WebSocket<JsonNode> webSocket() {
 		return new WebSocket<JsonNode>() {
 
@@ -56,9 +59,19 @@ public class InstagramController extends Controller {
 							} else if(size.equals("big")) {
 								sockets.get(displayID).big  = out;
 							}
-						} else if (messageKind.equals("getItems")){
+						} 
+						// mobile wants to know what's on the screen
+						else if (messageKind.equals("getItems")){
+							ObjectNode msgForScreen = Json.newObject();
+							msgForScreen.put("kind", "getItems");
+							msgForScreen.put("reqID",reqID);
+							requests.put(reqID, out);	
+							reqID++;
+							
 							out.write(event);
 							Logger.info("MATTIA CULO!");
+							Sockets sckts = sockets.get(displayID);
+							sckts.big.write(msgForScreen);
 						}
 					}
 				});

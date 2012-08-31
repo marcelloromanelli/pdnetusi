@@ -1,5 +1,6 @@
 var ids = new Array();
 var enlarged = 0;
+var last = new Array(); 
 
 $(function(){
 	
@@ -16,9 +17,12 @@ $(function(){
 
 
 function insertNewPhoto(newItem){
-//	if($(".item").length > 25){
-//		$(".item").splice(-5).each(function(){$(this).remove()});
-//	}
+	if($(".item").length > 25){
+		var toremove = $(".item").splice(-5);
+		for (var index in toremove){
+			$(toremove[index]).remove();
+		}
+	}
 	
 	$('#container').prepend(newItem);
 	$("img").mousedown(function(){
@@ -93,15 +97,25 @@ function findPhotos(address, limit){
 					ids.push(current.id);
 					inserted++;
 				} 
-
+				
+				last.push(createObject(current.user.username, current.caption.text, current.link, img_thumb));
 
 			}
-
+			console.log(last);
 			$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 
 		}   
 
 	});
+}
+
+function createObject(tile,desc,link,img){
+	var obj = {};
+	obj.title = title;
+	obj.desc = desc;
+	obj.link = link;
+	obj.img = img;
+	return obj;
 }
 
 function findPhotosNearCoordinates(lat, lng, limit){
