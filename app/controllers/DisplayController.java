@@ -200,7 +200,7 @@ public class DisplayController extends Controller {
 							activeDisplays.remove(displayID);
 							Logger.info("\n Display " + displayID + " is now disconnected.");
 						} else if (requestsFromMobiles.containsValue(out)){
-							Logger.info("\n Mobile " + displayID + " is now disconnected.");
+							Logger.info("\n Mobile is now disconnected.");
 							Integer reqID = reverter.get(out);
 							requestsFromMobiles.remove(reqID);
 							reverter.remove(out);
