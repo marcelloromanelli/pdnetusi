@@ -1,24 +1,7 @@
-function getUrlVars() {
-	var vars = [], hash;
-	var i = 0;
-	var hashes = window.parent.location.href.slice(window.parent.location.href.indexOf('?') + 1).split('&');
-	for(i = 0; i < hashes.length; i++)
-	{
-		hash = hashes[i].split('=');
-		vars.push(hash[0]);
-		vars[hash[0]] = hash[1];
-	}
-	return vars;
-}
-
-function lowerWithoutSpaces(input) {
-	return input.toLowerCase().split(' ').join('');
-}
-
 var queue = new Array();
 var lastid = null;
-var tag = "MeanGirlsTaughtMe";
-
+var tag = "100ThingsILike";
+var nextpage = null;
 
 $.ajax({
 	url: 'http://search.twitter.com/search.json?q=%23' + tag + '&rpp=4',
@@ -40,14 +23,15 @@ $.ajax({
 
 function findNewTweets(){
 	$.ajax({
-		url: 'http://search.twitter.com/search.json?q=%23' + tag + '&rpp=4&since_id=' + lastid,
+		url: 'http://search.twitter.com/search.json' + nextpage,
 		type: 'GET',
 		dataType: 'jsonp',
 		success: function(data, textStatus, xhr) {
+			var nextpage = data.next_page;
 			for (var i = 0; i < data.results.length; i++){	
 				var currentTweet = data.results[i];
 				var tweetDiv = createTweetDiv(currentTweet,i);					
-
+				
 				var ithTweet = $(".tweet").get(i);
 				$(ithTweet).animate({"margin-left": "-560px"},1500, newStuff(i, tweetDiv));
 				lastid = currentTweet.id;
@@ -97,3 +81,21 @@ function createTweetDiv(currentTweet,i){
 
 	return tweetDiv;
 }
+
+function getUrlVars() {
+	var vars = [], hash;
+	var i = 0;
+	var hashes = window.parent.location.href.slice(window.parent.location.href.indexOf('?') + 1).split('&');
+	for(i = 0; i < hashes.length; i++)
+	{
+		hash = hashes[i].split('=');
+		vars.push(hash[0]);
+		vars[hash[0]] = hash[1];
+	}
+	return vars;
+}
+
+function lowerWithoutSpaces(input) {
+	return input.toLowerCase().split(' ').join('');
+}
+
