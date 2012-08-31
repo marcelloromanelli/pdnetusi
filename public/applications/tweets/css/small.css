@@ -83,6 +83,9 @@ body {
 	left:0;
 	font-size: 40px;
 	background-color: orange;
-	width: 100px;
-	height: 100px;
+	width: 60px;
+	height: 50px;
+	color: white;
+	font-weight: bold;
+	border-bottom-right-radius: 100px;
 }
