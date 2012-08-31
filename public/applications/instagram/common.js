@@ -109,7 +109,7 @@ function findPhotos(address, limit){
 	});
 }
 
-function createObject(tile,desc,link,img){
+function createObject(title,desc,link,img){
 	var obj = {};
 	obj.title = title;
 	obj.desc = desc;
