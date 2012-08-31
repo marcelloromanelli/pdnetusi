@@ -62,6 +62,7 @@ public class InstagramController extends Controller {
 						} 
 						// mobile wants to know what's on the screen
 						else if (messageKind.equals("getItems")){
+							Logger.info("GET ITEMS");
 							ObjectNode msgForScreen = Json.newObject();
 							msgForScreen.put("kind", "getItems");
 							msgForScreen.put("reqID",reqID);
@@ -71,6 +72,7 @@ public class InstagramController extends Controller {
 							Sockets sckts = sockets.get(displayID);
 							sckts.big.write(msgForScreen);
 						} else if(messageKind.equals("itemsOnScreen")){
+							Logger.info("ITEMS ON SCREEN");
 							Integer reqId = event.get("reqID").asInt();
 							Logger.info("Sending req" + reqID);
 							requests.remove(reqId);
