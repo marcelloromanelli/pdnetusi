@@ -22,6 +22,7 @@ function insertNewPhoto(newItem){
 		for (var index in toremove){
 			$(toremove[index]).remove();
 		}
+		last.splice(0,5);
 	}
 	
 	$('#container').prepend(newItem);
@@ -94,11 +95,11 @@ function findPhotos(address, limit){
 				if(jQuery.inArray(current.id, ids) == -1){
 					insertNewPhoto(newItem);
 					ids.push(current.id);
+					var stored = createObject(current.user.username, current.caption.text, current.link, img_thumb);
+					last.push(stored);
 					inserted++;
 				} 
-				
-				var stored = createObject(current.user.username, current.caption.text, current.link, img_thumb);
-				last.push(stored);
+
 			}
 			$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 
