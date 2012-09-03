@@ -50,7 +50,7 @@ function findNewTweets(){
 				var currentTweet = data.results[i];
 				var tweetDiv = createTweetDiv(currentTweet,i);					
 				if($(".tweet").length < 4){
-					$("body").append(tweetDiv);			
+					$("body").prepend(tweetDiv);			
 				} else {
 					var ithTweet = $(".tweet").get(data.results.length-1-i);
 					$(ithTweet).animate({"margin-left": "-560px"},1500, newStuff(i, tweetDiv));
