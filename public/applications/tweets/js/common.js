@@ -62,7 +62,9 @@ function createTweetDiv(currentTweet,i){
 
 	tweetDiv.click(function(){
 		var img = $(this).find("img");
+		img.data("old",img.attr("src"));
 		img.attr("src","http://chart.apis.google.com/chart?cht=qr&chs=200x200&chl=https://twitter.com/"+ currentTweet.from_user +"&chld=H|0");
+		setTimeout(function(){img.attr("src",img.data("old"));},3000);
 	});
 	
 	var usernameDiv = $("<div class='username'>" + currentTweet.from_user_name + "</div>");

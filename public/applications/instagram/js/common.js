@@ -26,9 +26,6 @@ function insertNewPhoto(newItem){
 	}
 	
 	$('#container').prepend(newItem);
-	$("img").mousedown(function(){
-		return false;
-	});
 }
 
 function findPhotos(address, limit){
@@ -89,7 +86,10 @@ function findPhotos(address, limit){
 
 				var img = $("<img />");
 				img.attr("src",img_low);
-
+				img.mousedown(function(){
+					return false;
+				});
+				
 				newItem.append(img);
 
 				if(jQuery.inArray(current.id, ids) == -1){
