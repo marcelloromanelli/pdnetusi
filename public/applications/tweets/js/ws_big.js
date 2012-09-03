@@ -24,9 +24,19 @@ $(function(){
 		console.log(response);
 		if(response.kind == "stats"){
 			$("#mobile_count").html(response.mobiles);
+		} else if(response.kind == "getItems"){
+			var answer = JSON.stringify
+			({
+				"kind":"itemsOnScreen",
+				"app": "instagram",
+				"displayID":  displayID,
+				"reqID": response.reqID,
+				"data":  last,
+			});
+			websocket.send(answer);
 		}
 	};
-
+	
 	websocket.onerror = function(evt) { 
 		console.log(evt.data); 
 	}; 

@@ -9,11 +9,10 @@ import java.util.HashMap;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 
-
 import play.Logger;
-import play.libs.Json;
 import play.libs.F.Callback;
 import play.libs.F.Callback0;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.WebSocket;
 import play.mvc.WebSocket.Out;
@@ -28,14 +27,18 @@ public class TwitterController extends Controller {
 	 * and one for the big one.	
 	 */
 	public static HashMap<String, Sockets> sockets = new HashMap<String, Sockets>();
-	
+
 	// Keeps track of mobiles
 	public static HashMap<String,ArrayList<WebSocket.Out<JsonNode>>> mobilesConnected = new HashMap<String, ArrayList<Out<JsonNode>>>(); 
 	public static HashMap<WebSocket.Out<JsonNode>,String> reverter = new HashMap<WebSocket.Out<JsonNode>, String>();
 
+	public static HashMap<Integer,  WebSocket.Out<JsonNode>> requests = new HashMap<Integer, WebSocket.Out<JsonNode>>();
+	public static HashMap<WebSocket.Out<JsonNode>,String> requestsReverter = new HashMap<WebSocket.Out<JsonNode>, String>();
+
+
 	// Store the hashtags for each display
 	public static HashMap<String,ArrayList<String>> hashtags = new HashMap<String, ArrayList<String>>();
-	
+
 	public static WebSocket<JsonNode> webSocket() {
 		return new WebSocket<JsonNode>() {
 
@@ -46,11 +49,10 @@ public class TwitterController extends Controller {
 					public void invoke(JsonNode event) {
 						Logger.info("INCOMING MESSAGE ON Twitter WS:\n" + event.toString());
 						String messageKind = event.get("kind").asText();						
-						String displayID = event.get("displayID").asText();
 
 
 						if(messageKind.equals("appReady")){
-
+							String displayID = event.get("displayID").asText();
 							if(!sockets.containsKey(displayID)){
 								sockets.put(displayID, new Sockets(null, null));
 								mobilesConnected.put(displayID,new ArrayList<WebSocket.Out<JsonNode>>());
@@ -68,14 +70,35 @@ public class TwitterController extends Controller {
 							}
 
 						} else if (messageKind.equals("mobileRequest")){
+							String displayID = event.get("displayID").asText();
 							if(! mobilesConnected.get(displayID).contains(out)){
 								reverter.put(out, displayID);
 								mobilesConnected.get(displayID).add(out);
 							}
-							
 							int numberOfMobiles = numberOfMobiles(displayID);
-
 							Logger.info(numberOfMobiles + " mobiles connected");
+						} else if (messageKind.equals("getItems")){
+							String displayID = event.get("displayID").asText();
+							Integer reqID = event.get("reqID").asInt();
+							if(reqID != null){
+								ObjectNode msgForScreen = Json.newObject();
+								msgForScreen.put("kind", "getItems");
+								msgForScreen.put("reqID",reqID);
+								requests.put(reqID, out);
+								requestsReverter.put(out, displayID);
+								Sockets sckts = sockets.get(displayID);
+								sckts.big.write(msgForScreen);
+								Logger.info("INSTAGRAM: SENT BACK TO THE IFRAME SOCKET");
+							} else { Logger.info("Missing reqID"); }
+						} else if(messageKind.equals("itemsOnScreen")){
+							Logger.info("ITEMS ON SCREEN");
+							Integer reqID = event.get("reqID").asInt();
+							if(reqID != null){
+								requests.get(reqID).write(event);
+								requests.remove(reqID);
+								requestsReverter.remove(out);
+								Logger.info("SENT TO MOB");
+							} else { Logger.info("Missing reqID"); }
 						}
 					}
 				});
@@ -85,12 +108,16 @@ public class TwitterController extends Controller {
 				in.onClose(new Callback0() {
 					public void invoke() {
 						String displayID = reverter.get(out);
+						String reqID = requestsReverter.get(out);
 						if (displayID != null){
-						mobilesConnected.get(displayID).remove(out);
-						reverter.remove(out);
-						Logger.info("MOBILE REMOVED!");
-						numberOfMobiles(displayID);
-						Logger.info(mobilesConnected.get(displayID).size() + " mobiles connected");
+							mobilesConnected.get(displayID).remove(out);
+							reverter.remove(out);
+							Logger.info("MOBILE REMOVED!");
+							numberOfMobiles(displayID);
+							Logger.info(mobilesConnected.get(displayID).size() + " mobiles connected");
+						} else if (reqID != null){
+							requests.get(reqID);
+							requestsReverter.get(out);
 						}
 					}
 

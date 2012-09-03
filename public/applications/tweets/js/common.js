@@ -1,6 +1,8 @@
 var tag = "100ThingsILike";
 var nextpage = null;
 var refreshurl = null;
+var last = new Array(); 
+
 $.ajax({
 	url: 'http://search.twitter.com/search.json?q=%23' + tag + '&rpp=4',
 	dataType: 'jsonp',
@@ -22,7 +24,17 @@ $.ajax({
 
 });
 
+function createObject(title,desc,link,img){
+	var obj = {};
+	obj.title = title;
+	obj.desc = desc;
+	obj.link = link;
+	obj.img = img;
+	return obj;
+}
+
 function findNewTweets(){
+	last = new Array();
 	if(nextpage == undefined){
 		nextpage = refreshurl + "&rpp=4";
 	}
@@ -38,7 +50,6 @@ function findNewTweets(){
 				
 				var ithTweet = $(".tweet").get(i);
 				$(ithTweet).animate({"margin-left": "-560px"},1500, newStuff(i, tweetDiv));
-				$(".tweet_text").dotdotdot({});
 			}
 			$("img").mousedown(function(){
 				return false;
@@ -59,16 +70,19 @@ var newStuff = function(i, tweetDiv){
 
 function createTweetDiv(currentTweet,i){
 	var tweetDiv = $("<div class='tweet'></div>");
-
+	var userProfileUrl = "https://twitter.com/"+ currentTweet.from_user;
+	
 	tweetDiv.click(function(){
 		var img = $(this).find("img");
 		img.data("old",img.attr("src"));
-		img.attr("src","http://chart.apis.google.com/chart?cht=qr&chs=200x200&chl=https://twitter.com/"+ currentTweet.from_user +"&chld=H|0");
-		setTimeout(function(){img.attr("src",img.data("old"));},3000);
+		img.attr("src","http://chart.apis.google.com/chart?cht=qr&chs=200x200&chl="+ userProfileUrl +"&chld=H|0");
+		setTimeout(function(){img.attr("src",img.data("old"));},25000);
 	});
 	
 	var usernameDiv = $("<div class='username'>" + currentTweet.from_user_name + "</div>");
 	var tweetText = $("<div class='tweet_text'>" + currentTweet.text + "</div>");
+	tweetText.dotdotdot({});
+
 	var tweetTime = $("<abbr class='timeago'></abbr>");
 	tweetTime.attr("title",currentTweet.created_at);
 	tweetTime.html(jQuery.timeago(currentTweet.created_at));
@@ -85,17 +99,17 @@ function createTweetDiv(currentTweet,i){
 
 	var profileImg = $("<img class='profilepic'>");
 	profileImg.attr("onerror","this.src='http://a0.twimg.com/sticky/default_profile_images/default_profile_3.png'");
+	var profileImgUrl = "https://api.twitter.com/1/users/profile_image?screen_name=" + currentTweet.from_user + "&size=original";
 	profileImg.attr("src","https://api.twitter.com/1/users/profile_image?screen_name=" + currentTweet.from_user + "&size=original");
-
+	profileImg.mousedown(function(){
+		return false;
+	});
 
 	tweetDiv.append(profileImg);
-
+	last.push(createObject(currentTweet.from_user_name, currentTweet.text, userProfileUrl, profileImgUrl));
 	return tweetDiv;
 }
 
-function fixBrokenImg(){
-	
-}
 
 function getUrlVars() {
 	var vars = [], hash;
