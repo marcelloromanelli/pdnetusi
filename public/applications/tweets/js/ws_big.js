@@ -28,7 +28,7 @@ $(function(){
 			var answer = JSON.stringify
 			({
 				"kind":"itemsOnScreen",
-				"app": "instagram",
+				"app": "twitter",
 				"displayID":  displayID,
 				"reqID": response.reqID,
 				"data":  last,
@@ -41,7 +41,7 @@ $(function(){
 		console.log(evt.data); 
 	}; 
 	
-	setInterval(function(){findNewTweets();},15000);
+	setInterval(function(){findNewTweets();},5000);
 	$("#hashtag").html("#"+tag);
 		
 });	
