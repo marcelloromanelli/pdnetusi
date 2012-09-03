@@ -64,17 +64,20 @@ public class InstagramController extends Controller {
 						// mobile wants to know what's on the screen
 						else if (messageKind.equals("getItems")){
 							String displayID = event.get("displayID").asText();
-
 							Logger.info("GET ITEMS");
-							int reqID = event.get("reqID").asInt();
-							ObjectNode msgForScreen = Json.newObject();
-							msgForScreen.put("kind", "getItems");
-							msgForScreen.put("reqID",reqID);
-							requests.put(reqID, out);
-							requestsReverter.put(out, displayID);
-							Sockets sckts = sockets.get(displayID);
-							sckts.big.write(msgForScreen);
-							Logger.info("INSTAGRAM: SENT BACK TO THE IFRAME SOCKET");
+							Integer reqID = event.get("reqID").asInt();
+							if(reqID != null){
+								ObjectNode msgForScreen = Json.newObject();
+								msgForScreen.put("kind", "getItems");
+								msgForScreen.put("reqID",reqID);
+								requests.put(reqID, out);
+								requestsReverter.put(out, displayID);
+								Sockets sckts = sockets.get(displayID);
+								sckts.big.write(msgForScreen);
+								Logger.info("INSTAGRAM: SENT BACK TO THE IFRAME SOCKET");
+							} else {
+								Logger.info("Missing reqID");
+							}
 						} else if(messageKind.equals("itemsOnScreen")){
 							Logger.info("ITEMS ON SCREEN");
 							int reqID = event.get("reqID").asInt();
