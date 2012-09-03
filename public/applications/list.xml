@@ -9,6 +9,16 @@
 		<icon>images/photostream-icon.png</icon>
 		<preview-image>images/photostream.png</preview-image>
 	</app>
+	
+	<app>
+		<name>Twitter</name>
+		<namespace>twitter</namespace>
+		<view>twitter/view.html</view>
+		<websocket_address>http://pdnet.inf.unisi.ch:9000/twitter/socket</websocket_address>
+		<description>Shows galleries taken from Flickr when you pass by public displays</description>
+		<icon>images/twitter-icon.png</icon>
+		<preview-image>images/twitter.png</preview-image>
+	</app>
 
 	<app>
 		<name>News Feeds</name>
