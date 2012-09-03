@@ -2,7 +2,6 @@ var tag = "100ThingsILike";
 var nextpage = null;
 var refreshurl = null;
 var last = new Array();
-var count = 0;
 
 $.ajax({
 	url: 'http://search.twitter.com/search.json?q=%23' + tag + '&rpp=4',
@@ -35,7 +34,7 @@ function createObject(title,desc,link,img){
 }
 
 function findNewTweets(){
-	if(count%2 == 0){
+	if(last.length > 10){
 		last = new Array();
 	}
 	if(nextpage == undefined){
@@ -60,7 +59,6 @@ function findNewTweets(){
 		}   
 
 	});
-	count++;
 }
 
 var newStuff = function(i, tweetDiv){
