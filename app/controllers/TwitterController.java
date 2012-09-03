@@ -81,6 +81,13 @@ public class TwitterController extends Controller {
 							String displayID = event.get("displayID").asText();
 							Integer reqID = event.get("reqID").asInt();
 							if(reqID != null){
+								if(! mobilesConnected.get(displayID).contains(out)){
+									reverter.put(out, displayID);
+									mobilesConnected.get(displayID).add(out);
+								}
+								int numberOfMobiles = numberOfMobiles(displayID);
+								Logger.info(numberOfMobiles + " mobiles connected");
+								
 								ObjectNode msgForScreen = Json.newObject();
 								msgForScreen.put("kind", "getItems");
 								msgForScreen.put("reqID",reqID);
