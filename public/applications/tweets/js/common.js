@@ -49,9 +49,12 @@ function findNewTweets(){
 			for (var i = 0; i < data.results.length; i++){	
 				var currentTweet = data.results[i];
 				var tweetDiv = createTweetDiv(currentTweet,i);					
-				
-				var ithTweet = $(".tweet").get(i);
-				$(ithTweet).animate({"margin-left": "-560px"},1500, newStuff(i, tweetDiv));
+				if($(".tweet").length < 4){
+					$("body").append(tweetDiv);			
+				} else {
+					var ithTweet = $(".tweet").get(data.results.length-1-i);
+					$(ithTweet).animate({"margin-left": "-560px"},1500, newStuff(i, tweetDiv));
+				}
 			}
 			$("img").mousedown(function(){
 				return false;
