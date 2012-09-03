@@ -1,4 +1,4 @@
-var tag = "100ThingsILike";
+var tag = "usilugano";
 var nextpage = null;
 var refreshurl = null;
 var last = new Array();
