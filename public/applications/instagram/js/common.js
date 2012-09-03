@@ -117,7 +117,7 @@ function createObject(title,desc,link,img){
 	obj.desc = desc;
 	obj.link = link;
 	obj.img = img;
-	return JSON.stringify(obj);
+	return obj;
 }
 
 function findPhotosNearCoordinates(lat, lng, limit){
