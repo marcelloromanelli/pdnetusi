@@ -53,7 +53,7 @@ function findNewTweets(){
 					$($(".tweet").get(0)).before(tweetDiv);			
 				} else {
 					var ithTweet = $(".tweet").get(3-i);
-					$(ithTweet).animate({"margin-left": "-560px"},1500, newStuff(i, tweetDiv));
+					$(ithTweet).animate({"margin-left": "-560px"},1500, newStuff(3-i, tweetDiv));
 				}
 			}
 			$("img").mousedown(function(){
