@@ -13,7 +13,10 @@ $.ajax({
 			$("body").append(tweetDiv);			
 			$(".tweet_text").dotdotdot({});
 
-		}  
+		}
+		$("img").mousedown(function(){
+			return false;
+		});
 		jQuery("abbr.timeago").timeago();                
 	}   
 
@@ -36,7 +39,10 @@ function findNewTweets(){
 				var ithTweet = $(".tweet").get(i);
 				$(ithTweet).animate({"margin-left": "-560px"},1500, newStuff(i, tweetDiv));
 				$(".tweet_text").dotdotdot({});
-			}  
+			}
+			$("img").mousedown(function(){
+				return false;
+			});
 		}   
 
 	});
@@ -54,6 +60,11 @@ var newStuff = function(i, tweetDiv){
 function createTweetDiv(currentTweet,i){
 	var tweetDiv = $("<div class='tweet'></div>");
 
+	tweetDiv.click(function(){
+		var img = $(this).find("img");
+		img.attr("src","smt");
+	});
+	
 	var usernameDiv = $("<div class='username'>" + currentTweet.from_user_name + "</div>");
 	var tweetText = $("<div class='tweet_text'>" + currentTweet.text + "</div>");
 	var tweetTime = $("<abbr class='timeago'></abbr>");

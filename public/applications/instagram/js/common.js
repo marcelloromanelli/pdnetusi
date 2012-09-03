@@ -104,10 +104,8 @@ function findPhotos(address, limit){
 					last.push(stored);
 					inserted++;
 				} 
-
 			}
 			$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
-
 		}   
 
 	});
@@ -119,7 +117,7 @@ function createObject(title,desc,link,img){
 	obj.desc = desc;
 	obj.link = link;
 	obj.img = img;
-	return obj;
+	return JSON.stringify(obj);
 }
 
 function findPhotosNearCoordinates(lat, lng, limit){
