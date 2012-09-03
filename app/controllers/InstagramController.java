@@ -27,9 +27,11 @@ public class InstagramController extends Controller {
 	 * and one for the big one.	
 	 */
 	public static HashMap<String, Sockets> sockets = new HashMap<String, Sockets>();
+	public static HashMap<WebSocket.Out<JsonNode>,String> socketsReverter = new HashMap<WebSocket.Out<JsonNode>, String>();
 
 	public static HashMap<Integer,  WebSocket.Out<JsonNode>> requests = new HashMap<Integer, WebSocket.Out<JsonNode>>();
-	
+	public static HashMap<WebSocket.Out<JsonNode>,String> requestsReverter = new HashMap<WebSocket.Out<JsonNode>, String>();
+
 	public static WebSocket<JsonNode> webSocket() {
 		return new WebSocket<JsonNode>() {
 
@@ -46,6 +48,7 @@ public class InstagramController extends Controller {
 
 							if(!sockets.containsKey(displayID)){
 								sockets.put(displayID, new Sockets(null, null));
+								socketsReverter.put(out, displayID);
 								Logger.info("DisplayID " + displayID + " was added to the instagram app.");
 							}
 
@@ -67,7 +70,8 @@ public class InstagramController extends Controller {
 							ObjectNode msgForScreen = Json.newObject();
 							msgForScreen.put("kind", "getItems");
 							msgForScreen.put("reqID",reqID);
-							requests.put(reqID, out);	
+							requests.put(reqID, out);
+							requestsReverter.put(out, displayID);
 							Sockets sckts = sockets.get(displayID);
 							sckts.big.write(msgForScreen);
 							Logger.info("INSTAGRAM: SENT BACK TO THE IFRAME SOCKET");
@@ -76,6 +80,7 @@ public class InstagramController extends Controller {
 							int reqID = event.get("reqID").asInt();
 							requests.get(reqID).write(event);
 							requests.remove(reqID);
+							requestsReverter.remove(out);
 							Logger.info("SENT TO MOB");
 						}
 					}
@@ -85,7 +90,15 @@ public class InstagramController extends Controller {
 				// When the socket is closed.
 				in.onClose(new Callback0() {
 					public void invoke() {
-
+						String displayID = socketsReverter.get(out);
+						String reqID = requestsReverter.get(out);
+						if (displayID != null){
+							sockets.remove(displayID);
+							socketsReverter.remove(out);
+						} else if(reqID != null){
+							requests.get(reqID);
+							requestsReverter.get(out);
+						}
 					}
 
 
