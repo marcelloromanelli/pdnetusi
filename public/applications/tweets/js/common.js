@@ -52,7 +52,7 @@ function findNewTweets(){
 				if($(".tweet").length < 4){
 					$($(".tweet").get(0)).before(tweetDiv);			
 				} else {
-					var ithTweet = $(".tweet").get(data.results.length-i);
+					var ithTweet = $(".tweet").get(i);
 					$(ithTweet).animate({"margin-left": "-560px"},1500, newStuff(i, tweetDiv));
 				}
 			}
