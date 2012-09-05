@@ -280,9 +280,8 @@ html,body {
 	float: left;
 	margin: 0px 20px 0px 20px;
 	position: relative;
-	padding: 10px;
-	background-color: white;
-	border-radius: 10px;
+	width:80px;
+	height: 80px;
 }
 
 .icons{
