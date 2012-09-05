@@ -45,6 +45,7 @@ function findNewTweets(){
 			nextpage = refreshurl + "&rpp=4";
 		} else {
 			nextpage = "?q=%23" + hashtags[counter] + "&rpp=4";
+			$("#hashtag").html(hashtags[counter]);
 			counter++;
 		}
 	}
