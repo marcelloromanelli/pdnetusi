@@ -1,5 +1,7 @@
 var tag = "usilugano";
 var hashtags = new Array();
+var counter = 0%hashtags.length;
+
 var nextpage = null;
 var refreshurl = null;
 var last = new Array();
@@ -39,7 +41,12 @@ function findNewTweets(){
 		last = new Array();
 	}
 	if(nextpage == undefined){
-		nextpage = refreshurl + "&rpp=4";
+		if(hashtags.length == 0){
+			nextpage = refreshurl + "&rpp=4";
+		} else {
+			nextpage = "?q=%23" + hashtags[counter] + "&rpp=4";
+			counter++;
+		}
 	}
 	$.ajax({
 		url: 'http://search.twitter.com/search.json' + nextpage,
