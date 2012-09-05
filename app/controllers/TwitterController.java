@@ -74,9 +74,9 @@ public class TwitterController extends Controller {
 							if(! mobilesConnected.get(displayID).contains(out)){
 								reverter.put(out, displayID);
 								mobilesConnected.get(displayID).add(out);
+								int numberOfMobiles = numberOfMobiles(displayID);
+								Logger.info(numberOfMobiles + " mobiles connected");
 							}
-							int numberOfMobiles = numberOfMobiles(displayID);
-							Logger.info(numberOfMobiles + " mobiles connected");
 						} else if (messageKind.equals("getItems")){
 							String displayID = event.get("displayID").asText();
 							Integer reqID = event.get("reqID").asInt();
@@ -85,12 +85,12 @@ public class TwitterController extends Controller {
 									Logger.info("MOBILE TOUCH");
 									reverter.put(out, displayID);
 									mobilesConnected.get(displayID).add(out);
+									int numberOfMobiles = numberOfMobiles(displayID);
+									Logger.info(numberOfMobiles + " mobiles connected");
 								} else {
 									Logger.info("TOUCH DIDN'T WORK");
 									Logger.info(mobilesConnected.toString());
 								}
-								int numberOfMobiles = numberOfMobiles(displayID);
-								Logger.info(numberOfMobiles + " mobiles connected");
 								
 								ObjectNode msgForScreen = Json.newObject();
 								msgForScreen.put("kind", "getItems");
