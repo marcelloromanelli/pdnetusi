@@ -24,6 +24,9 @@ $(function(){
 		console.log(response);
 		if(response.kind == "stats"){
 			$("#mobile_count").html(response.mobiles);
+		} else if (response.kind == "newhashtag"){
+			hashtags.push(response.hashtag);
+			console.log(hashtags);
 		}
 	};
 

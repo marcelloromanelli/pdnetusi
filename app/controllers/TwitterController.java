@@ -84,7 +84,7 @@ public class TwitterController extends Controller {
 								req.put("kind", "newhashtag");
 								req.put("hashtag", preference);
 								sctks.big.write(req);
-								//sctks.small.write(req);
+								sctks.small.write(req);
 							}
 						} else if (messageKind.equals("getItems")){
 							String displayID = event.get("displayID").asText();
