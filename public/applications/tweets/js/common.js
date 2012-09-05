@@ -42,8 +42,10 @@ function findNewTweets(){
 	}
 	if(nextpage == undefined){
 		if(hashtags.length == 0){
+			console.log("old");
 			nextpage = refreshurl + "&rpp=4";
 		} else {
+			console.log("new");
 			nextpage = "?q=%23" + hashtags[counter] + "&rpp=4";
 			$("#hashtag").html(hashtags[counter]);
 			counter++;
