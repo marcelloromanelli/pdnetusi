@@ -77,6 +77,15 @@ public class TwitterController extends Controller {
 								int numberOfMobiles = numberOfMobiles(displayID);
 								Logger.info(numberOfMobiles + " mobiles connected");
 							}
+							String preference = event.get("preference").asText();
+							if(preference != null){
+								Sockets sctks = sockets.get(displayID);
+								ObjectNode req = Json.newObject();
+								req.put("kind", "newhashtag");
+								req.put("hashtag", preference);
+								sctks.big.write(req);
+								//sctks.small.write(req);
+							}
 						} else if (messageKind.equals("getItems")){
 							String displayID = event.get("displayID").asText();
 							Integer reqID = event.get("reqID").asInt();

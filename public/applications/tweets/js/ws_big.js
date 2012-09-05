@@ -34,6 +34,9 @@ $(function(){
 				"data":  last,
 			});
 			websocket.send(answer);
+		} else if (response.kind == "newhashtag"){
+			hashtags.put(response.hashtag);
+			console.log(hashtags);
 		}
 	};
 	
