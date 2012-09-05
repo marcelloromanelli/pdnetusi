@@ -81,9 +81,13 @@ public class TwitterController extends Controller {
 							String displayID = event.get("displayID").asText();
 							Integer reqID = event.get("reqID").asInt();
 							if(reqID != null){
-								if(! mobilesConnected.get(displayID).contains(out)){
+								if(!mobilesConnected.get(displayID).contains(out)){
+									Logger.info("MOBILE TOUCH");
 									reverter.put(out, displayID);
 									mobilesConnected.get(displayID).add(out);
+								} else {
+									Logger.info("TOUCH DIDN'T WORK");
+									Logger.info(mobilesConnected.toString());
 								}
 								int numberOfMobiles = numberOfMobiles(displayID);
 								Logger.info(numberOfMobiles + " mobiles connected");
