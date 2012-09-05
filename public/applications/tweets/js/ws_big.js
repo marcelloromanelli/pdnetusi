@@ -35,7 +35,7 @@ $(function(){
 			});
 			websocket.send(answer);
 		} else if (response.kind == "newhashtag"){
-			hashtags.put(response.hashtag);
+			hashtags.push(response.hashtag);
 			console.log(hashtags);
 		}
 	};
