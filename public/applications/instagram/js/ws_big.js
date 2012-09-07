@@ -1,5 +1,4 @@
 $(function(){
-	var hashtags = new Array();
 	displayID = getUrlVars()["id"];
 	var WS = WebSocket;
 	var wsUri = "ws://pdnet.inf.unisi.ch:9000/instagram/socket";

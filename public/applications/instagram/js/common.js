@@ -1,6 +1,7 @@
 var ids = new Array();
 var enlarged = 0;
 var last = new Array(); 
+var hashtags = new Array();
 
 $(function(){
 	
