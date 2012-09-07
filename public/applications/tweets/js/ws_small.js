@@ -26,9 +26,9 @@ $(function(){
 		if(response.kind == "stats"){
 			$("#mobile_count").html(response.mobiles);
 		} else if (response.kind == "newhashtag"){
-			console.log(counter);
-			hashtags.push(response.hashtag);
-			console.log(hashtags);
+			if(! $.inArray(response.hashtag, hashtags)){
+				hashtags.push(response.hashtag);
+			}
 		}
 	};
 
@@ -65,7 +65,14 @@ function findNewTweets(){
 		url: 'http://search.twitter.com/search.json' + nextpage,
 		dataType: 'jsonp',
 		success: function(data, textStatus, xhr) {
-			nextpage = data.next_page;
+			// Show at most 16 tweets per query
+			if(data.page > 3 && hashtags.length > 0){
+				nextpage = "?q=%23" + hashtags[counter] + "&rpp=4";
+				$("#hashtag").html(hashtags[counter]);
+				counter++;
+			} else {
+				nextpage = data.next_page;
+			}
 			refreshurl = data.refresh_url
 			for (var i = 0; i < data.results.length; i++){	
 				var currentTweet = data.results[i];
