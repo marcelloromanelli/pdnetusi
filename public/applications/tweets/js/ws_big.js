@@ -59,11 +59,14 @@ function findNewTweets(){
 			console.log("old");
 			nextpage = refreshurl + "&rpp=4";
 		} else {
-			console.log(counter);
-			console.log(hashtags[counter]);
-			nextpage = "?q=%23" + hashtags[counter] + "&rpp=4";
-			$("#hashtag").html(hashtags[counter]);
-			counter++;
+			if(counter > hashtags.length - 1){
+				counter = 0;
+			} else {
+				console.log(hashtags[counter]);
+				nextpage = "?q=%23" + hashtags[counter] + "&rpp=4";
+				$("#hashtag").html(hashtags[counter]);
+				counter++;
+			}
 		}
 	}
 	$.ajax({
