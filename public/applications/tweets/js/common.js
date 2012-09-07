@@ -14,7 +14,6 @@ $.ajax({
 			var tweetDiv = createTweetDiv(currentTweet,i);					
 			$("body").append(tweetDiv);			
 			$(".tweet_text").dotdotdot({});
-
 		}
 		$("img").mousedown(function(){
 			return false;

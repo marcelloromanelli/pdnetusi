@@ -56,6 +56,7 @@ function findNewTweets(){
 			} else {
 				console.log(counter);
 				console.log(hashtags[counter]);
+				hashtags.splice(counter,1);
 				hashtags.push(tag);
 				tag = hashtags[counter];
 				nextpage = "?q=%23" + tag + "&rpp=4";
@@ -70,6 +71,9 @@ function findNewTweets(){
 		success: function(data, textStatus, xhr) {
 			// Show at most 16 tweets per query
 			if(data.page > 3 && hashtags.length > 0){
+				console.log(counter);
+				console.log(hashtags[counter]);
+				hashtags.splice(counter,1);
 				hashtags.push(tag);
 				tag = hashtags[counter];
 				nextpage = "?q=%23" + tag + "&rpp=4";
