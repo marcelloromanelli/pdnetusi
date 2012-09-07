@@ -1,5 +1,5 @@
 var hashtags = new Array();
-var counter = 0 % hashtags.length;
+var counter = 0;
 
 $(function(){		
 		displayID = getUrlVars()["id"];
@@ -25,30 +25,22 @@ $(function(){
 		var response = jQuery.parseJSON(evt.data);
 		if(response.kind == "stats"){
 			$("#mobile_count").html(response.mobiles);
-		} else if(response.kind == "getItems"){
-			var answer = JSON.stringify
-			({
-				"kind":"itemsOnScreen",
-				"app": "twitter",
-				"displayID":  displayID,
-				"reqID": response.reqID,
-				"data":  last,
-			});
-			websocket.send(answer);
 		} else if (response.kind == "newhashtag"){
+			console.log(counter);
 			hashtags.push(response.hashtag);
 			console.log(hashtags);
 		}
 	};
-	
+
 	websocket.onerror = function(evt) { 
 		console.log(evt.data); 
 	}; 
 	
-	setInterval(function(){findNewTweets();},5000);
+	setInterval(function(){findNewTweets();},15000);
 	$("#hashtag").html("#"+tag);
 		
 });	
+		
 
 function findNewTweets(){
 	if(last.length > 10){
@@ -56,7 +48,6 @@ function findNewTweets(){
 	}
 	if(nextpage == undefined){
 		if(hashtags.length == 0){
-			console.log("old");
 			nextpage = refreshurl + "&rpp=4";
 		} else {
 			if(counter > hashtags.length - 1){
@@ -93,4 +84,3 @@ function findNewTweets(){
 
 	});
 }
-		
