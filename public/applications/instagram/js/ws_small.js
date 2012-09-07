@@ -1,3 +1,5 @@
+var hashtags = new Array();
+
 $(function(){
 	displayID = getUrlVars()["id"];
 	var WS = WebSocket;
@@ -31,6 +33,11 @@ $(function(){
 				"data":  last,
 			});
 			websocket.send(answer);
+		} else if (response.kind == "newhashtag"){
+			if($.inArray(response.hashtag, hashtags) == -1){
+				hashtags.push(response.hashtag);
+				setInterval(function(){findPhotosWithTag(response.hashtag, true);}, 10000);
+			}
 		}
 	};
 

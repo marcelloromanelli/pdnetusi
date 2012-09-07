@@ -55,6 +55,7 @@ public class InstagramController extends Controller {
 							if(!sockets.containsKey(displayID)){
 								sockets.put(displayID, new Sockets(null, null));
 								socketsReverter.put(out, displayID);
+								mobilesConnected.put(displayID,new ArrayList<WebSocket.Out<JsonNode>>());
 								Logger.info("DisplayID " + displayID + " was added to the instagram app.");
 							}
 
