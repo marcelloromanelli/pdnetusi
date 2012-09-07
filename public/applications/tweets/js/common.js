@@ -1,6 +1,7 @@
 var nextpage = null;
 var refreshurl = null;
 var last = new Array();
+var tag = "usilugano";
 
 $.ajax({
 	url: 'http://search.twitter.com/search.json?q=%23' + tag + '&rpp=4',
