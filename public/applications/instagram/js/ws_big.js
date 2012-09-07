@@ -1,3 +1,5 @@
+var hashtags = new Array();
+
 $(function(){
 	displayID = getUrlVars()["id"];
 	var WS = WebSocket;
