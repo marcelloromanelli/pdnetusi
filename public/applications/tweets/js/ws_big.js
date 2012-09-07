@@ -56,9 +56,9 @@ function findNewTweets(){
 			} else {
 				console.log(counter);
 				console.log(hashtags[counter]);
-				hashtags.splice(counter,1);
 				hashtags.push(tag);
 				tag = hashtags[counter];
+				hashtags.splice(counter,1);
 				nextpage = "?q=%23" + tag + "&rpp=4";
 				$("#hashtag").html("#" + tag);
 				counter++;
@@ -73,9 +73,9 @@ function findNewTweets(){
 			if(data.page > 3 && hashtags.length > 0){
 				console.log(counter);
 				console.log(hashtags[counter]);
-				hashtags.splice(counter,1);
 				hashtags.push(tag);
 				tag = hashtags[counter];
+				hashtags.splice(counter,1);
 				nextpage = "?q=%23" + tag + "&rpp=4";
 				$("#hashtag").html("#" + tag);
 				counter++;
