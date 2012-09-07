@@ -3,12 +3,12 @@ var counter = 0;
 var tag = "usilugano";
 
 $(function(){		
-		displayID = getUrlVars()["id"];
-		var WS = WebSocket;
-		var wsUri = "ws://pdnet.inf.unisi.ch:9000/twitter/socket";
-		websocket = new WS(wsUri); 
-		websocket.onopen = function(evt) { 
-			console.log("CONNECTED"); 
+	displayID = getUrlVars()["id"];
+	var WS = WebSocket;
+	var wsUri = "ws://pdnet.inf.unisi.ch:9000/twitter/socket";
+	websocket = new WS(wsUri); 
+	websocket.onopen = function(evt) { 
+		console.log("CONNECTED"); 
 		var hi = JSON.stringify
 		({
 			"kind":"appReady",
@@ -36,12 +36,12 @@ $(function(){
 	websocket.onerror = function(evt) { 
 		console.log(evt.data); 
 	}; 
-	
+
 	setInterval(function(){findNewTweets();},15000);
 	$("#hashtag").html("#"+tag);
-		
+
 });	
-		
+
 
 function findNewTweets(){
 	if(last.length > 10){
@@ -51,18 +51,12 @@ function findNewTweets(){
 		if(hashtags.length == 0){
 			nextpage = refreshurl + "&rpp=4";
 		} else {
-			if(counter > hashtags.length - 1){
-				counter = 0;
-			} else {
-				console.log(counter);
-				console.log(hashtags[counter]);
-				hashtags.push(tag);
-				tag = hashtags[counter];
-				hashtags.splice(counter,1);
-				nextpage = "?q=%23" + tag + "&rpp=4";
-				$("#hashtag").html("#" + tag);
-				counter++;
-			}
+			console.log(hashtags[0]);
+			hashtags.push(tag);
+			tag = hashtags[0];
+			hashtags.splice(0,1);
+			nextpage = "?q=%23" + tag + "&rpp=4";
+			$("#hashtag").html("#" + tag);
 		}
 	}
 	$.ajax({
@@ -70,15 +64,15 @@ function findNewTweets(){
 		dataType: 'jsonp',
 		success: function(data, textStatus, xhr) {
 			// Show at most 16 tweets per query
-			if(data.page > 3 && hashtags.length > 0){
-				console.log(counter);
-				console.log(hashtags[counter]);
+			console.log("CURRENT PAGE: " + data.page);
+
+			if(data.page > 3 && hashtags.length != 0){
+				console.log(hashtags[0]);
 				hashtags.push(tag);
-				tag = hashtags[counter];
-				hashtags.splice(counter,1);
+				tag = hashtags[0];
+				hashtags.splice(0,1);
 				nextpage = "?q=%23" + tag + "&rpp=4";
 				$("#hashtag").html("#" + tag);
-				counter++;
 			} else {
 				nextpage = data.next_page;
 			}
@@ -96,6 +90,7 @@ function findNewTweets(){
 			$("img").mousedown(function(){
 				return false;
 			});
+			$(".tweet_text").dotdotdot({});
 		}   
 
 	});
