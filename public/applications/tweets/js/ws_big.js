@@ -1,5 +1,5 @@
 var hashtags = new Array();
-var counter = 0%hashtags.length;
+var counter = 0 % hashtags.length;
 
 $(function(){		
 		displayID = getUrlVars()["id"];
@@ -59,6 +59,7 @@ function findNewTweets(){
 			console.log("old");
 			nextpage = refreshurl + "&rpp=4";
 		} else {
+			console.log(counter);
 			console.log(hashtags[counter]);
 			nextpage = "?q=%23" + hashtags[counter] + "&rpp=4";
 			$("#hashtag").html(hashtags[counter]);

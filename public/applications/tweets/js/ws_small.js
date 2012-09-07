@@ -26,6 +26,7 @@ $(function(){
 		if(response.kind == "stats"){
 			$("#mobile_count").html(response.mobiles);
 		} else if (response.kind == "newhashtag"){
+			console.log(counter);
 			hashtags.push(response.hashtag);
 			console.log(hashtags);
 		}
