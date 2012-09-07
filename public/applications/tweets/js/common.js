@@ -12,13 +12,13 @@ $.ajax({
 		for (var i = 0; i < data.results.length; i++){	
 			var currentTweet = data.results[i];
 			var tweetDiv = createTweetDiv(currentTweet,i);					
-			$("body").append(tweetDiv);			
+			$("body").append(tweetDiv);
+			$(".tweet_text").dotdotdot({});
 		}
 		$("img").mousedown(function(){
 			return false;
 		});
 		jQuery("abbr.timeago").timeago(); 
-		$(".tweet_text").dotdotdot({});
 	}   
 	
 });
