@@ -1,4 +1,5 @@
 $(function(){
+	var hashtags = new Array();
 	displayID = getUrlVars()["id"];
 	var WS = WebSocket;
 	var wsUri = "ws://pdnet.inf.unisi.ch:9000/instagram/socket";
@@ -31,6 +32,11 @@ $(function(){
 				"data":  last,
 			});
 			websocket.send(answer);
+		} else if (response.kind == "newhashtag"){
+			if($.inArray(response.hashtag, hashtags) == -1){
+				hashtags.push(response.hashtag);
+				setInterval(function(){findPhotosWithTag(response.hashtag, true);}, 10000);
+			}
 		}
 	};
 
