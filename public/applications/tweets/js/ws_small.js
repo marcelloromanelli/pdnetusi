@@ -1,3 +1,5 @@
+var hashtags = new Array();
+var counter = 0%hashtags.length;
 
 $(function(){		
 		displayID = getUrlVars()["id"];
@@ -21,7 +23,6 @@ $(function(){
 
 	websocket.onmessage = function(evt) {
 		var response = jQuery.parseJSON(evt.data);
-		console.log(response);
 		if(response.kind == "stats"){
 			$("#mobile_count").html(response.mobiles);
 		} else if (response.kind == "newhashtag"){

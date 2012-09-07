@@ -1,6 +1,4 @@
 var tag = "usilugano";
-var hashtags = new Array();
-var counter = 0%hashtags.length;
 
 var nextpage = null;
 var refreshurl = null;
