@@ -1,5 +1,6 @@
 var hashtags = new Array();
 var counter = 0;
+var tag = "usilugano";
 
 $(function(){		
 		displayID = getUrlVars()["id"];
@@ -55,8 +56,10 @@ function findNewTweets(){
 			} else {
 				console.log(counter);
 				console.log(hashtags[counter]);
-				nextpage = "?q=%23" + hashtags[counter] + "&rpp=4";
-				$("#hashtag").html(hashtags[counter]);
+				hashtags.push(tag);
+				tag = hashtags[counter];
+				nextpage = "?q=%23" + tag + "&rpp=4";
+				$("#hashtag").html("#" + tag);
 				counter++;
 			}
 		}
@@ -67,8 +70,10 @@ function findNewTweets(){
 		success: function(data, textStatus, xhr) {
 			// Show at most 16 tweets per query
 			if(data.page > 3 && hashtags.length > 0){
-				nextpage = "?q=%23" + hashtags[counter] + "&rpp=4";
-				$("#hashtag").html(hashtags[counter]);
+				hashtags.push(tag);
+				tag = hashtags[counter];
+				nextpage = "?q=%23" + tag + "&rpp=4";
+				$("#hashtag").html("#" + tag);
 				counter++;
 			} else {
 				nextpage = data.next_page;
