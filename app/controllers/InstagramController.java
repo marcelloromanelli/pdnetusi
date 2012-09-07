@@ -3,10 +3,13 @@
  */
 package controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
+
+import controllers.TwitterController.Sockets;
 
 
 import play.Logger;
@@ -32,6 +35,9 @@ public class InstagramController extends Controller {
 	public static HashMap<Integer,  WebSocket.Out<JsonNode>> requests = new HashMap<Integer, WebSocket.Out<JsonNode>>();
 	public static HashMap<WebSocket.Out<JsonNode>,String> requestsReverter = new HashMap<WebSocket.Out<JsonNode>, String>();
 
+	public static HashMap<String,ArrayList<WebSocket.Out<JsonNode>>> mobilesConnected = new HashMap<String, ArrayList<Out<JsonNode>>>(); 
+	public static HashMap<WebSocket.Out<JsonNode>,String> reverter = new HashMap<WebSocket.Out<JsonNode>, String>();
+	
 	public static WebSocket<JsonNode> webSocket() {
 		return new WebSocket<JsonNode>() {
 
@@ -85,6 +91,23 @@ public class InstagramController extends Controller {
 							requests.remove(reqID);
 							requestsReverter.remove(out);
 							Logger.info("SENT TO MOB");
+						} else if (messageKind.equals("mobileRequest")){
+							String displayID = event.get("displayID").asText();
+							if(! mobilesConnected.get(displayID).contains(out)){
+								reverter.put(out, displayID);
+								mobilesConnected.get(displayID).add(out);
+								int numberOfMobiles = numberOfMobiles(displayID);
+								Logger.info(numberOfMobiles + " mobiles connected");
+							}
+							String preference = event.get("preference").asText();
+							if(preference != null){
+								Sockets sctks = sockets.get(displayID);
+								ObjectNode req = Json.newObject();
+								req.put("kind", "newhashtag");
+								req.put("hashtag", preference);
+								sctks.big.write(req);
+								sctks.small.write(req);
+							}
 						}
 					}
 				});
@@ -110,6 +133,17 @@ public class InstagramController extends Controller {
 			}
 
 		};
+	}
+	
+	private static int numberOfMobiles(String displayID) {
+		int numberOfMobiles = mobilesConnected.get(displayID).size() ;
+		Sockets dsock = sockets.get(displayID);	
+		ObjectNode stats = Json.newObject();
+		stats.put("kind", "stats");
+		stats.put("mobiles", numberOfMobiles);
+		dsock.big.write(stats);
+		dsock.small.write(stats);
+		return numberOfMobiles;
 	}
 
 	public static class Sockets {
