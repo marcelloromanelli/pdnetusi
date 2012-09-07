@@ -13,14 +13,14 @@ $.ajax({
 			var currentTweet = data.results[i];
 			var tweetDiv = createTweetDiv(currentTweet,i);					
 			$("body").append(tweetDiv);			
-			$(".tweet_text").dotdotdot({});
 		}
 		$("img").mousedown(function(){
 			return false;
 		});
-		jQuery("abbr.timeago").timeago();                
+		jQuery("abbr.timeago").timeago(); 
+		$(".tweet_text").dotdotdot({});
 	}   
-
+	
 });
 
 function createObject(title,desc,link,img){
@@ -56,7 +56,6 @@ function createTweetDiv(currentTweet,i){
 	
 	var usernameDiv = $("<div class='username'>" + currentTweet.from_user_name + "</div>");
 	var tweetText = $("<div class='tweet_text'>" + currentTweet.text + "</div>");
-	tweetText.dotdotdot({});
 
 	var tweetTime = $("<abbr class='timeago'></abbr>");
 	tweetTime.attr("title",currentTweet.created_at);

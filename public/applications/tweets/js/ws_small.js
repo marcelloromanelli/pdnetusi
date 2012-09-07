@@ -96,6 +96,7 @@ function findNewTweets(){
 			$("img").mousedown(function(){
 				return false;
 			});
+			$(".tweet_text").dotdotdot({});
 		}   
 
 	});
