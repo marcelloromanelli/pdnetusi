@@ -20,7 +20,11 @@ function insertNewPhoto(newItem){
 	if($(".item").length > 25){
 		var toremove = $(".item").splice(-5);
 		for (var index in toremove){
-			$(toremove[index]).remove();
+			var current = $(toremove[index]);
+			if(current.hasClass("large")){
+				enlarged--;
+			}
+			current.remove();
 		}
 		last.splice(0,5);
 	}
