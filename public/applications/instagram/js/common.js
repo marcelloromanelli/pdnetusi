@@ -58,7 +58,7 @@ function findPhotos(address, limit){
 				
 				var interactions = $("<div class='interactions' />");
 				interactions.css("height","100%");
-				interactions.css("width","40px");
+				interactions.css("width","80px");
 				interactions.css("background-color","black");
 				interactions.css("opacity","0.9");
 				interactions.css("position","fixed");
@@ -73,6 +73,8 @@ function findPhotos(address, limit){
 				user.css("-webkit-transform","rotate(90deg)");
 				user.css("transform","rotate(90deg)");
 				user.css("color","white");
+				user.css("font-size","30px");
+				user.css("margin-top","20px");
 				interactions.append(user);
 				
 				
