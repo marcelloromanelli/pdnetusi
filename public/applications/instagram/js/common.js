@@ -70,7 +70,7 @@ function findPhotos(address, limit){
 				interactions.append(userImgDiv);
 				
 				var timeAgo = $("<div class='time'>")
-				timeAgo.html(jQuery.timeago(current.created_time));
+				timeAgo.html(jQuery.timeago(new Date(1000*current.created_time)));
 				interactions.append(timeAgo);
 				
 				var user = $("<div class='user' />");
