@@ -55,6 +55,10 @@ function findPhotos(address, limit){
 
 
 				var newItem = $("<div class='item' />");
+				var user = $("<span class='user' />");
+				user.html(current.user.full_name);
+				user.hide();
+				
 				newItem.click(function(){
 					
 					if(enlarged > 2){
@@ -68,6 +72,7 @@ function findPhotos(address, limit){
 					
 					$(this).toggleClass('small');
 					$(this).toggleClass('large');
+					user.toggle();
 					$(this).find("img").attr("src",$(this).data("std"));
 					
 					if($(this).hasClass("large")){
