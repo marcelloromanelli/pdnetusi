@@ -57,13 +57,14 @@ function findPhotos(address, limit){
 				var newItem = $("<div class='item' />");
 				
 				var interactions = $("<div class='interactions' />");
-				interactions.css("height","100%");
-				interactions.css("width","80px");
+				interactions.css("height","80%");
+				interactions.css("width","40%");
 				interactions.css("background-color","black");
 				interactions.css("opacity","0.9");
 				interactions.css("position","fixed");
 				interactions.css("z-index","10");
-				interactions.css("right","0");
+				interactions.css("left","0");
+				interactions.css("top","50px");
 				interactions.hide();
 				newItem.append(interactions);
 				
