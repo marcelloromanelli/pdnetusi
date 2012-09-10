@@ -55,10 +55,23 @@ function findPhotos(address, limit){
 
 
 				var newItem = $("<div class='item' />");
+				
+				var interactions = $("<div class='interactions' />");
+				interactions.css("height","100%");
+				interactions.css("width","40px");
+				interactions.css("bacground-color","black");
+				interactions.css("opacity","0.7");
+				interactions.css("position","fixed");
+				interactions.css("z-index","10");
+				newItem.append(interactions);
+				
 				var user = $("<span class='user' />");
 				user.html(current.user.full_name);
-				user.hide();
-				newItem.append(user);
+				user.css("-webkit-transform","rotate(-90deg)");
+				user.css("color","white");
+				interactions.append(user);
+				
+				
 				
 				newItem.click(function(){
 					
@@ -73,8 +86,8 @@ function findPhotos(address, limit){
 					
 					$(this).toggleClass('small');
 					$(this).toggleClass('large');
-					user.toggle();
 					$(this).find("img").attr("src",$(this).data("std"));
+					$(this).find("span").toggle();
 					
 					if($(this).hasClass("large")){
 						if($(".item:first")[0] === this){
@@ -95,6 +108,9 @@ function findPhotos(address, limit){
 				newItem.data("std",img_std);
 
 				var img = $("<img />");
+				img.css("z-index","-10");
+				img.css("position","fixed");
+				
 				img.attr("src",img_low);
 				img.mousedown(function(){
 					return false;
