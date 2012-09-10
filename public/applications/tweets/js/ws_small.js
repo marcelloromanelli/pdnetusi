@@ -64,8 +64,6 @@ function findNewTweets(){
 		dataType: 'jsonp',
 		success: function(data, textStatus, xhr) {
 			// Show at most 16 tweets per query
-			console.log("CURRENT PAGE: " + data.page);
-
 			if(data.page > 3 && hashtags.length != 0){
 				console.log(hashtags[0]);
 				hashtags.push(tag);
