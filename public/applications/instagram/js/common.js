@@ -60,8 +60,9 @@ function findPhotos(address, limit){
 				newItem.append(interactions);
 				
 				
-				var userImgDiv = $("<div class='userImg'><img>");
-				var userImg = userImgDiv.find("img");
+				var userImgDiv = $("<div class='userImg'>");
+				var userImg = $("<img>");
+				userImgDiv.append(userImg);
 				userImg.attr("src",current.user.profile_picture);
 				userImg.css("height","80px");
 				userImg.css("width","80px");
