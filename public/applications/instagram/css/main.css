@@ -110,3 +110,9 @@ body,html {
 	bottom :0;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, .8);
 }
+
+.timeago{
+	font-family:instagram;
+	font-size: 12px;
+	color: #333;
+}

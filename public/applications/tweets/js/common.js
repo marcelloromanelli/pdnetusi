@@ -59,7 +59,7 @@ function createTweetDiv(currentTweet,i){
 
 	var tweetTime = $("<abbr class='timeago'></abbr>");
 	tweetTime.attr("title",currentTweet.created_at);
-	tweetTime.html(jQuery.timeago(currentTweet.created_at));
+	tweetTime.html("<p class='timeago' >" + jQuery.timeago(currentTweet.created_at) + "</p>");
 
 
 	tweetDiv.append(usernameDiv);
