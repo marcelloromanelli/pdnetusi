@@ -69,6 +69,9 @@ function findPhotos(address, limit){
 				userImgDiv.css("float","left");
 				interactions.append(userImgDiv);
 				
+				var timeAgo = $("<div class='time'>")
+				timeAgo.html(jQuery.timeago(current.created_time));
+				interactions.append(timeAgo);
 				
 				var user = $("<div class='user' />");
 				user.html(current.user.full_name);
