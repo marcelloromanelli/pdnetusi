@@ -69,15 +69,8 @@ function findPhotos(address, limit){
 				
 				var user = $("<div class='user' />");
 				user.html(current.user.full_name);
-				user.css("writing-mode","tb-rl")
-				user.css("-webkit-transform","rotate(90deg)");
-				user.css("transform","rotate(90deg)");
-				user.css("color","white");
-				user.css("font-size","30px");
-				user.css("margin-top","20px");
 				
 				interactions.append(user);
-				
 				
 				
 				newItem.click(function(){
