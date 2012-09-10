@@ -67,10 +67,11 @@ function findPhotos(address, limit){
 				interactions.hide();
 				newItem.append(interactions);
 				
-				var user = $("<span class='user' />");
+				var user = $("<div class='user' />");
 				user.html(current.user.full_name);
 				user.css("writing-mode","tb-rl")
 				user.css("-webkit-transform","rotate(90deg)");
+				user.css("transform","rotate(90deg)");
 				user.css("color","white");
 				interactions.append(user);
 				
