@@ -75,7 +75,6 @@ function findPhotos(address, limit){
 				
 				var user = $("<div class='user' />");
 				user.html(current.user.full_name);
-				user.css("float","left");
 
 				interactions.append(user);
 				
