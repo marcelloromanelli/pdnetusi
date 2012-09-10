@@ -65,7 +65,7 @@ function findPhotos(address, limit){
 				userImg.attr("src",current.user.profile_picture);
 				userImg.css("height","80px");
 				userImg.css("float","left");
-				newItem.append(userImgDiv);
+				interactions.append(userImgDiv);
 				
 				
 				var user = $("<div class='user' />");
