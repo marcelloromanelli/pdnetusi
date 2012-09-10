@@ -39,12 +39,10 @@ body {
 }
 
 .timeago {
-	float: right;
-	width: 306px;
-	height: 20px;
 	font-size: 14px;
-	text-align: right;
-	margin-right: 10px;
+	position: fixed;
+	bottom: 10px;
+	right: 10px;
 }
 
 .profilepic {
