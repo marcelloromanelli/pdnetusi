@@ -59,15 +59,18 @@ function findPhotos(address, limit){
 				var interactions = $("<div class='interactions' />");
 				interactions.css("height","100%");
 				interactions.css("width","40px");
-				interactions.css("bacground-color","black");
-				interactions.css("opacity","0.7");
+				interactions.css("background-color","black");
+				interactions.css("opacity","0.9");
 				interactions.css("position","fixed");
 				interactions.css("z-index","10");
+				interactions.css("right","0");
+				interactions.hide();
 				newItem.append(interactions);
 				
 				var user = $("<span class='user' />");
 				user.html(current.user.full_name);
-				user.css("-webkit-transform","rotate(-90deg)");
+				user.css("writing-mode","tb-rl")
+				user.css("-webkit-transform","rotate(90deg)");
 				user.css("color","white");
 				interactions.append(user);
 				
