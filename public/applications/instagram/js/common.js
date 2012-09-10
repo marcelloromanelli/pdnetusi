@@ -90,7 +90,7 @@ function findPhotos(address, limit){
 					$(this).toggleClass('small');
 					$(this).toggleClass('large');
 					$(this).find("img").attr("src",$(this).data("std"));
-					$(this).find("span").toggle();
+					$(this).find(".interactions").toggle();
 					
 					if($(this).hasClass("large")){
 						if($(".item:first")[0] === this){
