@@ -55,22 +55,23 @@ function findPhotos(address, limit){
 
 
 				var newItem = $("<div class='item' />");
-				
 				var interactions = $("<div class='interactions' />");
-				interactions.css("height","80%");
-				interactions.css("width","40%");
-				interactions.css("background-color","black");
-				interactions.css("opacity","0.9");
-				interactions.css("position","fixed");
-				interactions.css("z-index","10");
-				interactions.css("left","0");
-				interactions.css("top","50px");
 				interactions.hide();
 				newItem.append(interactions);
 				
+				
+				var userImgDiv = $("<div class='userImg'><img>");
+				var userImg = userImgDiv.find("img");
+				userImg.attr("src",current.user.profile_picture);
+				userImg.css("height","80px");
+				userImg.css("float","left");
+				newItem.append(userImgDiv);
+				
+				
 				var user = $("<div class='user' />");
 				user.html(current.user.full_name);
-				
+				user.css("float","left");
+
 				interactions.append(user);
 				
 				
