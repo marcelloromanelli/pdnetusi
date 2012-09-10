@@ -75,6 +75,7 @@ function findPhotos(address, limit){
 				user.css("color","white");
 				user.css("font-size","30px");
 				user.css("margin-top","20px");
+				
 				interactions.append(user);
 				
 				
@@ -85,6 +86,7 @@ function findPhotos(address, limit){
 						var last = $($(".item.large").get(-1));
 						last.toggleClass('small');
 						last.toggleClass('large');
+						last.find(".interactions").toggle();
 						enlarged--;
 						$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 						return false;
