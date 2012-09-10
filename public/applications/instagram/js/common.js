@@ -91,7 +91,7 @@ function findPhotos(address, limit){
 					
 					$(this).toggleClass('small');
 					$(this).toggleClass('large');
-					$(this).find("img").attr("src",$(this).data("std"));
+					$(this).find(".instimg").attr("src",$(this).data("std"));
 					$(this).find(".interactions").toggle();
 					
 					if($(this).hasClass("large")){
@@ -112,7 +112,7 @@ function findPhotos(address, limit){
 				newItem.addClass("small");
 				newItem.data("std",img_std);
 
-				var img = $("<img />");
+				var img = $("<img class='instimg' />");
 				img.css("z-index","-10");
 				img.css("position","fixed");
 				
