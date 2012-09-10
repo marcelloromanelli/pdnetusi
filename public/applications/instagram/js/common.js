@@ -58,6 +58,7 @@ function findPhotos(address, limit){
 				var user = $("<span class='user' />");
 				user.html(current.user.full_name);
 				user.hide();
+				newItem.append(user);
 				
 				newItem.click(function(){
 					
