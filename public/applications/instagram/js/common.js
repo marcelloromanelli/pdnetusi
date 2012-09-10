@@ -66,7 +66,7 @@ function findPhotos(address, limit){
 				userImg.attr("src",current.user.profile_picture);
 				userImg.css("height","80px");
 				userImg.css("width","80px");
-				userImg.css("float","left");
+				userImgDiv.css("float","left");
 				interactions.append(userImgDiv);
 				
 				
