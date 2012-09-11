@@ -12,7 +12,7 @@ $(function(){
 	findPhotosWithTag("usilugano",false);
 
 	setInterval(function(){findPhotosWithTag("usilugano", true);}, 5000);
-	setInterval(function(){findPhotosNearCoordinates(46.010868,8.958235,true);}, 20000);
+	setInterval(function(){findPhotosNearCoordinates(46.010868,8.958235,true);}, 10000);
 });
 
 
@@ -137,6 +137,12 @@ function photoClicked(){
 
 
 	if(current.hasClass("large")){
+		var put = $(".item:first");
+		if(put[0] === current[0]){
+			current.insertAfter($($(".item").get(1)));
+		} else {
+			current.insertAfter(put);
+		}
 		enlarged++;
 	} else {
 		enlarged--;
@@ -159,8 +165,7 @@ function createObject(title,desc,link,img){
 function findPhotosNearCoordinates(lat, lng, limit){
 	var address = 'https://api.instagram.com/v1/media/search?lat=' + lat 
 	+ '&lng=' + lng 
-	+'&distance=100&client_id=554c751130494dbbba66cb0a27602b07' +
-	'&count=100';
+	+'&distance=100&client_id=554c751130494dbbba66cb0a27602b07';
 	findPhotos(address, limit);
 }
 
