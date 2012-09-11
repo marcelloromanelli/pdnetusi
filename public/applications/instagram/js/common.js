@@ -30,10 +30,9 @@ function insertNewPhoto(newItem){
 	}
 
 
-	
+
 	newItem.find("img").load(function(){
 		$('#container').prepend(newItem);
-		$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 	});
 }
 
@@ -96,11 +95,15 @@ function findPhotos(address, limit){
 						return false;
 					}
 
-					$(this).toggleClass('small');
-					$(this).toggleClass('large');
-					$(this).find(".instimg").attr("src",$(this).data("std"));
-					$(this).find(".interactions").toggle();
+					var bigimg = $(this).find(".instimg");
+					bigimg.attr("src",$(this).data("std"));
 
+					bigimg.load(function(){
+						$(this).toggleClass('small');
+						$(this).toggleClass('large');
+						$(this).find(".interactions").toggle();
+					});
+					
 					if($(this).hasClass("large")){
 						if($(".item:first")[0] === this){
 							$($(".item").get(1)).after($(this));
@@ -143,6 +146,7 @@ function findPhotos(address, limit){
 					inserted++;
 				} 
 			}
+			$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 		}   
 
 	});
