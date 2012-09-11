@@ -147,10 +147,13 @@ function photoClicked(){
 			$(this).insertAfter($(".item:first"));
 		}
 		enlarged++;
-		$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
+		
 	} else {
 		enlarged--;
 	}
+	
+	$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
+
 
 }
 
