@@ -31,8 +31,9 @@ function insertNewPhoto(newItem){
 
 
 
-	$('#container').prepend(newItem);
+	
 	newItem.find("img").load(function(){
+		$('#container').prepend(newItem);
 		$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 	});	
 }
