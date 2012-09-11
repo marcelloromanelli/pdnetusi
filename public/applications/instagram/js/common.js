@@ -145,7 +145,7 @@ function photoClicked(){
 		} else {
 			console.log($(".item:first"));
 			console.log($(this));
-			$(".item:first").after($(this));
+			$(this).insertAfter($(".item:first"));
 		}
 		enlarged++;
 	} else {
