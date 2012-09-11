@@ -133,25 +133,25 @@ function photoClicked(){
 
 
 
-	if($(this).hasClass("small")){
-		$(this).find(".interactions").show();
-		$(this).find(".instimg").attr("src",$(this).data("std"));
-		$(this).find(".instimg").load(function(){
+	if(current.hasClass("small")){
+		current.find(".instimg").attr("src",current.data("std"));
+		current.find(".instimg").load(function(){
 			current.addClass("large");
 			current.removeClass("small");
+			current.find(".interactions").show();
 		});
 	
-		if($(".item:first")[0] === this){
+		if($(".item:first")[0] === current){
 			console.log("HERE!");
 			$($(".item").get(1)).after(current);
 		} else {
-			current.insertAfter($(".item").get(2));
+			current.insertAfter(".item:first");
 		}
 		enlarged++;
-	} else if ($(this).hasClass("large")) {
-		$(this).find(".interactions").hide();
-		$(this).removeClass("large");
-		$(this).addClass("small");
+	} else if (current.hasClass("large")) {
+		current.find(".interactions").hide();
+		current.removeClass("large");
+		current.addClass("small");
 		enlarged--;
 	}
 
