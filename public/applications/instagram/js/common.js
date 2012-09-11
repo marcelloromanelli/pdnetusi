@@ -33,6 +33,7 @@ function insertNewPhoto(newItem){
 	
 	newItem.find("img").load(function(){
 		$('#container').prepend(newItem);
+		$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 	});
 }
 
@@ -142,7 +143,6 @@ function findPhotos(address, limit){
 					inserted++;
 				} 
 			}
-			$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 		}   
 
 	});
