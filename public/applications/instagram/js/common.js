@@ -132,13 +132,12 @@ function photoClicked(){
 
 	
 	$(this).find(".instimg").attr("src",$(this).data("std"));
-	$(this).find(".instimg").load(function(){
-		$(this).toggleClass('small');
-		$(this).toggleClass('large');
-		$(this).find(".interactions").toggle();
-	});
-	
+	$(this).toggleClass('small');
+	$(this).toggleClass('large');
+	$(this).find(".interactions").toggle();
+	$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 
+	
 	if($(this).hasClass("large")){
 		if($(".item:first")[0] === this){
 			$($(".item").get(1)).after($(this));
@@ -150,7 +149,6 @@ function photoClicked(){
 		enlarged--;
 	}
 
-	$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 }
 
 
