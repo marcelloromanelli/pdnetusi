@@ -136,18 +136,16 @@ function photoClicked(){
 	if(current.hasClass("small")){
 		current.find(".instimg").attr("src",current.data("std"));
 		current.find(".instimg").load(function(){
+			if($(".item:first")[0] === current){
+				current.insertAfter($(".item").get(1));				
+			} else {
+				current.insertAfter(".item:first");
+			}
 			current.addClass("large");
 			current.removeClass("small");
 			current.find(".interactions").show();
 			$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 		});
-	
-		if($(".item:first")[0] === current){
-			console.log("HERE!");
-			$($(".item").get(1)).after(current);
-		} else {
-			current.insertAfter(".item:first");
-		}
 		enlarged++;
 	} else if (current.hasClass("large")) {
 		current.find(".interactions").hide();
