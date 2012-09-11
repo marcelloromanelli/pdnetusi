@@ -139,6 +139,7 @@ function photoClicked(){
 			current.addClass("large");
 			current.removeClass("small");
 			current.find(".interactions").show();
+			$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 		});
 	
 		if($(".item:first")[0] === current){
@@ -153,10 +154,8 @@ function photoClicked(){
 		current.removeClass("large");
 		current.addClass("small");
 		enlarged--;
+		$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 	}
-
-	$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
-
 }
 
 
