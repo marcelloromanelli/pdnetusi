@@ -134,10 +134,12 @@ function photoClicked(){
 
 	if($(this).hasClass("small")){
 		$(this).find(".interactions").show();
-		$(this).find(".instimg").attr("src",$(this).data("std")).load(function(){
+		$(this).find(".instimg").attr("src",$(this).data("std"));
+		$(this).find(".instimg").load(function(){
 			$(this).addClass("large");
 			$(this).removeClass("small");
 		});
+	
 		if($(".item:first")[0] === this){
 			console.log("HERE!");
 			$($(".item").get(1)).after($(this));
