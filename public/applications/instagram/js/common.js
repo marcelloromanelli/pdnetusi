@@ -120,6 +120,7 @@ function findPhotos(address, limit){
 }
 
 function photoClicked(){
+	var current = $(this);
 	if(enlarged > 2){
 		var last = $($(".item.large").get(-1));
 		last.toggleClass('small');
@@ -136,15 +137,15 @@ function photoClicked(){
 		$(this).find(".interactions").show();
 		$(this).find(".instimg").attr("src",$(this).data("std"));
 		$(this).find(".instimg").load(function(){
-			$(this).addClass("large");
-			$(this).removeClass("small");
+			current.addClass("large");
+			current.removeClass("small");
 		});
 	
 		if($(".item:first")[0] === this){
 			console.log("HERE!");
-			$($(".item").get(1)).after($(this));
+			$($(".item").get(1)).after(current);
 		} else {
-			$(this).insertAfter($(".item").get(2));
+			current.insertAfter($(".item").get(2));
 		}
 		enlarged++;
 	} else if ($(this).hasClass("large")) {
