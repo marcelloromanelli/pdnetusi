@@ -135,7 +135,6 @@ function photoClicked(){
 	$(this).toggleClass('small');
 	$(this).toggleClass('large');
 	$(this).find(".interactions").toggle();
-	$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 
 	
 	if($(this).hasClass("large")){
@@ -148,6 +147,7 @@ function photoClicked(){
 			$(this).insertAfter($(".item:first"));
 		}
 		enlarged++;
+		$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 	} else {
 		enlarged--;
 	}
