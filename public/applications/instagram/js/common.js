@@ -29,12 +29,12 @@ function insertNewPhoto(newItem){
 		last.splice(0,5);
 	}
 
-	console.log(newItem);
 
 
 	$('#container').prepend(newItem);
-	$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
-	
+	newItem.find("img").load(function(){
+		$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
+	});	
 }
 
 function findPhotos(address, limit){
@@ -120,7 +120,7 @@ function findPhotos(address, limit){
 
 function photoClicked(){
 	var current = $(this);
-	
+
 	if(enlarged > 2){
 		var last = $($(".item.large").get(-1));
 		last.toggleClass('small');
@@ -140,7 +140,7 @@ function photoClicked(){
 	} else {
 		enlarged--;
 	}
-	
+
 	$("#container").isotope('reLayout');
 
 }
