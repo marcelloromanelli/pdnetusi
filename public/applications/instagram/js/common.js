@@ -147,6 +147,8 @@ function photoClicked(){
 		current.addClass("small");
 		enlarged--;
 	}
+	$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
+
 }
 
 
