@@ -29,6 +29,7 @@ function insertNewPhoto(newItem){
 		last.splice(0,5);
 	}
 
+	console.log(newItem);
 
 
 	$('#container').prepend(newItem);
