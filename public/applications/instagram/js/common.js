@@ -3,7 +3,7 @@ var enlarged = 0;
 var last = new Array(); 
 
 $(function(){
-	
+
 	$('#container').isotope({
 		itemSelector : '.item',
 		layoutMode : 'fitRows'
@@ -28,10 +28,12 @@ function insertNewPhoto(newItem){
 		}
 		last.splice(0,5);
 	}
-	
-	
+
+
 	$('#container').prepend(newItem);
-	$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
+	newItem.find("img").load(function(){
+		$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
+	});
 }
 
 function findPhotos(address, limit){
@@ -60,8 +62,8 @@ function findPhotos(address, limit){
 				var interactions = $("<div class='interactions' />");
 				interactions.hide();
 				newItem.append(interactions);
-				
-				
+
+
 				var userImgDiv = $("<div class='userImg'>");
 				var userImg = $("<img>");
 				userImgDiv.append(userImg);
@@ -70,19 +72,19 @@ function findPhotos(address, limit){
 				userImg.css("width","80px");
 				userImgDiv.css("float","left");
 				interactions.append(userImgDiv);
-				
+
 				var timeAgo = $("<div class='time'>")
 				timeAgo.html(jQuery.timeago(new Date(1000*current.created_time)));
 				interactions.append(timeAgo);
-				
+
 				var user = $("<div class='user' />");
 				user.html(current.user.full_name);
 
 				interactions.append(user);
-				
-				
+
+
 				newItem.click(function(){
-					
+
 					if(enlarged > 2){
 						var last = $($(".item.large").get(-1));
 						last.toggleClass('small');
@@ -92,12 +94,12 @@ function findPhotos(address, limit){
 						$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 						return false;
 					}
-					
+
 					$(this).toggleClass('small');
 					$(this).toggleClass('large');
 					$(this).find(".instimg").attr("src",$(this).data("std"));
 					$(this).find(".interactions").toggle();
-					
+
 					if($(this).hasClass("large")){
 						if($(".item:first")[0] === this){
 							$($(".item").get(1)).after($(this));
@@ -108,23 +110,23 @@ function findPhotos(address, limit){
 					} else {
 						enlarged--;
 					}
-					
+
 					$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
-					
+
 				});
-				
+
 				newItem.addClass("small");
 				newItem.data("std",img_std);
 
 				var img = $("<img class='instimg' />");
 				img.css("z-index","-10");
 				img.css("position","fixed");
-				
+
 				img.attr("src",img_low);
 				img.mousedown(function(){
 					return false;
 				});
-				
+
 				newItem.append(img);
 
 				if(jQuery.inArray(current.id, ids) == -1){
