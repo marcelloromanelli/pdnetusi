@@ -140,8 +140,9 @@ function photoClicked(){
 		var put = $(".item:first");
 		if(put[0] === current[0]){
 			current.insertAfter($($(".item").get(1)));
+			console.log("here");
 		} else {
-			current.insertAfter(put);
+			current.insertAfter(".item:first");
 		}
 		enlarged++;
 	} else {
