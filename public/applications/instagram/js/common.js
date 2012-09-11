@@ -47,7 +47,7 @@ function findPhotos(address, limit){
 				console.log("API ERROR");
 				return;
 			}
-			
+
 			var inserted = 0;
 			for (var i = response.data.length-1; i >= 0 ; i--){
 				if(inserted == 5 && limit){
@@ -130,28 +130,27 @@ function photoClicked(){
 		return false;
 	}
 
-	
-	$(this).find(".instimg").attr("src",$(this).data("std"));
-	$(this).toggleClass('small');
-	$(this).toggleClass('large');
-	$(this).find(".interactions").toggle();
 
-	
+	$(this).find(".interactions").toggle().load(function(){
+		$(this).find(".instimg").attr("src",$(this).data("std")).load(function(){
+			$(this).toggleClass('small');
+			$(this).toggleClass('large');
+		});
+	});
+
+
 	if($(this).hasClass("large")){
 		if($(".item:first")[0] === this){
 			console.log("HERE!");
 			$($(".item").get(1)).after($(this));
 		} else {
-			console.log($(".item:first"));
-			console.log($(this));
-			$(this).insertAfter($(".item:first"));
+			$(this).insertAfter($(".item").get(2));
 		}
 		enlarged++;
-		
 	} else {
 		enlarged--;
 	}
-	
+
 	$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 
 
