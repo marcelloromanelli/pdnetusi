@@ -87,14 +87,13 @@ function findPhotos(address, limit){
 
 				newItem.click(photoClicked);
 
-				newItem.addClass("small");
 				newItem.data("std",img_std);
 
 				var img = $("<img class='instimg' />");
 				img.css("z-index","-10");
 				img.css("position","fixed");
 
-				img.attr("src",img_low);
+				img.attr("src",img_std);
 				img.mousedown(function(){
 					return false;
 				});
@@ -121,6 +120,7 @@ function findPhotos(address, limit){
 
 function photoClicked(){
 	var current = $(this);
+	
 	if(enlarged > 2){
 		var last = $($(".item.large").get(-1));
 		last.toggleClass('small');
@@ -131,22 +131,16 @@ function photoClicked(){
 		return false;
 	}
 
+	current.toggleClass('large');
+	current.find(".interactions").toggle();
 
 
-	if(current.hasClass("small")){
-		current.find(".instimg").attr("src",current.data("std"));
-		current.find(".instimg").load(function(){
-			current.addClass("large");
-			current.removeClass("small");
-			current.find(".interactions").show();
-		});
+	if(current.hasClass("large")){
 		enlarged++;
-	} else if (current.hasClass("large")) {
-		current.find(".interactions").hide();
-		current.removeClass("large");
-		current.addClass("small");
+	} else {
 		enlarged--;
 	}
+	
 	$("#container").isotope('reLayout');
 
 }
