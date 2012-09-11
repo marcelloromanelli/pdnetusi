@@ -17,7 +17,7 @@ $(function(){
 
 
 function insertNewPhoto(newItem){
-	if($(".item").length > 20){
+	if($(".item").length > 25){
 		var toremove = $(".item").splice(-5);
 		for (var index in toremove){
 			var current = $(toremove[index]);
@@ -29,7 +29,9 @@ function insertNewPhoto(newItem){
 		last.splice(0,5);
 	}
 	
+	
 	$('#container').prepend(newItem);
+	$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 }
 
 function findPhotos(address, limit){
@@ -138,7 +140,6 @@ function findPhotos(address, limit){
 					inserted++;
 				} 
 			}
-			$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 		}   
 
 	});
