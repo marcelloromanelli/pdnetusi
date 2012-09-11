@@ -31,13 +31,10 @@ function insertNewPhoto(newItem){
 
 
 
-	newItem.find("img").load(function(){
-		$('#container').prepend(newItem);
-		$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
-		newItem.effect("bounce", { times:5 }, 300);
-		newItem.effect("highlight", {}, 3000);
-
-	});
+	$('#container').prepend(newItem);
+	$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
+	$(newItem).effect("bounce", { times:5 }, 300);
+	
 }
 
 function findPhotos(address, limit){
