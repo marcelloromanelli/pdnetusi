@@ -32,9 +32,7 @@ function insertNewPhoto(newItem){
 	console.log(newItem);
 
 
-	$('#container').prepend(newItem);
-	$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
-	$(newItem).effect("bounce", { times:5 }, 300);
+	$('#container').prepend(newItem).isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 	
 }
 
