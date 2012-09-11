@@ -11,8 +11,8 @@ $(function(){
 
 	findPhotosWithTag("usilugano",false);
 
-	setInterval(function(){findPhotosWithTag("usilugano", true);}, 10000);
-	setInterval(function(){findPhotosNearCoordinates(46.010868,8.958235,true);}, 60000);
+	setInterval(function(){findPhotosWithTag("usilugano", true);}, 5000);
+	setInterval(function(){findPhotosNearCoordinates(46.010868,8.958235,true);}, 20000);
 });
 
 
@@ -47,6 +47,7 @@ function findPhotos(address, limit){
 				console.log("API ERROR");
 				return;
 			}
+			
 			var inserted = 0;
 			for (var i = response.data.length-1; i >= 0 ; i--){
 				if(inserted == 5 && limit){
@@ -129,10 +130,14 @@ function photoClicked(){
 		return false;
 	}
 
-	$(this).toggleClass('small');
-	$(this).toggleClass('large');
+	
 	$(this).find(".instimg").attr("src",$(this).data("std"));
-	$(this).find(".interactions").toggle();
+	$(this).find(".instimg").load(function(){
+		$(this).toggleClass('small');
+		$(this).toggleClass('large');
+		$(this).find(".interactions").toggle();
+	});
+	
 
 	if($(this).hasClass("large")){
 		if($(".item:first")[0] === this){
