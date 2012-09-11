@@ -140,6 +140,7 @@ function photoClicked(){
 	
 	if($(this).hasClass("large")){
 		if($(".item:first")[0] === this){
+			console.log("HERE!");
 			$($(".item").get(1)).after($(this));
 		} else {
 			$(".item:first").after($(this));
