@@ -127,7 +127,7 @@ function photoClicked(){
 		last.toggleClass('large');
 		last.find(".interactions").toggle();
 		enlarged--;
-		$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
+		$("#container").isotope('reLayout');
 		return false;
 	}
 
@@ -147,7 +147,7 @@ function photoClicked(){
 		current.addClass("small");
 		enlarged--;
 	}
-	$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
+	$("#container").isotope('reLayout');
 
 }
 
