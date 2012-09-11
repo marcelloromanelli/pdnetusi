@@ -143,6 +143,7 @@ function photoClicked(){
 			console.log("HERE!");
 			$($(".item").get(1)).after($(this));
 		} else {
+			console.log("ffaas");
 			$(".item:first").after($(this));
 		}
 		enlarged++;
