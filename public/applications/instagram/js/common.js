@@ -34,7 +34,9 @@ function insertNewPhoto(newItem){
 	newItem.find("img").load(function(){
 		$('#container').prepend(newItem);
 		$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
-		newItem.effect("shake", { times:3 }, 300);
+		newItem.effect("bounce", { times:5 }, 100);
+		newItem.effect("highlight", {}, 3000);
+
 	});
 }
 
