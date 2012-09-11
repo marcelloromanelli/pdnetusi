@@ -149,7 +149,7 @@ function photoClicked(){
 		enlarged--;
 	}
 
-	$("#container").isotope('reLayout');
+	$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 
 }
 
