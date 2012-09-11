@@ -30,7 +30,7 @@ function insertNewPhoto(newItem){
 	}
 
 
-	
+
 	newItem.find("img").load(function(){
 		$('#container').prepend(newItem);
 		$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
@@ -84,37 +84,7 @@ function findPhotos(address, limit){
 				interactions.append(user);
 
 
-				newItem.click(function(){
-
-					if(enlarged > 2){
-						var last = $($(".item.large").get(-1));
-						last.toggleClass('small');
-						last.toggleClass('large');
-						last.find(".interactions").toggle();
-						enlarged--;
-						$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
-						return false;
-					}
-
-					$(this).toggleClass('small');
-					$(this).toggleClass('large');
-					$(this).find(".instimg").attr("src",$(this).data("std"));
-					$(this).find(".interactions").toggle();
-
-					if($(this).hasClass("large")){
-						if($(".item:first")[0] === this){
-							$($(".item").get(1)).after($(this));
-						} else {
-							$(".item:first").after($(this));
-						}
-						enlarged++;
-					} else {
-						enlarged--;
-					}
-
-					$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
-
-				});
+				newItem.click(photoClicked);
 
 				newItem.addClass("small");
 				newItem.data("std",img_std);
@@ -147,6 +117,37 @@ function findPhotos(address, limit){
 
 	});
 }
+
+function photoClicked(){
+	if(enlarged > 2){
+		var last = $($(".item.large").get(-1));
+		last.toggleClass('small');
+		last.toggleClass('large');
+		last.find(".interactions").toggle();
+		enlarged--;
+		$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
+		return false;
+	}
+
+	$(this).toggleClass('small');
+	$(this).toggleClass('large');
+	$(this).find(".instimg").attr("src",$(this).data("std"));
+	$(this).find(".interactions").toggle();
+
+	if($(this).hasClass("large")){
+		if($(".item:first")[0] === this){
+			$($(".item").get(1)).after($(this));
+		} else {
+			$(".item:first").after($(this));
+		}
+		enlarged++;
+	} else {
+		enlarged--;
+	}
+
+	$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
+}
+
 
 function createObject(title,desc,link,img){
 	var obj = {};
