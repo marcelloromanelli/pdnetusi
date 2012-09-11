@@ -124,12 +124,10 @@ function photoClicked(){
 
 	if(enlarged > 2){
 		var last = $($(".item.large").get(-1));
-		last.toggleClass('small');
 		last.toggleClass('large');
 		last.find(".interactions").toggle();
 		enlarged--;
 		$("#container").isotope('reLayout');
-		return false;
 	}
 
 	current.toggleClass('large');
