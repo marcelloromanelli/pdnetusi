@@ -18,6 +18,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+import models.DisplayLogger;
 import net.htmlparser.jericho.Attribute;
 import net.htmlparser.jericho.Attributes;
 import net.htmlparser.jericho.Element;
@@ -114,7 +115,7 @@ public class NewsFeedController extends Controller {
 						}
 
 						if(messageKind.equals("appReady")){
-
+														
 							if(!STARTED){
 								STARTED = true;
 								final ScheduledFuture<?> beeperHandle = 
