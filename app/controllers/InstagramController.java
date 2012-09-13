@@ -139,7 +139,7 @@ public class InstagramController extends Controller {
 												"add", 
 												new Date().getTime(), 
 												"SYS", 
-												"hi"											)
+												"IMGID: " + event.get("imgid").asText()											)
 										);							
 							} else if (action.equals("enlarge")){
 								DisplayLogger.addNew(
@@ -148,7 +148,7 @@ public class InstagramController extends Controller {
 												"enlarge", 
 												new Date().getTime(), 
 												"SYS", 
-												"ID: " + event.get("imgid").asText()
+												"IMGID: " + event.get("imgid").asText()
 												)
 										);	
 							}

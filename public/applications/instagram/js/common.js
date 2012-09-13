@@ -33,7 +33,8 @@ function insertNewPhoto(newItem){
 	var answer = JSON.stringify
 	({
 		"kind":"screenInteraction",
-		"action":"add"
+		"action":"add",
+		"imgid": newItem.data("imgid"),
 	});
 	websocket.send(answer);
 	
@@ -69,10 +70,6 @@ function findPhotos(address, limit){
 
 				var newItem = $("<div class='item' />");
 				newItem.data("imgid",current.id);
-				newItem.data("tags",current.tags);
-				newItem.data("likes",current.likes.count);
-				newItem.data("img_std",current.img_std);
-				newItem.data("caption",current.caption.text);
 
 				
 				var interactions = $("<div class='interactions' />");
