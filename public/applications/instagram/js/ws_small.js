@@ -30,6 +30,7 @@ $(function(){
 				"app": "instagram",
 				"displayID":  displayID,
 				"reqID": response.reqID,
+				"username": response.username,
 				"data":  last,
 			});
 			websocket.send(answer);

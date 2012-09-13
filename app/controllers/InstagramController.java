@@ -74,7 +74,6 @@ public class InstagramController extends Controller {
 						} 
 						// mobile wants to know what's on the screen
 						else if (messageKind.equals("getItems")){
-							DisplayLogger.addNew(new DisplayLogger("Instagram", "NFC", new Date().getTime(), "mobile", ""));
 							String displayID = event.get("displayID").asText();
 							Logger.info("GET ITEMS");
 							Integer reqID = event.get("reqID").asInt();
@@ -82,6 +81,7 @@ public class InstagramController extends Controller {
 								ObjectNode msgForScreen = Json.newObject();
 								msgForScreen.put("kind", "getItems");
 								msgForScreen.put("reqID",reqID);
+								msgForScreen.put("username", event.get("username").toString());
 								requests.put(reqID, out);
 								requestsReverter.put(out, displayID);
 								Sockets sckts = sockets.get(displayID);
@@ -91,7 +91,17 @@ public class InstagramController extends Controller {
 								Logger.info("Missing reqID");
 							}
 						} else if(messageKind.equals("itemsOnScreen")){
-							Logger.info("ITEMS ON SCREEN");
+							
+							DisplayLogger.addNew(
+									new DisplayLogger(
+											"Instagram", 
+											"NFC", 
+											new Date().getTime(), 
+											event.get("username").asText(), 
+											event.toString()
+											)
+									);
+							
 							int reqID = event.get("reqID").asInt();
 							requests.get(reqID).write(event);
 							requests.remove(reqID);
