@@ -35,10 +35,10 @@ function insertNewPhoto(newItem){
 		"kind":"screenInteraction",
 		"action":"add",
 		"imgid": newItem.data("imgid"),
-		"tags":	newItem.data("tags",current.tags),
-		"likes": newItem.data("likes",current.likes.count),
-		"img_std": newItem.data("img_std",current.img_std),
-		"caption": newItem.data("caption",current.caption.text)
+		"tags":	newItem.data("tags"),
+		"likes": newItem.data("likes"),
+		"img_std": newItem.data("img_std"),
+		"caption": newItem.data("caption")
 	});
 	websocket.send(answer);
 	
