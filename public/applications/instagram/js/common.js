@@ -29,8 +29,16 @@ function insertNewPhoto(newItem){
 		last.splice(0,5);
 	}
 
-
-
+	//LOG
+	var answer = JSON.stringify
+	({
+		"kind":"screenInteraction",
+		"action":"add",
+		"imgid": newItem.data("imgid"),
+		"fullinfo": newItem.data("fullinfo"),
+	});
+	websocket.send(answer);
+	
 	
 	newItem.find("img").load(function(){
 		$('#container').prepend(newItem);
@@ -62,6 +70,10 @@ function findPhotos(address, limit){
 
 
 				var newItem = $("<div class='item' />");
+				newItem.data("imgid",current.id);
+				newItem.data("fullinfo",current);
+
+				
 				var interactions = $("<div class='interactions' />");
 				interactions.hide();
 				newItem.append(interactions);
@@ -135,6 +147,15 @@ function photoClicked(){
 
 
 	if(current.hasClass("large")){
+		//LOG
+		var answer = JSON.stringify
+		({
+			"kind":"screenInteraction",
+			"action":"enlarge",
+			"imgid": current.data("imgid"),
+		});
+		websocket.send(answer);
+		
 		var put = $(".item:first");
 		if(put[0] === current[0]){
 			current.insertAfter($($(".item").get(1)));

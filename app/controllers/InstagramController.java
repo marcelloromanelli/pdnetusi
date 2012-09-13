@@ -40,7 +40,7 @@ public class InstagramController extends Controller {
 
 	public static HashMap<String,ArrayList<WebSocket.Out<JsonNode>>> mobilesConnected = new HashMap<String, ArrayList<Out<JsonNode>>>(); 
 	public static HashMap<WebSocket.Out<JsonNode>,String> reverter = new HashMap<WebSocket.Out<JsonNode>, String>();
-	
+
 	public static WebSocket<JsonNode> webSocket() {
 		return new WebSocket<JsonNode>() {
 
@@ -91,7 +91,7 @@ public class InstagramController extends Controller {
 								Logger.info("Missing reqID");
 							}
 						} else if(messageKind.equals("itemsOnScreen")){
-							
+
 							DisplayLogger.addNew(
 									new DisplayLogger(
 											"Instagram", 
@@ -101,7 +101,7 @@ public class InstagramController extends Controller {
 											event.toString()
 											)
 									);
-							
+
 							int reqID = event.get("reqID").asInt();
 							requests.get(reqID).write(event);
 							requests.remove(reqID);
@@ -124,7 +124,7 @@ public class InstagramController extends Controller {
 												new Date().getTime(), event.get("username").asText(), 
 												preference)
 										);
-								
+
 								Sockets sctks = sockets.get(displayID);
 								ObjectNode req = Json.newObject();
 								req.put("kind", "newhashtag");
@@ -132,6 +132,32 @@ public class InstagramController extends Controller {
 								sctks.big.write(req);
 								sctks.small.write(req);
 							}
+						} else if (messageKind.equals("screenInteraction")){
+
+							String action = event.get("action").asText();
+							if(action.equals("add")){
+								DisplayLogger.addNew(
+										new DisplayLogger(
+												"Instagram", 
+												"add", 
+												new Date().getTime(), 
+												"SYS", 
+												"ID: " + event.get("imgid")
+												+ "INFO: " + event.get("fullinfo").asText()
+												)
+										);							
+							} else if (action.equals("enlarge")){
+								DisplayLogger.addNew(
+										new DisplayLogger(
+												"Instagram", 
+												"enlarge", 
+												new Date().getTime(), 
+												"SYS", 
+												"ID: " + event.get("imgid")
+												)
+										);	
+							}
+
 						}
 					}
 				});
@@ -166,7 +192,7 @@ public class InstagramController extends Controller {
 
 		};
 	}
-	
+
 	private static int numberOfMobiles(String displayID) {
 		int numberOfMobiles = mobilesConnected.get(displayID).size() ;
 		Sockets dsock = sockets.get(displayID);	
