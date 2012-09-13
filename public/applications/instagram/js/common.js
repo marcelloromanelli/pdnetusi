@@ -33,11 +33,7 @@ function insertNewPhoto(newItem){
 	var answer = JSON.stringify
 	({
 		"kind":"screenInteraction",
-		"action":"add",
-		"imgid": newItem.data("imgid"),
-		"tags":	newItem.data("tags"),
-		"likes": newItem.data("likes"),
-		"img_std": newItem.data("img_std"),
+		"action":"add"
 	});
 	websocket.send(answer);
 	

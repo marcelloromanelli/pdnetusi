@@ -12,9 +12,6 @@ import models.DisplayLogger;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 
-import controllers.TwitterController.Sockets;
-
-
 import play.Logger;
 import play.libs.Json;
 import play.libs.F.Callback;
@@ -142,10 +139,7 @@ public class InstagramController extends Controller {
 												"add", 
 												new Date().getTime(), 
 												"SYS", 
-												" ID: " + event.get("imgid").asText() +
-												" TAGS: " + event.get("tags").asText() +
-												" LIKES: " + event.get("likes").asText() +
-												" IMG: " + event.get("img_std").asText()												)
+												"hi"											)
 										);							
 							} else if (action.equals("enlarge")){
 								DisplayLogger.addNew(
