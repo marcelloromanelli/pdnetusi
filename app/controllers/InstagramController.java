@@ -142,8 +142,11 @@ public class InstagramController extends Controller {
 												"add", 
 												new Date().getTime(), 
 												"SYS", 
-												"ID: " + event.get("imgid")
-												+ "INFO: " + event.get("fullinfo").asText()
+												" ID: " + event.get("imgid") +
+												" TAGS: " + event.get("tags").asText() +
+												" LIKES: " + event.get("likes").asText() +
+												" IMG: " + event.get("img_std").asText() +
+												" CAPTION: " + event.get("caption").asText()
 												)
 										);							
 							} else if (action.equals("enlarge")){

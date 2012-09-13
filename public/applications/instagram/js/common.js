@@ -35,7 +35,10 @@ function insertNewPhoto(newItem){
 		"kind":"screenInteraction",
 		"action":"add",
 		"imgid": newItem.data("imgid"),
-		"fullinfo": newItem.data("fullinfo"),
+		"tags":	newItem.data("tags",current.tags),
+		"likes": newItem.data("likes",current.likes.count),
+		"img_std": newItem.data("img_std",current.img_std),
+		"caption": newItem.data("caption",current.caption.text)
 	});
 	websocket.send(answer);
 	
@@ -71,7 +74,10 @@ function findPhotos(address, limit){
 
 				var newItem = $("<div class='item' />");
 				newItem.data("imgid",current.id);
-				newItem.data("fullinfo",current);
+				newItem.data("tags",current.tags);
+				newItem.data("likes",current.likes.count);
+				newItem.data("img_std",current.img_std);
+				newItem.data("caption",current.caption.text);
 
 				
 				var interactions = $("<div class='interactions' />");
