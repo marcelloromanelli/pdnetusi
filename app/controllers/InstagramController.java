@@ -142,7 +142,7 @@ public class InstagramController extends Controller {
 												"add", 
 												new Date().getTime(), 
 												"SYS", 
-												" ID: " + event.get("imgid") +
+												" ID: " + event.get("imgid").asText() +
 												" TAGS: " + event.get("tags").asText() +
 												" LIKES: " + event.get("likes").asText() +
 												" IMG: " + event.get("img_std").asText()												)
@@ -154,7 +154,7 @@ public class InstagramController extends Controller {
 												"enlarge", 
 												new Date().getTime(), 
 												"SYS", 
-												"ID: " + event.get("imgid")
+												"ID: " + event.get("imgid").asText()
 												)
 										);	
 							}
