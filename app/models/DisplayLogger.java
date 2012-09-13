@@ -17,7 +17,7 @@ public class DisplayLogger extends Model{
 	
 	public String appName;
 	public String event;
-	public String timestamp;
+	public Long timestamp;
 	public String who;
 	public String content;
 	
@@ -37,7 +37,7 @@ public class DisplayLogger extends Model{
 		return find.ref(id);
 	}
 	
-	public DisplayLogger(String appName, String event,String timestamp, String who, String content) {
+	public DisplayLogger(String appName, String event,Long timestamp, String who, String content) {
 		this.appName = appName;
 		this.event = event;
 		this.timestamp = timestamp;

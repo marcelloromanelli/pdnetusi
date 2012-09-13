@@ -4,7 +4,10 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+
+import models.DisplayLogger;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
@@ -53,6 +56,7 @@ public class InstagramController extends Controller {
 							String displayID = event.get("displayID").asText();
 
 							if(!sockets.containsKey(displayID)){
+								DisplayLogger.addNew(new DisplayLogger("Instagram", "start", new Date().getTime(), "SYS", ""));
 								sockets.put(displayID, new Sockets(null, null));
 								socketsReverter.put(out, displayID);
 								mobilesConnected.put(displayID,new ArrayList<WebSocket.Out<JsonNode>>());
@@ -70,6 +74,7 @@ public class InstagramController extends Controller {
 						} 
 						// mobile wants to know what's on the screen
 						else if (messageKind.equals("getItems")){
+							DisplayLogger.addNew(new DisplayLogger("Instagram", "NFC", new Date().getTime(), "mobile", ""));
 							String displayID = event.get("displayID").asText();
 							Logger.info("GET ITEMS");
 							Integer reqID = event.get("reqID").asInt();
@@ -102,6 +107,14 @@ public class InstagramController extends Controller {
 							}
 							String preference = event.get("preference").asText();
 							if(preference != null){
+								DisplayLogger.addNew(
+										new DisplayLogger(
+												"Instagram", 
+												"customization", 
+												new Date().getTime(), event.get("username").asText(), 
+												preference)
+										);
+								
 								Sockets sctks = sockets.get(displayID);
 								ObjectNode req = Json.newObject();
 								req.put("kind", "newhashtag");
@@ -120,6 +133,14 @@ public class InstagramController extends Controller {
 						String displayID = socketsReverter.get(out);
 						String reqID = requestsReverter.get(out);
 						if (displayID != null){
+							DisplayLogger.addNew(
+									new DisplayLogger(
+											"Instagram", 
+											"finish", 
+											new Date().getTime(), 
+											"SYS", 
+											"")
+									);
 							sockets.remove(displayID);
 							socketsReverter.remove(out);
 						} else if(reqID != null){
