@@ -30,6 +30,14 @@ function insertNewPhoto(newItem){
 	}
 
 	var imgid =  newItem.data("imgid");
+
+	
+	
+	newItem.find("img").load(function(){
+		$('#container').prepend(newItem);
+		$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
+	});	
+	
 	//LOG
 	var answer = JSON.stringify
 	({
@@ -38,12 +46,6 @@ function insertNewPhoto(newItem){
 		"imgid": imgid,
 	});
 	websocket.send(answer);
-	
-	
-	newItem.find("img").load(function(){
-		$('#container').prepend(newItem);
-		$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
-	});	
 }
 
 function findPhotos(address, limit){
