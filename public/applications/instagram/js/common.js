@@ -29,12 +29,13 @@ function insertNewPhoto(newItem){
 		last.splice(0,5);
 	}
 
+	var imgid =  newItem.data("imgid");
 	//LOG
 	var answer = JSON.stringify
 	({
 		"kind":"screenInteraction",
 		"action":"add",
-		"imgid": newItem.data("imgid"),
+		"imgid": imgid,
 	});
 	websocket.send(answer);
 	
