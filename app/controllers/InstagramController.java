@@ -145,9 +145,7 @@ public class InstagramController extends Controller {
 												" ID: " + event.get("imgid") +
 												" TAGS: " + event.get("tags").asText() +
 												" LIKES: " + event.get("likes").asText() +
-												" IMG: " + event.get("img_std").asText() +
-												" CAPTION: " + event.get("caption").asText()
-												)
+												" IMG: " + event.get("img_std").asText()												)
 										);							
 							} else if (action.equals("enlarge")){
 								DisplayLogger.addNew(
