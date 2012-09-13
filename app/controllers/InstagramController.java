@@ -151,6 +151,16 @@ public class InstagramController extends Controller {
 												"IMGID: " + event.get("imgid").asText()
 												)
 										);	
+							} else if (action.equals("shrink")){
+								DisplayLogger.addNew(
+										new DisplayLogger(
+												"Instagram", 
+												"shrink", 
+												new Date().getTime(), 
+												"SYS", 
+												"IMGID: " + event.get("imgid").asText()
+												)
+										);	
 							}
 
 						}

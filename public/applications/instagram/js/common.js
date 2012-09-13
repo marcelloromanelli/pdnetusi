@@ -164,6 +164,15 @@ function photoClicked(){
 		}
 		enlarged++;
 	} else {
+		//LOG
+		var answer = JSON.stringify
+		({
+			"kind":"screenInteraction",
+			"action":"shrink",
+			"imgid": current.data("imgid"),
+		});
+		websocket.send(answer);
+		
 		enlarged--;
 	}
 
