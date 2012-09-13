@@ -38,7 +38,6 @@ function insertNewPhoto(newItem){
 		"tags":	newItem.data("tags"),
 		"likes": newItem.data("likes"),
 		"img_std": newItem.data("img_std"),
-		"caption": newItem.data("caption")
 	});
 	websocket.send(answer);
 	
