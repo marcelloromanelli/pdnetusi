@@ -190,15 +190,17 @@ function photoClicked(){
 
 		var put = $(".item:first");
 		if(put[0] === current[0]){
-			current.insertAfter($($(".item").get(1)));
-			console.log("here");
+			current.after($($(".item").get(1)));
 		} else {
-			current.insertAfter(".item:first");
+			current.after(".item:first");
 		}
 		enlarged++;
-//		setTimeout(function(){shrink(current)},10000);
 	} else {
-		//LOG
+		//Make sure they are really hidden
+		current.removeClass('large');
+		current.find(".interactions").hide();
+
+		
 		immagine.width("248px");
 		immagine.height("248px");
 
