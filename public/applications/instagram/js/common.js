@@ -14,17 +14,22 @@ $(function(){
 
 	setInterval(function(){findPhotosWithTag("usilugano", true);}, 5000);
 	setInterval(function(){findPhotosNearCoordinates(46.010868,8.958235,true);}, 10000);
-	setInterval(function(){
+
+	setTimeout(function(){
+		setInterval(function(){
 			var lastImg = $(toInsert.pop());
+			console.log(lastImg);
 			if (lastImg != undefined){
 				insertNewPhoto(lastImg);
 			}
 		}
 		,1000);
+	},5000);
 });
 
 
 function insertNewPhoto(newItem){
+	console.log("newItem");
 	if($(".item").length > 25){
 		var toremove = $(".item").splice(-5);
 		for (var index in toremove){
@@ -39,13 +44,11 @@ function insertNewPhoto(newItem){
 
 	var imgid =  newItem.data("imgid");
 
-	
-	
 	newItem.find("img").load(function(){
 		$('#container').prepend(newItem);
 		$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 	});	
-	
+
 	//LOG
 	var answer = JSON.stringify
 	({
@@ -82,7 +85,7 @@ function findPhotos(address, limit){
 				var newItem = $("<div class='item' />");
 				newItem.data("imgid",current.id);
 
-				
+
 				var interactions = $("<div class='interactions' />");
 				interactions.hide();
 				newItem.append(interactions);
@@ -164,7 +167,7 @@ function photoClicked(){
 			"imgid": current.data("imgid"),
 		});
 		websocket.send(answer);
-		
+
 		var put = $(".item:first");
 		if(put[0] === current[0]){
 			current.insertAfter($($(".item").get(1)));
@@ -172,7 +175,7 @@ function photoClicked(){
 		} else {
 			current.insertAfter(".item:first");
 		}
-	
+
 		enlarged++;
 	} else {
 		//LOG
@@ -183,7 +186,7 @@ function photoClicked(){
 			"imgid": current.data("imgid"),
 		});
 		websocket.send(answer);
-		
+
 		enlarged--;
 	}
 
