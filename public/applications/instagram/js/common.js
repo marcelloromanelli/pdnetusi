@@ -134,8 +134,8 @@ function findPhotos(address, limit){
 	});
 }
 
-function photoClicked(param){
-	var current = param||$(this);
+function photoClicked(){
+	var current = $(this);
 
 	if(enlarged > 2){
 		var last = $($(".item.large").get(-1));
@@ -166,12 +166,7 @@ function photoClicked(param){
 		} else {
 			current.insertAfter(".item:first");
 		}
-		
-		setTimeout(
-		function(){
-			photoClicked(current);
-		}
-			,10000);
+	
 		enlarged++;
 	} else {
 		//LOG
