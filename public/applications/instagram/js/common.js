@@ -18,12 +18,11 @@ $(function(){
 	setTimeout(function(){
 		setInterval(function(){
 			var lastImg = $(toInsert.pop());
-			console.log(lastImg);
 			if (lastImg != undefined){
 				insertNewPhoto(lastImg);
 			}
 		}
-		,1000);
+		,2500);
 	},5000);
 });
 
