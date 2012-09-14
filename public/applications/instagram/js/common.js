@@ -29,7 +29,7 @@ $(function(){
 
 
 function insertNewPhoto(newItem){
-	console.log("newItem");
+	console.log(newItem);
 	if($(".item").length > 25){
 		var toremove = $(".item").splice(-5);
 		for (var index in toremove){
