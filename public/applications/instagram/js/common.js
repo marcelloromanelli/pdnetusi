@@ -43,7 +43,8 @@ function insertNewPhoto(newItem){
 
 	var imgid =  newItem.data("imgid");
 
-	$('#container').prepend(newItem).isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
+	$('#container').prepend(newItem);
+	$('#container').isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 
 
 	//LOG
@@ -116,6 +117,9 @@ function findPhotos(address, limit){
 				img.css("position","fixed");
 
 				img.attr("src",img_std);
+				
+				$.preload(img_std);
+				
 				img.mousedown(function(){
 					return false;
 				});
