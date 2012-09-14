@@ -199,7 +199,7 @@ public class AppTwitterController extends Controller {
 			while(i.hasNext()) {
 				Map.Entry ds = (Map.Entry)i.next();
 				Logger.info("AppTwitterController.twitterFeeds(): sand the new tweet to displayID="+ds.getKey()+" socket="+ds.getValue().toString());
-				String did = ds.getKey();
+				String did = (String) ds.getKey();
 				DisplayLogger.addNew(new DisplayLogger("Twitter", "tweetNew", new Date().getTime(), "SYS","send to display -> ",did));
 				displaySockets.get(ds.getKey()).wOut.write(msg);
 			}//while 
