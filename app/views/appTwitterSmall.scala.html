@@ -43,6 +43,12 @@
 		
 	},30000);//setInterval	
 		
+	setInterval(function(){ //update time ago
+		$('.timeago').each(function(){
+			$(this).text(jQuery.timeago($(this).data("time")));
+		});
+	},60000);//setInterval	
+	
 	function createNewTweet(tweet){
 		
 		var tweetDiv = $("<div class='tweetBox' style='display: none;'></div>");
@@ -50,9 +56,11 @@
 				tweetDivPic.attr("src", "https://api.twitter.com/1/users/profile_image?screen_name="+tweet.user+"&size=original");
 			var userNameDiv = $("<div class='userName'>" + tweet.userName + "</div>");
 			var tweetTextDiv = $("<div class='tweetText'>" + tweet.text + "</div>");
-			var tweetTimeDiv = $("<abbr class='timeAgo'></abbr>");
-				tweetTimeDiv.attr("title",tweet.time);
-				tweetTimeDiv.html("<p class='timeAgo' >" + jQuery.timeago(tweet.time) + "</p>");
+			
+			var tweetTimeDiv = $("<abbr class='timeago'></abbr>");
+			tweetTimeDiv.attr("title",new Date(tweet.time));
+			tweetTimeDiv.text(jQuery.timeago(new Date(tweet.time)));
+			tweetTimeDiv.data("time", new Date(tweet.time));
 				
 			tweetDiv.click(function(){
 				var img = $(this).find("img");
@@ -72,9 +80,6 @@
 		
 		$("body").append(tweetDiv);
 			
-		//set its possition
-		//$('.tweetBox').eq(positions[p]).css('top',tweetBoxPositions[p][1]);
-		//$('.tweetBox').eq(positions[p]]).css('left',tweetBoxPositions[p][0]);
 	}createNewTweet
 	
 	function setNewTweet(tweet,box){
