@@ -195,8 +195,8 @@ function photoClicked(){
 		} else {
 			current.insertAfter(".item:first");
 		}
-
 		enlarged++;
+		setTimeout(function(){shrink(current)},10000);
 	} else {
 		//LOG
 		immagine.width("248px");
@@ -217,6 +217,17 @@ function photoClicked(){
 
 }
 
+
+function shrink(img){
+	img.toggleClass('large');
+	img.find(".interactions").toggle();
+	var immagine = img.find(".instimg");
+
+	immagine.width("248px");
+	immagine.height("248px");
+
+	enlarged--;
+}
 
 function createObject(title,desc,link,img){
 	var obj = {};
