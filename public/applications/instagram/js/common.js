@@ -43,8 +43,9 @@ function insertNewPhoto(newItem){
 
 	var imgid =  newItem.data("imgid");
 
-	$('#container').prepend(newItem).isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
-
+	newItem.find(".instimg").load(function(){
+		$('#container').prepend(newItem).isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
+	});
 	//LOG
 	var answer = JSON.stringify
 	({
