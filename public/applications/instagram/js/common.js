@@ -164,6 +164,8 @@ function photoClicked(){
 		} else {
 			current.insertAfter(".item:first");
 		}
+		
+		setTimeout(function(){photoClicked()},10000);
 		enlarged++;
 	} else {
 		//LOG
