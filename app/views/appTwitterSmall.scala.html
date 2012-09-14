@@ -65,7 +65,7 @@
 			tweetDiv.click(function(){
 				var img = $(this).find("img");
 				img.data("old",img.attr("src"));
-				img.attr("src","http://chart.apis.google.com/chart?cht=qr&chs=200x200&chl="+ "https://api.twitter.com/1/users/profile_image?screen_name="+tweet.user+"&size=original"+"&chld=H|0");
+				img.attr("src","http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl="+ "https://twitter.com/"+tweet.user+"&chld=H|0");
 				setTimeout(function(){img.attr("src",img.data("old"));},25000);
 			});
 			tweetDiv.mousedown(function(){
