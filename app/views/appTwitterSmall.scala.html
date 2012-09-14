@@ -87,7 +87,9 @@
 		box.find('.profilePic').attr("src", "https://api.twitter.com/1/users/profile_image?screen_name="+tweet.user+"&size=original");
 		box.find('.userName').html(tweet.userName);
 		box.find('.tweetText').html(tweet.text);
-		box.find('.timeAgo').html(jQuery.timeago(tweet.time));
+		box.find('.timeago').attr("title",new Date(tweet.time));
+		box.find('.timeago').text(jQuery.timeago(new Date(tweet.time)));
+		box.find('.timeago').data("time", new Date(tweet.time));
 	}
 	
 	function pushNewTweetBox(tweet){
@@ -222,10 +224,6 @@ function getUrlVars() {
 	}; //websocket.onerror
 	
 	//-------------------------------webSockets
-	
-	jQuery(document).ready(function() {
-		  jQuery('.timeAgo').timeago();
-	});
 	
 	</script>	
 
