@@ -190,7 +190,7 @@ public class AppTwitterController extends Controller {
 			msg.put("time", arg0.getCreatedAt().getTime());
 			Logger.info("AppTwitterController.twitterFeeds() - send the new tweet to all clients");
 			
-			//DisplayLogger.addNew(new DisplayLogger("Twitter", "tweetNew", new Date().getTime(), "SYS", arg0.getUser().getName()+arg0.getText()));
+			DisplayLogger.addNew(new DisplayLogger("Twitter", "tweetNew", new Date().getTime(), "SYS","","null"));
 			
 			Set set = displaySockets.entrySet();
 			// Get an iterator
@@ -199,7 +199,8 @@ public class AppTwitterController extends Controller {
 			while(i.hasNext()) {
 				Map.Entry ds = (Map.Entry)i.next();
 				Logger.info("AppTwitterController.twitterFeeds(): sand the new tweet to displayID="+ds.getKey()+" socket="+ds.getValue().toString());
-				//DisplayLogger.addNew(new DisplayLogger("Twitter", "tweetNew", new Date().getTime(), "SYS", "send to display -> "+ds.getKey()));
+				String did = ds.getKey();
+				DisplayLogger.addNew(new DisplayLogger("Twitter", "tweetNew", new Date().getTime(), "SYS","send to display -> ",did));
 				displaySockets.get(ds.getKey()).wOut.write(msg);
 			}//while 
 			
@@ -244,7 +245,8 @@ public class AppTwitterController extends Controller {
 								displaySockets.put(event.get("displayID").asText(), new Sockets(out));
 								displaySocketReverter.put(out, event.get("displayID").asText());
 								
-								DisplayLogger.addNew(new DisplayLogger("Twitter", "displayNew", new Date().getTime(), "SYS", "content", "1"));
+								String displayid = event.get("displayID").asText();
+								DisplayLogger.addNew(new DisplayLogger("Twitter", "displayNew", new Date().getTime(), "SYS", "", displayid));
 								
 							}
 							
@@ -263,7 +265,7 @@ public class AppTwitterController extends Controller {
 						String displayID =displaySocketReverter.get(out);
 						displaySocketReverter.remove(out);
 						displaySockets.remove(displayID);
-						//DisplayLogger.addNew(new DisplayLogger("Twitter", "displayDisconect", new Date().getTime(), "SYS", displayID));
+						DisplayLogger.addNew(new DisplayLogger("Twitter", "displayDisconect", new Date().getTime(), "SYS","", displayID));
 						Logger.info("AppTwitterController.webSocket(): display "+displayID+" is disconnected!!!");
 						Logger.info("AppTwitterController.webSocket(): number of connected displays: "+displaySockets.size());
 					}
