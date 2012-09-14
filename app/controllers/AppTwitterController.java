@@ -37,18 +37,11 @@ import views.html.*;
 
 public class AppTwitterController extends Controller {
   
-	public static Result index() {
-		return ok(index.render("This is the USI Twitter application!"));
-	}//index()
-	  
 	public static Result twitterSmall() {	
 		  
 		return ok(views.html.appTwitterSmall.render("Twitter Small."));
 	}//twitterSmall()
 	  
-	public static Result twitterBig() {	
-		return ok(views.html.display.render("Twitter Big."));
-	}//twitterBig()
     
 	public static HashMap<String, Sockets> displaySockets = new HashMap<String, Sockets>();
 	public static HashMap<WebSocket.Out<JsonNode>, String> displaySocketReverter = new HashMap<WebSocket.Out<JsonNode>, String>();
