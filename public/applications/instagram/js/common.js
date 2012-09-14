@@ -42,10 +42,13 @@ function insertNewPhoto(newItem){
 	}
 
 	var imgid =  newItem.data("imgid");
+	$('#container').prepend(newItem);
 
-	newItem.find("img").load(function(){
-		$('#container').prepend(newItem).isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
+	newItem.load(function(){
+		$('#container').isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
 	});
+	
+	
 	//LOG
 	var answer = JSON.stringify
 	({
