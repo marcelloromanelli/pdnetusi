@@ -24,16 +24,15 @@ $(function(){
 
 	setInterval(function(){
 		var lastImg = $(toInsert.pop());
-		if (lastImg != undefined){
+		if (lastImg != undefined && toInsert.length == 0){
 			insertNewPhoto(lastImg);
 		}
 	}
-	,2000);
+	,3000);
 });
 
 
 function insertNewPhoto(newItem){
-	console.log(newItem);
 	if($(".item").length > 25){
 		var toremove = $(".item").splice(-5);
 		for (var index in toremove){
