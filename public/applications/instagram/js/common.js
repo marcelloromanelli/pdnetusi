@@ -23,9 +23,11 @@ $(function(){
 	setInterval(function(){findPhotosNearCoordinates(46.010868,8.958235,true);}, 10000);
 
 	setInterval(function(){
-		var lastImg = $(toInsert.pop());
-		if (lastImg != undefined && toInsert.length != 0 && lastImg != []){
-			insertNewPhoto(lastImg);
+		if (toInsert.length > 0){
+			console.log("new img");
+			insertNewPhoto($(toInsert.pop()));
+		} else {
+			console.log("no new img");
 		}
 	}
 	,3000);
@@ -47,7 +49,7 @@ function insertNewPhoto(newItem){
 
 	// super dirty hack
 	newItem.attr("style", "position: absolute; left: 0px; top: 0px; -webkit-transform: translate3d(0px, 0px, 0px)")
-	
+
 	var imgid =  newItem.data("imgid");
 	$('#container')
 	.prepend(newItem)
