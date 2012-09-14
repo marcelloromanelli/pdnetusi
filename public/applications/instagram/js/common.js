@@ -44,7 +44,7 @@ function insertNewPhoto(newItem){
 	var imgid =  newItem.data("imgid");
 	$('#container')
     	.prepend(newItem)
-    	.isotope( 'addItems', $newItems )
+    	.isotope( 'addItems', newItem )
     	// update sort data for all items
     	.isotope( 'updateSortData', $('#container').children() )
     	// sort and apply new layout
