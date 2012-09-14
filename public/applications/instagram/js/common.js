@@ -1,6 +1,7 @@
 var ids = new Array();
 var enlarged = 0;
 var last = new Array(); 
+var toInsert = new Array();
 
 $(function(){
 
@@ -13,6 +14,7 @@ $(function(){
 
 	setInterval(function(){findPhotosWithTag("usilugano", true);}, 5000);
 	setInterval(function(){findPhotosNearCoordinates(46.010868,8.958235,true);}, 10000);
+	setInterval(function(){insertNewPhoto(toInsert.pop())},1000);
 });
 
 
@@ -115,7 +117,7 @@ function findPhotos(address, limit){
 				newItem.append(img);
 
 				if(jQuery.inArray(current.id, ids) == -1){
-					insertNewPhoto(newItem);
+					toInsert.push(newItem);
 					ids.push(current.id);
 					if(current.caption == null){
 						var caption = "no caption available";
@@ -132,8 +134,8 @@ function findPhotos(address, limit){
 	});
 }
 
-function photoClicked(){
-	var current = $(this);
+function photoClicked(param){
+	var current = param||$(this);
 
 	if(enlarged > 2){
 		var last = $($(".item.large").get(-1));
@@ -165,7 +167,11 @@ function photoClicked(){
 			current.insertAfter(".item:first");
 		}
 		
-		setTimeout(function(){photoClicked()},10000);
+		setTimeout(
+		function(){
+			photoClicked(current);
+		}
+			,10000);
 		enlarged++;
 	} else {
 		//LOG
