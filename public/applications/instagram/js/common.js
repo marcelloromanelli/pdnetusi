@@ -81,7 +81,7 @@ function findPhotos(address, limit){
 			}
 
 			var inserted = 0;
-			for (var i = 0; i < response.data.length ; i++){
+			for (var i = response.data.length-1; i >= 0 ; i--){
 				if(inserted == 5 && limit){
 					break;
 				}
