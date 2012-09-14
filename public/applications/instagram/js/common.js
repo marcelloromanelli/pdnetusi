@@ -118,7 +118,7 @@ function findPhotos(address, limit){
 
 				img.attr("src",img_std);
 				
-				$.preload(img_std);
+				$.preload([img_std]);
 				
 				img.mousedown(function(){
 					return false;
