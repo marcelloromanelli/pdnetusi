@@ -158,8 +158,13 @@ function findPhotos(address, limit){
 }
 
 function photoClicked(){
+	$(".item").mousedown(function(){
+		return false;
+	});
+	
 	var current = $(this);
 
+	
 	if(enlarged > 2){
 		var last = $($(".item.large").get(-1));
 		last.toggleClass('large');
@@ -222,6 +227,9 @@ function photoClicked(){
 	}
 	
 	$("#container").isotope('reLayout');
+	
+	$('.item').unbind('mousedown');
+
 
 }
 
