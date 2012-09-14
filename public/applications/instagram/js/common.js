@@ -192,9 +192,16 @@ function photoClicked(){
 		if(put[0] === current[0]){
 			$($(".item").get(1)).after(current);
 		} else {
-			(".item:first").after(current);
+			$(".item:first").after(current);
 		}
 		enlarged++;
+		$('#container')
+		.prepend(newItem)
+		.isotope( 'reLayout')
+		// update sort data for all items
+		.isotope( 'updateSortData', $('#container').children() )
+		// sort and apply new layout
+		.isotope();
 	} else {
 		//Make sure they are really hidden
 		current.removeClass('large');
