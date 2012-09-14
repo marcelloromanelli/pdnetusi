@@ -196,7 +196,7 @@ function photoClicked(){
 			current.insertAfter(".item:first");
 		}
 		enlarged++;
-		setTimeout(function(){shrink(current)},10000);
+//		setTimeout(function(){shrink(current)},10000);
 	} else {
 		//LOG
 		immagine.width("248px");
