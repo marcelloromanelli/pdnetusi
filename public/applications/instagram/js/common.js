@@ -90,7 +90,7 @@ function findPhotos(address, limit){
 
 
 				var userImgDiv = $("<div class='userImg'>");
-				var userImg = $("<img class='immagine'>");
+				var userImg = $("<img>");
 				userImgDiv.append(userImg);
 				userImg.attr("src",current.user.profile_picture);
 				userImg.css("height","80px");
@@ -159,7 +159,7 @@ function photoClicked(){
 	current.toggleClass('large');
 	current.find(".interactions").toggle();
 
-	var immagine = current.find(".immagine");
+	var immagine = current.find(".instimg");
 
 	if(current.hasClass("large")){
 		//LOG
