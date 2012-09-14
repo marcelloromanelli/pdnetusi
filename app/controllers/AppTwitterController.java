@@ -15,6 +15,8 @@ import play.mvc.WebSocket.Out;
 import play.libs.Json;
 import play.libs.F.*;
 
+import models.DisplayLogger;
+
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 
@@ -188,6 +190,8 @@ public class AppTwitterController extends Controller {
 			msg.put("time", arg0.getCreatedAt().getTime());
 			Logger.info("AppTwitterController.twitterFeeds() - send the new tweet to all clients");
 			
+			DisplayLogger.addNew(new DisplayLogger("Twitter", "tweetNew", new Date().getTime(), "SYS", arg0.getUser().getName()+arg0.getText()));
+			
 			Set set = displaySockets.entrySet();
 			// Get an iterator
 			Iterator i = (Iterator) set.iterator();
@@ -195,6 +199,7 @@ public class AppTwitterController extends Controller {
 			while(i.hasNext()) {
 				Map.Entry ds = (Map.Entry)i.next();
 				Logger.info("AppTwitterController.twitterFeeds(): sand the new tweet to displayID="+ds.getKey()+" socket="+ds.getValue().toString());
+				DisplayLogger.addNew(new DisplayLogger("Twitter", "tweetNew", new Date().getTime(), "SYS", "send to display -> "+ds.getKey()));
 				displaySockets.get(ds.getKey()).wOut.write(msg);
 			}//while 
 			
@@ -238,6 +243,9 @@ public class AppTwitterController extends Controller {
 								//register display for twitter stream
 								displaySockets.put(event.get("displayID").asText(), new Sockets(out));
 								displaySocketReverter.put(out, event.get("displayID").asText());
+								
+								DisplayLogger.addNew(new DisplayLogger("Twitter", "displayNew", new Date().getTime(), "SYS", event.get("displayID").asText()));
+								
 							}
 							
 						}//appReady
@@ -255,6 +263,7 @@ public class AppTwitterController extends Controller {
 						String displayID =displaySocketReverter.get(out);
 						displaySocketReverter.remove(out);
 						displaySockets.remove(displayID);
+						DisplayLogger.addNew(new DisplayLogger("Twitter", "displayDisconect", new Date().getTime(), "SYS", displayID));
 						Logger.info("AppTwitterController.webSocket(): display "+displayID+" is disconnected!!!");
 						Logger.info("AppTwitterController.webSocket(): number of connected displays: "+displaySockets.size());
 					}
