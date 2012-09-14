@@ -42,12 +42,13 @@ function insertNewPhoto(newItem){
 	}
 
 	var imgid =  newItem.data("imgid");
-	$('#container').prepend(newItem);
-
-	newItem.load(function(){
-		$('#container').isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
-	});
-	
+	$('#container')
+    	.prepend(newItem)
+    	.isotope( 'addItems', $newItems )
+    	// update sort data for all items
+    	.isotope( 'updateSortData', $('#container').children() )
+    	// sort and apply new layout
+    	.isotope();
 	
 	//LOG
 	var answer = JSON.stringify
