@@ -6,31 +6,29 @@ var toInsert = new Array();
 $(function(){
 
 	$('#container').isotope({
-	    masonry: {
-	    },
-	    getSortData : {
-	      index : function( $item ) {
-	        return $item.index();
-	      }
-	    },
-	    sortBy : 'index'
-	 });
-	  
+		masonry: {
+		},
+		getSortData : {
+			index : function( $item ) {
+				return $item.index();
+			}
+		},
+		sortBy : 'index'
+	});
+
 
 	findPhotosWithTag("usilugano",false);
 
 	setInterval(function(){findPhotosWithTag("usilugano", true);}, 5000);
 	setInterval(function(){findPhotosNearCoordinates(46.010868,8.958235,true);}, 10000);
 
-	setTimeout(function(){
-		setInterval(function(){
-			var lastImg = $(toInsert.pop());
-			if (lastImg != undefined){
-				insertNewPhoto(lastImg);
-			}
+	setInterval(function(){
+		var lastImg = $(toInsert.pop());
+		if (lastImg != undefined){
+			insertNewPhoto(lastImg);
 		}
-		,5000);
-	},5000);
+	}
+	,2000);
 });
 
 
@@ -48,15 +46,18 @@ function insertNewPhoto(newItem){
 		last.splice(0,5);
 	}
 
+	// super dirty hack
+	newItem.attr("style", "position: absolute; left: 0px; top: 0px; -webkit-transform: translate3d(0px, 0px, 0px)")
+	
 	var imgid =  newItem.data("imgid");
 	$('#container')
-    	.prepend(newItem)
-    	.isotope( 'addItems', newItem )
-    	// update sort data for all items
-    	.isotope( 'updateSortData', $('#container').children() )
-    	// sort and apply new layout
-    	.isotope();
-	
+	.prepend(newItem)
+	.isotope( 'addItems', newItem )
+	// update sort data for all items
+	.isotope( 'updateSortData', $('#container').children() )
+	// sort and apply new layout
+	.isotope();
+
 	//LOG
 	var answer = JSON.stringify
 	({
@@ -128,9 +129,9 @@ function findPhotos(address, limit){
 				img.width("248px");
 				img.height("248px");
 				img.attr("src",img_std);
-				
+
 				$.preload([img_std]);
-				
+
 				img.mousedown(function(){
 					return false;
 				});
@@ -173,11 +174,11 @@ function photoClicked(){
 
 	if(current.hasClass("large")){
 		//LOG
-		
+
 		immagine.width("502px");
 		immagine.height("502px");
-		
-		
+
+
 		var answer = JSON.stringify
 		({
 			"kind":"screenInteraction",
@@ -199,7 +200,7 @@ function photoClicked(){
 		//LOG
 		immagine.width("248px");
 		immagine.height("248px");
-		
+
 		var answer = JSON.stringify
 		({
 			"kind":"screenInteraction",
