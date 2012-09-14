@@ -1,0 +1,88 @@
+/* 1920x1080 */
+
+@import url(http://fonts.googleapis.com/css?family=Press+Start+2P);
+@import url(http://fonts.googleapis.com/css?family=Advent+Pro);
+
+body {
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #057D9F;
+	overflow: hidden;
+}
+
+#twitterLogo {
+	position: absolute;
+	left: 120px;
+	top: 23px;
+	background: url(twitterlogo.png);
+	width: 188px;
+	height: 35px;
+	margin: 10px auto;
+}
+
+#twitterTag {
+	font-family: 'Advent Pro', sans-serif;
+	color: white;
+	font-size: 26px;
+	position: absolute;
+	left: 315px;
+	top: 40px;
+	width: 120px;
+	height: 20px;
+}
+
+.tweetBox {
+	font-family: 'Advent Pro', sans-serif;
+	color: white;
+	position: absolute;
+	background-color: black;
+	width: 520px;
+	height: 160px;
+	margin: 20px 8px;
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, .8);
+}
+
+.profilePic {
+	float:left;
+	background-color: #39AECF;
+	top: 0px;
+	left: 0px;
+	width: 160px;
+	height: 160px;
+	margin-right: 10px;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, .8);
+}
+
+.userName {
+	float: left;
+	width: 340px;
+	height: 20px;
+	margin-top: 5px;
+	margin-right: 10px;
+	font-size: 22px;
+}
+
+.tweetText {
+	font-size: 20px;
+	float: left;
+	width: 340px;
+	height: 92px;
+	margin-top: 10px;
+	margin-right: 10px;
+}
+
+.timeAgo {
+	float: right;
+	width: 200px;
+	height: 15px;
+	font-size: 12px;
+	text-align: right;
+	margin-right: 10px;
+	border-top-right-radius: 10px;
+}
+
+

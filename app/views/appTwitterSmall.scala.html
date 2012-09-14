@@ -1,0 +1,227 @@
+@(message: String)
+
+@main("Twitter small!") {
+
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/apps/twitter/main1920x1080.css")">
+	
+	<div id="twitterLogo"></div>
+	<div id="twitterTag">#usilugano</div>
+		
+	<script type="text/javascript">
+	
+	var numberOfTweets = 0;
+	var numberOfTweetsMax = 5;
+	var numberOfColumns = 1;
+	
+	// for 1920x1080
+	var tweetBoxPositions=[ [30,80] , [30,260], [30,440], [30,620], [30,800] ];
+	
+	// for 1280x800
+	//var tweetBoxPositions=[ [15,60] , [15,200], [15,340], [15,480], [15,620] ];
+	
+	var queue = new Queue();
+	
+	var positions = [0,1,2,3,4];
+	
+	$('.tweetBox').click(function(){
+		pushNewTweetBox();
+	});//click
+	
+	setInterval(function(){
+		//alert("set interval")
+		if(!queue.isEmpty()){ //if queue is not empty,
+			//take the tweet
+			var newTweet = queue.dequeue();
+			//show the box with a new tweet
+			pushNewTweetBox(newTweet);
+		}
+	},2000);//setInterval
+	
+	setInterval(function(){ //animate a tweet box
+		$('.tweetBox').eq(positions[2]).hide('pulsate',[],1000);
+		$('.tweetBox').eq(positions[2]).show('pulsate',[],1000);
+		
+	},30000);//setInterval	
+		
+	function createNewTweet(tweet){
+		
+		var tweetDiv = $("<div class='tweetBox' style='display: none;'></div>");
+			var tweetDivPic = $("<img class='profilePic'></div>");
+				tweetDivPic.attr("src", "https://api.twitter.com/1/users/profile_image?screen_name="+tweet.user+"&size=original");
+			var userNameDiv = $("<div class='userName'>" + tweet.userName + "</div>");
+			var tweetTextDiv = $("<div class='tweetText'>" + tweet.text + "</div>");
+			var tweetTimeDiv = $("<abbr class='timeAgo'></abbr>");
+				tweetTimeDiv.attr("title",tweet.time);
+				tweetTimeDiv.html("<p class='timeAgo' >" + jQuery.timeago(tweet.time) + "</p>");
+				
+			tweetDiv.click(function(){
+				var img = $(this).find("img");
+				img.data("old",img.attr("src"));
+				img.attr("src","http://chart.apis.google.com/chart?cht=qr&chs=200x200&chl="+ "https://api.twitter.com/1/users/profile_image?screen_name="+tweet.user+"&size=original"+"&chld=H|0");
+				setTimeout(function(){img.attr("src",img.data("old"));},25000);
+			});
+			tweetDiv.mousedown(function(){
+				return false;
+			});
+
+		tweetDiv.append(tweetDivPic);
+		tweetDiv.append(userNameDiv);
+		tweetDiv.append(tweetTextDiv);
+		tweetDiv.append(tweetTimeDiv);
+		tweetDiv.css({'top':tweetBoxPositions[0][1], 'left':tweetBoxPositions[0][0]});
+		
+		$("body").append(tweetDiv);
+			
+		//set its possition
+		//$('.tweetBox').eq(positions[p]).css('top',tweetBoxPositions[p][1]);
+		//$('.tweetBox').eq(positions[p]]).css('left',tweetBoxPositions[p][0]);
+	}createNewTweet
+	
+	function setNewTweet(tweet,box){
+		box.css('top',tweetBoxPositions[0][1]);
+		box.find('.profilePic').attr("src", "https://api.twitter.com/1/users/profile_image?screen_name="+tweet.user+"&size=original");
+		box.find('.userName').html(tweet.userName);
+		box.find('.tweetText').html(tweet.text);
+		box.find('.timeAgo').html(jQuery.timeago(tweet.time));
+	}
+	
+	function pushNewTweetBox(tweet){
+		if(numberOfTweets==0){
+			//create a new tweeter box
+			createNewTweet(tweet);
+			//show the new tweetBox 
+			$('.tweetBox').eq(positions[0]).show('drop','slow');
+			//increase the tweetBox count
+			numberOfTweets++;
+		}else if(numberOfTweets==1){
+			//move the tweetBox one down
+			$('.tweetBox').eq(positions[0]).animate({top:tweetBoxPositions[1][1]},'slow');
+			//create a new tweetBox
+			createNewTweet(tweet);
+			//animate show
+			$('.tweetBox').eq(positions[1]).show('drop','slow');
+			//increase the tweetBox count
+			numberOfTweets++;
+		}else if(numberOfTweets==2){
+			//move the tweetBox one down
+			$('.tweetBox').eq(positions[0]).animate({top:tweetBoxPositions[2][1]},'slow');
+			$('.tweetBox').eq(positions[1]).animate({top:tweetBoxPositions[1][1]},'slow');
+			//add a new tweetBox
+			createNewTweet(tweet);
+			//animate show
+			$('.tweetBox').eq(positions[2]).show('drop','slow');
+			//increase the tweetBox count
+			numberOfTweets++;
+		}else if(numberOfTweets==3){
+			//move the tweetBox one down
+			$('.tweetBox').eq(positions[0]).animate({top:tweetBoxPositions[3][1]},'slow');
+			$('.tweetBox').eq(positions[1]).animate({top:tweetBoxPositions[2][1]},'slow');
+			$('.tweetBox').eq(positions[2]).animate({top:tweetBoxPositions[1][1]},'slow');
+			//add a new tweetBox
+			createNewTweet(tweet);
+			//animate show
+			$('.tweetBox').eq(positions[3]).show('drop','slow');
+			//increase the tweetBox count
+			numberOfTweets++;
+		}else if(numberOfTweets==4){
+			//move the tweetBox one down
+			$('.tweetBox').eq(positions[0]).animate({top:tweetBoxPositions[4][1]},'slow');
+			$('.tweetBox').eq(positions[1]).animate({top:tweetBoxPositions[3][1]},'slow');
+			$('.tweetBox').eq(positions[2]).animate({top:tweetBoxPositions[2][1]},'slow');
+			$('.tweetBox').eq(positions[3]).animate({top:tweetBoxPositions[1][1]},'slow');
+			//add a new tweetBox
+			createNewTweet(tweet);
+			//animate show
+			$('.tweetBox').eq(positions[4]).show('drop','slow');
+			//increase the tweetBox count
+			numberOfTweets++;
+		}else if(numberOfTweets == 5){
+			//remove the last tweet box (5) ->
+			$('.tweetBox').eq(positions[0]).fadeOut();
+			
+			//shift remaining boxes down (1-4) -> (2-5)
+			$('.tweetBox').eq(positions[4]).animate({top:tweetBoxPositions[1][1]},'slow');
+			$('.tweetBox').eq(positions[3]).animate({top:tweetBoxPositions[2][1]},'slow');
+			$('.tweetBox').eq(positions[2]).animate({top:tweetBoxPositions[3][1]},'slow');
+			$('.tweetBox').eq(positions[1]).animate({top:tweetBoxPositions[4][1]},'slow');
+			
+			//appear the first box (5) -> (1)
+			//TODO: chage the tweet 
+			$('.tweetBox').eq(positions[0]).hide();
+			//update the tweet
+			setNewTweet(tweet,$('.tweetBox').eq(positions[0]));
+			$('.tweetBox').eq(positions[0]).show('drop','slow');
+			
+			//change the order of boxes
+			positions.push(positions.shift());
+			
+		}//if(numberOfTweets == 5)
+	}//pushNewTweetBox
+	
+	//webSockets-----------------------------------
+		
+function getUrlVars() {
+	var vars = [], hash;
+	var i = 0;
+	var hashes = window.parent.location.href.slice(window.parent.location.href.indexOf('?') + 1).split('&');
+	for(i = 0; i < hashes.length; i++)
+	{
+		hash = hashes[i].split('=');
+		vars.push(hash[0]);
+		vars[hash[0]] = hash[1];
+	}
+	return vars;
+}
+
+	var WS = WebSocket;
+	var wsUri = "ws://pdnet.inf.unisi.ch:9000/twitter2/socket";
+	websocket = new WS(wsUri); 
+	displayID = getUrlVars()["id"];
+	
+	websocket.onopen = function(evt) { 
+		console.log("CONNECTED"); 
+		var hi = JSON.stringify
+		({
+			"kind":"appReady",
+			"displayID": displayID,
+			"size": "small"
+		});
+		websocket.send(hi);
+	}; //websocket.onopen
+
+	websocket.onclose = function(evt) { 
+		console.log("DISCONNECTED");
+		var bye = JSON.stringify
+		({
+			"kind":"appClose",
+			"displayID": displayID,
+			"size": "small"
+		});
+		websocket.send(bye);
+	}; //websocket.onclose
+
+	websocket.onmessage = function(evt) {
+		var response = jQuery.parseJSON(evt.data);
+		if(response.kind == "newTweet"){
+			queue.enqueue(response);
+		}//if
+		
+		if(response.kind == "animateTweet"){
+			
+		}//if
+			
+	}; //websocket.onmessage
+
+	websocket.onerror = function(evt) { 
+		console.log(evt.data); 
+	}; //websocket.onerror
+	
+	//-------------------------------webSockets
+	
+	jQuery(document).ready(function() {
+		  jQuery('.timeAgo').timeago();
+	});
+	
+	</script>	
+
+}
