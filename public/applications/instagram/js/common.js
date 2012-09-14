@@ -22,7 +22,7 @@ $(function(){
 				insertNewPhoto(lastImg);
 			}
 		}
-		,2500);
+		,5000);
 	},5000);
 });
 
@@ -43,10 +43,8 @@ function insertNewPhoto(newItem){
 
 	var imgid =  newItem.data("imgid");
 
-	newItem.find("img").load(function(){
-		$('#container').prepend(newItem);
-		$("#container").isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
-	});	
+	$('#container').prepend(newItem).isotope( 'reloadItems' ).isotope({sortBy: 'original-order',layoutMode : 'masonry'});
+
 
 	//LOG
 	var answer = JSON.stringify
