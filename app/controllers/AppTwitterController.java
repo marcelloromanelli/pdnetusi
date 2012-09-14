@@ -244,7 +244,7 @@ public class AppTwitterController extends Controller {
 								displaySockets.put(event.get("displayID").asText(), new Sockets(out));
 								displaySocketReverter.put(out, event.get("displayID").asText());
 								
-								DisplayLogger.addNew(new DisplayLogger("Twitter", "displayNew", new Date().getTime(), "SYS", "1"));
+								DisplayLogger.addNew(new DisplayLogger("Twitter", "displayNew", new Date().getTime(), "SYS", "content", "1"));
 								
 							}
 							
