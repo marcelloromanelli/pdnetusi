@@ -217,7 +217,7 @@ function photoClicked(){
 
 }
 
-
+// called after 10s that an image has been enlarged
 function shrink(img){
 	img.toggleClass('large');
 	img.find(".interactions").toggle();
@@ -225,7 +225,16 @@ function shrink(img){
 
 	immagine.width("248px");
 	immagine.height("248px");
-
+	$("#container").isotope('reLayout');
+	
+	var answer = JSON.stringify
+	({
+		"kind":"screenInteraction",
+		"action":"shrink",
+		"imgid": current.data("imgid"),
+	});
+	websocket.send(answer);
+	
 	enlarged--;
 }
 
