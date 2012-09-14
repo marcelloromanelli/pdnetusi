@@ -24,7 +24,7 @@ $(function(){
 
 	setInterval(function(){
 		var lastImg = $(toInsert.pop());
-		if (lastImg != undefined && toInsert.length == 0){
+		if (lastImg != undefined && toInsert.length != 0 && lastImg != []){
 			insertNewPhoto(lastImg);
 		}
 	}
