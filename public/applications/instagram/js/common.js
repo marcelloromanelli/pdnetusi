@@ -214,6 +214,8 @@ function photoClicked(){
 		
 		immagine.width("248px");
 		immagine.height("248px");
+		immagine.css("width","248px");
+		immagine.css("height","248px");
 
 		var answer = JSON.stringify
 		({
@@ -241,6 +243,8 @@ function shrink(img){
 
 	immagine.width("248px");
 	immagine.height("248px");
+	
+	
 	$("#container").isotope('reLayout');
 	
 	var answer = JSON.stringify
