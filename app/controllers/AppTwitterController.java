@@ -3,9 +3,6 @@ package controllers;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -174,7 +171,8 @@ public class AppTwitterController extends Controller {
 
           @Override
           public void onException(Exception ex) {
-              ex.printStackTrace();
+        	  Logger.info("AppTwitterController.startTwitterStreamFeeds().onException: Stream is complaining!");
+        	  //ex.printStackTrace();
           }
 
 		@Override
