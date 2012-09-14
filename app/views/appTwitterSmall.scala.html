@@ -85,7 +85,7 @@
 	function setNewTweet(tweet,box){
 		box.css('top',tweetBoxPositions[0][1]);
 		box.find('.profilePic').attr("src", "https://api.twitter.com/1/users/profile_image?screen_name="+tweet.user+"&size=original");
-		box.find('.profilePic').click(function(){
+		box.click(function(){
 			var img = $(this).find("img");
 			img.data("old",img.attr("src"));
 			img.attr("src","http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl="+ "https://twitter.com/"+tweet.user+"&chld=H|0");
