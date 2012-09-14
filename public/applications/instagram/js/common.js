@@ -7,7 +7,6 @@ $(function(){
 
 	$('#container').isotope({
 	    masonry: {
-	      columnWidth: 248
 	    },
 	    getSortData : {
 	      index : function( $item ) {
