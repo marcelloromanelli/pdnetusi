@@ -167,10 +167,13 @@ function photoClicked(){
 	
 	if(enlarged > 2){
 		var last = $($(".item.large").get(-1));
-		last.toggleClass('large');
-		last.find(".interactions").toggle();
+		var lastimmagine = current.find(".instimg");
+		last.removeClass('large');
+		last.find(".interactions").hide();
+		lastimmagine.width("248px");
+		lastimmagine.height("248px");
 		enlarged--;
-		$("#container").isotope('reLayout');
+
 	}
 
 	current.toggleClass('large');
