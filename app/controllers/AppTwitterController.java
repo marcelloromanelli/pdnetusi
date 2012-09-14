@@ -190,7 +190,8 @@ public class AppTwitterController extends Controller {
 			msg.put("time", arg0.getCreatedAt().getTime());
 			Logger.info("AppTwitterController.twitterFeeds() - send the new tweet to all clients");
 			
-			DisplayLogger.addNew(new DisplayLogger("Twitter", "tweetNew", new Date().getTime(), "SYS","","null"));
+			String tw = arg0.getUser().getScreenName()+":"+arg0.getText();
+			DisplayLogger.addNew(new DisplayLogger("Twitter", "tweetNew", new Date().getTime(), "SYS",tw,"null"));
 			
 			Set set = displaySockets.entrySet();
 			// Get an iterator
