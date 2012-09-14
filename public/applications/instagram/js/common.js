@@ -90,7 +90,7 @@ function findPhotos(address, limit){
 
 
 				var userImgDiv = $("<div class='userImg'>");
-				var userImg = $("<img>");
+				var userImg = $("<img class='immagine'>");
 				userImgDiv.append(userImg);
 				userImg.attr("src",current.user.profile_picture);
 				userImg.css("height","80px");
@@ -115,7 +115,8 @@ function findPhotos(address, limit){
 				var img = $("<img class='instimg' />");
 				img.css("z-index","-10");
 				img.css("position","fixed");
-
+				img.width("248px");
+				img.height("248px");
 				img.attr("src",img_std);
 				
 				$.preload([img_std]);
@@ -158,9 +159,15 @@ function photoClicked(){
 	current.toggleClass('large');
 	current.find(".interactions").toggle();
 
+	var immagine = current.find(".immagine");
 
 	if(current.hasClass("large")){
 		//LOG
+		
+		immagine.width("502px");
+		immagine.height("502px");
+		
+		
 		var answer = JSON.stringify
 		({
 			"kind":"screenInteraction",
@@ -180,6 +187,9 @@ function photoClicked(){
 		enlarged++;
 	} else {
 		//LOG
+		immagine.width("248px");
+		immagine.height("248px");
+		
 		var answer = JSON.stringify
 		({
 			"kind":"screenInteraction",
