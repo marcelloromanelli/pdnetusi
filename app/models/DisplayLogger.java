@@ -20,6 +20,7 @@ public class DisplayLogger extends Model{
 	public Long timestamp;
 	public String who;
 	public String content;
+	public String displayID;
 	
 	public static Finder<Long,DisplayLogger> find = new Finder<Long, DisplayLogger>(Long.class, DisplayLogger.class);
 
@@ -37,12 +38,13 @@ public class DisplayLogger extends Model{
 		return find.ref(id);
 	}
 	
-	public DisplayLogger(String appName, String event,Long timestamp, String who, String content) {
+	public DisplayLogger(String appName, String event,Long timestamp, String who, String content, String displayID) {
 		this.appName = appName;
 		this.event = event;
 		this.timestamp = timestamp;
 		this.who = who;
 		this.content = content;
+		this.displayID = displayID;
 	}
 	
 	

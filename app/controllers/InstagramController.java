@@ -53,7 +53,7 @@ public class InstagramController extends Controller {
 							String displayID = event.get("displayID").asText();
 
 							if(!sockets.containsKey(displayID)){
-								DisplayLogger.addNew(new DisplayLogger("Instagram", "start", new Date().getTime(), "SYS", ""));
+								DisplayLogger.addNew(new DisplayLogger("Instagram", "start", new Date().getTime(), "SYS", "","1"));
 								sockets.put(displayID, new Sockets(null, null));
 								socketsReverter.put(out, displayID);
 								mobilesConnected.put(displayID,new ArrayList<WebSocket.Out<JsonNode>>());
@@ -95,7 +95,8 @@ public class InstagramController extends Controller {
 											"NFC", 
 											new Date().getTime(), 
 											event.get("username").asText(), 
-											event.toString()
+											event.toString(),
+											"1"
 											)
 									);
 
@@ -119,7 +120,8 @@ public class InstagramController extends Controller {
 												"Instagram", 
 												"customization", 
 												new Date().getTime(), event.get("username").asText(), 
-												preference)
+												preference,
+												"1")
 										);
 
 								Sockets sctks = sockets.get(displayID);
@@ -139,7 +141,8 @@ public class InstagramController extends Controller {
 												"add", 
 												new Date().getTime(), 
 												"SYS", 
-												"IMGID: " + event.get("imgid").asText()											)
+												"IMGID: " + event.get("imgid").asText(),
+												"1")
 										);							
 							} else if (action.equals("enlarge")){
 								DisplayLogger.addNew(
@@ -148,7 +151,8 @@ public class InstagramController extends Controller {
 												"enlarge", 
 												new Date().getTime(), 
 												"SYS", 
-												"IMGID: " + event.get("imgid").asText()
+												"IMGID: " + event.get("imgid").asText(),
+												"1"
 												)
 										);	
 							} else if (action.equals("shrink")){
@@ -158,7 +162,8 @@ public class InstagramController extends Controller {
 												"shrink", 
 												new Date().getTime(), 
 												"SYS", 
-												"IMGID: " + event.get("imgid").asText()
+												"IMGID: " + event.get("imgid").asText(),
+												"1"
 												)
 										);	
 							}
@@ -180,7 +185,8 @@ public class InstagramController extends Controller {
 											"finish", 
 											new Date().getTime(), 
 											"SYS", 
-											"")
+											"",
+											"1")
 									);
 							sockets.remove(displayID);
 							socketsReverter.remove(out);
