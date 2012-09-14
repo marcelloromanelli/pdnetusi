@@ -190,9 +190,9 @@ function photoClicked(){
 
 		var put = $(".item:first");
 		if(put[0] === current[0]){
-			current.after($($(".item").get(1)));
+			$($(".item").get(1)).after(current);
 		} else {
-			current.after(".item:first");
+			(".item:first").after(current);
 		}
 		enlarged++;
 	} else {
