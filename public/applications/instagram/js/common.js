@@ -234,7 +234,8 @@ function shrink(img){
 		"imgid": current.data("imgid"),
 	});
 	websocket.send(answer);
-	
+	$("#container").isotope('reLayout');
+
 	enlarged--;
 }
 
