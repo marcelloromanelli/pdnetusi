@@ -212,6 +212,9 @@ function photoClicked(){
 
 		enlarged--;
 	}
+	
+	$("#container").isotope('reLayout');
+
 }
 
 
