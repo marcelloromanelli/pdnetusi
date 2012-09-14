@@ -6,9 +6,17 @@ var toInsert = new Array();
 $(function(){
 
 	$('#container').isotope({
-		itemSelector : '.item',
-		layoutMode : 'fitRows'
-	});
+	    masonry: {
+	      columnWidth: 248
+	    },
+	    getSortData : {
+	      index : function( $item ) {
+	        return $item.index();
+	      }
+	    },
+	    sortBy : 'index'
+	 });
+	  
 
 	findPhotosWithTag("usilugano",false);
 
