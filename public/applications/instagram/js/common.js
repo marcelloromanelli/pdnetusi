@@ -246,11 +246,10 @@ function photoClicked(){
 // called after 10s that an image has been enlarged
 function shrink(img){
 	
-	console.log("TIMEOUT");
 	delete timeouts[img.data("imgid")];
 
 	img.removeClass('large');
-	img.find(".interactions").toggle();
+	img.find(".interactions").hide();
 	var immagine = img.find(".instimg");
 
 	immagine.width("248px");
