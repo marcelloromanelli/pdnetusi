@@ -2,6 +2,8 @@ var ids = new Array();
 var enlarged = 0;
 var last = new Array(); 
 var toInsert = new Array();
+var timeouts = new Object(); 
+
 
 $(function(){
 
@@ -24,10 +26,7 @@ $(function(){
 
 	setInterval(function(){
 		if (toInsert.length > 0){
-			console.log("new img");
 			insertNewPhoto($(toInsert.pop()));
-		} else {
-			console.log("no new img");
 		}
 	}
 	,3000);
@@ -196,11 +195,11 @@ function photoClicked(){
 		});
 		websocket.send(answer);
 
-		var put = $(".item:first");
-		if(put[0] === current[0]){
-			$($(".item").get(1)).after(current);
+		var put = $(".item").get(1);
+		if(put === current[0]){
+			$($(".item").get(4)).after(current);
 		} else {
-			$(".item:first").after(current);
+			$($(".item").get(1)).after(current);
 		}
 		enlarged++;
 		
@@ -208,9 +207,15 @@ function photoClicked(){
 		.isotope( 'reLayout')
 		.isotope( 'updateSortData', $('#container').children() )
 		.isotope();
-		
+
+		// store the timeout according to photoid
+		timeouts[current.data("imgid")] = setTimeout(function(){shrink(current);},10000);
+
 	} else {
 		//Make sure they are really hidden
+		clearTimeout(timeouts[current.data("imgid")]);
+		delete timeouts[current.data("imgid")];
+
 		current.removeClass('large');
 		current.find(".interactions").hide();
 
@@ -240,7 +245,11 @@ function photoClicked(){
 
 // called after 10s that an image has been enlarged
 function shrink(img){
-	img.toggleClass('large');
+	
+	console.log("TIMEOUT");
+	delete timeouts[img.data("imgid")];
+
+	img.removeClass('large');
 	img.find(".interactions").toggle();
 	var immagine = img.find(".instimg");
 
@@ -254,12 +263,16 @@ function shrink(img){
 	({
 		"kind":"screenInteraction",
 		"action":"shrink",
-		"imgid": current.data("imgid"),
+		"imgid": img.data("imgid"),
 	});
 	websocket.send(answer);
-	$("#container").isotope('reLayout');
 
 	enlarged--;
+
+	$('#container')
+		.isotope( 'reLayout')
+		.isotope( 'updateSortData', $('#container').children() )
+		.isotope();
 }
 
 function createObject(title,desc,link,img){

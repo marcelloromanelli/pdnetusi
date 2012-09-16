@@ -7,3 +7,5 @@ dist
 .cache
 *.class
 .settings/org.scala-ide.sdt.core.prefs
+
+.DS_Store
