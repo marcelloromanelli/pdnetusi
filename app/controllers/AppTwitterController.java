@@ -160,11 +160,11 @@ public class AppTwitterController extends Controller {
 
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true)
-		.setOAuthConsumerKey("KjwiUXnNEw02lxo4tFiAA")
-		.setOAuthConsumerSecret("Vx9F3WpJzyLsYFJ4UEqEc3sV20Q4YrjbuX1tu8Qm9Q")
-		.setOAuthAccessToken("808649640-jZ86iT4XV7UDzLWOdDblc3HuqK0ouSUBHnhggZgy")
-		.setOAuthAccessTokenSecret("NQkm5f6EYS6gvCJ84GJvCMHV09jeg3OXLLJXL0tm1Q");
-
+		.setOAuthConsumerKey("Ym0KN64BIzADXJShj1pZAg")
+		.setOAuthConsumerSecret("rh59jQ9VkXCXQ5hNnHXF7LjIm9JT7iQkWKvfCu6A")
+		.setOAuthAccessToken("49898301-QSFONbynC8xPpaMotofyofOvdyxo4c878LxZyqpcL")
+		.setOAuthAccessTokenSecret("nsoaOgKXLAlxKUMenhWGLiWUe9YDsxT7FKE7948N4M");
+		
 		//twitter stream
 		twitterStream = new TwitterStreamFactory(cb.build()).getInstance(); 
 		StatusListener listener = new StatusListener() {
