@@ -161,7 +161,7 @@ public class AppTwitterController extends Controller {
 
 		
 		//twitter stream
-		twitterStream = new TwitterStreamFactory(cb.build()).getInstance(); 
+		//twitterStream = new TwitterStreamFactory(cb.build()).getInstance(); 
 		StatusListener listener = new StatusListener() {
 
 			@Override
