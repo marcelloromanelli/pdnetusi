@@ -108,9 +108,14 @@ public class AppTwitterController extends Controller {
 
 	public static void sendTweets(int fromIndex, int toIndex, WebSocket.Out<JsonNode> out){
 		Logger.info("AppTwitterController.sendTweets() ------ send tweets to server");
+		if(tweets.size() < fromIndex){
+			fromIndex = tweets.size(); 
+		}
+		
 		for(int i=fromIndex; i>toIndex ;i--){
 			Logger.info("AppTwitterController.sendTweets() tweet#:"+i);
 			Tweet currentTweet = tweets.get(i-1);
+			Logger.info(tweets.toString());
 			if(currentTweet != null){
 				ObjectNode msg = Json.newObject();
 				msg.put("kind", "newTweet");
