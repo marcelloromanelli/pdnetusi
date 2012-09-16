@@ -3,23 +3,31 @@ package controllers;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-
-import play.*;
-import play.mvc.*;
-import play.mvc.WebSocket.Out;
-import play.libs.Json;
-import play.libs.F.*;
 
 import models.DisplayLogger;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 
+import play.Logger;
+import play.libs.F.Callback;
+import play.libs.F.Callback0;
+import play.libs.Json;
+import play.mvc.Controller;
+import play.mvc.Result;
+import play.mvc.WebSocket;
+import play.mvc.WebSocket.Out;
+import twitter4j.FilterQuery;
 import twitter4j.Query;
 import twitter4j.QueryResult;
 import twitter4j.StatusDeletionNotice;
@@ -31,8 +39,6 @@ import twitter4j.TwitterFactory;
 import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
 import twitter4j.conf.ConfigurationBuilder;
-import twitter4j.FilterQuery;
-import views.html.*;
 
 public class AppTwitterController extends Controller {
   
@@ -193,9 +199,9 @@ public class AppTwitterController extends Controller {
 			String tw = arg0.getUser().getScreenName()+":"+arg0.getText();
 			DisplayLogger.addNew(new DisplayLogger("Twitter", "tweetNew", new Date().getTime(), "SYS",tw,"null"));
 			
-			Set set = displaySockets.entrySet();
+			Set<?> set = displaySockets.entrySet();
 			// Get an iterator
-			Iterator i = (Iterator) set.iterator();
+			Iterator i = (Iterator<?>) set.iterator();
 			// Display elements
 			while(i.hasNext()) {
 				Map.Entry ds = (Map.Entry)i.next();
