@@ -199,7 +199,7 @@ public class AppTwitterController extends Controller {
 			String tw = arg0.getUser().getScreenName()+":"+arg0.getText();
 			DisplayLogger.addNew(new DisplayLogger("Twitter", "tweetNew", new Date().getTime(), "SYS",tw,"null"));
 			
-			Set<Sockets> set = displaySockets.entrySet();
+			Set<?> set = displaySockets.entrySet();
 			// Get an iterator
 			Iterator<?> i = (Iterator<?>) set.iterator();
 			// Display elements
