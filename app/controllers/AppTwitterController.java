@@ -115,7 +115,6 @@ public class AppTwitterController extends Controller {
 		for(int i=fromIndex; i>toIndex ;i--){
 			Logger.info("AppTwitterController.sendTweets() tweet#:"+i);
 			Tweet currentTweet = tweets.get(i-1);
-			Logger.info(tweets.toString());
 			if(currentTweet != null){
 				ObjectNode msg = Json.newObject();
 				msg.put("kind", "newTweet");
@@ -188,6 +187,7 @@ public class AppTwitterController extends Controller {
 			@Override
 			public void onException(Exception ex) {
 				Logger.info("AppTwitterController.startTwitterStreamFeeds().onException: Stream is complaining!");
+				Logger.info(ex.toString());
 				//ex.printStackTrace();
 			}
 
