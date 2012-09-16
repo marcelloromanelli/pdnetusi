@@ -199,9 +199,9 @@ public class AppTwitterController extends Controller {
 			String tw = arg0.getUser().getScreenName()+":"+arg0.getText();
 			DisplayLogger.addNew(new DisplayLogger("Twitter", "tweetNew", new Date().getTime(), "SYS",tw,"null"));
 			
-			Set<?> set = displaySockets.entrySet();
+			Set<Sockets> set = displaySockets.entrySet();
 			// Get an iterator
-			Iterator i = (Iterator<?>) set.iterator();
+			Iterator<?> i = (Iterator<?>) set.iterator();
 			// Display elements
 			while(i.hasNext()) {
 				Map.Entry ds = (Map.Entry)i.next();
