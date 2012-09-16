@@ -81,7 +81,7 @@ public class AppTwitterController extends Controller {
 	public static void serachForTweets(){
 		//search for tweets	  
 	      try {
-	          Query query = new Query("#usilugano");
+	          Query query = new Query("#usiwelcome");
 	          QueryResult result;
 	          //do {
 	              result = twitter.search(query);

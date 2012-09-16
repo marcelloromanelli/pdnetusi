@@ -19,9 +19,9 @@ $(function(){
 	});
 
 
-	findPhotosWithTag("usilugano",false);
+	findPhotosWithTag("usiwelcome",false);
 
-	setInterval(function(){findPhotosWithTag("usilugano", true);}, 5000);
+	setInterval(function(){findPhotosWithTag("usiwelcome", true);}, 5000);
 	setInterval(function(){findPhotosNearCoordinates(46.010868,8.958235,true);}, 10000);
 
 	setInterval(function(){
