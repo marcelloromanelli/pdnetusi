@@ -10,14 +10,14 @@ public class Global extends GlobalSettings {
     Logger.info("Glogal: OnStart: Application has started...");
     AppTwitterController.initTweeterSearch();
     AppTwitterController.startTwitterStream();
-    //AppTwitterController.startTwitterScheduler();
+    AppTwitterController.startTwitterScheduler();
   }  
   
   @Override
   public void onStop(Application app) {
     Logger.info("Global: OnStop: Application shutdown...");
     AppTwitterController.stopTwitterStream();
-    //AppTwitterController.stopTwitterScheduler();
+    AppTwitterController.stopTwitterScheduler();
   }  
     
 }

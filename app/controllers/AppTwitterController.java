@@ -3,6 +3,7 @@ package controllers;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -55,15 +56,20 @@ public class AppTwitterController extends Controller {
 
 	public static TwitterStream twitterStream;	//twitter stream
 	public static Twitter twitter;	//twitter search
-	public static int numberOfTweets = 0; 
-	public static List<Tweet> tweets; //a list of tweets
+	public static int numberOfTweets = 0; //global tweet count
+	public static int tweetIndex = 0; //used to send messages to clients - displays
+	public static List<Tweet> tweets; //a list of initial tweets - from search
+	public static List<CustomTweet> tweetsAll = new ArrayList<CustomTweet>(); //a list of last 20 tweets
 	public static boolean firstSchedulerRun = true;
 
 
 	public static void initTweeterSearch(){
-		Logger.info("AppTwitterController.initTweeterSearch(): start initialization!");
+		Logger.info("AppTwitterController.initTweeterSearch(): ---------start initialization!");
 		twitter = new TwitterFactory().getInstance();
 		Logger.info("AppTwitterController.initTweeterSearch(): init done!------------");
+		Logger.info("AppTwitterController.initTweeterSearch(): ---------search for tweets!");
+		serachForTweets();
+		Logger.info("AppTwitterController.initTweeterSearch(): search done!-----------");
 	}//initTweeterSearch(){
 
 	public static void startTwitterStream(){
@@ -85,18 +91,21 @@ public class AppTwitterController extends Controller {
 	}//stopTwitterStream()
 
 	public static void serachForTweets(){
-		//search for tweets	  
+		//search for tweets	 
+		Logger.info("AppTwitterController.serachForTweets():   search for #usiwelcome");
 		try {
 			Query query = new Query("#usiwelcome");
 			QueryResult result;
-			//do {
 			result = twitter.search(query);
 			tweets = result.getTweets();
+			Logger.info("AppTwitterController.serachForTweets():   number of found tweets: "+tweets.size());		
 			for (Tweet tweet : tweets) {
-				Logger.info("AppTwitterController.serachForTweets():     @" + tweet.getFromUser() + " - " + tweet.getText());
-				//System.out.println("     @" + tweet.getFromUser() + " - " + tweet.getText());
-			}
-			//} while ((query = result.nextQuery()) != null);
+				Logger.info("AppTwitterController.serachForTweets():      @" + tweet.getFromUser() + " - " + tweet.getText());
+				CustomTweet newTweet = new CustomTweet(tweet.getFromUser(),tweet.getFromUserName(),tweet.getText(),tweet.getCreatedAt().getTime());
+				tweetsAll.add(newTweet);
+			}//for
+			Logger.info("AppTwitterController.serachForTweets():  number of new tweets:"+tweetsAll.size());
+			numberOfTweets = tweetsAll.size();
 		} catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to search tweets: " + te.getMessage());
@@ -108,20 +117,20 @@ public class AppTwitterController extends Controller {
 
 	public static void sendTweets(int fromIndex, int toIndex, WebSocket.Out<JsonNode> out){
 		Logger.info("AppTwitterController.sendTweets() ------ send tweets to server");
-		if(tweets.size() < fromIndex){
-			fromIndex = tweets.size(); 
+		if(tweetsAll.size() < fromIndex){
+			fromIndex = tweetsAll.size(); 
 		}
 		
 		for(int i=fromIndex; i>toIndex ;i--){
 			Logger.info("AppTwitterController.sendTweets() tweet#:"+i);
-			Tweet currentTweet = tweets.get(i-1);
+			CustomTweet currentTweet = tweetsAll.get(i-1);
 			if(currentTweet != null){
 				ObjectNode msg = Json.newObject();
 				msg.put("kind", "newTweet");
-				msg.put("user", currentTweet.getFromUser());
-				msg.put("userName", currentTweet.getFromUserName());
+				msg.put("user", currentTweet.getUser());
+				msg.put("userName", currentTweet.getUserName());
 				msg.put("text", currentTweet.getText());
-				msg.put("time", currentTweet.getCreatedAt().getTime());
+				msg.put("time", currentTweet.getTime());
 				out.write(msg);
 			}
 			Logger.info("AppTwitterController.sendTweets() - send tweet to server");
@@ -131,7 +140,7 @@ public class AppTwitterController extends Controller {
 	//starts with application
 	public static void startTwitterScheduler(){
 		Logger.info("AppTwitterController.scheduler() ---- START twitter scheduler ---");
-		final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 10, 30, SECONDS);
+		final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 10, 6, SECONDS);
 		scheduler.schedule(new Runnable() {
 			public void run() { beeperHandle.cancel(true); }
 		}, 1, TimeUnit.DAYS);
@@ -146,9 +155,29 @@ public class AppTwitterController extends Controller {
 	public static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	final static Runnable beeper = new Runnable() {
 		public void run() { 
-
+			
 			Logger.info("AppTwitterController.scheduler(): check if there is interctivity, and do something");
-			//might be better to do that from the javascript
+			
+			if(firstSchedulerRun){
+				Logger.info("AppTwitterController.scheduler(): first scheduler run");
+				tweetIndex=numberOfTweets;
+				firstSchedulerRun = false;
+			}//if
+			
+			//send looping tweets to all connected clients
+			Set<?> set = displaySockets.entrySet();
+			// Get an iterator
+			Iterator<?> i = (Iterator<?>) set.iterator();
+			// Display elements
+			while(i.hasNext()) {
+				Map.Entry ds = (Map.Entry)i.next();
+				Logger.info("AppTwitterController.scheduler(): sand looping tweet to displayID="+ds.getKey()+" socket="+ds.getValue().toString());
+				sendTweets(tweetIndex, tweetIndex-1, displaySockets.get(ds.getKey()).wOut);
+			}//while 
+			
+			//update tweetIndex
+			tweetIndex=tweetIndex-1;
+			if(tweetIndex==0) tweetIndex = numberOfTweets;
 
 		}//run
 	};//bipper
@@ -186,38 +215,48 @@ public class AppTwitterController extends Controller {
 
 			@Override
 			public void onException(Exception ex) {
-				Logger.info("AppTwitterController.startTwitterStreamFeeds().onException: Stream is complaining!");
-				Logger.info(ex.toString());
+				//Logger.info("AppTwitterController.startTwitterStreamFeeds().onException: Stream is complaining!");
+				//Logger.info(ex.toString());
 				//ex.printStackTrace();
 			}
 
 			@Override
 			public void onStatus(twitter4j.Status arg0) {
 				Logger.info("AppTwitterController.startTwitterStreamFeeds().onStatus: there is a new tweet...");
-				System.out.println("        @" + arg0.getUser().getScreenName() + " - " + arg0.getText());  
+				Logger.info("AppTwitterController.startTwitterStreamFeeds().onStatus:    @" + arg0.getUser().getScreenName() + " - " + arg0.getText());  
+				
+				CustomTweet newTweet = new CustomTweet(arg0.getUser().getScreenName(),arg0.getUser().getName(),arg0.getText(),arg0.getCreatedAt().getTime());
+				tweetsAll.add(0,newTweet);
+				Logger.info("AppTwitterController.startTwitterStreamFeeds().onStatus: number of tweets: "+tweetsAll.size());
+				if(tweetsAll.size() == 21){
+					tweetsAll.remove(tweetsAll.size()-1);
+					Logger.info("AppTwitterController.startTwitterStreamFeeds().onStatus: removing the last tweet");
+					Logger.info("AppTwitterController.startTwitterStreamFeeds().onStatus: number of tweets: "+tweetsAll.size());
+				}
+				numberOfTweets = tweetsAll.size();
+				
+//				ObjectNode msg = Json.newObject();
+//				msg.put("kind", "newTweet");
+//				msg.put("user", arg0.getUser().getScreenName());
+//				msg.put("userName", arg0.getUser().getName());
+//				msg.put("text", arg0.getText());
+//				msg.put("time", arg0.getCreatedAt().getTime());
+//				Logger.info("AppTwitterController.twitterFeeds() - send the new tweet to all clients");
 
-				ObjectNode msg = Json.newObject();
-				msg.put("kind", "newTweet");
-				msg.put("user", arg0.getUser().getScreenName());
-				msg.put("userName", arg0.getUser().getName());
-				msg.put("text", arg0.getText());
-				msg.put("time", arg0.getCreatedAt().getTime());
-				Logger.info("AppTwitterController.twitterFeeds() - send the new tweet to all clients");
+//				String tw = arg0.getUser().getScreenName()+":"+arg0.getText();
+//				DisplayLogger.addNew(new DisplayLogger("Twitter", "tweetNew", new Date().getTime(), "SYS",tw,"null"));
 
-				String tw = arg0.getUser().getScreenName()+":"+arg0.getText();
-				DisplayLogger.addNew(new DisplayLogger("Twitter", "tweetNew", new Date().getTime(), "SYS",tw,"null"));
-
-				Set<?> set = displaySockets.entrySet();
-				// Get an iterator
-				Iterator<?> i = (Iterator<?>) set.iterator();
-				// Display elements
-				while(i.hasNext()) {
-					Map.Entry ds = (Map.Entry)i.next();
-					Logger.info("AppTwitterController.twitterFeeds(): sand the new tweet to displayID="+ds.getKey()+" socket="+ds.getValue().toString());
-					String did = (String) ds.getKey();
-					DisplayLogger.addNew(new DisplayLogger("Twitter", "tweetNew", new Date().getTime(), "SYS","send to display -> ",did));
-					displaySockets.get(ds.getKey()).wOut.write(msg);
-				}//while 
+//				Set<?> set = displaySockets.entrySet();
+//				// Get an iterator
+//				Iterator<?> i = (Iterator<?>) set.iterator();
+//				// Display elements
+//				while(i.hasNext()) {
+//					Map.Entry ds = (Map.Entry)i.next();
+//					Logger.info("AppTwitterController.twitterFeeds(): sand the new tweet to displayID="+ds.getKey()+" socket="+ds.getValue().toString());
+//					String did = (String) ds.getKey();
+//					DisplayLogger.addNew(new DisplayLogger("Twitter", "tweetNew", new Date().getTime(), "SYS","send to display -> ",did));
+//					displaySockets.get(ds.getKey()).wOut.write(msg);
+//				}//while 
 
 			}//onStatus	
 
@@ -252,9 +291,9 @@ public class AppTwitterController extends Controller {
 							if(!displaySockets.containsKey(event.get("displayID"))){
 								Logger.info("AppTwitterController.webSocket(): new display is connected");
 								//search for tweets
-								serachForTweets();
-								//send tweets to the client - display
-								sendTweets(5, 0 , out);			
+								//serachForTweets();
+								//send first 5 tweets to the client - display
+								sendTweets(5, 0 , out);
 
 								//register display for twitter stream
 								displaySockets.put(event.get("displayID").asText(), new Sockets(out));
@@ -296,6 +335,34 @@ public class AppTwitterController extends Controller {
 		public Sockets(Out<JsonNode> out) {
 			this.wOut = out;
 		}
-	}
+	}//class
+	
+	public static class CustomTweet{
+		
+		public String user;
+		public String userName;
+		public String tweetText;
+		public Long tweetTime;
+		
+		public CustomTweet(String user, String uName, String tText, Long tTime){
+			this.user = user;
+			this.userName = uName;
+			this.tweetText = tText;
+			this.tweetTime = tTime;
+		}
+		public String getUser(){
+			return this.user;
+		}
+		public String getUserName(){
+			return this.userName;
+		}
+		public String getText(){
+			return this.tweetText;
+		}
+		public Long getTime(){
+			return this.tweetTime;
+		}
+		
+	}//class
 
 }//controller
