@@ -123,3 +123,11 @@ body,html {
 	padding-left: 15px;
 	top:55;
 }
+
+#more{
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	color: white;
+	font-weight: 15px;
+}
