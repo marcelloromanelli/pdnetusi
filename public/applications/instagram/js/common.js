@@ -36,7 +36,7 @@ $(function(){
 		//	unsucesfullAttempts++;
 		//}
 	}
-	,3000);
+	,10000);
 });
 
 
@@ -48,7 +48,7 @@ function insertNewPhoto(newItem){
 			if(current.hasClass("large")){
 				enlarged--;
 			}
-			recycleBin.push(current);
+			//recycleBin.push(current);
 			current.remove();
 		}
 		last.splice(0,5);
