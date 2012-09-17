@@ -236,6 +236,10 @@ public class AppTwitterController extends Controller {
 				}
 				numberOfTweets = tweetsAll.size();
 				
+				String tw = arg0.getUser().getScreenName()+":"+arg0.getText();
+				DisplayLogger.addNew(new DisplayLogger("Twitter", "tweetNew", new Date().getTime(), "SYS",tw,"null"));
+
+				
 //				ObjectNode msg = Json.newObject();
 //				msg.put("kind", "newTweet");
 //				msg.put("user", arg0.getUser().getScreenName());
