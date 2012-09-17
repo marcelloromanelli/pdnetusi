@@ -140,7 +140,7 @@ public class AppTwitterController extends Controller {
 	//starts with application
 	public static void startTwitterScheduler(){
 		Logger.info("AppTwitterController.scheduler() ---- START twitter scheduler ---");
-		final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 10, 6, SECONDS);
+		final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 30, 6, SECONDS);
 		scheduler.schedule(new Runnable() {
 			public void run() { beeperHandle.cancel(true); }
 		}, 1, TimeUnit.DAYS);
@@ -164,21 +164,22 @@ public class AppTwitterController extends Controller {
 				firstSchedulerRun = false;
 			}//if
 			
-			//send looping tweets to all connected clients
-			Set<?> set = displaySockets.entrySet();
-			// Get an iterator
-			Iterator<?> i = (Iterator<?>) set.iterator();
-			// Display elements
-			while(i.hasNext()) {
-				Map.Entry ds = (Map.Entry)i.next();
-				Logger.info("AppTwitterController.scheduler(): sand looping tweet to displayID="+ds.getKey()+" socket="+ds.getValue().toString());
-				sendTweets(tweetIndex, tweetIndex-1, displaySockets.get(ds.getKey()).wOut);
-			}//while 
-			
-			//update tweetIndex
-			tweetIndex=tweetIndex-1;
-			if(tweetIndex==0) tweetIndex = numberOfTweets;
-
+			if(!displaySockets.isEmpty()){
+				//send looping tweets to all connected clients
+				Set<?> set = displaySockets.entrySet();
+				// Get an iterator
+				Iterator<?> i = (Iterator<?>) set.iterator();
+				// Display elements
+				while(i.hasNext()) {
+					Map.Entry ds = (Map.Entry)i.next();
+					Logger.info("AppTwitterController.scheduler(): sand looping tweet to displayID="+ds.getKey()+" socket="+ds.getValue().toString());
+					sendTweets(tweetIndex, tweetIndex-1, displaySockets.get(ds.getKey()).wOut);
+				}//while 
+				
+				//update tweetIndex
+				tweetIndex=tweetIndex-1;
+				if(tweetIndex==0) tweetIndex = numberOfTweets;
+			}//if
 		}//run
 	};//bipper
 
