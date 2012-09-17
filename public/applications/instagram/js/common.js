@@ -3,7 +3,8 @@ var enlarged = 0;
 var last = new Array(); 
 var toInsert = new Array();
 var timeouts = new Object(); 
-
+//var recycleBin = new Array();
+//var unsucesfullAttempts = 0;
 
 $(function(){
 
@@ -19,15 +20,21 @@ $(function(){
 	});
 
 
-	findPhotosWithTag("usiwelcome",false);
+	findPhotosWithTag("usilugano",false);
 
-	setInterval(function(){findPhotosWithTag("usiwelcome", true);}, 5000);
+	setInterval(function(){findPhotosWithTag("usilugano", true);}, 5000);
 	setInterval(function(){findPhotosNearCoordinates(46.010868,8.958235,true);}, 10000);
 
 	setInterval(function(){
 		if (toInsert.length > 0){
 			insertNewPhoto($(toInsert.pop()));
-		}
+			//unsucesfullAttempts = 0;
+		} 
+		//else if (unsucesfullAttempts > 20 && recycleBin.length > 0) {
+		//	insertNewPhoto($(recycleBin.pop()));
+		//} else {
+		//	unsucesfullAttempts++;
+		//}
 	}
 	,3000);
 });
@@ -41,6 +48,7 @@ function insertNewPhoto(newItem){
 			if(current.hasClass("large")){
 				enlarged--;
 			}
+			recycleBin.push(current);
 			current.remove();
 		}
 		last.splice(0,5);
@@ -132,7 +140,7 @@ function findPhotos(address, limit){
 
 				$.preload([img_std]);
 
-				img.mousedown(function(){
+				img.add(userImg).mousedown(function(){
 					return false;
 				});
 
