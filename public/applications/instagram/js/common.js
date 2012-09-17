@@ -67,13 +67,13 @@ function insertNewPhoto(newItem){
 	.isotope();
 
 	//LOG
-	var answer = JSON.stringify
-	({
-		"kind":"screenInteraction",
-		"action":"add",
-		"imgid": imgid,
-	});
-	websocket.send(answer);
+//	var answer = JSON.stringify
+//	({
+//		"kind":"screenInteraction",
+//		"action":"add",
+//		"imgid": imgid,
+//	});
+//	websocket.send(answer);
 }
 
 function findPhotos(address, limit){
