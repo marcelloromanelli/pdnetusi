@@ -42,7 +42,6 @@ $(function(){
 
 function checkIfCanInsertNewPhoto(){
 	if (toInsert.length > 0 && $(".item").length <= 20){
-		SPEED = default_speed;
 		insertNewPhoto($(toInsert.pop()));
 		// if the last photo was recycled but a new
 		// one was just inserted than slow down;
@@ -227,7 +226,8 @@ function findPhotos(address){
 
 function photoClicked(){	
 	
-	console.log("click");
+	clearInterval(mainInterval);
+	
 	$(".item").mousedown(function(){
 		return false;
 	});
@@ -279,8 +279,11 @@ function photoClicked(){
 		.isotope( 'updateSortData', $('#container').children() )
 		.isotope();
 
-		freezeAndRestart(10000);
-
+		setTimeout(
+				function(){
+					mainInterval = setInterval(function(){checkIfCanInsertNewPhoto()},SPEED);
+				},10000);
+		
 		// store the timeout according to photoid
 		timeouts[current.data("imgid")] = setTimeout(function(){shrink(current);},10000);
 
