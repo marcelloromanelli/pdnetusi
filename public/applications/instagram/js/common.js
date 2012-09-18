@@ -5,7 +5,7 @@ var toInsert = new Array();
 var timeouts = new Object(); 
 var recycleBin = new Array();
 var mainInterval;
-var default_speed = 500;
+var default_speed = 2000;
 var SPEED = default_speed;
 var lastWasNew = false;
 var tag = "usiwelcome"
