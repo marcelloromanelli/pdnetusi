@@ -5,10 +5,18 @@ var toInsert = new Array();
 var timeouts = new Object(); 
 var recycleBin = new Array();
 var mainInterval;
-var default_speed = 2000;
+var default_speed = 5000;
 var SPEED = default_speed;
 var lastWasNew = false;
 var tag = "usiwelcome"
+
+var min_tag_id = 0;	
+	
+var clientIdIndex = 0;
+var clientIds = ["d173f4d3350643c385de3fa72f6049aa",
+                 "d06b11fc6d814317afd1fce0fc88df2f",
+                 "554c751130494dbbba66cb0a27602b07"
+                 ];
 
 $(function(){
 
@@ -26,7 +34,7 @@ $(function(){
 
 	findPhotosWithTag(tag);
 
-	setInterval(function(){findPhotosWithTag(tag);}, 5000);
+	setInterval(function(){findPhotosWithTag(tag,min_tag_id);}, 5000);
 	//setInterval(function(){findPhotosNearCoordinates(46.010868,8.958235,true);}, 10000);
 
 	mainInterval = setInterval(function(){checkIfCanInsertNewPhoto()},SPEED);
@@ -134,7 +142,13 @@ function findPhotos(address){
 				console.log("API ERROR");
 				return;
 			} else if(response.meta.code == 200){
-
+				
+				var current_min = response.pagination.min_tag_id;
+				if(current_min > min_tag_id){
+					min_tag_id = current_min;
+				}
+				
+				
 				for (var i = 0; i < response.data.length ; i++){
 					var current = response.data[i];
 
@@ -197,7 +211,9 @@ function findPhotos(address){
 						}
 						var stored = createObject(current.user.username, caption, current.link, img_thumb);
 						last.push(stored);
-					} 
+					}  else {
+						return false;
+					}
 				} // for every image 
 				if(response.pagination.next_url != undefined){
 					findPhotos(response.pagination.next_url);
@@ -205,11 +221,7 @@ function findPhotos(address){
 			} // if request is 200   
 
 		}, // on success
-		statusCode:{
-			502: function() {
-				findPhotos(address);
-			}
-		}
+		
 	});
 }
 
@@ -351,9 +363,12 @@ function findPhotosNearCoordinates(lat, lng){
 	findPhotos(address);
 }
 
-function findPhotosWithTag(tag){
-	var address = 'https://api.instagram.com/v1/tags/'+ tag +'/media/recent?client_id=554c751130494dbbba66cb0a27602b07';
+function findPhotosWithTag(tag, min_tag_id){
+	clientId = clientIds[clientIdIndex];
+	console.log(clientId);
+	var address = 'https://api.instagram.com/v1/tags/'+ tag +'/media/recent?client_id=' + clientId + '&min_tag_id=' + min_tag_id;
 	findPhotos(address);
+	clientIdIndex = (clientIdIndex+1)%clientIds.length;
 }
 
 function getUrlVars() {
