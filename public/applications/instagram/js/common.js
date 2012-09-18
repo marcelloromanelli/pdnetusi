@@ -37,7 +37,7 @@ $(function(){
 	setInterval(function(){findPhotosWithTag(tag,min_tag_id);}, 5000);
 	//setInterval(function(){findPhotosNearCoordinates(46.010868,8.958235,true);}, 10000);
 
-	mainInterval = setInterval(function(){checkIfCanInsertNewPhoto()},SPEED);
+	mainInterval = setInterval(function(){checkIfCanInsertNewPhoto();},SPEED);
 });
 
 function checkIfCanInsertNewPhoto(){
@@ -75,22 +75,21 @@ function checkIfCanInsertNewPhoto(){
 		insertNewPhoto(recycled);
 		if(lastWasNew){
 			lastWasNew = false;
-			freezeAndRestart(5000);
 		}
 	}
 }
 
-function freezeAndRestart(freezeTime){
-	clearInterval(mainInterval);
-	$('#container')
-	.isotope( 'reLayout')
-	.isotope( 'updateSortData', $('#container').children() )
-	.isotope();
-
-	setTimeout(function(){
-		mainInterval = setInterval(function(){checkIfCanInsertNewPhoto()},SPEED);
-	},freezeTime);
-}
+//function freezeAndRestart(freezeTime){
+//	clearInterval(mainInterval);
+//	$('#container')
+//	.isotope( 'reLayout')
+//	.isotope( 'updateSortData', $('#container').children() )
+//	.isotope();
+//
+//	setTimeout(function(){
+//		mainInterval = setInterval(function(){checkIfCanInsertNewPhoto()},SPEED);
+//	},freezeTime);
+//}
 
 
 function createRibbon(text){
@@ -225,9 +224,7 @@ function findPhotos(address){
 }
 
 function photoClicked(){	
-	
-	clearInterval(mainInterval);
-	
+		
 	$(".item").mousedown(function(){
 		return false;
 	});
@@ -278,11 +275,6 @@ function photoClicked(){
 		.isotope( 'reLayout')
 		.isotope( 'updateSortData', $('#container').children() )
 		.isotope();
-
-		setTimeout(
-				function(){
-					mainInterval = setInterval(function(){checkIfCanInsertNewPhoto()},SPEED);
-				},10000);
 		
 		// store the timeout according to photoid
 		timeouts[current.data("imgid")] = setTimeout(function(){shrink(current);},10000);
