@@ -143,7 +143,7 @@ public class AppTwitterController extends Controller {
 		final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 30, 6, SECONDS);
 		scheduler.schedule(new Runnable() {
 			public void run() { beeperHandle.cancel(true); }
-		}, 1, TimeUnit.DAYS);
+		}, 7, TimeUnit.DAYS);
 	}
 
 	//ends with applicaiton
