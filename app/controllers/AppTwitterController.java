@@ -144,7 +144,7 @@ public class AppTwitterController extends Controller {
 //		scheduler.schedule(new Runnable() {
 //			public void run() { beeperHandle.cancel(true); }
 //		}, 7, TimeUnit.DAYS);
-/	}
+	}
 
 	//ends with applicaiton
 	public static void stopTwitterScheduler(){
