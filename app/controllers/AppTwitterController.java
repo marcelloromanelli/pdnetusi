@@ -92,9 +92,9 @@ public class AppTwitterController extends Controller {
 
 	public static void serachForTweets(){
 		//search for tweets	 
-		Logger.info("AppTwitterController.serachForTweets():   search for #usiwelcome");
+		Logger.info("AppTwitterController.serachForTweets():   search for #usiwelcome OR #usilugano");
 		try {
-			Query query = new Query("#usiwelcome");
+			Query query = new Query("#usiwelcome OR #usilugano");
 			QueryResult result;
 			result = twitter.search(query);
 			tweets = result.getTweets();
@@ -141,10 +141,10 @@ public class AppTwitterController extends Controller {
 	public static void startTwitterScheduler(){
 		Logger.info("AppTwitterController.scheduler() ---- START twitter scheduler ---");
 		final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 30, 6, SECONDS);
-		scheduler.schedule(new Runnable() {
-			public void run() { beeperHandle.cancel(true); }
-		}, 7, TimeUnit.DAYS);
-	}
+//		scheduler.schedule(new Runnable() {
+//			public void run() { beeperHandle.cancel(true); }
+//		}, 7, TimeUnit.DAYS);
+//	}
 
 	//ends with applicaiton
 	public static void stopTwitterScheduler(){
@@ -270,7 +270,7 @@ public class AppTwitterController extends Controller {
 		twitterStream.addListener(listener);
 		FilterQuery aquery = new FilterQuery();
 		aquery.count(0);
-		String tr[] = {"#usiwelcome"};
+		String tr[] = {"#usiwelcome OR #usilugano"};
 		aquery.track(tr); 
 		twitterStream.filter(aquery);
 

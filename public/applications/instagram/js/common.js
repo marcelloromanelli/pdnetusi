@@ -40,6 +40,13 @@ $(function(){
 	mainInterval = setInterval(function(){checkIfCanInsertNewPhoto();},SPEED);
 });
 
+
+var myInterval = setInterval(function(){
+	tag = "usilugano";
+	clearInterval(myInterval);
+	console.log("change the tag to usilugano.");
+},20000);//setInterval
+
 function checkIfCanInsertNewPhoto(){
 	if (toInsert.length > 0 && $(".item").length <= 20){
 		insertNewPhoto($(toInsert.pop()));
