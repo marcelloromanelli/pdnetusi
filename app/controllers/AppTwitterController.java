@@ -270,7 +270,7 @@ public class AppTwitterController extends Controller {
 		twitterStream.addListener(listener);
 		FilterQuery aquery = new FilterQuery();
 		aquery.count(0);
-		String tr[] = {"#usiwelcome OR #usilugano"};
+		String tr[] = {"#usilugano"};
 		aquery.track(tr); 
 		twitterStream.filter(aquery);
 
