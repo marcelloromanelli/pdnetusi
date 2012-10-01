@@ -40,9 +40,9 @@ $(function(){
 	mainInterval = setInterval(function(){checkIfCanInsertNewPhoto();},SPEED);
 	
 	var myInterval = setInterval(function(){
+		console.log("----- change the tag to usilugano.");
 		tag = "usilugano";
-		clearInterval(myInterval);
-		console.log("change the tag to usilugano.");
+		clearInterval(myInterval);		
 	},20000);//setInterval
 	
 });
