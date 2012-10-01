@@ -8,7 +8,8 @@ var mainInterval;
 var default_speed = 5000;
 var SPEED = default_speed;
 var lastWasNew = false;
-var tag = "usiwelcome"
+var tag = "usiwelcome";
+var newTagInterval;
 
 var min_tag_id = 0;	
 	
@@ -39,10 +40,10 @@ $(function(){
 
 	mainInterval = setInterval(function(){checkIfCanInsertNewPhoto();},SPEED);
 	
-	var myInterval = setInterval(function(){
+	newTagInterval = setInterval(function(){
 		console.log("----- change the tag to usilugano.");
 		tag = "usilugano";
-		clearInterval(myInterval);		
+		clearInterval(newTagInterval);		
 	},20000);//setInterval
 	
 });
