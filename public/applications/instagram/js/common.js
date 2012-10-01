@@ -43,7 +43,7 @@ $(function(){
 	newTagInterval = setInterval(function(){
 		console.log("----- change the tag to usilugano.");
 		tag = "usilugano";
-		clearInterval(newTagInterval);		
+//		clearInterval(newTagInterval);		
 	},20000);//setInterval
 	
 });
